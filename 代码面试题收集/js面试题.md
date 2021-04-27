@@ -72,4 +72,25 @@
    来自： 阿里巴巴 2016 前端开发工程师笔试(二)
    答案： splice 1 2  
 
-5. 
+5. [填空题]
+   在空白处填入适当的代码使输出结果成立：  4
+
+   ```js
+   function showMoney( ) {
+   1
+   };
+   var personA = new Object;
+   var personB = new Object;
+   personA.money= "100";
+   personB.money= "150";
+   personA.showMoney= showMoney;
+   personB.showMoney= showMoney;
+   输出结果：
+   personA.showMoney( ); //"100"
+   personB.showMoney( ); //"150"
+   ```
+
+
+   \----------------------------------------------------------------------------------------------------------------------------
+   来自： 阿里巴巴 2016 前端开发工程师笔试(二)
+   答案： return this.money;  
