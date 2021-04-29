@@ -101,4 +101,25 @@
    \----------------------------------------------------------------------------------------------------------------------------
    来自： 阿里巴巴 2016 前端开发工程师笔试(二)
    答案： hasOwnProperty 
-7. 
+7. [问答题]
+   请实现一个 fibonacci 函数，要求其参数和返回值如下所示：
+   /**
+   *@desc: fibonacci
+   *@param: count {Number}
+   *@return: result {Number} 第 count 个 fibonacci 值，计数从 0 开始
+   fibonacci 数列为： [1, 1, 2, 3, 5, 8, 13, 21, 34 „]
+   则 getNthFibonacci(0)返回值为 1
+   则 getNthFibonacci(4)返回值为 5
+   */
+   function getNthFibonacci(count) {
+   }
+   \----------------------------------------------------------------------------------------------------------------------------
+   来自： 阿里巴巴 2016 前端开发工程师笔试(一)
+   参考：
+   function getNthFibonacci(count) {
+   if (count <= 1) {
+   return 1;
+   }
+   return getNthFibonacci(count - 1) + getNthFibonacci(count - 2);
+   }  
+8. 
