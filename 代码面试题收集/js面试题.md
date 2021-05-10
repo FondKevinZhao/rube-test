@@ -135,12 +135,16 @@
    
 9. [填空题]
    填写内容让下面代码支持 a.name = “name1” ; b.name = “name2” ;
+   
+   ```js
    function obj(name){
    1
    }
    obj. 2 = "name2";
    var a = obj("name1");
    var b = new obj;
+   ```
+   
    \----------------------------------------------------------------------------------------------------------------------------
    来自： 阿里巴巴 2016 前端开发工程师笔试(一)
    答案： if (name) { this.name = name; } return this; prototype.name  
