@@ -310,7 +310,8 @@
     \3. ev.stopPropagation();
     注意旧 ie 的方法： ev.cancelBubble = true;  
 
-19. 
-
+    
+    
+    
     
 
