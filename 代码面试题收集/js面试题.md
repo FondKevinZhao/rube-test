@@ -440,5 +440,36 @@
     \3. 控制台日志
     \4. 循环（在两个对象彼此引用且彼此保留时，就会产生一个循环）  
 
-29. 
+29. [问答题]
+    阅读以下 JavaScript 代码：
+    if (window.addEventListener) {
+    var addListener = function(el, type, listener, useCapture) {
+    el.addEventListener(type, listener, useCapture);
+    };
+    } else if (document.all) {
+    addListener = function(el, type, listener) {
+    el.attachEvent("on" + type, function() {
+    listener.apply(el);
+    });
+    };
+    }
+    请阐述 a) 代码的功能; b) 代码的优点和缺点; c) listener.apply(el) 在此处的作用; d) 如
+    果有可改进之处，请给出改进后的代码，并说明理由。
+    \----------------------------------------------------------------------------------------------------------------------------
+    来自： 阿里巴巴 2011 前端工程师面试题
+    参考：
+    1、事件绑定的一个简单函数封装；
+    2、优点：函数封装可随时引用，没有解决兼容性的问题；缺点：代码冗余
+    3、作用是改变 this 指向的问题，不用则指向 window 而不是调动它的事件对象
+    function bind(obj, evname, fn){
+    if(obj.addEventListener){
+    obj.addEventListener(evname, fn, false);
+    } else {
+    obj.attachEvent('on'+evname, function(){
+    fn.apply(obj);
+    });
+    }
+    }  
+
+30. 
 
