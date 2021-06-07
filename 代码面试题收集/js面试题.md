@@ -489,4 +489,21 @@
 
     
     
-32. 
+32. [问答题]
+请使用原生 js 实现一个 div 可拖拽，需要考虑浏览器兼容性。
+----------------------------------------------------------------------------------------------------------------------------
+来自：阿里巴巴
+参考：
+var drag1=document.getElementById('drag1');
+drag1.onmousedown=function(ev){
+var x=ev.clientX-drag1.offsetLeft;
+var y=ev.clientY-drag1.offsetTop;
+drag1.onmousemove=function(ev){
+drag1.style.left=ev.clientX-x+'px';drag1.style.top=ev.clientY-y+'px';
+}
+drag1.onmouseup=function(ev){
+drag1.onmousemove=drag1.onmouseup=null;
+}
+}
+
+33. 
