@@ -537,4 +537,26 @@ D.Dns
 来自：阿里巴巴
 答案： D
 
-35. 
+35. [问答题]
+使用 Javascript 打印出 1-10000 之间的所有对称数（例如 121 1331 等）。
+----------------------------------------------------------------------------------------------------------------------------
+来自：百度
+参考：
+function findSymmetryNum(s,o){
+var arr=[];
+for(var i=s;i<=o;i++){
+var str=''+i,sl=str.length,middle=0,flag=true;
+if(sl%2===0){
+middle=sl/2;
+}else{
+middle = (sl-1)/2;
+}
+for(var m=0;m<middle;m++){
+if(str.substr(0+m,1)!==str.substr(-1-m,1)){
+flag = false;
+} }
+flag&&arr.push(i);}
+console.log(arr);
+return arr;
+}
+findSymmetryNum(1,1001);
