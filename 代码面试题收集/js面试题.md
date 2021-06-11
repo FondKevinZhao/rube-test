@@ -560,3 +560,20 @@ console.log(arr);
 return arr;
 }
 findSymmetryNum(1,1001);
+
+36. [问答题]
+使用 javascript 实现，将文档中 className 有“test”的 li 标签背景色设为黄色。
+----------------------------------------------------------------------------------------------------------------------------
+来自：百度
+参考：
+<script type="text/javascript">
+window.onload=function(){
+var list = document.getElementsByTagName("li");
+console.log(list.length);
+for(var i=0;i<list.length;i++){
+if(list[i].className=='test'){
+list[i].style.backgroundColor="gold";
+}
+}
+}
+</script>
