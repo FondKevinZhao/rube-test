@@ -595,3 +595,27 @@ alert(a.replace(re,','));
 <body>
 </body>
 </html>
+
+38. 请通过 js 来实现一个函数 once，这个函数在整个应用运行的时候只被访问一次。如果
+再次访问就会访问上次的执行结果。
+----------------------------------------------------------------------------------------------------------------------------
+来自：百度
+参考：
+var singleton = (function() {
+//缓存实例
+var instance;
+var randomNum = Math.random();
+//单例初始化代码
+function init() {
+return randomNum;
+}
+//如果没有初始化，则初始化，否则返回已经执行的结果。
+if (!instance) {
+instance = init();
+}
+return instance;
+})()
+console.log(singleton);
+console.log(singleton);
+
+39. 
