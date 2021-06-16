@@ -618,4 +618,16 @@ return instance;
 console.log(singleton);
 console.log(singleton);
 
-39. 
+39. [问答题]
+如何解决跨域通信的问题，简述有哪些方法？
+----------------------------------------------------------------------------------------------------------------------------
+来自：百度
+参考：
+（1）、 document.domain+iframe 的设置
+（2）、动态创建 script，要就是 jsonp
+（3）、利用 iframe 和 location.hash
+（4）、 window.name 实现的跨域数据传输
+（5）、使用 HTML5 postMessage
+（6）、利用 flash
+
+40. 
