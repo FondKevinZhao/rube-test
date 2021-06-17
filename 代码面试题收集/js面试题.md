@@ -630,4 +630,24 @@ console.log(singleton);
 （5）、使用 HTML5 postMessage
 （6）、利用 flash
 
-40. 
+40. [问答题]
+画图描述 CSS 盒模型，用 JS 实现获取元素宽和位置，注意兼容性。
+----------------------------------------------------------------------------------------------------------------------------
+来自：去哪儿
+参考：
+var element = document.getElementById("div0");
+function getWeizhi (element) {
+var top = document.documentElement.clientTop;
+var left = document.documentElement.clientLeft;
+var ele = element.getBoundingClientRect();
+return{
+top:ele.top - top,
+right:ele.right - left,
+bottom:ele.bottom - top,
+left:ele.left - left,
+width:ele.right - ele.left,
+height:ele.bottom - ele.top
+}
+}
+
+41. 
