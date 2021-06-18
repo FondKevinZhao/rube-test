@@ -650,4 +650,24 @@ height:ele.bottom - ele.top
 }
 }
 
-41. 
+41. [问答题]
+用 Javascript 实现乱序函数 randomSort(array)函数，输出排序后的函数。如[1,2,3,4,5]，
+输出[3,2,4,5,1]。要求 N 次以内不重复。
+----------------------------------------------------------------------------------------------------------------------------
+来自：去哪儿参考：
+function randomSort(array){
+var x=array.sort(function(a,b){
+return Math.random()>0.5?1:-1;
+});
+return x;
+} 或
+function randomSort(array) {
+var n = array.length, t, i;
+while (n) {
+i = Math.random() * n-- | 0;
+t = array[n];
+array[n] = array[i];
+array[i] = t;
+}
+return array;
+}
