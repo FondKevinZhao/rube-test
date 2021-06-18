@@ -672,4 +672,27 @@ array[i] = t;
 return array;
 }
 
-42. 
+42. [问答题]
+写一个命令行字符的解析函数。
+例： -name lily -age 25 -school "chengdu university" 返回的是[-name lily,-age 25, -school
+"chengdu university"]
+----------------------------------------------------------------------------------------------------------------------------
+来自：去哪儿
+参考：
+<script>
+function getdata(str)
+{
+var json={};
+var gets =str.split('"')[0];
+gets =gets.split(' ');
+for(var i=0;i<gets.length-1;i++)
+{
+if(i%2==0)
+{
+json[gets[i]]=gets[i+1];
+}
+}
+json[gets[gets.length-1]]=str.split('"')[1];
+return json;
+}
+</script>
