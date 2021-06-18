@@ -671,3 +671,5 @@ array[i] = t;
 }
 return array;
 }
+
+42. 
