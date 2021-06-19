@@ -697,4 +697,28 @@ return json;
 }
 </script>
 
-43. 
+43. [问答题]
+写一个函数 padstare(string str1,min_length,string str2)。
+例： padstare（‘5’， 3，‘0’）返回的是‘005’； padstare（‘798’， 5，‘0’）返回的是
+‘798’；
+----------------------------------------------------------------------------------------------------------------------------
+来自：去哪儿
+参考：
+<script>
+function padstare(str,min,str_char)
+{
+var ret=[];
+if(str.length>=min)
+{
+return str;
+}
+else
+{
+for(var i=0;i<min-str.length;i++)
+{
+ret.push(str_char);
+}
+return ret.join('')+str;
+}
+}
+</script>
