@@ -723,4 +723,33 @@ return ret.join('')+str;
 }
 </script>
 
-44. 
+44. [问答题]
+请实现 javascript 中的 indexOf 功能，判断一个字符串 a 中是否包含另一个字符串 b。
+a）如果包含，需要返回匹配字符串 b 的位置
+b）如果不包含，需要返回-1
+例如 indexOf("hello","el") returns 1;
+----------------------------------------------------------------------------------------------------------------------------
+来自：去哪儿
+参考：
+function indexOf (a,b){
+var result = a.match(b);
+return result? result.index:-1;}
+console.log(indexOf("hello", "el"));//1
+或
+function indexOf(strA, strB) {
+var lenA = strA.length,
+lenB = strB.length;
+if (lenA < lenB) {
+return -1;
+} else if (lenA == lenB) {
+return 0;
+} else {
+for (var j = 0; j < lenA; j++) {
+if (strA.charAt(j) == strB[0] && strA.substr(j, lenB) == strB) {
+return j;
+}
+}
+return -1;
+}
+}
+console.log(indexOf("hello", "el")); //1
