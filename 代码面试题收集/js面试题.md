@@ -753,3 +753,5 @@ return -1;
 }
 }
 console.log(indexOf("hello", "el")); //1
+
+45. 
