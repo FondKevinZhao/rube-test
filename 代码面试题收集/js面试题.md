@@ -761,3 +761,5 @@ angularjs 里面的双向数据绑定和依赖注入的原理?
 参考：
 双向数组绑定主要是通过 angular 的 digest 流程, 依赖注入主要是 function.toString 分析
 参见： https://github.com/xufei/blog/issues/10
+
+46. 
