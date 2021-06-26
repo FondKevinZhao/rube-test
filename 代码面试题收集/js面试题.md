@@ -799,4 +799,11 @@ function renderColour() {
 return "#"+(~~(Math.random()*(1<<24))).toString(16);
 }
 
-49. 
+49. [问答题]
+请 问 在 JavaScript 中如何 调 用 以下 几 个 CSS 属 性 ： font-size ， border-top-width,
+-moz-user-select?
+----------------------------------------------------------------------------------------------------------------------------
+来自：百度
+参考：
+考察 CSS 在 JS 中的驼峰写法
+fontSize
