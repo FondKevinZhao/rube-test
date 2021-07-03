@@ -886,4 +886,11 @@ Ajax 的工作原理相当于在用户和服务器之间加了—个中间层,�
 引擎自己来做,只有确定需要从服务器读取新数据时再由 Ajax 引擎代为向服务器提交请求.
 优点： 1.减轻服务器负担 2.无刷新更新页面 3 更好的用户体验
 
-56. 
+56. [问答题]
+说出 3 条以上 ff 和 ie 的脚本兼容问题。
+----------------------------------------------------------------------------------------------------------------------------
+来自：百度参考：
+IE 有children， FF没有； IE有parentElement， FF没有； IE有innerText,outerText,outerHTML，
+FF 没 有 ； FF 有 HTMLElement,HTMLDivElement,XMLDocument,DocumentFragment,Node,
+Event,Element 等等， IE 没有； IE 有数据岛， FF 没有； IE 跟 FF 创建 HttpRequest 实例的方法
+不一样
