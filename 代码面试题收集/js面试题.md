@@ -895,4 +895,9 @@ FF 没 有 ； FF 有 HTMLElement,HTMLDivElement,XMLDocument,DocumentFragment,No
 Event,Element 等等， IE 没有； IE 有数据岛， FF 没有； IE 跟 FF 创建 HttpRequest 实例的方法
 不一样
 
-57. 
+57. prototype.js 实现的基本原理。
+----------------------------------------------------------------------------------------------------------------------------
+来自：百度
+参考：
+将功能封装
+比如 Ajax.Request，还是有判断浏览器的代码； Position 这样的实现页面元素位置的计算
