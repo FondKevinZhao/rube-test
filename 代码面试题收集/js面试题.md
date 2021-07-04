@@ -894,3 +894,5 @@ IE 有children， FF没有； IE有parentElement， FF没有； IE有innerText,o
 FF 没 有 ； FF 有 HTMLElement,HTMLDivElement,XMLDocument,DocumentFragment,Node,
 Event,Element 等等， IE 没有； IE 有数据岛， FF 没有； IE 跟 FF 创建 HttpRequest 实例的方法
 不一样
+
+57. 
