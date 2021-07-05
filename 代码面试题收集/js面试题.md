@@ -901,3 +901,5 @@ Event,Element 等等， IE 没有； IE 有数据岛， FF 没有； IE 跟 FF �
 参考：
 将功能封装
 比如 Ajax.Request，还是有判断浏览器的代码； Position 这样的实现页面元素位置的计算
+
+58. 
