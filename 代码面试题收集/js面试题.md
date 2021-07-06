@@ -928,4 +928,31 @@ return anObj;
 var reg = /^[a-zA-Z][a-zA-Z_0-9]{4,19}$/;
 reg.test("a1a__a1a__a1a__a1a__");
 
-60. 
+60. [问答题]
+判断一个字符串中出现次数最多的字符，统计这个次数。
+----------------------------------------------------------------------------------------------------------------------------
+来自：前端工程师练习卷
+参考：
+//将字符串的字符保存在一个 hash table 中， key 是字符， value 是这个字符出现的次数
+var str = "abcdefgaddda";
+var obj = {};
+for (var i = 0, l = str.length; i < l; i++) {
+var key = str[i];
+if (!obj[key]) {
+obj[key] = 1;
+} else {
+obj[key]++;
+}
+}
+/*遍历这个 hash table，获取 value 最大的 key 和 value*/
+var max = -1;
+var max_key = "";
+var key;
+for (key in obj) {
+if (max < obj[key]) {
+max = obj[key];
+max_key = key;
+}
+}
+alert("max:"+max+" max_key:"+max_key);
+
