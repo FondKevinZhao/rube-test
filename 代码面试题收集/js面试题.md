@@ -918,3 +918,5 @@ if ( typeof anObj[ele] == “object” ) return anObj[ele]. cloneObj();
 }
 return anObj;
 }
+
+59. 
