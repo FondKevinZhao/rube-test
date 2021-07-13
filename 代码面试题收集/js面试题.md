@@ -964,3 +964,17 @@ alert("max:"+max+" max_key:"+max_key);
 (1) 可以开发前规定命名规范，根据不同开发人员开发的功能在函数前加前缀
 (2) 将每个开发人员的函数封装到类中，调用的时候就调用类的函数，即使函数重名只
 要类名不重复就 ok
+
+62. javascript 面向对象中继承实现。----------------------------------------------------------------------------------------------------------------------------
+来自：前端工程师练习卷
+参考：
+javascript 面向对象中的继承实现一般都使用到了构造函数和 Prototype 原型链，简单的
+代码如下：
+function Animal(name) {
+this.name = name;
+}
+Animal.prototype.getName = function() {alert(this.name)}
+function Dog() {};
+Dog.prototype = new Animal("Buddy");
+Dog.prototype.constructor = Dog;
+var dog = new Dog();
