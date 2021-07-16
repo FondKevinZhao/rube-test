@@ -994,3 +994,5 @@ if (str.charCodeAt(i) > 255) bytes++;
 return bytes;
 }
 alert(GetBytes("你好,as"));
+
+64. 
