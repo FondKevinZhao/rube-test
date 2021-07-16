@@ -995,4 +995,24 @@ return bytes;
 }
 alert(GetBytes("你好,as"));
 
-64. 
+64. [问答题]
+编写一个方法 去掉一个数组的重复元素
+----------------------------------------------------------------------------------------------------------------------------
+来自：前端工程师练习卷
+参考：
+var arr = [1 ,1 ,2, 3, 3, 2, 1];Array.prototype.unique = function(){
+var ret = [];
+var o = {};
+var len = this.length;
+for (var i=0; i<len; i++){
+var v = this[i];
+if (!o[v]){
+o[v] = 1;
+ret.push(v);
+}
+}
+return ret;
+};
+alert(arr.unique());
+
+65. 
