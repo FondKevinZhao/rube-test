@@ -1015,4 +1015,31 @@ return ret;
 };
 alert(arr.unique());
 
-65. 
+65. [问答题]
+写出 3 个使用 this 的典型应用。
+----------------------------------------------------------------------------------------------------------------------------
+来自：前端工程师练习卷
+参考：
+1）在 html 元素事件属性中使用，如:
+<input type=” button” onclick=” showInfo(this);” value=”点击一下” />
+2）构造函数
+function Animal(name, color) {
+this.name = name;
+this.color = color;
+} 3
+）
+<input type="button" id="text" value="点击一下" />
+<script type="text/<a href="http://www.bairuiw.com/tag/javascript" class="st_tag
+internal_tag" rel="tag" title="Posts tagged with Javascript">javascript</a>">
+var btn = document.getElementById("text");
+btn.onclick = function() {
+alert(this.value); //此处的 this 是按钮元素
+}
+</script>
+4） CSS expression 表达式中使用 this 关键字
+<table width="100px" height="100px">
+<tr>
+<td>
+<div style="width:expression(this.parentNode.width);">div element</div></td>
+</tr>
+</table>
