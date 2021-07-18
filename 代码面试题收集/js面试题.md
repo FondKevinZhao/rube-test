@@ -1043,3 +1043,5 @@ alert(this.value); //此处的 this 是按钮元素
 <div style="width:expression(this.parentNode.width);">div element</div></td>
 </tr>
 </table>
+
+66. 
