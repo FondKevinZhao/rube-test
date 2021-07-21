@@ -1052,3 +1052,19 @@ alert(this.value); //此处的 this 是按钮元素
 el.style.display = "";
 el.style.display = "none";
 el 是要操作的 DOM 元素。
+
+67. [问答题]
+JavaScript 中如何检测一个变量是一个 String 类型？请写出函数实现。
+----------------------------------------------------------------------------------------------------------------------------
+来自：前端工程师练习卷
+参考：
+String 类型有两种生成方式：
+(1)Var str = “hello world”;
+(2)Var str2 = new String(“hello world”);
+function IsString(str){
+return (typeof str == "string" || str.constructor == String);
+}
+var str = "";
+alert(IsString(1));
+alert(IsString(str));
+alert(IsString(new String(str)));
