@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 500px;
+            /* height: 300px; */
+            border-collapse: collapse;
+            border: 1px solid red;
+            text-align: center;
+        }
+        tr,td,th {
+            border: 1px solid red;
+        }
+        tr {
+            width: 500px;
+            height: 50px;
+        }
+
+    </style>
+</head>
+<body>
+    <form action="">
+        <input type="button" value="增加">
+    </form>
+    <table id="table">
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>张三</td>
+            <td>18</td>
+            <td>男</td>
+            <td><a href="#">删除</a></td>
+        </tr>
+        <tr>
+            <td>李四</td>
+            <td>28</td>
+            <td>女</td>
+            <td><a href="#">删除</a></td>
+        </tr>
+    </table>
+    <script>
+        var oTrs = document.querySelectorAll('tr');
+        var oTds = document.querySelectorAll('td a');
+        var oIpt = document.querySelector('input');
+        var oTb = document.querySelector('table');
+
+        oTb.onclick = function (e) {
+            console.log(e);
+            console.log(e.target.nodeName.toLowerCase() === 'a');
+            if(e.target.nodeName.toLowerCase() === "a") {
+                e.target.parentNode.parentNode.remove()
+            }
+        }
+
+        /* oTds.forEach(function(item, index) {
+            item.onclick = function () {
+                item.parentNode.parentNode.remove()
+            }
+        }) */
+
+        oIpt.onclick = function () {
+            var name = prompt('请输入您的姓名');
+            var age = prompt('请输入您的年龄');
+            var gender = prompt('请输入您的性别');
+            var newTr = document.createElement('tr')
+            newTr.innerHTML = `<td>${name}</td>
+            <td>${age}</td>
+            <td>${gender}</td>
+            <td><a href="#">删除</a></td>`
+            oTb.appendChild(newTr)
+        }
+
+
+    </script>
+</body>
+</html>

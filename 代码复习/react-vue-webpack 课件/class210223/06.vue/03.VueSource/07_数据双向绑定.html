@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>07_数据双向绑定</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="msg" />
+      <p>{{msg}}</p>
+    </div>
+    <script src="./js/compile.js"></script>
+    <script src="./js/observer.js"></script>
+    <script src="./js/watcher.js"></script>
+    <script src="./js/mvvm.js"></script>
+    <script>
+      /* 
+        响应式原理：
+          1. 数据代理：将data中数据代理到this上，可以通过this直接使用（方便操作data数据）
+            遍历data中每一个属性，通过Object.defineProperty方法给this定义新的属性，
+            属性名就是data遍历的属性名，属性值定义get、set方法
+            当你读取属性时，触发get方法，里面读取是原data数据的值
+            当你设置属性时，触发set方法，里面设置是原data数据的值
+          2. 数据劫持：将原data数据中每一个属性进行重新定义，定义成响应式
+            遍历data中每一个属性，通过Object.defineProperty方法对其进行重新定义，定义属性的get和set方法
+            同时每一个属性都会创建dep，dep保存在get和set方法中
+            当你读取原data数据属性时，触发get方法，除了返回值，还调用dep.depend()建立响应式联系
+              响应式联系：dep会保存watcher，watcher中保存dep
+            当你设置属性时，触发set方法，除了设置值，还会调用dep.notify()通知dep保存所有watcher去更新用户界面
+            从而达到响应式
+          3. 模板解析：解决模板页面插值语法和指令语法
+            将根节点所有子节点添加到文档碎片节点中
+            解析文档碎片节点中模板语法
+              遍历所有子节点，判断
+                如果是元素节点，就解析指令语法
+                  v-text 设置元素textContent属性，值为表达式的值
+                  v-on   给元素绑定事件，回调函数会通过bind将this指向为vm
+                如果是文本节点，就解析插值语法
+                最终除了事件指令以外，其他模板语法最终会new Watcher，watcher中保存更新用户界面的方法cb
+                new Watcher会读取表达式的值，此时就会触发数据劫持的get，触发dep.depend，从而开始建立响应式联系
+            将解析后的文档碎片节点添加到根节点中生效
+
+          当你将来更新data数据的值时，首先会触发数据代理set，再触发数据劫持set，
+          此时会更新数据，dep.notify()通知dep保存所有watcher去更新用户界面，从而达到响应式
+
+        双向数据绑定原理
+          通过绑定元素value属性, 值为data中表达式对应的值，实现 Model-->View
+          通过绑定input事件，收集用户数据，更新到data上，实现 View--> Model
+      */
+      debugger;
+      new MVVM({
+        // el: "#app",
+        el: document.getElementById("app"),
+        data: {
+          msg: "hello",
+        },
+      });
+    </script>
+  </body>
+</html>

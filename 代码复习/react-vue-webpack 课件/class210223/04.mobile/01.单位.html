@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>单位</title>
+    <style>
+      /* px单位 */
+      /* .title {
+        font-size: 20px;
+        width: 100px;
+        background-color: yellowgreen;
+      } */
+
+      /* 
+        rem单位: 相对于html字体大小 
+          如何px单位转换成rem?
+          需要展示 x px大小的元素，应该设置为多少 rem
+            x px = y rem * html的字体大小
+            rem = x / html的字体大小
+      */
+      /* html {
+        font-size: 20px;
+      }
+      body {
+        font-size: 40px;
+      }
+      .title {
+        font-size: 20px;
+        width: 5rem;
+        background-color: yellowgreen;
+      } */
+
+      /* em单位: 相对于离他最近的标签字体大小（包括自身） */
+      /* html {
+        font-size: 20px;
+      }
+      body {
+        font-size: 40px;
+      }
+      .title {
+        font-size: 40px; 
+        width: 5em;
+        background-color: yellowgreen;
+      } */
+
+      /* 
+        vw/vh: 相对于屏幕，屏幕平均分为100份  
+          如何px单位转换成vw、vh?
+          需要展示 x px大小的元素，应该设置为多少 vw
+
+          x / (屏幕宽度大小 / 100)
+      */
+      * {
+        margin: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      .title {
+        width: 53.33333333333vw;
+        height: 50px;
+        background-color: yellowgreen;
+      }
+      .box {
+        width: 100%;
+        height: calc(100vh - 50px);
+        background-color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="title">单位</p>
+    <div class="box"></div>
+  </body>
+</html>

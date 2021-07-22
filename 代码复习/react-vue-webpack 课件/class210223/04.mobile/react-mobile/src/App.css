@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.box1 {
+  float: left;
+  width: 187.5px;
+  height: 200px;
+  background-color: yellowgreen;
+}
+.box2 {
+  float: left;
+  width: 187.5px;
+  height: 200px;
+  background-color: greenyellow;
+}

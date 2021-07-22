@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <script src=""></script>
+</head>
+
+<body>
+    <script>
+        var data = [
+            { id: 1, name: '川味火锅', cate: '川菜' },
+            { id: 2, name: '水煮鱼', cate: '川菜' },
+            { id: 3, name: '回锅肉', cate: '川菜' },
+            { id: 4, name: '麻婆豆腐', cate: '川菜' },
+            { id: 5, name: '鱼香肉丝', cate: '川菜' },
+            { id: 6, name: '水煮肉片', cate: '川菜' },
+            { id: 7, name: '辣子鸡', cate: '川菜' },
+            { id: 8, name: '酸菜鱼', cate: '川菜' },
+            { id: 9, name: '宫保鸡丁', cate: '川菜' },
+            { id: 10, name: '甜皮鸭', cate: '川菜' },
+            { id: 11, name: '一品豆腐', cate: '鲁菜' },
+            { id: 12, name: '葱烧海参', cate: '鲁菜' },
+            { id: 13, name: '三丝鱼翅', cate: '鲁菜' },
+            { id: 14, name: '白扒四宝', cate: '鲁菜' },
+            { id: 15, name: '糖醋黄河鲤鱼', cate: '鲁菜' },
+            { id: 16, name: '九转大肠', cate: '鲁菜' },
+            { id: 17, name: '烧鹅', cate: '粤菜' },
+            { id: 18, name: '白切贵妃鸡', cate: '粤菜' },
+            { id: 19, name: '广州文昌鸡', cate: '粤菜' },
+            { id: 20, name: '红烧乳鸽', cate: '粤菜' },
+            { id: 21, name: '蜜汁叉烧', cate: '粤菜' },
+            { id: 22, name: '蚝皇凤爪', cate: '粤菜' },
+            { id: 23, name: '炸子鸡', cate: '粤菜' },
+            { id: 24, name: '豉汁蒸排骨', cate: '粤菜' },
+            { id: 25, name: '什锦冬瓜帽', cate: '粤菜' }
+        ];
+        //获得当前页数。
+        function getPage(){
+            var page = 1;
+            var search = window.location.search.slice(1);
+            var args = search.split('&');
+            for (var i = 0 ; i < args.length ; i++) {
+                if (args[i].startsWith('page=')) {
+                    page = args[i].split('=').pop();
+                    break;
+                }
+            }
+            return +page;
+        }
+        console.log(getPage());
+        //当前的页数
+        var nowPage = getPage();
+        //每页10条
+        var count = 10;
+        //总共多少页
+        var totalPage = Math.ceil(data.length / count);
+        //获得本页开始的下标
+        var startData = (nowPage - 1) * count;
+        //获得本业结束的下标
+        var endData = startData + count - 1;
+
+        //最终都要获得本页开始的下标和本页结束的下标。
+        var newData = data.slice(startData,endData + 1);
+        
+        document.write('<table border="1" width="400">');
+        for (var j = 0; j < newData.length ; j++) {
+            document.write('<tr>');
+            document.write("<td>"+newData[j].id+"</td>");
+            document.write("<td>"+newData[j].name+"</td>");
+            document.write("<td>"+newData[j].cate+"</td>");
+            document.write('</tr>');
+        }
+
+        //获得当前的url地址
+        var nowUrl = 'http://' + window.location.host + window.location.pathname;
+        /* var prevPage = nowPage - 1;
+        var nextPage = nowPage + 1; */
+        var prevPage = nowPage > 1 ? nowPage - 1: 1;
+        var nextPage = nowPage < totalPage ? nowPage + 1: totalPage; 
+
+        var prevUrl = nowUrl + '?page=' + prevPage; 
+        var nextUrl = nowUrl + '?page=' + nextPage; 
+
+        console.log(nowUrl);
+        document.write("<tr>");
+        document.write("<td>当前是第"+nowPage+"页</td>");
+        document.write("<td><a href='"+prevUrl+"'>上一页</a></td>");
+        document.write("<td><a href='"+nextUrl+"'>下一页</a></td>");
+        document.write("</tr>");
+        document.write('</table>');
+    </script>
+</body>
+
+</html>

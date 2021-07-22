@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue源码</title>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{count}}</p>
+      <button @click="count++">按钮</button>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      /*
+       初始化渲染流程：
+        new Vue()
+        this._init()
+        initState() 数据代理和数据劫持
+        this.$mount() 
+        mount()
+        mountComponent()
+        new Watcher(vm, updateComponent)
+        this.get()
+        this.getter.call()
+        updateComponent()
+        _render() 返回要渲染的虚拟DOM对象树
+          此时得到要渲染的虚拟DOM对象树，读取模板语法值，此时就会触发数据劫持get
+          数据劫持get方法中通过dep.depend()建立响应式联系
+        _update(vnode) 将渲染的虚拟DOM对象树转换成真实DOM元素，插入到body中生效
+          __patch__()
+          createEle()
+          先生成父元素，再遍历生成子元素，子元素插入的父元素中
+          将整个父元素插入到body中生效
+          移除旧元素内容
+        此时完成初始化渲染
+
+        更新流程：
+          this.count++
+          触发数据代理set
+          触发数据劫持的set
+          更新数据，dep.notify() 通过所有watcher去更新
+          watcher.update()
+          将要更新的watcher添加到异步队列中，将来打算异步更新
+
+          等待同步代码全部执行完了，此时就要触发异步代码，遍历要更新的watcher去更新
+          watcher.run()
+          watcher.get()
+          watcher.getter()
+          updateComponent() 此时内部进行虚拟DOM DIFF算法，进行DOM操作，完成更新
+      
+          虚拟DOM DIFF算法
+            patch --> patchVnode
+
+            判断当前元素是否有文本内容
+              没有（可能有子节点）
+                判断新旧是否都有子节点
+                  都有 就要子元素的比较 updateChildren
+                  只有新的有 将新的子节点添加上去
+                  只有旧的有 将旧的子节点删除
+                  都没有，旧的可能有文本内容 需要清空
+              有
+                判断新旧文本内容是否一致
+                  不一致 将元素的文本内容更新新的文本内容
+
+            updateChildren
+              旧前  旧后
+              新前  新后
+              
+              判断旧前元素是否存在
+                不存在 旧前下标++
+              判断旧后元素是否存在
+                不存在 旧后下标--
+              判断旧前和新前是否一致
+                一致就继续对比子节点 patchVnode
+              判断旧后和新后是否一致
+                一致就继续对比子节点 patchVnode
+              判断旧前和新后是否一致
+                patchVnode
+                一致，就要移动位置。 将旧前移动到旧后后面去
+              判断旧后和新前是否一致
+                patchVnode
+                一致，就要移动位置。 将旧后移动到旧前前面去
+              判断新元素key在不在旧的keys数组中
+                在
+                  移动位置，将匹配上key对应的元素移动到旧前的前面去
+                不在
+                  创建元素
+                  插入到当前位置
+
+            两个特殊情况
+              当旧前>旧后，说明旧的比新的少
+                将新的元素添加上
+              当新前>新后，说明旧的比新的多
+                将旧的多余元素给删除
+      */
+      debugger;
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            count: 0,
+          };
+        },
+      });
+    </script>
+  </body>
+</html>

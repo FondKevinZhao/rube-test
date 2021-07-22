@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>10_ComponentLife</title>
+  </head>
+  <body>
+    <div id="example"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      /*
+      需求: 自定义组件
+        1. 让指定的文本做显示/隐藏的动画
+        2. 切换时间为2S
+        3. 点击按钮从界面中移除组件界面
+       */
+
+      class LifeCircle extends React.Component {
+        state = {
+          opacity: 1,
+        };
+        // React中this指向，所有生命周期函数的this都是组件实例对象
+        // 其他函数默认是undefined，除非改成箭头函数
+        componentDidMount() {
+          this.timeId = setInterval(() => {
+            let { opacity } = this.state;
+            opacity -= 0.1;
+            if (opacity <= 0) {
+              opacity = 1;
+            }
+            // 让opacity变化
+            this.setState({
+              opacity,
+            });
+          }, 100);
+        }
+
+        componentWillUnmount() {
+          clearInterval(this.timeId);
+        }
+
+        goDie = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById("example"));
+        };
+
+        render() {
+          // 读取state数据
+          const { opacity } = this.state;
+
+          return (
+            <div>
+              {/*
+                原生js style样式：style="opacity: 1;font-size: 20px"
+                React需要写成对象形式
+              */}
+              <h1 style={{ opacity, fontSize: 16 }}>React学不会怎么办？</h1>
+              <button onClick={this.goDie}>go die</button>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<LifeCircle />, document.getElementById("example"));
+    </script>
+  </body>
+</html>

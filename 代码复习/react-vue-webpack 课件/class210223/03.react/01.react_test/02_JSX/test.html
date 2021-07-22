@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>02_JSX</title>
+  </head>
+  <body>
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script>
+      /*
+        创建虚拟DOM对象的两个语法：
+          1. js语法 React.createElement
+            这个语法不需要babel编译
+            语法太麻烦了
+          2. jsx语法：用来简化创建虚拟DOM对象
+            最终经过babel编译，会变成第一种语法
+            语法内容：
+              1. 以<开头，里面的内容如果是html同名元素，会解析成html元素，如果不是，会当做组件解析
+              2. 以{开头，里面的内容会当做js代码解析
+      */
+      // 创建虚拟DOM对象
+
+      const p = React.createElement("p", null, "hello p");
+
+      const div = React.createElement(
+        "div",
+        { id: "box", className: "test" },
+        "hello div",
+        p
+      );
+
+      // 将虚拟DOM对象渲染到指定容器内部
+      ReactDOM.render(div, document.getElementById("test1"));
+    </script>
+
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      // 使用jsx语法创建虚拟DOM对象
+      const content = "hello p~~~";
+      const id = "container";
+
+      const vDOM = (
+        <div id={id} className="box">
+          <p>{content}</p>
+          <p>{content}</p>
+          <p>{content}</p>
+        </div>
+      );
+
+      ReactDOM.render(vDOM, document.getElementById("test2"));
+    </script>
+  </body>
+</html>
