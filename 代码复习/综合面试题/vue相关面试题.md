@@ -4,7 +4,7 @@
 
 > 数据是同步更新，视图是异步更新，因为如果视图更新是同步的，那会导致多次渲染浪费不必要的性能，没必要，内部做了去重(重新更新的值)和防抖(只更新最后一次)
 
-## 2. Vue中nextTick的原理是什么?
+## 2. Vue中nextTick的原理是什么? 
 
 > 因为更新是异步的，有时候外界可能会在更新数据之后想拿到最新的dom元素进行操作，Vue为了让用户达到统一的效果，内部使用了nextTick，也要让用户使用nextTick， vue2中nextTick做了兼容，如果Promise支持，就用Promise.resolve().then()来处理，如果不支持，就用mutationObserve来处理，如果还不支持，就用setimmediate来处理，最后还不支持，就用setTimeout,vue3中nextTick放弃兼容，直接使用Promise.resolve().then(),nextTick内部也是做了防抖功能的,防止用户多次调用nextTick
 
