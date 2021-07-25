@@ -545,8 +545,20 @@
 
     ```js
     var arr = [1, 2, 2, 3, 5, 3, 5];
-    var set1 = new set(arr);
+    var set1 = new Set(arr);
     console.log([...set1])
+    ```
+
+    ```js
+    // 数组去重
+    var arr = [1, 2, 2, 3, 5, 3, 5];
+    console.log([...new Set(arr)])
+    ```
+
+    ```js
+    // 字符串去重
+    let str = 'aaaabbeeaaddcbc'
+    console.log([...new Set(str)].join(''));
     ```
 
     
@@ -666,7 +678,39 @@
 
     
 
-63.  
+63. 写一个函数，输入任意值，输出格式为 xx:xx:xx, 满60往前进一，不足10往前面添0。
+
+    ```js
+    function formatTime(time) {
+      let h = 0;
+      let m = 0;
+      let s = 0;
+    
+      m = Math.floor(time / 60);
+      s = Math.floor(time / 60);
+      h = Math.floor(m / 60)
+    
+      if (m < 10) m = "0" + m;
+      if (h < 10) h = "0" + h;
+      if (s < 10) s = "0" + s;
+    
+      return h + ":" + m + ":" + s
+    }
+    
+    console.log(formatTime(1000)); // 00:16:16
+    ```
+
+    
+
+64. promise 和 async/await 的区别
+
+    1. promise 是 ES6，async/await 是 ES7。
+    2. async/await 相对于 promise 来讲，写法更加优雅。
+    3. reject 状态：
+       - promise 错误可以通过 catch 来捕捉，建议尾部捕捉错误。
+       - async/await 既可以通过 .then 有可以用 try-catch 来捕捉。
+
+65. 
 
 
 
