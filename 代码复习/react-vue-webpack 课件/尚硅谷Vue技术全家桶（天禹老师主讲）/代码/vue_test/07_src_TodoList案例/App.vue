@@ -14,6 +14,7 @@
 	import MyHeader from './components/MyHeader'
 	import MyList from './components/MyList'
 	import MyFooter from './components/MyFooter.vue'
+	
 
 	export default {
 		name:'App',
