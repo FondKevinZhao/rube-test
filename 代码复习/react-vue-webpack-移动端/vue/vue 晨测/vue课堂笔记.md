@@ -734,7 +734,11 @@
     2. props
     3. computed
 
-86. 
+86. 所有指令相关的 this 指向的是 window，如：自定义指令。
+
+87. vue-CLI 中 CLI指：Command Line Interface 命令行接口工具。
+
+88. 
 
 
 
