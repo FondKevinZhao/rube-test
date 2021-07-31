@@ -1,0 +1,49 @@
+/* 
+  嵌套注意事项：
+    1.层数控制4层左右
+    2.合理使用父级引用
+*/
+body,
+html {
+  width: 100%;
+  overflow: auto;
+}
+.outer {
+  width: 100%;
+}
+.outer .head-outer {
+  width: 100%;
+  border-bottom: 1px solid red;
+}
+.outer .head {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+}
+.outer .head > .left {
+  background-color: red;
+}
+.outer .head > .left a {
+  font-size: 20px;
+}
+.outer .head > .left a:nth-child(1) {
+  text-decoration: overline;
+}
+.outer .head > .left a:nth-child(2) {
+  text-decoration: line-through;
+}
+.outer .head .con {
+  display: flex;
+}
+.outer .head .con li {
+  font-size: 14px;
+}
+.outer .head .con li:nth-child(2n) {
+  background-color: yellow;
+}
+.outer .head .con li:nth-child(2n+1) {
+  background-color: pink;
+}
+.outer .head .con li:hover {
+  background-color: yellowgreen;
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .tab {
+            width: 600px;
+            border: 1px solid #000;
+            margin: 50px auto;
+        }
+
+        #title {
+            display: flex;
+        }
+
+        #title>h2 {
+            width: 198px;
+            border: 1px solid #000;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 24px;
+            background-color: azure;
+            cursor: pointer;
+        }
+
+        #title>h2.active {
+            background-color: red;
+            color: #fff;
+        }
+
+        #con>li {
+            height: 400px;
+            line-height: 400px;
+            text-align: center;
+            font-size: 40px;
+            display: none;
+        }
+
+        #con>li.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab">
+        <div id="title">
+            <h2 class="active">标题一</h2>
+            <h2>标题二</h2>
+            <h2>标题三</h2>
+        </div>
+        <ul id="con">
+            <li class="show">内容一</li>
+            <li>内容二</li>
+            <li>内容三</li>
+        </ul>
+    </div>
+    <script>
+        //获取所有的标题和内容标签
+        var oTitle = document.getElementById('title');
+        var oH2s = oTitle.getElementsByTagName("h2");
+        var oCon = document.getElementById('con');
+        var oLis = document.getElementsByTagName("li");
+
+        oH2s[1].onclick = function () {
+            //先清空所有的样式，然后给当前点击的添加
+            oH2s[0].classList.remove("active");
+            oH2s[1].classList.remove("active");
+            oH2s[2].classList.remove("active");
+            oLis[0].classList.remove("show");
+            oLis[1].classList.remove("show");
+            oLis[2].classList.remove("show");
+
+            oH2s[1].classList.add("active");
+            oLis[1].classList.add("show");
+        }
+
+
+        oH2s[0].onclick = function () {
+            //先清空所有的样式，然后给当前点击的添加
+            oH2s[0].classList.remove("active");
+            oH2s[1].classList.remove("active");
+            oH2s[2].classList.remove("active");
+            oLis[0].classList.remove("show");
+            oLis[1].classList.remove("show");
+            oLis[2].classList.remove("show");
+
+            oH2s[0].classList.add("active");
+            oLis[0].classList.add("show");
+        }
+
+        oH2s[2].onclick = function () {
+
+            //先清空所有的样式，然后给当前点击的添加
+            oH2s[0].classList.remove("active");
+            oH2s[1].classList.remove("active");
+            oH2s[2].classList.remove("active");
+            oLis[0].classList.remove("show");
+            oLis[1].classList.remove("show");
+            oLis[2].classList.remove("show");
+
+            oH2s[2].classList.add("active");
+            oLis[2].classList.add("show");
+        }
+    </script>
+</body>
+
+</html>

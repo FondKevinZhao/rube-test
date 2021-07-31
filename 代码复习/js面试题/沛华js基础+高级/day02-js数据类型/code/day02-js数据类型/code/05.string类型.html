@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        /* 
+            String类型:
+                - JavaScript字符串(String)就是由零个或多个Unicode字符组成的字符序列。零个字符表示空字符串。
+                - 字符串外层使用 英文半角符号的单引号或双引号表示
+        */
+
+        var str1 = 'hello world';
+        var str2 = "hello world";
+        console.log(str1 === str2);
+
+        var str3 = "小王说:'今天天气真好'";
+        var str4 = '小王说:"今天天气真好"';
+        console.log(str3)
+        console.log(str4)
+
+        //1.字符串输出的时候换行  \n
+        var str5 = "小王\n老王";
+        console.log(str5)
+
+
+        //2.字符串在书写的时候想要换行 原则上是语法不允许的  可以在每一行的末尾添加一个\（转义符）把回车转义成了空格
+        var str6 = "<ul>\
+            <li></li>\
+            <li></li>\
+            <li></li>\
+            <li></li>\
+        </ul>";
+        console.log(str6);
+
+        //3.转义符 比如在双引号中嵌套双引号
+        var str7 = "小王说:\"今天天\\气真好\"";
+        console.log(str7)
+
+        //4.字符串的位置及获取:字符串是按照顺序依次向后的，每一个字符都对应一个下标，下标从0开始 自然递增
+        //我们可以通过下标拿到某一个值
+        var str8 = "abcdefg";
+        //当使用.语法不允许的时候，使用中括号来获取,字符串的值只能被获取 不能被修改
+        console.log(str8[3])
+
+        //5.获取字符串的长度 使用length属性
+        var str9 = "abcdefg";
+        console.log(str9.length);
+        //想要获取字符串的最后一个值
+        console.log(str9[str9.length - 1])
+    </script>
+</body>
+
+</html>

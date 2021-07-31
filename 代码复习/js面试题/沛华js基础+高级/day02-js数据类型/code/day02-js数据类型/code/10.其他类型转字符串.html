@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            其他类型转String
+                - String方法（全局方法）
+                    - number转string
+                        先把数字转为10进制或者正常写法，然后转成对应的字符串
+                    - null undefined true false 都是正常加一个引号
+                    - object类型
+                        - 数组 取掉中括号加引号
+                        - 对象 [object Object]
+                        - 函数 加引号
+
+
+                - toString方法  
+                    - 除了null和undefined两个以外，其他类型都有自己的toString方法
+
+        
+        */
+        console.log(String(NaN)) //'NaN'
+        console.log(String(Infinity)) //'Infinity'
+        console.log(String(10E10)) //'100000000000'
+        console.log(String(0)) //'0'
+        console.log(String(-3.14)) //'-3.14'
+        console.log(String(0b111)) //'7'
+        console.log('----------------------')
+        console.log(String(true)) //'true'
+        console.log(String(false)) //'false'
+        console.log('----------------------')
+        console.log(String(null)) //'null'
+        console.log(String(undefined)) //'undefined'
+        console.log('----------------------')
+        console.log(String([])) //''
+        console.log(String([2])) //'2'
+        console.log(String(["a"])) //'a'
+        console.log(String(["a", "b"])) //'a,b'
+        console.log(String({})) //[object Object]
+        console.log(String({
+            name: "laowang"
+        })) //[object Object]
+        console.log(String(function () {})) //'function () {}'
+
+
+
+        // toString
+        console.log((2).toString()) // '2'
+        console.log(true.toString()) // 'true'
+        console.log(false.toString()) // 'false'
+        console.log([].toString()) 
+        console.log([1, 2, 4].toString()) // '1, 2, 4'
+        console.log({}.toString()) // [object Object]
+        console.log({
+            name: "laowang"
+        }.toString()) // [object Object]
+        console.log((function () {}).toString()) // function () {}
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 
+            问题：var a = xxx, a 内存中到底保存的是什么？
+         */
+
+         /* 
+         var a 
+         a = 'abc' // a 变量中保存的是基本类型值
+         a = function () {
+             // a变量中保存的是地址值
+         }
+
+         var b = ture // b变量中保存的是基本类型值
+         a = b // a 变量中保存的是基本类型值
+         b = []; // 把变量b的值改为了地址值
+         a = b // a变量中保存的是地址值
+          */
+
+        /* 
+         2个引用变量指向同一个对象，通过一个引用变量修改对象内部数据，另一个而引用变量也看得见
+         */
+
+         /* 
+            // 赋值都是变量的值的赋值，把ol所代表的地址赋值给了o2
+            var o2 = 01;
+            // 给o2扩展属性 其实是给o2地址所代表的对象扩展属性
+            o2.m = 2;
+            console.log(o1.m, o1 === o2) // 2 true
+          */
+    </script>
+</body>
+</html>

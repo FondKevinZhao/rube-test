@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            递增(++)和递减(--)运算就是通过不断地加1或减1,然后把结果赋值给左侧，以实现改变自身结果的一种简洁方法
+
+            - 如果a++或者++a是单条语句，则两个语句作用一致
+
+            - 如果是一个非数字运算，则先转为数字
+        */
+
+        //单条语句
+        /* var a = 1;
+        // a++;
+        ++a;
+        console.log(a); */
+
+        /* 
+            单条语句带赋值
+        */
+        /* var a = 1,
+            k = 0;
+        // k = a++;//先赋值(返回值)再加一
+        k = ++a; //先加一再赋值(返回值)
+        console.log(a, k) */
+
+
+        /*  var a = 1;
+         console.log(a++); //1
+         console.log(a); //2 */
+
+
+
+        var a = 1;
+        b = a++ + a++ + 1 + ++a + a++ + ++a + a + ++a; //
+        // b = 1+2+1+4+4+6+6+7
+        console.log(b)
+
+
+        var str = "a";
+        console.log(++str) //一定转字符串
+
+        var sum = 3;
+        console.log(--sum) //2
+        console.log(sum) //2
+    </script>
+</body>
+
+</html>

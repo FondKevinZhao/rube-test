@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="ipt">
+    <button id="btn">判断</button>
+    <script>
+        /* 
+            isNaN方法：
+                判断一个值 是否是NaN 如果是则返回true  如果不是则返回false
+                无论传入的是什么类型，都会被先转为number类型，然后进行判断
+        
+        */
+        var a = NaN;
+        var b = 'a1234';
+        console.log(isNaN(a));
+        console.log(isNaN(b)); //true
+
+
+        /* 
+            效果 需求：
+                当用户点击按钮的时候，判断用户输入的内容是否是纯数字，如果是，则弹出内容，否则弹出请重新输入
+
+                1.获取元素
+                2.点击按钮 做一些操作（需要给被点击的元素绑定点击事件）
+                3.获取到输入框的内容
+                4.用isNaN判断是否是纯数字 然后执行相应操作
+        */
+
+        // 1.获取元素
+        var oIpt = document.getElementById("ipt");
+        var oBtn = document.getElementById("btn");
+        console.log(oIpt, oBtn)
+
+        //2.给元素绑定了点击事件，然后赋值一个函数，当事件发生的时候，函数就会执行
+        oBtn.onclick = function () {
+            //3.获取输入框的内容 输入框元素的value属性就是代表输入框的内容
+            console.log(oIpt.value);
+            var userCon = oIpt.value; //因为我们以后要使用这个值，所以需要用变量接收
+
+            //4判断：虽然输入内容是字符串，但是isNaN会自动的转换为number
+            if (isNaN(userCon)) {
+                //如果输入的内容不是纯数字，则转换number的时候会转换为NaN，此时NaN检测会返回true，
+                alert("请重新输入 包含了非数字字符");
+                //清空输入框 
+                oIpt.value = "";
+            } else {
+                //if中语句返回false会自动执行else后的代码
+                alert("欢迎登录")
+            }
+        }
+    </script>
+</body>
+
+</html>

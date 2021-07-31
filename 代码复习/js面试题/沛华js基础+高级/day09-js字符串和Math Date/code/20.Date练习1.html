@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">点我</button>
+    <script>
+        /* 
+            像以下类似的效果，其实我们需要的都是时间戳，可以直接获取时间戳使用
+            获取时间戳的方法
+                - 把new Date() 转number 
+                - new Date().getTime()  获取时间戳 
+                - Date.now() 直接拿到时间戳
+        
+        
+        */
+        var oBtn = document.getElementById('btn');
+        oBtn.onclick = function () {
+            //计算开始之前获取一个时间戳
+            // var now = new Date();
+            // var now = +new Date();
+            // var now = Date.now();
+            var now = new Date().getTime();
+            var num = 0;
+            for (var i = 0; i < 100000000; i++) {
+                num += Math.sqrt(i)
+            }
+            console.log(num);
+            //计算执行之后 获取一个时间
+            var end = new Date();
+
+            //减法运算 自动把事件转为number类型的
+            console.log(end - now);
+        }
+    </script>
+</body>
+
+</html>

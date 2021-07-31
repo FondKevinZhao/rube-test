@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Function.prototype.myCall = function (context) {
+            // 1. 判断null和undefined
+            if (context === null || context === undefined) {
+                context = window;
+            }
+
+            // 2. 判断是否是包装对象
+            if (typeof context != 'object' && typeof context != 'function') {
+                context = Object(context);
+            }
+
+            // 3. 转数组、去掉arguments的第一个值
+            var argArr = Array.from(arguments).slice(1);
+
+            // 4. 创建一个独一无二的值
+            var f = Date.now().toString(36);
+            context[f] = this;
+            // 5. 只要context调用了f方法，则f的this就指向了context，因为f和fn是同一个函数，所以fn的this也是指向了context
+            // eval可以将字符串的代码执行
+            eval('context[f](' + argArr.toString() + ')');
+            delete context[f];
+        }
+
+        function fn(a, b) {
+            console.log(a + b);
+            console.log(this);
+        }
+
+        fn.myCall(null, 1, 2);
+        fn.myCall(undefined, 1, 2);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        Function.prototype.myCall = function (context) {
+            if (context === null || context === undefined) {
+                context = window;
+            }
+            if (typeof context != 'object' && typeof context != 'function') {
+                context = Object(context);
+            }
+
+            console.log(arguments);
+
+            var argArr = Array.from(arguments).slice(1);
+            console.log(argArr);
+
+            var f = Date.now().toString(36);
+            context[f] = this;
+
+            eval('context[f]('+ argArr.toString()+')');
+            delete context[f];
+        }
+
+        function fn(a, b) {
+            console.log(a + b);
+            console.log(this);
+        }
+
+        fn.myCall(null, 1, 2);
+    </script>
+</body>
+</html>

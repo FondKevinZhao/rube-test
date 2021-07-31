@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //封装一个函数  打印this
+        //this指向其所在函数的调用者 如果没有则指向window
+        function fn1() {
+            console.log(this);
+        }
+
+        //this和函数的调用方式相关
+        fn1(); //直接调用  window
+
+
+        //把当前函数写在对象中
+        var obj = {
+            name: "xiaowang",
+            do: fn1,
+            eat: function () {
+                console.log(this);
+                fn1(); //window
+            }
+        }
+        obj.do(); //有一个上下文对象调用  obj
+        obj.eat();
+
+
+        //隐式丢失
+        var f = obj.do;
+        f(); //window
+
+
+        document.onclick = fn1; //事件函数 上下文调用  document
+
+
+
+
+        function inner() {
+            console.log(this);
+        }
+
+        function outer() {
+            inner() //window
+        }
+        outer();
+    </script>
+</body>
+
+</html>

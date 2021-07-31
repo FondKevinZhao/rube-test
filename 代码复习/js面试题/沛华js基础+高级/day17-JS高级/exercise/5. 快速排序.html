@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr = [3, 2, 1, 6, 7];
+        function quickSort(arr) {
+            // 如果调用quickSort的参数长度是1，则直接返回 不再递归
+            if (arr.length <= 1) {
+                return arr;
+            }
+
+            // 首先选择一个基准值，拿出并在数组中删除
+            var center = arr.pop();
+
+            // 定义一个左侧的数组和右侧的数组
+            var left = [];
+            var right = [];
+
+            // 比较每一个值 然后存放数组
+            arr.forEach(function (item) {
+                if (item <= center) {
+                    left.push(item);
+                } else {
+                    right.push(item)
+                }
+                // console.log(left, center, right); // 这个打印可以看到每一次调换的过程
+            })
+
+            // 合并左中右的数组
+            var newArr = quickSort(left).concat(center, quickSort(right));
+            console.log(newArr);
+            return newArr;
+        }
+
+        var re = quickSort(arr);
+        console.log(re);
+    </script>
+</body>
+</html>

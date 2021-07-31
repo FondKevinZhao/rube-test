@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            call:
+                1. 改变函数的this指向到第一个参数
+                2. 调用函数
+
+                call 的第一个参数分为3类：
+                1. window(null, undefined)
+                2. 包装对象(boolean, string, number)
+                3. 对象类型
+         */
+
+        Function.prototype.myCall = function (context) {
+            // 1. 判断是否是null 或undefined类型
+            if (context === null || context === undefined) {
+                context = window;
+            }
+
+            // 2. 判断是否是包装对象(boolean， string， number)
+            if (typeof context != 'object' && typeof context != 'function') {
+                context = Object(context);
+            }
+
+            // 2. 获取给调用myCall的函数传递的参数
+            console.log(arguments);
+            // 4. 去掉arguments的第一个值，用Array.from()方法把伪数组变成数组
+            var argArr = Array.from(arguments).slice(1);
+            console.log(argArr);
+
+            // 5. 创建一个独一无二的值
+            var f = Date.now().toString(36);
+            context[f] = this;
+
+            // 6. 只要context调用了f方法，则f的this就指向了context，因为f和fn是同一个函数，所以fn的this也是指向了context
+            // eval可以将字符串的代码执行
+            eval('context[f](' + argArr.toString() + ')');
+            delete context[f];
+        }
+
+        function fn(a, b) {
+            console.log(a + b);
+            console.log(this);
+        }
+
+        fn.myCall(null, 1, 2);
+        fn.myCall(undefined, 1, 2);
+        fn.myCall(1, 1, 2);
+        fn.myCall('12', 1, 2);
+        fn.myCall(true, 1, 2);
+        fn.myCall(Symbol(), 1, 2);
+        fn.myCall(1n, 1, 2);
+        fn.myCall(function () {}, 1, 2);
+        fn.myCall({}, 1, 2);
+        fn.myCall([], 1, 2);
+    </script>
+</body>
+
+</html>

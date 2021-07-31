@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #outer {
+            width: 400px;
+            margin: 20px auto;
+        }
+
+        #con {
+            position: relative;
+        }
+
+        #select {
+            height: 40px;
+            background-color: grey;
+            line-height: 40px;
+        }
+
+        #cityList {
+            overflow: hidden;
+            width: 400px;
+            position: absolute;
+            background-color: #008c8c;
+            display: none;
+            color: white;
+        }
+
+        #cityList li {
+            width: 80px;
+            text-align: center;
+            margin: 10px;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer">
+        <h2 id="title"></h2>
+        <div id="con">
+            <p id="select">请选择城市</p>
+            <ul id="cityList">
+                <li>北京</li>
+                <li>上海</li>
+                <li>深圳</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        var oCityList = document.getElementById('cityList');
+        var oTitle = document.getElementById('title');
+
+        document.onclick = function (e) {
+            // 当剪辑的是选择城市按钮的时候
+            if (e.target.id === 'select') {
+                oCityList.style.display = 'block';
+                return;
+            }
+
+            // 判断选择的是城市
+            if (e.target.nodeName.toLowerCase() === 'li' && e.target.parentNode.id === 'cityList') {
+                oTitle.textContent = e.target.textContent;
+                oCityList.style.display = 'none';
+                return;
+            }
+            oCityList.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

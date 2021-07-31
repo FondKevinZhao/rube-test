@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            Null类型：
+                - Null类型中只有一个值：null
+                - 是一个空对象指针 typeof检测得到的object
+        
+            四种场景：
+                1.当函数需要参数，当不给函数传递参数的时候，可以传递一个null
+                2.作为原型链的终点
+                3.当需要声明一个变量，但是暂时不需要赋值的时候，可以给当前变量赋值为null
+                4.当设置一个值是一个垃圾对象的时候，把变量赋值为null
+        */
+
+        //1.当函数需要参数，当不给函数传递参数的时候，可以传递一个null
+        function fn(name, age, sex) {
+            console.log(name, age, sex)
+        }
+        fn("xiaowang", null, "nv");
+
+        //2.作为原型链的终点
+        // 123---number ---- object ----null
+        // '123'---string----object---null
+
+        //3.当需要声明一个变量，但是暂时不需要赋值的时候，可以给当前变量赋值为null
+        var a = null;
+
+        function fn1() {
+            //此时控制的是全局的a
+            a = 2;
+        }
+
+
+        //4.当设置一个值是一个垃圾对象的时候，把变量赋值为null
+        var obj = {
+            name: "haijing",
+            sex: "nan"
+        }
+        obj = null;
+    </script>
+</body>
+
+</html>

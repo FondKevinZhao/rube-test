@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            Undefined类型：
+                - 只有一个值 undefined
+                - 一般是在错误的时候出现，而不是我们刻意书写的结果
+
+            出现undefined的场景：
+                - 变量声明未赋值
+                - 函数需要的参数没有传实参
+                - 获取一个对象没有的属性的时候
+                - 函数没有返回值，则返回undefined
+        
+        */
+
+        //1.变量声明未赋值
+        var a;
+        console.log(a); //undefined
+
+        // console.log(b); //如果直接读取一个没有声明的变量，则直接报错 b is not defined
+
+        //2.调用函数需要的参数没有传实参
+        //声明一个函数
+        function myself(name, add, age) { //小括号中叫做形参
+            console.log("我是" + name);
+            console.log("我来自" + add);
+            console.log("我年龄" + age);
+            console.log(age);
+        }
+        //调用函数
+        myself("haijing", "秦皇岛", "40");
+        myself("彤彤", "石家庄", "18");
+        myself("xiaowang", "guangdong"); //给形参传递的值称作为实参
+
+
+        //3.获取一个对象没有的属性的时候
+        console.log(window.hello) //undefined
+
+        var obj = {
+            name: "laowang",
+            age: 18,
+            sex: "nan"
+        }
+        console.log(obj.name)
+        console.log(obj.add) //undefined
+
+
+        //4.函数没有返回值，则返回undefined
+        function add(a, b) {
+            var sum = a + b;
+            //函数需要的情况下 可能会返回值
+            // return sum;
+        }
+        var re = add(1, 2);
+        console.log(re); //undefined
+    </script>
+</body>
+
+</html>

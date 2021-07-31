@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            声明变量使用 var 变量名 = 数据;(把某个数据赋值给了变量)
+
+            全局变量的声明方式：
+                - 直接在全局 var 声明
+                - 给window对象扩展属性
+                - 直接使用未声明的变量
+        
+        */
+        var a = 1;
+        var b = "你好";
+
+        //var 可以同时声明多个变量
+        var c = 2,
+            d = true;
+
+        // var 可以声明变量 但是不赋值
+        var e;
+
+        //可以重复声明
+        var a = 3;
+
+        //变量的值在需要的时候 可以变换类型
+        console.log(3 - "1");
+
+
+        //window目前扮演者 js的顶层对象的角色，所有的全局变量都是window对象的属性
+        console.log(window);
+
+        //给window对象扩展一个属性，这个属性也可以作为全局变量使用
+        window.f = "hello world";
+        console.log(f);
+
+
+        //如果直接给一个没有声明的变量赋值，则这个变量也是一个全局变量（尽量避免不声明即使用的变量）
+        g = "hello g";
+        console.log(g)
+        console.log(window.g)
+    </script>
+</body>
+
+</html>

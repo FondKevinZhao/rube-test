@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* var a = 1;
+        var b = 2;
+        var c = a;
+        a = b;
+        b = c; */
+        /* var a = 1;
+        var b = 2;
+        a = a + b; //a是3
+        b = a - b; //b是1
+        a = a - b; //a变成2 */
+
+
+
+        // 求n-m之间所有数的和
+        function sum1(n, m) {
+            if (n > m) {
+                //如果n大于m 则把m和n的值互换
+                n = n + m;
+                m = n - m;
+                n = n - m;
+            }
+
+            var count = 0;
+            for (var i = n; i <= m; i++) {
+                count += i;
+            }
+
+            return count;
+        }
+        var re = sum1(100, 300);
+        console.log(re);
+    </script>
+</body>
+
+</html>

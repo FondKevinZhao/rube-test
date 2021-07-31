@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            switch语句
+                - switch（表达式）｛case value1：语句1；break; case value2：语句2；break; ………… default：语句 }
+                - switch都是进行的全等===判断
+                - 每条case语句建议书写break,否则将一直执行其他case的语句，直到碰到break为止
+            */
+
+        //规定小明在各个年龄段要做的事情
+        var xiaoming = 22;
+        switch (xiaoming) {
+            case 10:
+                alert("上小学");
+                break;
+            case 15:
+                alert("上中学");
+                break;
+            case 20:
+                alert("上大学");
+                break;
+            case 21:
+            case 22:
+            case 23:
+            case 24:
+                alert("谈恋爱");
+                break;
+            default:
+                alert("工作");
+        }
+    </script>
+</body>
+
+</html>

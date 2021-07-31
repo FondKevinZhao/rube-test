@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="box">
+        <li class="show">1</li>
+        <li>2</li>
+        <li class="show">3</li>
+        <li>4</li>
+        <li class="show">5</li>
+        <li>6</li>
+    </ul>
+    <ol>
+        <li>a</li>
+        <li>b</li>
+    </ol>
+    <script>
+        /* 
+            获取元素节点：
+                1.通过ID获取
+                    document.getElementById("id名")
+                    返回当前的元素节点
+                2.通过标签名获取
+                    document.getElementsByTagName("标签名")
+                    返回的是一个集合，是一个类数组
+
+                3.通过类名获取
+                    document.getElementsByClassName("类名")
+                    返回的是一个集合，是一个类数组
+        */
+
+
+        //通过id获取(全兼容)
+        /* var oBox = document.getElementById('box');
+        console.log(oBox);
+
+        //直接使用id 也是可以获取到的，但是不推荐
+        console.log(box); */
+
+
+
+        //标签名获取(全兼容)
+        /* var oLis = document.getElementsByTagName("li");
+        console.log(oLis);
+        //获取的是一个集合，一定要加下标后选择集合内的某个元素节点才能使用
+        oLis[1].style.background = "red"; */
+
+
+        //获取局部的标签名(全兼容)
+        /* var oBox = document.getElementById('box');
+        //从某个元素中获取后代的所有的li
+        var oBoxLis = oBox.getElementsByTagName("li");
+        console.log(oBoxLis) */
+
+
+        //通过类名获取(IE9及以上支持)
+        var oShow = document.getElementsByClassName("show");
+        console.log(oShow)
+    </script>
+</body>
+
+</html>

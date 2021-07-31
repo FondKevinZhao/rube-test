@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">切换颜色</button>
+    <script>
+        /* 
+            逻辑非: !
+                -!A
+                -逻辑非返回的就是布尔值，先把A转为布尔值，然后取反
+        
+        */
+
+        console.log(!0); //true
+        console.log(!1); //false
+        console.log(!"1"); //false
+
+
+        /* 
+            点击按钮切换颜色，默认红色
+            每次点击如果当前红色 则切换为绿色  如果为绿色则切换为红色
+        
+        */
+
+        var oBtn = document.getElementById("btn");
+        var flag = true; //定义一个开关 默认true代表红色
+        oBtn.onclick = function () {
+            //每次点击的时候，判断开关状态
+            if (flag) {
+                //flag如果为true,则当前是红色 需要改变为绿色
+                //document.body可以直接获取到body元素
+                document.body.style.background = "lightgreen";
+            } else {
+                document.body.style.background = "red";
+            }
+
+            flag = !flag;
+        }
+
+
+
+        //输入手机号，如果是纯数字 则弹出成功，否则没有效果
+        var tel = "15701665563";
+        /* if (isNaN(tel)) {
+            //进到这里 说明不是纯数字
+        } else {
+            //说明是纯数字
+            alert("成功")
+        } */
+
+        if (!isNaN(tel)) {
+            //说明是纯数字
+            alert("成功")
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 输入单价和数量， 计算总价。 如果总价大于500 则打八折。 然后用户输入付钱， 最终弹出找零。
+        var price = +prompt("请输入单价");
+        var num = +prompt("请输入数量");
+
+        //如果输入不合法 则一直提示输入
+        while (isNaN(price) || isNaN(num)) {
+            price = +prompt("请输入单价");
+            num = +prompt("请输入数量");
+        }
+
+        //求总价
+        var allPrice = price * num;
+        //根据金额打八折
+        if (allPrice >= 500) {
+            allPrice = allPrice * 0.8;
+        }
+
+        //来个弹窗告诉用户输入的价钱
+        var userPay = prompt("请付" + allPrice + "元");
+        console.log(userPay)
+        
+        //根据用户输入的钱 决定是找零 还是 继续要。。。。。
+    </script>
+</body>
+
+</html>

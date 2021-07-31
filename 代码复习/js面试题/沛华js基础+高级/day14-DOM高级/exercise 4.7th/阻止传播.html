@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #outer{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            overflow: hidden;
+        }
+
+        #inner {
+            width: 100px;
+            height: 100px;
+            margin: 50px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <div id="inner"></div>
+    </div>
+    <script>
+        /* 
+            阻止传播：
+                主流浏览器：e.stopPropagation();
+                低版本IE: e.cancelBubble = true
+
+                只能阻止当前时间的传播
+         */
+
+         var oInner = document.getElementById('inner');
+         var oOuter = document.getElementById('outer');
+
+         oInner.onmousedown = function(e) {
+             // e.stopPropagation();
+             console.log("按下");
+         }
+         oInner.onmouseup = function (e) {
+             // e.stopPropagation();
+             console.log('抬起');
+         }
+         oInner.onclick = function (e) {
+             // 因为是inner的click发生 传播到了outer 的 click
+             // 所以需要把inner的click传播给阻止掉
+             e.stopPropagation();
+         }
+
+         oOuter.onclick = function () {
+             console.log('点击事件');
+         }
+    </script>
+</body>
+</html>

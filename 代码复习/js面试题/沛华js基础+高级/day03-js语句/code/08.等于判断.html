@@ -1,0 +1,61 @@
+!<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            等于判断：
+                ==：值相等即可，可能会类型转换
+                ===：值和数据类型都相等
+        
+        */
+
+        //相等判断：如果有一个是number 正常情况下 都会转成number
+        //全等判断：先比较数据类型，然后再比较值 都相等才返回true
+        console.log(1 == 1) //true
+        console.log(1 === 1) //true
+        console.log(1 == "1") //true
+        console.log(1 === "1") //false
+
+        console.log(0 == false) //true
+        console.log(1 == true) //true
+
+        console.log("1" == true) //true
+        console.log("1" === true) //true
+
+
+        console.log([1] == true) //true
+        console.log([1] === true) //true
+
+        console.log([1] == '1') //true
+        console.log([1] === '1') //true
+
+
+        //null和自身相等 和undefined相等以外，全部不相等
+        console.log(null == 0) //false
+        console.log(null == undefined) //true
+        console.log(null > 0) //false
+        console.log(null < 0) //false
+        console.log(null == null) //true
+
+
+        //对象的比较都是地址值的比较
+        console.log([] === []); //false
+        console.log({} === {}); //false
+
+
+        //!= 不等：不管类型，只看值，可以有类型转换
+        console.log(1 != "1"); //false  因为 1 == "1"
+        //!==不全等：只要值和类型 有一个不等 则返回true
+        console.log(1 !== "1"); //true
+    </script>
+</body>
+
+</html>

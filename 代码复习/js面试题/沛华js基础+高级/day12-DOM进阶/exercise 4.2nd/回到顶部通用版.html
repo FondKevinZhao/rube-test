@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 50px;
+            background-color: rgb(219, 209, 190);
+        }
+
+        #returnTop {
+            width: 70px;
+            height: 70px;
+            border-radius: 30%;
+            background-color: #008c8c;
+            font-size: 14px;
+            color: white;
+            position: fixed;
+            right: 20px;
+            bottom: 30px;
+            text-align: center;
+            line-height: 70px;
+            cursor: pointer;
+            /* display: none; */
+        }
+
+    </style>
+</head>
+<body>
+    <p>
+        我是顶部<br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid mollitia cupiditate earum voluptates id, temporibus voluptatibus esse nulla illum facilis blanditiis similique corrupti quam. Voluptatum beatae modi deserunt facilis placeat adipisci quo necessitatibus debitis, nobis harum? Sapiente sequi nesciunt ea possimus asperiores! Saepe consectetur odit accusantium! Magni, voluptates deserunt, eos, ad aspernatur corporis ipsum repellat voluptatem ea temporibus ut reprehenderit repellendus possimus magnam! Illum voluptatibus nostrum optio qui inventore sunt deleniti quod aut quam atque delectus fugiat odit, voluptatum debitis! Beatae quaerat esse alias doloribus aut iusto, repellat ullam voluptates, doloremque placeat magni reiciendis omnis labore dolor necessitatibus debitis ad odit, ducimus facere nobis vel inventore optio. Optio at vero veritatis iusto fugiat neque dolor tempore iste, reiciendis dicta repellendus et nulla cum doloribus commodi eveniet aliquid architecto. Iusto velit impedit minima ab, nesciunt repellendus blanditiis rerum quisquam unde sint dignissimos expedita dicta illo necessitatibus a odit, saepe eius! Ullam iste debitis velit laborum dicta aliquam odit adipisci neque repudiandae quo, quaerat, aperiam veniam rerum assumenda nam, accusamus sunt soluta mollitia sequi ea ad praesentium suscipit. A exercitationem totam in molestiae sed quisquam odio at. Eveniet dolorum esse voluptatum voluptatibus unde. Porro laborum sunt quo dicta consectetur saepe aperiam nam, necessitatibus laboriosam accusamus vitae repudiandae, esse iure expedita! Laboriosam dolorum, quod eius similique quaerat modi veritatis, magnam doloremque necessitatibus nam ab eveniet dolore sit exercitationem officiis pariatur assumenda est. Fugiat, consequatur! Error nisi saepe, eum natus aperiam culpa magnam dolore vero ipsum reiciendis vitae dignissimos ipsa ea delectus, cumque laudantium recusandae est rem voluptatibus hic mollitia repudiandae totam! Qui, assumenda maiores. Numquam nisi quisquam porro magni ab voluptatibus iure corporis tenetur. Est nulla iusto officia, iste maxime reiciendis itaque, non accusamus laboriosam, eum minima. Rem ipsam nobis dolor facere, error quidem molestias similique aperiam esse quaerat aliquam modi optio laborum voluptate sequi ex odit quibusdam quas corrupti, minus id deleniti incidunt? Maxime consectetur quae minus magnam aliquam mollitia maiores. Labore voluptas eligendi iure. Natus error pariatur eveniet eligendi rerum fugit! Cum magni quidem rem nobis. Aspernatur tenetur hic vero consectetur sunt vel, accusantium ipsa nemo rem maxime delectus asperiores laboriosam fuga facere, voluptas dolorum excepturi distinctio veniam fugiat nobis nisi? Quaerat harum magnam, alias porro dolorem reiciendis ab, expedita ipsam odit eligendi maxime enim recusandae ducimus praesentium fugiat. Consequuntur, accusantium. Tempora, at architecto. Dignissimos, sed accusamus. Impedit quas porro ipsum praesentium perspiciatis rem esse, et iure, quam, magni illum ad eaque. Ea tenetur impedit quam porro maxime. Culpa quas tenetur ab aliquam, similique doloribus rerum non consectetur molestias itaque repellendus quia? Veniam, officia magni natus reiciendis repellat reprehenderit molestias culpa. Rem animi 
+    </p>
+    <div id="returnTop">回到顶部</div>
+    <script>
+        var oReturnTop = document.getElementById('returnTop');
+
+        //监听滚动条滚动，当滚动条大于300的时候显示 小于300的时候消失
+        window.onscroll = function () {
+            var winScroll = window.pageYOffset;
+            if (winScroll > 300) {
+                oReturnTop.style.display = 'block';
+            } else {
+                oReturnTop.style.display = 'none';
+            }
+        }
+
+        var returnTopTimer = null;
+        // 给回到顶部按钮绑定点击事件，当点击的时候直接回到顶部
+        oReturnTop.onclick = function () {
+            // 清除计时器在每次点击的时候，防止多次点击累加
+            clearInterval(returnTopTimer);
+
+            // 起始位置：
+            var startLocation = window.pageYOffset;
+            // 结束位置
+            var endLocation = 0;
+            // 起始步数
+            var startStep = 0;
+            // 结束步数
+            var endStep = 30;
+            // 每一步所走的距离
+            var everyStep = (endLocation - startLocation) / endStep;
+
+            // 动画
+            returnTopTimer = setInterval(function () {
+                startLocation += everyStep;
+                // 求临界值 startStep 变成 endStep 说明走完了
+                startStep++;
+                if (startStep >= endStep) {
+                    // 当步数走完了，说明动画结束，清除计时器
+                    clearInterval(returnTopTimer)
+                }
+                // 赋值操作
+                window.scrollTo(0, startLocation)
+            }, 20)
+        }
+    </script>
+</body>
+</html>

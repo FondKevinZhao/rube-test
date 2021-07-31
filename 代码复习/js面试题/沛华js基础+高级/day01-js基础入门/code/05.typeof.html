@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a = 1;
+        var b = "hello";
+        var c = true;
+        var d;
+        var e = null;
+        var f = {}; //对象
+        var g = []; //数组
+        var h = function () {}; //函数
+
+
+        /* 
+            typeof 关键字用来检测数据类型
+            两种使用方法
+                - typeof(数据或者变量)
+                - typeof 数据或者变量
+
+            - typeof检测数据类型的时候 有一些特殊的结果
+                1.会把null类型检测为 object
+                2.会把function函数 检测结果为 function(function应该是object类型)
+
+            
+            数据类型：
+                - ES3总共有6种数据类型，分为5种基本类型和1种复杂类型
+                - 5种基本类型：number string boolean undefined null
+                - 1种复杂的类型：object（对象）
+        */
+
+        console.log(typeof (a)); //number
+        console.log(typeof (b)); //string
+        console.log(typeof (c)); //boolean
+        console.log(typeof (d)); //undefined
+        console.log(typeof (e)); //object
+        console.log(typeof (f)); //object
+        console.log(typeof (g)); //object
+        console.log(typeof (h)); //function
+        console.log(typeof h); //function
+    </script>
+</body>
+
+</html>

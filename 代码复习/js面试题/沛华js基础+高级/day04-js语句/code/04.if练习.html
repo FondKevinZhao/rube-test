@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    请输入用户的成绩
+    <input type="text" id="ipt">
+    <button id="btn">按钮</button>
+    <br>
+    成绩是：<p id="con"></p>
+    <script>
+        /* 
+            在输入框中输入学员成绩，得到对应的等级
+            90-100 S
+            80-89 A
+            70-79 B
+            60-69 C
+            不及格 Z
+        */
+        var oIpt = document.getElementById("ipt");
+        var oBtn = document.getElementById("btn");
+        var oCon = document.getElementById("con");
+
+        //绑定点击事件
+        oBtn.onclick = function () {
+            //获取用户输入的值，并转number类型
+            var userScore = +oIpt.value;
+            //如果用户输入的成绩不是0-100之间 则直接提示重新输入
+            if (!(userScore >= 0 && userScore <= 100)) {
+                //输入情况有误
+                alert("重新输入")
+                //清空表单
+                oIpt.value = "";
+
+                //return语句是直接退出当前函数,不再继续执行当前函数
+                return;
+            }
+
+            //这个位置就是 输入内容在范围之内了
+            if (userScore >= 90 && userScore <= 100) {
+                //知识点：给元素设置内容  元素.textContent = "neirong";
+                oCon.textContent = "S";
+            } else if (userScore >= 80 && userScore < 90) {
+                oCon.textContent = "A";
+            } else if (userScore >= 70 && userScore < 80) {
+                oCon.textContent = "B";
+            } else if (userScore >= 60 && userScore < 70) {
+                oCon.textContent = "C";
+            } else {
+                oCon.textContent = "Z";
+            }
+        }
+    </script>
+</body>
+
+</html>

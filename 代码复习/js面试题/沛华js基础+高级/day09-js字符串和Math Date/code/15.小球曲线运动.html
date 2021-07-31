@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #ball {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: red;
+            position: fixed;
+            left: 0px;
+            top: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="ball"></div>
+    <script>
+        /* 
+            
+        */
+
+        var oBall = document.getElementById('ball');
+        var x = 0; //小球的横向坐标 也是角度的变化
+        var startY = 300;
+        var y = 0;
+        //控制每隔10毫秒 执行一个函数
+        setInterval(function () { 
+            x++;
+            // 根据角度x 求出sin值 来画正弦曲线
+            y = startY - Math.sin(x * 2 * Math.PI / 360) * 200;
+
+            oBall.style.left = x + "px";
+            oBall.style.top = y + "px";
+        }, 1000 / 60)
+    </script>
+</body>
+
+</html>
