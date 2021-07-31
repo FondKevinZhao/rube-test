@@ -708,9 +708,11 @@
     2. async/await 相对于 promise 来讲，写法更加优雅。
     3. reject 状态：
        - promise 错误可以通过 catch 来捕捉，建议尾部捕捉错误。
-       - async/await 既可以通过 .then 有可以用 try-catch 来捕捉。
+       - async/await 既可以通过 .then 也可以用 try-catch 来捕捉。
 
-65. 
+65. 异步函数返回的结果也是一个成功的 promise对象。
+
+66. 
 
 
 
