@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root">
+      <!-- 3. 使用组件 -->
+      <test-component />
+      <!-- <test-component></test-component> -->
+
+      <!-- 页面中不行 -->
+      <!-- <TestComponent /> -->
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      // 1. 定义组件
+      // const TestComponent = Vue.extend({
+      //   // 组件中data必须定义成函数形式
+      //   data() {
+      //     return {
+      //       count: 0,
+      //     };
+      //   },
+      //   methods: {
+      //     handleClick() {
+      //       this.count++;
+      //     },
+      //   },
+      //   template:
+      //     '<div><p>{{count}}</p><button @click="handleClick">按钮</button></div>',
+      // });
+      // 2. 注册组件
+      // 全局注册
+      // Vue.component("test-component", TestComponent);
+
+      new Vue({
+        // 局部注册
+        components: {
+          // "test-component": TestComponent,
+          TestComponent: {
+            // 组件中data必须定义成函数形式
+            data() {
+              return {
+                count: 0,
+              };
+            },
+            methods: {
+              handleClick() {
+                this.count++;
+              },
+            },
+            template:
+              '<div><p>{{count}}</p><button @click="handleClick">按钮</button></div>',
+          },
+        },
+      }).$mount("#root");
+    </script>
+  </body>
+</html>
