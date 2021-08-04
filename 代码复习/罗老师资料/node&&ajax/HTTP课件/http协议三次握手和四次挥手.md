@@ -32,14 +32,21 @@ TCP的连接的拆除需要发送四个包，因此称为四次挥手(four-way h
 
 ![img](https://tva1.sinaimg.cn/large/00831rSTly1gcxe17p0koj30ve0lcdix.jpg)
 
-Fin：释放连接
+Fin(Finish)：释放连接
 
-ACK：确认有效，确认序号。
+ACK(Acknowledgement Character)：确认有效，确认序号。
 
 SYN：发起一个新连接。
 
 Seq: 序号。
 
+[链接地址](https://www.cnblogs.com/qdhxhz/p/8470997.html)
+
 ### 为什么建立连接是三次握手，而关闭连接却是四次挥手呢？
 
 TCP 是双向的，所以需要在两个方向分别关闭，每个方向的关闭又需要请求和确认，所以一共就4次。
+
+### HTTPS 和 HTTP 的区别：
+
+[链接地址](https://www.php.cn/faq/418162.html)
+

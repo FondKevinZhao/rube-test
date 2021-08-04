@@ -10,7 +10,7 @@
 
 #### 第一种使用方法：直接安装 cnpm
 安装淘宝提供的cnpm，并更改服务器地址为淘宝的国内地址，命令：``` npm install -g cnpm --registry=https://registry.npm.taobao.org
-```，以后安装直接采用```cpm```替代```npm```，例如原生npm命令为：```npm install uniq --save```，cnpm命令为：```cnpm install uniq --save```
+```，以后安装直接采用```cnpm```替代```npm```，例如原生npm命令为：```npm install uniq --save```，cnpm命令为：```cnpm install uniq --save```
 
 #### 第二种使用方法：替换npm仓库地址为淘宝镜像地址
 命令：```npm config set registry https://registry.npm.taobao.org```，查看是否更改成功：```npm config get registry ```，以后安装时，依然用npm命令，但是实际是从淘宝国内服务器下载的
