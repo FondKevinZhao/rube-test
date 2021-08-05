@@ -186,7 +186,15 @@
       };
       var c = new A();
       console.log(b.n, b.m, c.n, c.m)
+    
+    
+    
+    
+    
+    // 1 undefined 2 3
     ```
+
+    
 
     原型链测试题2：
 
