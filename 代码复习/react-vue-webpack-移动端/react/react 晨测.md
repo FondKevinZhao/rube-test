@@ -200,13 +200,13 @@
 
 ​      **更新阶段：**
 
-​       1. static getDerivedStateFromProps 更新state
+​       1. static getDerivedStateFromProps 更新 state
 
 ​       2. shouldComponentUpdate
 
 ​       3. render
 
-​       4. getSnapshotBeforeUpdate 可以提前操作DOM
+​       4. getSnapshotBeforeUpdate 可以提前操作 DOM
 
 ​       5. componentDidMount 组件挂载完毕
 
@@ -406,7 +406,7 @@
 
 **解决跨域问题：**
 
-1. **原理:** 就是利用script标签发送请求不受同源策略的限制,去给服务器发送请求, 发送时要将一个定义好的函数名通过callback=函数名的形式, 上传给服务器.服务器会响应函数的调用.具体要响应给浏览器的数据,就是函数调用时的实参. 浏览器拿到函数调用的字符串之后, 会将这个字符串,放到对应的script里面去执行, 执行时会自动将引号去掉.直接变成了一段js代码. 而这段js代码就是函数调用. 所以这时会去全局查找对应的函数. 找到了之后就执行这个函数, 响应的数据, 就直接赋值给形参了. 在这个函数体中, 就可以操作这个数据了。
+1. **jsonp 原理:** 就是利用script标签发送请求不受同源策略的限制,去给服务器发送请求, 发送时要将一个定义好的函数名通过callback=函数名的形式, 上传给服务器.服务器会响应函数的调用.具体要响应给浏览器的数据,就是函数调用时的实参. 浏览器拿到函数调用的字符串之后, 会将这个字符串,放到对应的script里面去执行, 执行时会自动将引号去掉.直接变成了一段js代码. 而这段js代码就是函数调用. 所以这时会去全局查找对应的函数. 找到了之后就执行这个函数, 响应的数据, 就直接赋值给形参了. 在这个函数体中, 就可以操作这个数据了。
 
    **jsonp 的注意点：**
 
@@ -443,7 +443,7 @@
 1. 下载前端路由：
 
    1. `npm i react-router-dom` npm 的下载方法
-   2. `yarn add react-routerdom` yarn 的下载方法
+   2. `yarn add react-router-dom` yarn 的下载方法
 
 2. 组件：
 
