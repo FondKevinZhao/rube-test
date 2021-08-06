@@ -6,7 +6,7 @@
 
 ## 2. Vue中nextTick的原理是什么? 
 
-> 因为更新是异步的，有时候外界可能会在更新数据之后想拿到最新的dom元素进行操作，Vue为了让用户达到统一的效果，内部使用了nextTick，也要让用户使用nextTick， vue2中nextTick做了兼容，如果Promise支持，就用Promise.resolve().then()来处理，如果不支持，就用mutationObserve来处理，如果还不支持，就用setimmediate来处理，最后还不支持，就用setTimeout,vue3中nextTick放弃兼容，直接使用Promise.resolve().then(),nextTick内部也是做了防抖功能的,防止用户多次调用nextTick
+> 因为更新是异步的，有时候外界可能会在更新数据之后想拿到最新的dom元素进行操作，Vue为了让用户达到统一的效果，内部使用了nextTick，也要让用户使用nextTick， vue2中nextTick做了兼容，如果Promise支持，就用Promise.resolve().then()来处理，如果不支持，就用mutationObserve来处理，如果还不支持，就用setImmediate来处理，最后还不支持，就用setTimeout,vue3中nextTick放弃兼容，直接使用Promise.resolve().then(),nextTick内部也是做了防抖功能的,防止用户多次调用nextTick
 
 ## 3. Vue中extend的原理是什么?
 
@@ -409,7 +409,7 @@
 > 2. 单例模式(整个程序只有一个Vue)
 > 3. 策略模式(生命周期就是用了策略模式，根据不同的名字调用不同的回调，来解决if/else过多的问题)
 > 4. 观察者模式(dep/watcher)
-> 5. 代理模式:给某一个对象提供一个代理对象，并由代理对象来控制对原对象的引用，如：\_data,Object.defineproperty
+> 5. 代理模式:给某一个对象提供一个代理对象，并由代理对象来控制对原对象的引用，如：\_data,Object.defineProperty
 > 6. 中介者模式:通过提供一个统一的接口让不同部分组件进行通信,如：vuex
 > 7. ...等等
 
@@ -441,13 +441,15 @@
 
 ## 27. keep-alive的作用及原理
 
-> kepp-alive组件用来做缓存的,保证组件不会被销毁，它是一个抽象组件(自身不会渲染一个DOM元素，也不会出现在父组件链中)
+> keep-alive组件用来做缓存的,保证组件不会被销毁，它是一个抽象组件(自身不会渲染一个DOM元素，也不会出现在父组件链中)
 >
 > 可以在这个组件上定义3个属性，分别是
 >
 > 1. include ==> 缓存白名单,标识哪些组件可以缓存
 > 2. exclude ==> 缓存黑名单,标识哪些组件不可以被缓存
 > 3. max ==> 定义可以缓存组件的最大数量，当超出时，会把第一个被缓存的组件干掉，把当前缓存的组件放入，内部采用LRU算法
+>
+> LRU是Least Recently Used的缩写，即最近最少使用页面置换算法，是为虚拟页式存储管理服务的，是根据页面调入内存后的使用情况进行决策了。由于无法预测各页面将来的使用情况，只能利用“最近的过去”作为“最近的将来”的近似，因此，LRU算法就是将最近最久未使用的页面予以淘汰。
 >
 > 原理:
 >
