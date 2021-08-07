@@ -63,7 +63,7 @@
              #f{
                  width:200px;
                  margin:10px;
-                /* border:1px solid green; */
+                 border:1px solid green;
                 /* display:flow-root; */
                 overflow: hidden;
              }
