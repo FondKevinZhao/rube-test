@@ -1,0 +1,25 @@
+个人技能点：
+1. 熟练运用 ES5、js高级(如：闭包、原型、继承、作用域、DOM/BOM 及 this对象指向等)
+2. 熟练运用ES6的语法进行实际开发(如：let/const关键字、promise(then/catch、async/await)、块级作用域、变量解构赋值、箭头函数、模板字符串等)
+3. 熟练运用 Vue 框架及 Vue 全家桶(如：vue-router、vuex、vue-resource、vue-cli、vue-ajax等)
+4. 掌握vue插件及第三方UI库的使用(如：vue-lazyload、element-ui、ant-design-vue、echarts等)
+5. 掌握Vue开发的性能优化(如：图片懒加载、路由组件懒加载、第三方库按需引入、资源预加载、静态资源使用CND引入、拆分打包与压缩等)
+6. 熟悉部分vue的原理(如：响应式原理、diff算法、vue-router、Vue.nextTick等)
+7. 了解react开发(如：JSX 语法、DOM diff 算法、前端路由、生命周期等)
+8. 熟悉jQuery/jQuery的插件(如：发送 Ajax请求、操作选择器、样式、注册事件、jquery.lazyload、jquery-color等)
+9. 熟悉node.js后台的操作及Mongodb数据库和npm/yarn包管理工具的配合使用(如：express、http、mongoose等)
+10. 熟练运用 Ajax/http协议/跨域问题(如：axios、fetch、proxy)
+11. 理解前后端通信原理，熟练使用原生Ajax及Ajax类库，如: axios, fetch
+12. 熟悉模块化开发: common.js、AMD(require.js)、CMD(sea.js)、es6(module)
+13. 了解小程序开发(如：生命周期、数据绑定、发送请求、路由跳转、列表渲染等)
+14. 熟悉 gulp/webpack 项目构建工具(eslint-loader、babel-loader、css-loader、less-loader等)
+15. 熟练运用版本控制 git 的操作
+16. 熟练运用 HTML5 和 CSS3 进行页面开发
+17. 掌握响应式布局、flex 布局、div + css 布局
+18. 掌握 less/sass/stylus CSS 预处理器的开发
+
+
+
+
+
+
