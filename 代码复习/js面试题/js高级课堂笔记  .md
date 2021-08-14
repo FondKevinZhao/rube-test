@@ -420,9 +420,9 @@
 
 36. `var a = 123; eval('console.log(a)')`eval 能改变作用域，eval 还拥有自己独立的作用域，尽量少用。
 
-37. 所有对象都是实例对象。都是new某个东西产生的。
+37. 所有对象都是实例对象。都是 new 某个东西产生的。
 
-38. react中使用 `<button></button>`
+38. react 中使用 `<button></button>`
 
     如果你指定了 button 的 type 属性，要么不指定，要么指定 submit，不要指定为`type = ‘button’`。
 
@@ -453,7 +453,9 @@
 
     `console.log(Object.is(NaN, NaN)); // true`
 
-    > 注意：这个 `Object.is(val1, val2)` 的底层是用字符串的形式来判断的。在字符串中：`console.log("NaN" == "NaN"); // true`
+    > 注意：这个 `Object.is(val1, val2)` 的底层是用字符串的形式来判断的。
+    >
+    > 在字符串中：`console.log("NaN" == "NaN"); // true`
 
 44. `Object.assign(target, source1, source2..)` 将源对象的属性复制到目标对象上。
 
@@ -575,7 +577,7 @@
 
 53. 无论客户关闭了浏览器还是电脑，只要还在 `maxAge`秒之前，登录网站时该 Cookie 仍然有效。
 
-54. 枚举、迭代、遍历
+54. 枚举、迭代、遍历。
 
 55. alert 弹出来的结果都会进行内部 toString 转换，输出为字符串。
 
