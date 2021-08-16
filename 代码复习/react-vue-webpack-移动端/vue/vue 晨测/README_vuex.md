@@ -19,6 +19,8 @@
         // 更新state的某个属性
       }
     }
+[mutations中的代码为什么是同步的](https://www.jianshu.com/p/392cb1d0a301)
+
 ## 3). actions
     包含多个事件回调函数的对象
     通过执行: commit()来触发mutation的调用, 间接更新state
@@ -89,5 +91,5 @@
     }
 
 # 4. Vuex结构图
-![4. vuex结构图.png](https://user-gold-cdn.xitu.io/2020/2/20/1706235b7ef9bc52?w=1242&h=454&f=png&s=24446)
+![组件与vm的关系](README_vuex.assets/组件与vm的关系.png)
 

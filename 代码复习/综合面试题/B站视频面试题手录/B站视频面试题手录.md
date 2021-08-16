@@ -4,25 +4,23 @@
 
 2. 谈一谈对 html5 的了解
 
-  1. 良好的移动性，以移动端设备为主。
+    1. 良好的移动性，以移动端设备为主。
 
-  2. 响应式设计，以适应自动变化的屏幕尺寸。
+    2. 响应式设计，以适应自动变化的屏幕尺寸。
 
-  3. 支持离线缓存技术，webStorage 本地缓存。
+    3. 支持离线缓存技术，webStorage 本地缓存。
 
-  4. 新增 canvas，video，audio等新。标签元素。新增特殊内容元素：article, footer, header, nav, section等，新增表单控件：calendar，date，time，email，url，search。
+    4. 新增 canvas，video，audio等新标签元素。新增特殊内容元素：article, footer, header, nav, section等，新增表单控件：calendar，date，time，email，url，search。
 
-  5. 地理定位.....(HTML5 Geolocation API 用于获得用户的地理位置。鉴于该特性可能侵犯用户的隐私，除非用户同意，否则用户位置信息是不可用的。)
+    5. 地理定位.....(HTML5 Geolocation API 用于获得用户的地理位置。鉴于该特性可能侵犯用户的隐私，除非用户同意，否则用户位置信息是不可用的。)
 
-  6. 新增 webSocket/webWorker 技术。
-
-  WebSocket 是 HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议。
-
-  WebSocket 使得客户端和服务器之间的数据交换变得更加简单，允许服务端主动向客户端推送数据。在 WebSocket API 中，浏览器和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输。
-
-  当在 HTML 页面中**执行脚本**时，**页面是不可响应**的，直到脚本已完成。Web worker 是运行在**后台**的 JavaScript，独立于其他脚本，不会影响页面的性能。您可以继续做任何愿意做的事情：点击、选取内容等等，而此时 web worker 运行在后台。
-
-
+    6. 新增 webSocket/webWorker 技术。
+    
+      WebSocket 是 HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议。
+    
+      WebSocket 使得客户端和服务器之间的数据交换变得更加简单，允许服务端主动向客户端推送数据。在       WebSocket API 中，浏览器和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输。
+    
+      当在 HTML 页面中**执行脚本**时，**页面是不可响应**的，直到脚本已完成。Web worker 是运行在**后台**的 JavaScript，独立于其他脚本，不会影响页面的性能。您可以继续做任何愿意做的事情：点击、选取内容等等，而此时 web worker 运行在后台。
 
 2. flex 的简写形式
 
@@ -64,11 +62,20 @@
 
       ![image-20210706160553046](B站视频面试题手录.assets/image-20210706160553046.png)
 
-5. 
+5. 图片底部空白问题：
 
+   产生的原因：图片默认的`vertical-align:baseline`(基线)。
 
+   解决：
 
-#### 这个题目在我的项目当中是非常常见的。
+   1. 最简单粗暴也是最有效的方法：`img{display:block;}`。
+   2. `img{vertical-align:middle;}`。
+
+   [博客链接](https://blog.csdn.net/weixin_30359737/article/details/117836582)
+
+6. 
+
+#### 
 
 #### 浏览器输入 URL 按下 enter 发生了什么
 
@@ -85,7 +92,7 @@
 
 # JavaScript
 
-1. W3C 标准包括：W3C是World Wide Web Consortium（万维网联盟）的缩写。标准不是某一个标准,而是一系列标准的集合,包含三部分的标准:结构标准、表现标准和动作标准。W3C是World Wide Web Consortium（万维网联盟）的缩写。
+1. W3C 标准包括：W3C是World Wide Web Consortium（万维网联盟）的缩写。标准不是某一个标准,而是一系列标准的集合，包含三部分的标准：结构标准、表现标准和动作标准。
 
    对应的标准也分三方面：
 
@@ -93,7 +100,7 @@
    - 表现标准语言主要包括CSS，行为标准主要包括对象模型（如W3C DOM），ECMA[Script](https://baike.baidu.com/item/Script)等。
    - 这些标准大部分由W3C起草和发布，也有一些是其他标准组织制订的标准，比如[ECMA](https://baike.baidu.com/item/ECMA)（European Computer Manufacturers Association）的ECMAScript标准。
 
-2. ECMA 262 标准包括：ECMA-262是 ECMAScript5.1 的规范。由*ECMA是*European Computer Manufacturers Association的缩写,即欧洲计算机制造商协会于2010年4月10日发布。规范文档描述了ECMAScript的原理、相关定义、规则、标准。
+2. ECMA 262 标准包括：ECMA-262 是 ECMAScript5.1 的规范。由 ECMA (European Computer Manufacturers Association) 的缩写，即欧洲计算机制造商协会于2010年4月10日发布。规范文档描述了 ECMAScript 的原理、相关定义、规则、标准。
 
 3. 比较
 
@@ -106,14 +113,14 @@
 	
 	== 数据类型不一样
 	
-	1. 对象 == 字符串	`对象.toSTring()`变为字符串。(对象如果变成数字是先 `对象.toString()` 然后 `Number(放刚转成的字符串)`)
+	1. 对象 == 字符串	`对象.toString()`变为字符串。(对象如果变成数字是先 `对象.toString()` 然后 `Number(放刚转成的字符串)`)
 	2. null == undefined 相等。但是和其他值比较就不再相等了。
 	3. NaN == NaN 不相等。
 	4. 剩下的都是转换为数字。如：`"1"==true`// true
 	
 	
 
-2. 数组去重
+4. 数组去重
 
    ```js
    let arr = [12, 23, 12, 15, 23, 25, 14, 12]
@@ -127,6 +134,40 @@
    let arr1 = Array.from(new Set(arr));
    console.log(arr1); // [ 12, 14, 15, 23, 25 ]
    ```
+
+   ```js
+   // 用filter方法
+   var arr = [12, 23, 12, 15, 23, 25, 14, 12];
+       var newArr = arr.filter(function(value,index,self){
+       return self.indexOf(value) === index;
+   });
+   console.log(newArr);
+   ```
+
+   ```js
+   var newArr = [];
+   for (var i = 0; i <arr.length; i++) {
+       if(newArr.indexOf(arr[i]) == -1) {
+           newArr.push(arr[i]);
+       }
+   }
+   console.log(newArr);
+   ```
+
+   
+
+   ```js
+   var arr = [12, 23, 12, 15, 23, 25, 14, 12];
+   var newArr = [];
+   for(var i=0,len=arr.length;i<len;i++){
+       if(newArr.indexOf(arr[i]) == -1){
+       newArr.push(arr[i]);
+       }
+   }
+   console.log(newArr);
+   ```
+
+   
 
    ```js
    let arr = [12, 23, 12, 15, 23, 25, 14, 12];
@@ -314,10 +355,14 @@
 
       
 
-4. 数组扁平化的N中实现方案
+6. 数组扁平化的N中实现方案
 
    ```js
-   // 5层let arr = [  [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];// 使用 ES6中提供的 Array.prototype.flat 处理arr = arr.flat(Infinity);console.log(arr);// 结果：[1,  2,  2, 3,  4,  5,  5, 6,  7,  8, 9, 11, 12, 12, 13, 14, 10]
+   // 5层let arr = [  [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+   // 使用 ES6中提供的 Array.prototype.flat 处理
+   arr = arr.flat(Infinity);
+   console.log(arr);
+   // 结果：[1,  2,  2, 3,  4,  5,  5, 6,  7,  8, 9, 11, 12, 12, 13, 14, 10]
    ```
 
    > 注意：`arr = arr.flat();`括号中写数字，表示扁平化几层。
