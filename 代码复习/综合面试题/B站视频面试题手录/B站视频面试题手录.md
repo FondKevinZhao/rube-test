@@ -75,7 +75,7 @@
 
 6. 
 
-#### 
+
 
 #### 浏览器输入 URL 按下 enter 发生了什么
 
@@ -136,7 +136,7 @@
    ```
 
    ```js
-   // 用filter方法
+   // 用 filter 方法
    var arr = [12, 23, 12, 15, 23, 25, 14, 12];
        var newArr = arr.filter(function(value,index,self){
        return self.indexOf(value) === index;
@@ -145,6 +145,8 @@
    ```
 
    ```js
+   // 用 es5 的方法
+   var arr = [12, 23, 12, 15, 23, 25, 14, 12];
    var newArr = [];
    for (var i = 0; i <arr.length; i++) {
        if(newArr.indexOf(arr[i]) == -1) {
@@ -408,7 +410,7 @@
 
    
 
-5. 斐波拉契数列
+7. 斐波拉契数列
 
    请实现一个 `fibonacci[ˌfɪbəˈnɑːtʃi] ` 函数，要求试下你一下的功能：
 
@@ -418,6 +420,19 @@
 
    3. `fibonacci(4) ->(返回) 5` 传入的 4 是索引
 
+      ```js
+      function fb(n) {
+      	if (n === 1 || n === 2) {
+          return 1;
+      }
+          return fb(n - 1) + fb(n - 2);
+      }
+      console.log(fb(3));
+      console.log(fb(6));
+      ```
+      
+      
+      
       ```js
       function fibonacci(n) {
         // 如果索引小于等于1，那就等于1
@@ -437,7 +452,7 @@
       
       console.log(fibonacci(5));
       ```
-
+      
       ```js
       // 这种方式比较难
       function fibonacci(count) {
@@ -453,7 +468,7 @@
       }
       console.log(fibonacci(5));
       ```
-
+      
       
 
 6. 实现`(5).add(3).minus(2)`，5+3-2 使其输出结果为：6
