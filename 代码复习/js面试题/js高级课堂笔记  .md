@@ -854,7 +854,43 @@
 
     用 axios 发送 Ajax 请求：get 携带的参数放在 params 中，携带的其实是 query 参数。`params: {id: 1}`。是真的坑。
 
-77. 
+    用 axios 发送 Ajax 请求：post 携带的参数放在 data 中，携带其实是 params 参数。`data: {name:'zs',age:18}`。默认以 JSON 的形式携带过去的(会接收不到数据)，并不是 urlencoded 方式，jQuery 默认是 urlencoded 方式。解决：
+
+    1. 服务器中加上 `app.use(express.json())`，就可以解决，需要后端配合。
+    2.  在 axios 配置中加上：`headers:{'Content-Type':"application/x-www-form-urlencoded"}`并且 data 中的数据需要这样写：`data:'name=zs&age=18`。
+    3. 在 React/Vue 脚手架中的写法：`headers:{'Content-Type':"application/x-www-form-urlencoded"}`并且 data 中的数据需要这样写：`data:{name:'zs',age:18}`。
+
+77. slice, substr 和 substring 的区别：
+
+    [解析地址](https://www.cnblogs.com/dannyxie/p/5643860.html)
+
+78. 请求拦截器：在请求还没有发出去之前：
+
+    1. 把请求拦截住。
+    2. 根据具体业务逻辑，决定是否放行。
+
+    定义：在真正发请求前执行的一个回调函数。
+
+    作用：
+
+    1. 对请求的配置做一些处理：data、header，界面 loading 提示。
+
+       界面 loading 提示：在发请求的时候，我可以在请求拦截器里面加载一个页面，一直加载中，然后等着数据回来的时候，要经过响应拦截器，在响应拦截器中把 loading 取消掉。这样就可以展示一个比较好的 loading 效果。这样做有个比较大的优势就是，我只要写了一个请求拦截器和一个响应拦截器，在我这个项目里面，只要我敢发请求，以后都走这个请求拦截器和这个响应拦截器，所有请求都加上了 **loading** 或者 **进度条** 的效果。
+
+    2. 对请求进行检查，根据具体的条件决定是否真正发送请求。
+
+    多个请求拦截器(`axios.interceptors.request.use()`)：后指定的拦截器先工作，先指定的拦截器后工作。实际工作中，一般只会配置一个请求拦截器。
+
+79. 多个响应拦截器(`axios.interceptors.response.use()`)：先指定的拦截器先工作，后指定的拦截器后工作。
+
+    定义：得到响应之后执行的一个回调函数。
+
+    作用：
+
+    1. 若请求成功，对成功的数据进行处理。
+    2. 若请求失败，对失败进行进一步操作。
+
+80. 
 
 
 
