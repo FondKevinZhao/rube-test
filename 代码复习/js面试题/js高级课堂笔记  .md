@@ -794,7 +794,67 @@
     3. 将某些数据放入 session 中，供同一用户的不同页面使用。
     4. 方式在用户非法登录。
 
-72. 
+72. 请求体参数有两种编码形式：
+
+    1. urlencoded
+
+       概念：
+
+       - **urlencoded** 格式，又叫 **form** 格式、**x-www-form-urlencoded** 格式。
+       - 它是一种**表单格式**。
+
+       组成格式：
+
+       - **键值对**组成
+       - 键和值之间用 **=** ：name=poloyy
+       - 多个键值对之间用 **&** ：name=poloyy&age=19
+
+       实际例子：
+
+       浏览器百度搜索：`baidu.com/s?ie=UTF-8&wd=baidu`
+
+    2. JSON：这个 JSON 太厉害了，看详解。
+
+       [详解链接](https://www.cnblogs.com/poloyy/p/13138536.html)
+
+73. xhr 和 fetch 都是 window 身上的方法，Ajax 请求只在浏览器端发送，服务器端不行(服务器端，没页面，也没有 window)。服务器端可以发 HTTP 请求。而 axios 可以满足浏览器端和服务器端都可以发送 Ajax 请求。
+
+74. jQuery 在发送请求的时候，如果成功再发送第二次，会有回调地狱。因为它是完全靠回调函数跟你沟通的，是纯回调的形式。
+
+    用 axios 就不会有这个问题，因为使用了 promise，可以用.then 或者 async + await 的写法，捕获错误就可以使用 try catch 把可能出错的代码放到 try 里面。这就完全避免了回调地狱。
+
+75. axios 完整版：
+
+    ```js
+    btn1.onclick = () = {
+        axios({
+            method: 'GET',
+            url: 'http://localhost:3000/get_persons',
+        }).then(
+        	response => console.log(response.data),
+            error => console.log(error)
+        )
+    }
+    ```
+
+    axios 精简版：
+
+    ```js
+    btn1.onclick = () = {
+        axios.get('http://localhost:3000/get_persons').then(
+        	response => console.log(response.data),
+            error => console.log(error)
+        )
+    }
+    ```
+
+    
+
+76. 坑：用 jQuery 发 Ajax 请求：get 和 post 携带的参数都是放在 data 数据中。`data: {id: 1}`
+
+    用 axios 发送 Ajax 请求：get 携带的参数放在 params 中，携带的其实是 query 参数。`params: {id: 1}`。是真的坑。
+
+77. 
 
 
 
