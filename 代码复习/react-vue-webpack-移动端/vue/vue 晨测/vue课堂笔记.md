@@ -93,7 +93,7 @@
        通过包裹数组更新元素的方法实现，本质就是做了两件事：
 
        1. 调用原生对应的方法对数组进行更新。
-       2. 重新解析模板，进而更新页面
+       2. 重新解析模板，进而更新页面。
 
     4. 在 Vue 修改数组中的某个元素一定要用如下方法：
 
@@ -869,6 +869,33 @@
     2. 用在 template 上 v-slot:插槽名。这个插槽名不用引号，这是一种新的写法。
 
 96. 加问号可以设置 params 参数可传可不传。
+
+97. nextTick 使用场景：
+
+    1. 点击按钮显示原本以 v-show = false 隐藏起来的输入框，并获取焦点。
+
+       ```js
+       showsou(){
+         this.showit = true //修改 v-show
+         document.getElementById("keywords").focus()  //在第一个 tick 里，获取不到输入框，自然也获取不到焦点
+       }
+       ```
+
+       修改为：
+
+       ```js
+       showsou(){
+         this.showit = true
+         this.$nextTick(function () {
+           // DOM 更新了
+           document.getElementById("keywords").focus()
+         })
+       }
+       ```
+
+       
+
+98. 
 
 
 
