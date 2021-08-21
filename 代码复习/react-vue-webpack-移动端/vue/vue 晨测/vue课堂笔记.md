@@ -65,7 +65,7 @@
 
    括号中的 `(value, index)`第一个`value`为属性值，第二个`key`为属性名，第三个 `index`为索引值。因为对象是键值对的形式，所以要有属性名和属性值，而后是索引。
 
-11. 开发中：`asc` 表示"升序"，`desc` 表示"降序"，是 decrement 的缩写。
+11. 开发中：`inc` 表示"加法"，是 increment 的缩写。`desc` 表示"减法"，是 decrement 的缩写。
 
 12. 下拉列表绑定 `v-model`给`select`绑定，`option` 中放`value` 值。
 
@@ -935,7 +935,7 @@
 
      	1. 组件通过 dispath 触发 action 函数，action 函数中调用 commit 触发 mutation，mutation 直接更新state 数据。
      	2. 直接操作 mutation 更新 state 数据
-
+	
      	getter: 可以将state中的数据进行加工并不改变原数据。
      	modules:模块化，当vuex中有大量代码容易造成混乱的时候可以进行分块，每个模块中包含有这5个核心属性。
 
