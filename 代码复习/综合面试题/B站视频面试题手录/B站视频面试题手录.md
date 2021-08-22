@@ -24,7 +24,7 @@
 
 2. flex 的简写形式
 
-   **flex属性是 flex-grow属性、flex-shrink属性、flex-basis属性的简写。默认值为：0 1 auto；**
+   **flex 属性是 flex-grow属性、flex-shrink属性、flex-basis属性的简写。默认值为：0 1 auto；**
 
    ```js
    .item{
@@ -75,7 +75,13 @@
 
 7. UI 设计师会把图纸放到 摹客或蓝湖里面，前端人员只要登录账号就可以拉图纸，进行开发了。
 
-8. 
+8. 元素的显示与隐藏：
+
+    1. display : none / block; 不占位置。
+
+    2. visibility : hidden / visible ; 占位置。
+
+    3. overflow : hidden ; 溢出隐藏。
 
 
 
