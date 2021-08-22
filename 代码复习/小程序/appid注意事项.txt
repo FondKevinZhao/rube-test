@@ -7,4 +7,4 @@ appid:
 
 
 openid:
-怎么获取openID：首先要获取用户的codeID,然后再将codeID传给后端，后端根据codeID获取到openID。
+怎么获取openID：首先要获取用户的codeID,然后再将codeID传给后端，后端根据codeID获取到openID。 
