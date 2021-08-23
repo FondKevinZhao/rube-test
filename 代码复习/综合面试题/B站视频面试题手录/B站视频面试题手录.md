@@ -181,65 +181,6 @@
 
    
 
-   ```js
-   let arr = [12, 23, 12, 15, 23, 25, 14, 12];
-   /* 拿出当前项和后面的内容进行比较 */
-   /* length-1 是因为最后一项后面没有可比的了，所以减一 */
-   for (let i = 0; i < arr.length - 1; i++) {
-     let item = arr[i];
-     /* slice 删除
-           1. 原来数组发生改变，这样如归i继续++，则会产生数组塌陷
-           2. 性能不好：当前项一旦删除，后面项索引都要变
-     */ 
-     args = arr.slice(i + 1); //当前项的后一项
-     if (args.indexOf(item) > -1) {
-       // 包含：可以把当前项干掉
-       arr.splice(i,1);
-       i--;
-     }
-   }
-   console.log(arr); // [ 12, 14, 15, 23, 25 ]
-   ```
-
-   ```js
-   let arr = [12, 23, 12, 15, 23, 25, 14, 12];
-   
-   /* 对象键值对的方法：拿数组中的每一项向新容器中存储，如果已经存储过了，把当前项干掉 */
-   let obj = {};
-   for (let i = 0; i < arr.length; i++) {
-     let item = arr[i];
-     if (typeof obj[item] !== undefined) {
-       arr[i] = arr[arr.length-1];
-       arr.length--;
-       continue;
-     }
-     obj[item] = item;
-   }
-   obj=null; // 把当前用过的堆销毁掉
-   console.log(arr); // [ 12, 14, 15, 23, 25 ]
-   ```
-
-   ```js
-   // 用正则的方式
-   let ary = [12, 23, 12, 15, 23, 25, 14, 12];
-   
-   /* 相邻项的处理方案：先排序，使用正则再相邻比较。 */
-   ary.sort((a, b) => a-b);
-   // 把数组用 @符 变成相应 的字符串。
-   // 打印出来是：12@12@12@14@15@23@23@25
-   ary = ary.join('@')+'@'; 
-   // (\d+@)表示数字加上@符。
-   // \1* 表示同一个数字加上@符只允许出现1次。
-   let reg = /(\d+@)\1*/g, 
-       arr= [];
-   ary.replace(reg,(val,group1)=>{
-     arr.push(Number(group1.slice(0,group1.length-1)));
-   });
-   console.log(arr); // [ 12, 14, 15, 23, 25 ]
-   ```
-
-   
-
 3. 数组排序
 
    1. 冒泡排序
@@ -383,7 +324,19 @@
    >
    > `arr = arr.flat(200);`表示扁平化200层，如果数组只有5层，它也是可以实现。
 
+    ```js
+    // 5层
+    let arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
     
+    // 循环验证是否为数组
+    // 基于数组的some方法进行判断检测，验证数组中的某一项有没有符合函数中提供的规则的
+    while (arr.some((item) => Array.isArray(item))) {
+      arr = [].concat(...arr);
+    }
+    console.log(arr);
+    ```
+
+   
 
    ```js
    // 5层let arr = [  [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
@@ -406,20 +359,6 @@
    
    console.log(arr);
    ```
-
-   
-
-    ```js
-   // 5层
-   let arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
-   
-   // 循环验证是否为数组
-   // 基于数组的some方法进行判断检测，验证数组中的某一项有没有符合函数中提供的规则的
-   while (arr.some((item) => Array.isArray(item))) {
-     arr = [].concat(...arr);
-   }
-   console.log(arr);
-    ```
 
    
 
@@ -1536,7 +1475,24 @@
 
 40. [TAPD](https://www.tapd.cn/)跟[禅道](https://www.zentao.net/)：工作中的 bug 处理。
 
-41. 
+41. map 的使用：
+
+    ```js
+    var numbers = [4, 9, 16, 25];
+    
+    function myFunction() {
+        x = document.getElementById("demo")
+        x.innerHTML = numbers.map(Math.sqrt);
+    }// 2,3,4,5
+    ```
+
+    map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
+
+    map() 方法按照原始数组元素顺序依次处理元素。
+
+    **注意：** map() 不会对空数组进行检测。
+
+    **注意：** map() 不会改变原始数组。
 
 42. 
 
@@ -1654,17 +1610,25 @@
 
       json 对象(数组)(字符串类型) 转换为 js 对象(数组)
 
-8. 
+8. yarn 基本指令
+
+   yarn init：初始化一个项目。
+
+   yarn add + 包名：安装一个依赖包。
+
+   yarn update + 包名：升级依赖包。
+
+   yarn update + 包名@version：升级指定版本的依赖包。
+
+   yarn remove + 包名：移除依赖包。
+
+   yarn install：安装全部依赖包。
+
+9. 
 
 
 
 ---
 
 
-
-问题：
-
-面试会问到薪资结构 人员配比 多少底薪多少绩效 有没有测试人员
-
-最好的离职原因：求发展
 

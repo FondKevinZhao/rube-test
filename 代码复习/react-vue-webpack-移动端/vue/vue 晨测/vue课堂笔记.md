@@ -353,9 +353,9 @@
 
     ​    v-show：
 
-    	1. 有更高的初始渲染开销，就算是 false 也会渲染。
-    	2. 但是在切换的时候只是改变样式，消耗少。
-    	3. 总结：在频繁切换的时候用 v-show。
+    1. 有更高的初始渲染开销，就算是 false 也会渲染。
+    2. 但是在切换的时候只是改变样式，消耗少。
+    3. 总结：在频繁切换的时候用 v-show。
 
 52. 三种命名方式：
 
@@ -745,7 +745,7 @@
 
 88. **封装过的组件有哪些？**商品展示，优惠券，倒计时，input框。
 
-    **封装的模块有哪些？**没有封装过，但可以封装
+    **封装的模块有哪些？**没有封装过，但可以封装。
 
 89. 这三个地方的东西会放在差值语法`{{}}`中：
 
@@ -793,8 +793,10 @@
        }
        ```
 
-       修改为：
+       
 
+    2. 修改为：
+    
        ```js
        showsou(){
          this.showit = true
@@ -804,6 +806,8 @@
          })
        }
        ```
+    
+       
 
 #### 100-150
 
@@ -840,51 +844,56 @@
      	500  最常见的服务器端错误
      	503  服务器端暂时无法处理请求（可能是过载或维护）
 
-104. **VueX的工作机制？**
+104. **VueX 的工作机制？**
 
-     	1. 组件通过 dispath 触发 action 函数，action 函数中调用 commit 触发 mutation，mutation 直接更新state 数据。
-     	2. 直接操作 mutation 更新 state 数据
-     	
-     	getter: 可以将state中的数据进行加工并不改变原数据。
-     	modules:模块化，当vuex中有大量代码容易造成混乱的时候可以进行分块，每个模块中包含有这5个核心属性。
+     1. 组件通过 dispath 触发 action 函数，action 函数中调用 commit 触发 mutation，mutation 直接更新 state 数据。
+     2. 直接操作 mutation 更新 state 数据。
 
-     vueX的辅助函数：
-     	mapState方法：用于帮助我们映射state中的数据为计算属性。
-     	mapGetters方法：用于帮助我们映射getters中的数据为计算属性。
-     	mapActions方法：用于帮助我们生成actions对话的方法，即：包含`$store.dispatch(xxx)的函数
+     getter: 可以将 state 中的数据进行加工并不改变原数据。
+     modules: 模块化，当vuex中有大量代码容易造成混乱的时候可以进行分块，每个模块中包含有这5个核心属性。
+
+     vueX 的辅助函数：
+     	mapState方法：用于帮助我们映射 state 中的数据为计算属性。
+     	mapGetters方法：用于帮助我们映射 getters 中的数据为计算属性。
+     	mapActions方法：用于帮助我们生成 actions 对话的方法，即：包含`$store.dispatch(xxx)的函数
      	mapMutations方法：用于帮助我们生成与mutations对话的方法，即：包含$store.commit(xxx)`的函数
 
      **VueX 使用的地方？**
      	多个组件用到一个公共数据
      	假如你需要 数据 和 组件 分离，分别处理，那么使用 Vuex 是非常合适的
 
-     **vuex 优点：**1.能够在vuex中，集中管理共享的数据，易于开发和后期维护
+     **vuex 优点：**
 
-     ​					 2.能够高效的实现组件之间的数据共享，提高开发效率
-
-     ​					 3.存放在vuex中的数据都是响应式的，能够实时保持数据与页面的同步。
+     1. 能够在 vuex 中，集中管理共享的数据，易于开发和后期维护。
+     2. 能够高效的实现组件之间的数据共享，提高开发效率。
+     3. 存放在 vuex 中的数据都是响应式的，能够实时保持数据与页面的同步。
 
      **vuex 缺点：**刷新浏览器，vuex 中的 state 会重新变为初始状态
 
      ​					解决方案：插件  `vuex-persistedstate`
 
      **vuex使用:** 
-     		npm i vuex
-     		src>vuex>store.js:
-     		  import Vuex from 'vuex'和 vue
-     		  在使用import之后"Vue.use(Vuex)"
-     		  const store = new Vuex.Store() ：vuex上有一个构造函数store，所以new调用
-     		  默认导出store
-     		 mian.js中引入vuex 与 store.js
+
+     ```vue
+     npm i vuex
+     src>vuex>store.js:
+     import Vuex from 'vuex'和 vue
+     在使用import之后"Vue.use(Vuex)"
+     const store = new Vuex.Store() ：vuex 上有一个构造函数 store，所以 new 调用
+     默认导出 store
+     mian.js 中引入 vuex 与 store.js
+     ```
+
+     
 
 105. **vue 的特点：**
-     	jQuery是通过DOM来控制数据，而 Vue是通过数据来控制状态，通过控制数据来控制渲染。
+     	jQuery 是通过 DOM 来控制数据，而 Vue 是通过数据来控制状态，通过控制数据来控制渲染。
      	vue 是渐进式框架，可以使用 npm 来安装 vue 项目中需要的组件库。
      	uniapp 与微信小程序的语法跟 vue 很接近，会 vue 框架，其他平台更容易上手。
 
 106. **form 表单怎么阻止重复提交？**
 
-     1. 点击后可以让 button 失效，
+     1. 点击后可以让 button 失效.
 
      2. session 方式：当表单页面被请求时，生成一个 token，存在 **session** 中，同时放在表单的**隐藏域**里。接受处理表单数据时，检查 token 是否存在，且表单中和 session 中的 token 相同，那么提交表单，并立即从 session 中删除它。下次请求过来，如果发现表单提交里没有有效的标志串，这说明表单已经被提交过了，属于重复提交。
 
@@ -928,7 +937,7 @@
 
      4. 对 seo 搜索引擎不友好，因为单页面的话有很多内容没有展现出来，而搜索引擎只擅长对静态资源的抓取和分析。
 
-109. **data中初始一个的对象只有一个属性，后续自行添加的属性不是响应式的怎么解决?** Vue.Set
+109. **data 中初始一个的对象只有一个属性，后续自行添加的属性不是响应式的怎么解决?** Vue.Set
 
       Vue 通过 Object.defineProperty() 的方式实现对数据的监听和响应式，导致的后来新增的属性不会被监听到！在实例创建后，如果需要追加新属性可以通过 Vue 官方提供的 Vue.set() 方法，保证新属性的数据响应式。
 
@@ -1071,7 +1080,7 @@
 
 116. #### SSR（服务器端渲染）
 
-     **什么是 SSR？**
+     **什么是 SSR(服务器端渲染)？**
 
      Vue.js 是构建客户端应用程序的框架。默认情况下，可以在浏览器中输出 Vue 组件，进行生成 DOM 和操作 DOM。然而，也可以将同一个组件渲染为服务器端的 HTML 字符串，将它们直接发送到浏览器，最后将这些静态标记"激活"为客户端上完全可交互的应用程序。
 
@@ -1092,7 +1101,40 @@
 
 117. 页面响应优化有哪些方法：路由懒加载，预解析，减少页面的重绘重排。
 
-118. 
+118. 静态资源使用 CDN 引入 ：
+
+        1. 在项目中，一般使用npm拉取包使用，但是有时因为文件过大，加载慢等原因，需要CDN引入外部资源，以 `axios` 为例，在 `index.html` 文件中 CDN 引入。
+
+           ```js
+           <!-- CDN引入外部资源 -->
+           <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+           ```
+
+        2. 在 `build` 文件夹中的 `webpack.base.conf.js` 加入如下配置：
+
+           ```js
+           module.exports = {
+               externals: {
+                 'axios': 'axios',
+             },
+           }
+           ```
+
+119. 图片预加载：
+
+     1. html5 中的 link 标签 包含了几个属性，其中 prefetch(空闲时加载)和 preload(优先加载)可以让我们在加载资源时提高用户体验。
+
+     2. 在加载index.html的样式时，我在引入`index.css`后加了下边一句代码：
+
+        `<link rel="prefetch" as="style" href="./css/other.css">`
+
+        其意思为在空闲时加载`other.css`这一个文件。
+
+        在加载了`index.css`后去加载了`other.css`且`other.css`的优先级为最低 Lowest。
+
+     3. 我们可以通过在首页添加 prefetch 让浏览器在空闲时**预加载其他页面的资源，这样在打开其他页面时就节省了加载时间，而使用** preload 能够让我们优先加载一些重要的资源，让用户能够优先看到重要的内容，提高用户体验。
+
+120. 
 
 
 
