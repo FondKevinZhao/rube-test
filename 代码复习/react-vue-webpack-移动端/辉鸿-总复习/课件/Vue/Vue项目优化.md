@@ -9,14 +9,25 @@
 #### 2) 图片资源懒加载
 
 如使用v-lazyload
+1.安装插件
+2.引用文件，一般在main.js全局引用，且配置好图片
+3. vue文件中将需要懒加载的图片绑定 v-bind:src 修改为 v-lazy 
 
 #### 3) 路由组件懒加载
 
 const Home = () => import('./pages/Home')
 
 #### 4) 第三方插件的按需引入
-
 如: element-ui / vant 
+
+两种方式：
+1、按需引入
+- 借助 babel-plugin-component，我们可以只引入需要的组件，以达到减小项目体积的目的：
+- 更改.babelrc文件
+2、 我们将按需引入的代码单独分割一下
+在 src 文件夹中新建我们的 element 文件夹，并在里面新建一个 index.js 文件
+在index文件中去书写我们需要引入的部分组件
+在 main.js 中使用该文件，就大功告成了
 
 #### 5) 大数组优化1: 冻结响应式数据
 
