@@ -62,7 +62,7 @@
 
       ![image-20210706160553046](B站视频面试题手录.assets/image-20210706160553046.png)
 
-5. 图片底部空白问题：
+6. 图片底部空白问题：
 
    产生的原因：图片默认的`vertical-align:baseline`(基线)。
 
@@ -73,9 +73,45 @@
 
    [博客链接](https://blog.csdn.net/weixin_30359737/article/details/117836582)
 
-7. UI 设计师会把图纸放到 摹客或蓝湖里面，前端人员只要登录账号就可以拉图纸，进行开发了。
+7. CSS3 新特性：
 
-8. 元素的显示与隐藏：
+    1. border-radius：圆角。
+
+    2. background-clip：规定背景的绘制区域。
+
+    3. background-size：规定背景图片的尺寸。
+
+    4. Gradients：渐变(linear Gradient 线性渐变 和 Radial Gradients 径向渐变)
+
+       线性渐变：从上到下、从左到右、对角一种或多种颜色的过渡。
+
+       径向渐变：由它的中心定义。
+
+    5. transform：转换。
+
+    6. transition：过渡。
+
+    7. animation：动画。
+
+    8. @media：媒体查询。
+
+    9. 选择器：
+
+       伪类：:before :after
+
+       :first-child :last-child
+
+       :nth-child :nth-of-type
+
+    10. :first-child 和 first-of type 的区别：
+
+        **:first-child** 选择器匹配其父元素中的第一个子元素。:first-of-type 选择器匹配元素其父级是特定类型的第一个子元素。
+
+        **p:first-of-type **是所以特定类型 p 的第一个子元素；只要是该类型元素的第一个就行了，不要求是是第一个子元素了。
+
+8. UI 设计师会把图纸放到 摹客或蓝湖里面，前端人员只要登录账号就可以拉图纸，进行开发了。
+
+9. 元素的显示与隐藏：
 
     1. display : none / block; 不占位置。
 
