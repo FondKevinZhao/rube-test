@@ -92,9 +92,77 @@
 
    鼠标**移入**全部商品分类**显示列表**：`@mouseenter="isShow = true"`
 
-   鼠标**移出**全部商品分类**隐藏列表**：`@mouseleaver="moveOutDiv"`
+   鼠标**移出**全部商品分类**隐藏列表**：`@mouseleaver="moveOutDiv"`这个需要用函数，然后来判断是在 home 页面移除(home页面是不需要移除的)，还是在 search 页面移除。
 
-8. 
+8. 侧边导航栏在主页切换到 search 页面或者在切换到主页，都会重新发请求 侧边导航栏的 数据。解决：在 App.vue 中发送请求就好了，因为 App.vue 只会请求一次。而且一次就够了，因为数据不变。
+
+9. 一般情况下 router-link 太多，不推荐用 声明式导航，而是用编程式导航 + 事件委托。
+
+10. mock 数据(P122)：
+
+    作用：模拟数据 和 拦截 Ajax 请求。
+
+    mock 会拦截我们的 Ajax 请求，不会真正去发送请求。(发送请求是往本地发，没有往后端发，请求的数据也是本地的)
+
+    1. 创建文件夹 + JSON文件：
+
+       ![image-20210827003601396](北京PC项目笔记.assets/image-20210827003601396.png)
+
+    2. 下载：npm i mockjs
+
+    3. 填写 banner.json 和 floor.js 中的 JSON 数据
+
+    4. 填写 mockServer.js(写接口的文件)的内容：
+
+       ![image-20210827003739138](北京PC项目笔记.assets/image-20210827003739138.png)
+
+    5. 在 main.js 中引入 mockServer(关键步骤，不引入表示用不了)
+
+       ![image-20210827003917279](北京PC项目笔记.assets/image-20210827003917279.png)
+
+    6. 在 api 文件中 创建 mockAjax.js，复制 ajax.js 中的内容进行修改(只修改一个地方)：把 baseURL 中的 /api 改成 /mock
+
+       ![image-20210827004225425](北京PC项目笔记.assets/image-20210827004225425.png)
+
+    7. 在 api 的 index.js 中发送请求：
+
+       ![image-20210827005116274](北京PC项目笔记.assets/image-20210827005116274.png)
+
+       
+
+11.  发请求步骤：
+
+    1. 先写 api。
+
+    2. 写 store 里面的三连环：state、mutations、actions：
+
+       ![image-20210827010248330](北京PC项目笔记.assets/image-20210827010248330.png)
+
+    3. 拿数据。
+
+    4. 页面展示。
+
+12. Swiper 轮播图的使用：[官网地址](https://www.swiper.com.cn/usage/index.html)
+
+    1. 安装：npm i swiper@5。5 表示版本号。
+
+    2. 引入 js 和 css。在 main.js 中引入 css(检查页面是否正常，如果正常代表 css 生效了)。后续在哪里用只需要在那里的组件里引入 js 就行了。
+
+    3. 书写 swiper 的结构。
+
+    4. 实例化 swiper 实例对象。
+
+       在 轮播图组件的 mounted 中去实例化 swiper 是不行的，因为页面显示还不一定成功，我们必须得保证请求数据回来之后，再去实例化，有了数据，slide 的 div 才会动态创建好。
+
+       ![image-20210827035031017](北京PC项目笔记.assets/image-20210827035031017.png)
+
+       上面的代码搞不定，我们就要想办法，最简单粗暴的办法就是使用定时器：
+
+       ![image-20210827035229656](北京PC项目笔记.assets/image-20210827035229656.png)
+
+    **注意：** swiper 必须在页面的数据结构显示完成后创建才会生效。
+
+13. 
 
 
 
