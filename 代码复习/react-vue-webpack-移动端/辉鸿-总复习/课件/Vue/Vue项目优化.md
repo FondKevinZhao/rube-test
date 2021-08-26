@@ -8,28 +8,68 @@
 
 #### 2) 图片资源懒加载
 
-如使用v-lazyload
-1.安装插件
-2.引用文件，一般在main.js全局引用，且配置好图片
-3. vue文件中将需要懒加载的图片绑定 v-bind:src 修改为 v-lazy 
+如使用 v-lazyload
+1. 安装插件：`npm install vue-lazyload --save-dev`
 
-#### 3) 路由组件懒加载
+2. 引用文件，一般在 main.js 全局引用，且配置好图片：
 
-const Home = () => import('./pages/Home')
+  ```js
+  import VueLazyload from 'vue-lazyload'
+  
+  Vue.use(VueLazyload, {
+       loading: require('img/loading.png'),//加载中图片，一定要有，不然会一直重复加载占位图
+       error: require('img/error.png')  //加载失败图片
+  });
+  ```
 
-#### 4) 第三方插件的按需引入
+  
+
+3. vue 文件中将需要懒加载的图片绑定 v-bind:src 修改为 v-lazy：
+
+   ```js
+   <img v-lazy="'/static/img/' + item.productImage" :key="'/static/img/' + item.productImage"> 
+   //将 :src 属性直接改为 v-lazy, :key 是为了防止刷新页面或图片更改时图片不更新
+   ```
+
+   
+
+#### 3) 路由懒加载
+
+定义：懒加载简单来说就是延迟加载或按需加载，即在需要的时候的时候进行加载。
+
+作用：为给客户更好的客户体验，首屏组件加载速度更快一些，解决白屏问题。
+
+使用：常用的懒加载方式有两种：即使用 **vue 异步组件**  和  **ES 中的 import**。
+
+Vue 异步组件实现懒加载：
+
+```js
+component：resolve=>(require(['需要加载的路由的地址'])，resolve)
+```
+
+ES 中的 import 方法：`const Home = () => import('./pages/Home')`
+
+`const HelloWorld = ()=> import('需要加载的模块地址') // import 中放的是需要加载的模块地址`
+
+
+
+#### 4) 组件懒加载
+
+组件懒加载的方法和路由懒加载的方法相同。
+
+#### 5) 第三方插件的按需引入
 如: element-ui / vant 
 
 两种方式：
 1、按需引入
 - 借助 babel-plugin-component，我们可以只引入需要的组件，以达到减小项目体积的目的：
-- 更改.babelrc文件
+- 更改 .babelrc 文件
 2、 我们将按需引入的代码单独分割一下
 在 src 文件夹中新建我们的 element 文件夹，并在里面新建一个 index.js 文件
-在index文件中去书写我们需要引入的部分组件
+在 index 文件中去书写我们需要引入的部分组件
 在 main.js 中使用该文件，就大功告成了
 
-#### 5) 大数组优化1: 冻结响应式数据
+#### 6) 大数组优化1: 冻结响应式数据
 
 当前组件如果只是为纯展示组件时，拿到数据后使用`Object.freeze()`将数据冻结，这样数据就无法进行响应变化。
 
@@ -47,7 +87,7 @@ export default {
 
 
 
-#### 6) 大数组优化2: 虚拟列表
+#### 7) 大数组优化2: 虚拟列表
 
 - 当组件处于非常长的列表时，数据过多导致DOM元素同样多，导致卡顿。
 
@@ -62,7 +102,7 @@ export default {
 
   ​	[vue-virtual-scroll-list](https://github.com/tangbc/vue-virtual-scroll-list)
 
-#### 7) 事件销毁
+#### 8) 事件销毁
 
 Vue 组件销毁时，实例的所有指令都被解绑，所有的事件监听器被移除，所有的子实例也都被销毁。单独添加的监听事件是不会移除的，需要手动移除事件的监听，以免造成内存泄漏。
 
