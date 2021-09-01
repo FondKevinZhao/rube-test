@@ -13,8 +13,8 @@
 ## 2.Vue3带来了什么
 
 ### 自己添加的内容：
-1. 可以不需要一个跟标签了。
-2. 去掉了全局事件总线。
+1. 组建中可以不需要一个跟标签包裹了。
+2. 取消了全局事件总线。
 3. v-if 和 v-for 同时存在于一个标签内，执行顺序对调了。vue2 是先执行的 v-for 再执行 v-if，vue3 是执行 v-if，再执行 v-for。
 4. beforDestroy 和 destroyed 改为了 beoreUnmount 和 unmounted
 

@@ -275,11 +275,19 @@
         localStorage.setItem('TOKEN_KEY', result.data.token)
        ```
 
-    5. 下次登录的到时候，就到 localStorage 中去拿 token。
+       
 
-        
+    5. 登录成功后，需要把 token 添加到请求头当中，从今往后所有的请求当中都要带上这个 token。
 
-    6. 
+       ```js
+       // api 中的 Ajax.js 中：
+       let token = store.state.user.token
+       if(token) {
+           config.headers.token = token
+       }
+       ```
+
+    6. 下次登录的到时候，就到 localStorage 中去拿 token。
 
 27. 根据登录的 token 获取用户信息(token 校验，也可以判定 token 是否过期)
 
@@ -292,7 +300,28 @@
     全局导航守卫：无论是从哪个页面跳转到哪个页面，只要有路由跳转，就会拦住，进行检测。
 
     - 全局前置守卫(用的最多)：配置的比较靠前(匹配路由前拦截)。
+
+      ```js
+      // 在 router 下的 index.js 中配置
+      const router = new Vue Router({...});
+                                     
+      router.beforeEach((to, from, next) => {
+          // ...
+          // from 从哪儿来的路由对象
+          // next 是一个函数
+          // 根据参数不同，功能也不同
+          // next() 代表无条件放行
+          // next('/') 代表强制跳转到指定的位置
+          // next(false) 代表什么都不做，原地不动
+      })
+      
+      export default router
+      ```
+
+      
+
     - 全局解析守卫(用的较少)：配置的位置中间(匹配路由中拦截)。
+
     - 全局后置守卫(用的较少)：配置的比较靠后(匹配路由完成拦截)。
 
     路由独享守卫：只能去拦住固定的往某个页面跳转，配置在当前路由当中，时间比较靠前。
@@ -305,7 +334,32 @@
 
     - 只有一个，就是解析完了，已经跳转到组件的时候，但是组件还没创建成功的时候拦截。
 
-28. 
+28. 自动登录：
+
+    自动登录其实就是把用户的 token，给存储起来。
+
+    以后只要是重新登陆，我们直接拿存储好的 token 就可以了。
+
+    自动登录就是在拿到 token 的时候，保存在 localStorage 当中，并且初始化的时候需要先去 localStorage 当中去拿。
+
+    
+
+    
+
+    当 token 过期的时候，也得需要把 localStorage 的 token 也清除。
+
+    ```
+    // 当 token 过期，需要把过去的 token 清除
+    // 不但要清除 state 的，也要清除 localStorage 的。
+    async clearToken({commit}) {
+    	commit('RESET_TOKEN')
+    	localStorage.removeItem("TOKEN_KEY") 
+    }
+    ```
+
+    
+
+29. 
 
 
 
