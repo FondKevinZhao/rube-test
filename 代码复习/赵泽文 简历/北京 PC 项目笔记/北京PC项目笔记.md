@@ -287,7 +287,7 @@
        }
        ```
 
-    6. 下次登录的到时候，就到 localStorage 中去拿 token。
+    6. 下次登录的时候，就到 localStorage 中去拿 token。
 
 27. 根据登录的 token 获取用户信息(token 校验，也可以判定 token 是否过期)
 
