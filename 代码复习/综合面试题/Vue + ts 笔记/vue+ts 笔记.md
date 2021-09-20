@@ -58,30 +58,99 @@
    })
    ```
    
-   
-   
-10. 类中初始化数据的时候，可以用惊叹号(!)，告诉我们的编译器，可以为空。如：
+10. data 写法对比：
 
-```ts
-class ItemData {
-    id!:number;
-	categoryId!:number;
-	title!:string;
-	content!:string;
+    以前：
 
-	// 构造函数
-	constructor(id:number =  -1,categoryId:number = -1, title:string = '', content:string = '') {
-        this.id = id;
-        this.categoryId = categoryId;
-        this.title = title;
+    ```vue
+    <template>
+        <button @click="modifyFullName">修改fullName</button>
+    </template>
+    
+    <script>
+    export default {
+        name: 'About',
+        data() {
+            return {
+                firstName: "zhang"
+                lastName: 'san'
+            }
+        },
         
+        // 通过计算属性获取 fullName
+        computed: {
+            fullName: {
+                get () {
+                    return this.firstName + " " + this.lastName
+                },
+                set (newVal, oldVal) {
+                    
+                }
+            }
+        },
+        
+        methods: {
+            modifyFullName() {
+                
+            }
+        }
     }
-}
-```
+    </script>
+    ```
 
+    ts：
 
+    ```vue
+    <template>
+        <button @click="modifyFullName">修改fullName</button>
+    </template>
+    @Component
+    export default class About extends Vue {
+        firstName: string = "zhang";
+    	lastName: string = "san";
+    	
+    	// 通过 get 方法来获取 fullName
+    	get fullName() {
+            return this.firstName + " " + this.lastName
+        }
+    
+    	set fullName(val) {
+            const arr = val.split(" ");
+    		this.fisrtName = arr[0];
+    		this.lastName = arr[1]
+        }
+    	
+    	// 点击按钮，修改fullName
+    	modifyFullName () {
+            t
+        }
+    }
+    ```
 
-11. 
+    
+
+11. 类中初始化数据的时候，可以用惊叹号(!)，告诉我们的编译器，可以为空。如：
+
+    ```js
+    class ItemData {
+        id!:number;
+    	categoryId!:number;
+    	title!:string;
+    	content!:string;
+    
+    	// 构造函数
+    	constructor(id:number =  -1,categoryId:number = -1, title:string = '', content:string = '') {
+            this.id = id;
+            this.categoryId = categoryId;
+            this.title = title;
+            
+        }
+    }
+    ```
+
+    
+
+12. 
 
 
 
