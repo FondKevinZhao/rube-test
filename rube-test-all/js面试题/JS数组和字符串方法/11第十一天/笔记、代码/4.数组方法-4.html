@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <script src=""></script>
+    </head>
+    <body>
+        <script>
+            var obj = {
+                0:'a',
+                1:'b',
+                length:2
+            };
+
+            /* var newArr = Array.from(obj);
+            console.log(newArr);
+
+            newArr.forEach(function(value,index){
+                console.log(value);
+            }); */
+
+            /* var res = Array.prototype.slice.apply(obj);
+            console.log(res); */
+
+
+            /* var arr1 = Array.of(1,2,3,4,5);
+            console.log(arr1); */
+
+            /* var arr = Array.of(4);
+            console.log(arr);
+
+            var arr1 = new Array(4);
+            console.log(arr1); */
+
+            /* var arr2 = [4];
+            console.log(arr2); */
+
+            var arr = [1,2,3,4,5,NaN];
+            // console.log(arr.indexOf(NaN));
+            console.log(arr.includes(NaN));
+        </script>
+    </body>
+</html>

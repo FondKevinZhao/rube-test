@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        #info {
+            width: 300px;
+            height: 500px;
+            overflow: auto;
+            background-color: lightblue;
+            color: #008c8c;
+        }
+        input {
+            cursor: pointer;
+        }
+    </style>
+
+    
+</head>
+
+<body>
+    <h3>欢迎亲爱的用户注册</h3>
+    <p id="info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima sit soluta quisquam unde dolores
+        eligendi doloremque blanditiis, dicta praesentium omnis quam nihil animi vero cum voluptate ullam nulla vitae
+        accusamus voluptates modi! Voluptatem mollitia, dolorum aut, perferendis ea quas maiores voluptatum perspiciatis
+        nihil incidunt reiciendis porro, voluptatibus quia praesentium doloremque similique hic impedit sunt consectetur
+        nesciunt quos nam ipsum itaque cumque! Laborum eligendi veritatis maiores quasi et asperiores quis facilis!
+        Tenetur ad officiis est corrupti sunt quaerat unde qui amet cumque esse, doloribus voluptatem quibusdam
+        voluptates! Ullam eaque vel dicta sunt hic nihil iure laudantium dolorem, error dolorum delectus magnam minima
+        modi officia quam nostrum repellat reprehenderit ratione consectetur suscipit laboriosam pariatur ad quis. Nemo
+        cumque in animi corporis nostrum quas vel officia velit reprehenderit repudiandae repellendus exercitationem,
+        itaque vitae iusto commodi temporibus soluta error magnam! Dicta nam libero id eligendi rem nulla voluptas? Quod
+        atque voluptate, itaque quo, maxime tempore quisquam suscipit iste pariatur nam, natus corrupti veniam. Suscipit
+        tempore nisi commodi repellendus ipsa doloremque ad necessitatibus non quasi cupiditate reprehenderit porro
+        similique rem voluptate iure, quibusdam maxime vitae velit omnis nemo! Asperiores provident, ipsam, quod ipsum
+        ducimus nobis esse suscipit consequuntur tempora nisi qui ex assumenda molestias eius architecto deleniti, eum
+        quae sit laborum veniam autem commodi. Asperiores architecto consequuntur aliquam, maiores ipsam excepturi
+        voluptas repellat, cumque similique commodi beatae minima eius sequi laborum adipisci quos dolores. Est,
+        incidunt blanditiis maxime deleniti ipsum officiis porro animi similique quaerat tempora minima aliquid sit
+        aperiam fugiat eveniet provident, velit, ipsam totam ad beatae ab consequatur deserunt! Aspernatur, quasi eos
+        excepturi quo facere nihil, assumenda, saepe magni odio nostrum dicta aut possimus repellendus tempore impedit
+        maxime ad nemo amet iusto distinctio minima incidunt! Exercitationem illo sunt eaque neque, soluta similique
+        voluptatem doloremque dolorem a quas odio officia rerum alias blanditiis molestias explicabo error consequuntur
+        porro! Eum quis molestias sunt, perferendis cumque quidem totam a itaque pariatur exercitationem vel, aliquam
+        numquam impedit velit laboriosam amet quae necessitatibus reiciendis? Similique quo quibusdam, necessitatibus
+        aut quisquam tempora repellendus amet, maiores numquam qui soluta ipsa ut? Cupiditate laudantium consequatur
+        repellat quod doloribus suscipit ratione natus aspernatur, itaque explicabo facilis officiis odit optio
+        recusandae fugiat aliquid expedita tempora non voluptatibus, vitae quibusdam aliquam possimus tempore, ea
+        architecto! Consectetur, voluptates quis atque hic cum facere dicta illum officiis molestias rem perspiciatis
+        consequuntur minima dolores quod impedit voluptatibus soluta minus ex temporibus labore adipisci, error sequi a!
+        Ipsum neque, nesciunt nihil tempora reiciendis officiis dolore velit tenetur quidem ipsam corrupti ab recusandae
+        non rem dolorem? Officia obcaecati inventore debitis quas vero amet autem magnam </p>
+    <input type="checkbox" disabled='disabled' id="inputs1" />我已仔细阅读协议
+    <input type="submit" value="注册" disabled='disabled' id="inputs2" />
+
+    <script>
+        
+            // 获取id为info的P标签
+            var info = document.getElementById('info');
+            var inputs = document.getElementsByTagName('input');
+            console.log(inputs[0]);
+            // 为info绑定一个滚动条滚动的事件
+            info.onscroll = function () {
+                // 检查垂直滚动条是否滚动到底
+                // console.log(info.scrollHeight);
+                // console.log(info.scrollTop);
+                // console.log(info.clientHeight);
+                //数据会有一点误差 滚动的距离可能是一个小数 到不了临界值 向上取整才能到达临界值
+                if (info.scrollHeight - Math.ceil(info.scrollTop) === info.offsetHeight) {
+                    // 滚动条滚动到底，我们要使表单项可用
+                    // inputs[0].disabled = true;
+                    // inputs[1].disabled = true;
+                    //移出属性
+                    inputs[0].removeAttribute('disabled')
+                    console.log(inputs[0]);
+                    //移出属性
+                    inputs[1].removeAttribute('disabled')
+                    console.log(inputs[1]);
+
+                }
+            }
+    </script>
+</body>
+
+</html>

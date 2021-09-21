@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //分析 
+        //Foo构造函数
+        function Foo() {
+            //全局变量getName
+            getName = function () {
+                console.log(1);
+            }
+            return this;
+        }
+
+        //Foo当作对象,扩展的方法
+        Foo.getName = function () {
+            console.log(2);
+        }
+
+        //Foo构造函数的公用方法 
+        Foo.prototype.getName = function () {
+            console.log(3);
+        }
+
+        //全局 匿名函数声明(函数表达式)
+        var getName = function () {
+            console.log(4);
+        }
+        //全局,利用函数关键字自定义函数(命名函数)
+        function getName() {
+            console.log(5);
+        }
+
+        // 将Foo构造函数当作对象访问getName方法
+        Foo.getName(); //2
+
+        //全局中调用getName,由于全局中有两个get函数,考察两个函数的声明提升问题;命名函数优先提升,函数表达式在后面,所以函数表达式覆盖了命名函数,得到的是命名函数的结果
+        getName(); // 4
+
+        //Foo构造函数先调用,返回this指向的全局,
+        Foo().getName(); //1
+
+        //调用此处的getName,为覆盖后的全局this指向的函数,在执行上下文阶段覆盖了全局的getName.
+        getName(); //1
+
+        //此处考察,操作符优先级,点操作符的优先级为20,new(无参数列表)优先级为19,所以先对Foo当作对象形式添加的方法进行解析
+        new Foo.getName(); //2
+
+        //new (带参数列表)为20,和点操作符为统计,所以对Foo构造函数先进行构造调用形成实例对象,再访问到实例对象中指向的Foo原型方法得到的是3
+        new Foo().getName(); //3
+
+         //此处的 new Foo()优先访问,new(有参数列表20).形成对构造调用的构造函数 进行new操作, 构成有一个新的实例对象,找到其实例对象的构造函数的显示原型对象的方法
+         // new foo.getName().
+        new new Foo().getName(); //3
+    </script>
+</body>
+
+</html>

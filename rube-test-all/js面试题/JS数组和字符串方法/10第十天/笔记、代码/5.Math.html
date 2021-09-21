@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <script src=""></script>
+    </head>
+    <body>
+        <script>
+            /* var num = 1.4;
+            //`Math.ceil()`，进一取整。
+            console.log(Math.ceil(num));
+            //`Math.floor()`，舍一取整。
+            console.log(Math.floor(num));
+            //`Math.round()`，执行标准的四舍五入。
+            console.log(Math.round(num)); */
+
+            /* //`Math.min() `，获得最小值。
+            var min = Math.min(1,2,34,5,5,6,3,3,-11);
+            console.log(min);
+            //`Math.max()` ，获得最大值。
+            var max = Math.max(3234234,22323322,113,1);
+            console.log(max); */
+
+            /* var arr = [1,2,34,5,5,6,3,3,-11];
+
+            var min = Math.min(...arr);//1,2,34,5,5,6,3,3,-11
+            console.log(min); */
+
+            // `Math.abs()`，求绝对值。
+            // console.log(Math.abs(-1));
+
+            //`Math.pow(num,次方)`，进行幂运算。
+            // console.log(Math.pow(2,10));
+
+            //`Math.PI`，圆周率，这是一个属性。
+            // console.log(Math.PI);
+
+            //`Math.random()`，返回大于等于0小于1的一个随机数。
+            // console.log(Math.random());
+            //Math.floor(Math.random() * (可能的最大-可能的最小值+1)+ 可能的最小值)
+           /*  for (var i = 1; i < 10000 ; i++) {
+                console.log(Math.floor(Math.random() * (99-2+1)+ 2));
+            } */
+
+
+
+            var str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+            console.log(str[1]);
+            // console.log(str.length);//用来获得字符串长度
+            var code = '';
+            for (var i = 0; i < 4 ; i++) {//0 1 2 3
+                code += str[Math.floor(Math.random() * ((str.length - 1)-0+1)+ 0)];  //0 - str.length-1
+                console.log(code);
+            }
+            console.log(code);
+        </script>
+    </body>
+</html>
