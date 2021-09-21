@@ -122,7 +122,7 @@
     	
     	// 点击按钮，修改fullName
     	modifyFullName () {
-            t
+            this.fullName = "li si";
         }
     }
     ```
@@ -150,11 +150,25 @@
 
     
 
-12. 
+12. 钩子函数的写法，跟以前是一样的。
+
+13. @Watch('firstName')，这个括号中要传参数
+
+    ![image-20210921151906427](vue+ts 笔记.assets/image-20210921151906427.png)
+
+14. ![image-20210921160206344](vue+ts 笔记.assets/image-20210921160206344.png)
 
 
 
+15. ! 感叹号：非空断言。
 
+16. ?可为空值。
+
+17. [npm i -S vuex-module-decorators](https://championswimmer.in/vuex-module-decorators/pages/installation.html#es5-transpilation)：动态注册 多个命名空间的模块
+
+    ![image-20210921163136591](vue+ts 笔记.assets/image-20210921163136591.png)
+
+18. 
 
 
 
