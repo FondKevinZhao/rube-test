@@ -1,8 +1,174 @@
-1. 整体引入 lodash：`import _ from 'lodash'`
+1. 路由组件和非路由组件的区别：
+
+   相同点：使用都是三大步：定义、注册、使用。
+
+   定义都是一样去定义的，只是定义的文件夹不同罢了。
+
+   注册时候的区别：
+
+   - 非路由组件是注册在要使用的组件当中。
+   - 路由组件是要在路由配置当中注册的。
+
+   使用的时候的区别：
+
+   - 非路由组件：使用注册的组件标签。
+   - 路由组件：使用声明式导航(router-link、router-view)和编程式导航(push、replace)来使用。
+
+   非路由组件和路由组件的声明周期不同：
+
+   - 非路由组件：在切换的时候，不会销毁重建。
+   - 路由组件：在切换的时候，会销毁重建(keep-alive)。
+
+2. Header 和 Footer 非路由组件的使用：
+
+   定义：定义在 components 文件夹中
+
+   注册：注册在 APP.vue 中
+
+   使用：在 APP 当中书写组件标签
+
+   
+
+3. Home、Search、Login、Register路由组件的使用
+
+   定义：定义在 pages 当中
+
+   注册：
+
+   1. 安装路由：npm i vue-router -S
+
+   2. 引入并声明使用路由插件
+
+      ```js
+      // 引入并声明使用
+      import Vue from 'vue'
+      import VueRouter from 'vue-router'
+      Vue.use(VueRouter)
+      ```
+
+      
+
+   3. 需要向外暴露一个路由器对象：
+
+      ```js
+      // router 文件夹下的 index.js
+      // 引入并声明使用
+      import Vue from 'vue'
+      import VueRouter from 'vue-router'
+      Vue.use(VueRouter)
+      
+      
+      // 需要向外暴露一个路由器对象
+      export default new VueRouter({
+        routes:[] // 配置路由
+      })
+      ```
+
+   4. 在 main.js 里面安装路由：
+
+      ```js
+      import router from ‘@/router’
+      
+      new Vue({
+          el: '@app',
+          render: h => h(App),
+          router // 我们所有的组件内部都可以使用：this.$router 和 this.$route
+      })
+      ```
+
+   5. 注册路由组件(也叫“配置路由”)：
+
+      ```js
+      // 引入并声明使用
+      import Vue from 'vue'
+      import VueRouter from 'vue-router'
+      Vue.use(VueRouter)
+      
+      import Home from '@/pages/Home'
+      
+      // 需要向外暴露一个路由器对象
+      export default new VueRouter({
+        routes:[
+          {
+            path: '/home',
+            component:Home
+          }
+        ] // 配置路由
+      })
+      ```
+
+      
+
+   6. 使用：
+
+      - 使用 router-link 和 router-view
+      - push 和 replace 和 router-view
+
+      两种模式都需要写 router-view
+
+      ![image-20211017213224492](北京PC项目笔记.assets/image-20211017213224492.png)
+
+      注意：如果你是 a 标签，你可以使用 router-link，如果你是比如说 button 按钮，你就使用编程式导航：定义点击方法：
+
+      ```js
+      methods: {
+          toSearch() {
+              this.$router.push('')
+          }
+      }
+      ```
+
+      
+
+4. eslint 错误级别禁用：
+
+   原因：默认项目当中是安装了 eslint 语法检查工具，而且默认这个检查的严格级别很高。
+
+   我们要在开发阶段要把 eslint 完全禁掉。否则，很多语法问题，会导致项目运行不了。
+
+   方法：自己在脚手架中创建 webpack 配置文件：`vue.config.js`。
+
+   ```js
+   lintOnSave: false,
+       module.export = {
+       	lintOnSave: false,
+   }
+   ```
+
+   这个 `vue.config.js`相当于 vue 给我们的一个配置 webpack 的文件，我们就在这个文件里面配置我们所需要的 webpack 就好了。
+
+5. jsconfig.json 配置别名 @ 提示：下面的代码配置是 @/ 的提示，也就是你在写了 @/ 后会有提示后面有些什么文件。
+
+   ```js
+   {
+       "compilerOptions":{
+           "baseUrl": "./",
+           "paths": {
+               "@/*": ["src/*"]
+           }
+       },
+       "exclude": ["node_modules", "dist"]
+   }
+   ```
+
+   注意：@ 是一个小名，代表的就是 我们 src 的路径(在脚手架中早就配好了，不用我们去配)。
+
+6. 不管是配置 jsconfig.json 或 vue.config.js 或 babel.config.js 等，只要是改了配置文件，那么就要重启项目。
+
+7. 把静态页面的东西复制到对应组件当中：
+
+   - HTML
+   - css(less)：安装 less 和 less-loader 的包，否则 less 不认识。less-loader 的版本不能太高，不然这里会报错。
+   - images：在对应的组件目录下，创建 images，把对应的图片复制到这个文件夹下面。(注意：路径要对应好)
+   - reset.css
+
+8. 
+
+9. 整体引入 lodash：`import _ from 'lodash'`
 
    按需引入 lodash 中的 throttle：`import throttle from 'lodash/throttle'`
 
-2. 事件控制 2、3 级分类的显示和隐藏：
+10. 事件控制 2、3 级分类的显示和隐藏：
 
    原来的是使用 css 去做的，改为一个类：
 
@@ -13,92 +179,92 @@
    5. 移入 item 的时候，让 `currentIndex = index`。
    6. 移出不能再 item 身上去加，因为最后 item 和 h2 移出他们整体会把 2 级分类隐藏，所以需要用 div 把 item 和 h2 包裹，给 div 添加。
 
-3. 把所有的 a 标签换成 router-link 会卡，因为组件标签太多了，导致内存当中组件对象太多，容易造成鼠标移动到列表中的时候，一卡一卡的。(来自于111集 - 20: 00 - 点击分裂跳转到搜索页面，携带 query 参数 )
+11. 把所有的 a 标签换成 router-link 会卡，因为组件标签太多了，导致内存当中组件对象太多，容易造成鼠标移动到列表中的时候，一卡一卡的。(来自于111集 - 20: 00 - 点击分裂跳转到搜索页面，携带 query 参数 )
 
-   解决办法：
+    解决办法：
 
-   1. 把 **声明式导航 router-link **改为 **编程式导航 `$router.push({})`**。
-   2. 把声明式导航改为编程式导航，click 事件在点击之后，是需要调用函数的，同样每个 a 标签都添加了点击事件，那么内容中就会定义很多个函数，内存占用也是比较大的，效率虽然比声明式导航强，但是还是不够好。再用事件委托来把函数定义在父元素上来解决。
+    1. 把 **声明式导航 router-link **改为 **编程式导航 `$router.push({})`**。
+    2. 把声明式导航改为编程式导航，click 事件在点击之后，是需要调用函数的，同样每个 a 标签都添加了点击事件，那么内容中就会定义很多个函数，内存占用也是比较大的，效率虽然比声明式导航强，但是还是不够好。再用事件委托来把函数定义在父元素上来解决。
 
-4. 事件委派(事件委托)：在共同的父级/祖辈元素身上添加事件监听。
+12. 事件委派(事件委托)：在共同的父级/祖辈元素身上添加事件监听。
 
-   问题：怎么知道点击的是不是 a 标签？  
+    问题：怎么知道点击的是不是 a 标签？  
 
-   问题：假如你知道你点击的是 a 标签，怎么知道点击的是一级还是二级还是三级？
+    问题：假如你知道你点击的是 a 标签，怎么知道点击的是一级还是二级还是三级？
 
-   问题：参数怎么携带，要携带哪些个的参数？
+    问题：参数怎么携带，要携带哪些个的参数？
 
-   这三个问题可以使用自定义属性`data-`来解决。如：
+    这三个问题可以使用自定义属性`data-`来解决。如：
 
-   ```js
-   <a href="javascript:;" :data-category1Id="c1.categoryId" :data-categoryName="c1.categoryName"> {{c1.categoryName}}
-   </a>
-   
-   <a href="javascript:;" :data-category2Id="c2.categoryId" :data-categoryName="c2.categoryName"> {{c2.categoryName}}
-   </a>
-   
-   <a href="javascript:;" :data-category3Id="c3.categoryId" :data-categoryName="c3.categoryName"> {{c3.categoryName}}
-   </a>
-   ```
+    ```js
+    <a href="javascript:;" :data-category1Id="c1.categoryId" :data-categoryName="c1.categoryName"> {{c1.categoryName}}
+    </a>
+    
+    <a href="javascript:;" :data-category2Id="c2.categoryId" :data-categoryName="c2.categoryName"> {{c2.categoryName}}
+    </a>
+    
+    <a href="javascript:;" :data-category3Id="c3.categoryId" :data-categoryName="c3.categoryName"> {{c3.categoryName}}
+    </a>
+    ```
 
-   
+    
 
-5. js 原生中的 event 是什么？
+13. js 原生中的 event 是什么？
 
-   ```js
-   box.onclick = function (event) {
-       var targetNode = event.target
-   }
-   // box 事件源。
-   // event.target 目标元素(你当前点击的那个元素)
-   // 这个 回调函数，最终是浏览器调用的。
-   ```
+    ```js
+    box.onclick = function (event) {
+        var targetNode = event.target
+    }
+    // box 事件源。
+    // event.target 目标元素(你当前点击的那个元素)
+    // 这个 回调函数，最终是浏览器调用的。
+    ```
 
-   - event 是事件对象。
-   - 每一次触发事件的时候，系统(浏览器内核)都会把这一次触发事件相关的所有信息，封装为一个对象。
-   - 在浏览器调用回调函数的时候，自动传递给回调函数的第一个形参。
+    - event 是事件对象。
+    - 每一次触发事件的时候，系统(浏览器内核)都会把这一次触发事件相关的所有信息，封装为一个对象。
+    - 在浏览器调用回调函数的时候，自动传递给回调函数的第一个形参。
 
-6. js 原生的 event 和 Vue 的 $event 的区别：
+14. js 原生的 event 和 Vue 的 $event 的区别：
 
-   原生的 event 形参是写在第一位的。
+    原生的 event 形参是写在第一位的。
 
-   Vue 的 $event 形参可以放在第一位，也可以放在后面：
+    Vue 的 $event 形参可以放在第一位，也可以放在后面：
 
-   ```js
-   @click = "toSearch('zhaoliying', $event)"
-   @click = "toSearch($event, 'zhaoliying')"
-   ```
+    ```js
+    @click = "toSearch('zhaoliying', $event)"
+    @click = "toSearch($event, 'zhaoliying')"
+    ```
 
-   $event 只能在 Vue 的模板中出现。
+    $event 只能在 Vue 的模板中出现。
 
-7. 主页的侧边导航栏一上来是显示的，详情页的侧边导航栏一开始是隐藏的，鼠标放上去才出来。(P115开始就介绍了)
+15. 主页的侧边导航栏一上来是显示的，详情页的侧边导航栏一开始是隐藏的，鼠标放上去才出来。(P115开始就介绍了)
 
-   ![image-20210826210734003](北京PC项目笔记.assets/image-20210826210734003.png)
+    ![image-20210826210734003](北京PC项目笔记.assets/image-20210826210734003.png)
 
-   
+    
 
-   ![按钮](北京PC项目笔记.assets/按钮.gif)
+    ![按钮](北京PC项目笔记.assets/按钮.gif)
 
-   **可以用 v-show 来做。**
+    **可以用 v-show 来做。**
 
-   ```js
-   // 不是主页，一开始不出来
-   mounted(){
-       if(this.$route.path !== '/home') {
-           this.isShow = false;
-       }
-   }
-   ```
+    ```js
+    // 不是主页，一开始不出来
+    mounted(){
+        if(this.$route.path !== '/home') {
+            this.isShow = false;
+        }
+    }
+    ```
 
-   鼠标**移入**全部商品分类**显示列表**：`@mouseenter="isShow = true"`
+    鼠标**移入**全部商品分类**显示列表**：`@mouseenter="isShow = true"`
 
-   鼠标**移出**全部商品分类**隐藏列表**：`@mouseleaver="moveOutDiv"`这个需要用函数，然后来判断是在 home 页面移除(home页面是不需要移除的)，还是在 search 页面移除。
+    鼠标**移出**全部商品分类**隐藏列表**：`@mouseleaver="moveOutDiv"`这个需要用函数，然后来判断是在 home 页面移除(home页面是不需要移除的)，还是在 search 页面移除。
 
-8. 侧边导航栏在主页切换到 search 页面或者在切换到主页，都会重新发请求 侧边导航栏的 数据。解决：在 App.vue 中发送请求就好了，因为 App.vue 只会请求一次。而且一次就够了，因为数据不变。
+16. 侧边导航栏在主页切换到 search 页面或者在切换到主页，都会重新发请求 侧边导航栏的 数据。解决：在 App.vue 中发送请求就好了，因为 App.vue 只会请求一次。而且一次就够了，因为数据不变。
 
-9. **一般情况下 router-link 太多，不推荐用 声明式导航，而是用编程式导航 + 事件委托。**
+17. **一般情况下 router-link 太多，不推荐用 声明式导航，而是用编程式导航 + 事件委托。**
 
-10. mock 数据(P122)：
+18. mock 数据(P122)：
 
     作用：模拟数据 和 拦截 Ajax 请求。
 
@@ -130,7 +296,7 @@
 
        
 
-11.  发请求步骤：
+19. 发请求步骤：
 
     1. 先写 api。
 
@@ -142,7 +308,7 @@
 
     4. 页面展示。
 
-12. Swiper 轮播图的使用：[官网地址](https://www.swiper.com.cn/usage/index.html)
+20. Swiper 轮播图的使用：[官网地址](https://www.swiper.com.cn/usage/index.html)
 
     1. 安装：npm i swiper@5。5 表示版本号。
 
@@ -166,29 +332,29 @@
 
     **注意：** swiper 必须在页面的数据结构显示完成后创建才会生效。
 
-13. 其实 swiper 也可以写在 updated 里面，那么为什么选择 watch + nextTick 而不是 updated 呢？
+21. 其实 swiper 也可以写在 updated 里面，那么为什么选择 watch + nextTick 而不是 updated 呢？
 
     updated：无论页面是最近一次更新的，还是第一次更新的，还是之前更新的，只要数据有更新，它都会执行(会执行多次)。
 
     nextTick：它只会在最近的一次执行(只执行一次)。
 
-14. 查看数据的时候应该怎么查看：
+22. 查看数据的时候应该怎么查看：
 
     1. 看组件里有没有数据。
     2. 接着看 vuex 里面有没有数据。
     3. 然后看 network 请求状态。
 
-15. vuex 中的 dispatch 只能传递一个参数，如果有多个参数需要传递，请写成一个对象：
+23. vuex 中的 dispatch 只能传递一个参数，如果有多个参数需要传递，请写成一个对象：
 
     ![image-20210828024248509](北京PC项目笔记.assets/image-20210828024248509.png)
 
-16. 为什么要使用 vuex 中的 gettes？
+24. 为什么要使用 vuex 中的 gettes？
 
     因为我们获取的数据结构比较复杂，使用起来不方便，甚至会出现小错误(假报错)。
 
     所以，我们拿到复杂的数据之后，会把这个数据先做计算，计算出来我们要直接使用的数据，简化数据操作。
 
-17. 根据鼠标的位置求蒙版的位置。
+25. 根据鼠标的位置求蒙版的位置。
 
     选择鼠标位置(3种)：
 
@@ -196,7 +362,7 @@
     2. event.pageX：相对页面左上角。如果有滚动条，且滚动条滚动了，那么相对页面的左上角就看不见了。
     3. event.offsetX：相对元素本身左上角。求蒙版位置，这个比较方便。
 
-18.  在 vue 当中只有一种方式可以获取到 dom 元素，就是 ref。如：
+26. 在 vue 当中只有一种方式可以获取到 dom 元素，就是 ref。如：
 
     ```vue
     <template>
@@ -212,26 +378,26 @@
     </script>
     ```
 
-19. 输入框的 blur 事件 和 change 事件：
+27. 输入框的 blur 事件 和 change 事件：
 
     blur 事件：blur 是失去焦点事件，只要添加了它，失去焦点就会触发这个事件，但是不好，因为它不会去判断这次输入的数据和之前存在的数据是不是一样再触发。
 
     change 事件：change 事件内部包含了失去焦点事件，当用户失去焦点的时候，也会选择性触发 change 事件，触发这个事件的前提是当前这个数据，必须和之前的数据不一样，才能触发，否则不触发。
 
-20. 详情页产品 点击 加入购物车 进入 购物车页面 逻辑(很重要)：
+28. 详情页产品 点击 加入购物车 进入 购物车页面 逻辑(很重要)：
 
     - 之前我们的跳转，几乎都是点击就直接跳转了，因为我们在跳转之前不需要发请求，比如，从 home 页面 去 search 页面。从 search 页面 去 详情页面，跳转的时候不需要发请求，而是跳转过去后发请求，拿数据。
     - 而添加购物车不一样，当我们点击添加购物车的时候，我们得需要先发请求给后台，后台需要把这个购物车信息存储数据库，请求成功之后，会返回给我们信息，我们根据这个信息再去跳转。否则，有可能后台添加购物车失败，我们已经跳转到下个页面了，就会出问题。
 
-21. localStorage 获取不到数据返回的是 null。
+29. localStorage 获取不到数据返回的是 null。
 
-22. 购物车页面中的 全选和去掉某一个商品 或者 数量 的改变都是先发请求给服务器，服务器那边先修改了之后，再返回给页面。要做到前后台对应。
+30. 购物车页面中的 全选和去掉某一个商品 或者 数量 的改变都是先发请求给服务器，服务器那边先修改了之后，再返回给页面。要做到前后台对应。
 
     跟钱相关的事儿，一般都是要交给服务器保管的。
 
     ![image-20210831001919421](北京PC项目笔记.assets/image-20210831001919421.png)
 
-23. promise.all() 复习：
+31. promise.all() 复习：
 
     - 功能：批量处理 promise 对象。
 
@@ -245,11 +411,11 @@
 
       新的 promise 对象失败的结果：是参数 promise 对象数组当中第一个失败的 promise 对象失败的原因。
 
-24. css 里面也可以用一开始定义的那个 @ 符，但是需要在 @ 符前面加 ~ 波浪线。
+32. css 里面也可以用一开始定义的那个 @ 符，但是需要在 @ 符前面加 ~ 波浪线。
 
     ![image-20210901005022166](北京PC项目笔记.assets/image-20210901005022166.png)
 
-25. 注册：
+33. 注册：
 
     1. 第一步是收集用户信息(使用 v-model)。做判断：填写的内容是否符合要求。
 
@@ -261,7 +427,7 @@
 
        `this.$router.push('/login')`
 
-26. 登录：
+34. 登录：
 
     1. 第一步是收集用户信息(使用 v-model)。做判断：填写的内容是否符合要求。
 
@@ -289,7 +455,7 @@
 
     6. 下次登录的时候，就到 localStorage 中去拿 token。
 
-27. 根据登录的 token 获取用户信息(token 校验，也可以判定 token 是否过期)
+35. 根据登录的 token 获取用户信息(token 校验，也可以判定 token 是否过期)
 
     路由导航守卫：当路由跳转的时候，这个守卫可以去拦住，检测你是否有去往这个页面的条件。
 
@@ -334,7 +500,7 @@
 
     - 只有一个，就是解析完了，已经跳转到组件的时候，但是组件还没创建成功的时候拦截。
 
-28. 自动登录：
+36. 自动登录：
 
     自动登录其实就是把用户的 token，给存储起来。
 
@@ -352,7 +518,7 @@
     	localStorage.removeItem("TOKEN_KEY") 
     }
     ```
-    
+
 
 ### 组件的通信方式(传参方式)
 
