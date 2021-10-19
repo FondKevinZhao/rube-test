@@ -27,8 +27,6 @@
 
    使用：在 APP 当中书写组件标签
 
-   
-
 3. Home、Search、Login、Register路由组件的使用
 
    定义：定义在 pages 当中
@@ -99,7 +97,7 @@
 
       
 
-   6. 使用：
+   6. 使用(跳转路由的两种方式)：
 
       - 使用 router-link 和 router-view
       - push 和 replace 和 router-view
@@ -113,12 +111,12 @@
       ```js
       methods: {
           toSearch() {
-              this.$router.push('')
+              this.$router.push('/search')
           }
       }
       ```
 
-      
+      相比于声明式导航，编程式导航更加的灵活，编程式导航里面可以写多余的代码，而声明式导航不可以(一点击就立马跳转了)。
 
 4. eslint 错误级别禁用：
 
@@ -162,13 +160,123 @@
    - images：在对应的组件目录下，创建 images，把对应的图片复制到这个文件夹下面。(注意：路径要对应好)
    - reset.css
 
-8. 
+   在内容复制过程当中，莫急莫慌
 
-9. 整体引入 lodash：`import _ from 'lodash'`
+   复制完成之后，需要把 router-link 用上，对应的 a 标签得修改过来，按钮点击跳转需要用到编程式导航。
 
-   按需引入 lodash 中的 throttle：`import throttle from 'lodash/throttle'`
+   重定向路由：访问根路径，默认访问的就是 home 首页：
 
-10. 事件控制 2、3 级分类的显示和隐藏：
+   ```js
+   // router 文件夹下的 index.js
+   {
+     path:'/', // 重定向路由(如果你是/，那么就重定向到/home页面)
+     redirect:'/home'
+   }
+   ```
+
+   
+
+8. 当点击了 router-link 或者 按钮，这三步必然要经历：
+
+   未带参数：
+
+   ![image-20211019213420498](北京PC项目笔记.assets/image-20211019213420498.png)
+
+   携带 params 参数：
+
+   ![image-20211019221229404](北京PC项目笔记.assets/image-20211019221229404.png)
+
+9. 路由的两种传参：query 参数 和 params 参数
+
+   params 参数：params 参数是属于路径的一部分，路由当中匹配的时候，是要照顾到这个参数的。
+
+   ```js
+   // 组件中
+   methods: {
+       toSearch() {
+           this.$router.push('/search/' + this.keyword)
+       }
+   }
+   ```
+
+   ```js
+   // router 文件夹中的 index.js
+   export default new VueRouter({
+     routes: [
+       {
+         path: '/search/:keyword',
+         component: Search
+       }
+     ] // 配置路由
+   })
+   ```
+
+   
+
+   query 参数：query 参数是在路径后面，以问号分隔。
+
+   ```js
+   ?a=b&c=d
+   ```
+
+   query 参数是不属于路径的一部分，路由匹配的时候，不需要关心我这个参数
+
+10. 显示参数：
+
+    params: `{{$route.params.keyword}}`
+
+    query: `{{$route.query.keyword1}}`
+
+11. 路由路径带参数的三种写法：
+
+    1. 字符串写法：
+
+       `this.$router.push('/search/' + this.keyword + '?keyword1=' + this.keyword.toUpperCase())`
+
+    2. 模板字符串写法：
+
+       ```js
+       this.$router.push(`/search/${this.keyword}?keyword1=${this.keyword.toUpperCase()}`)
+       ```
+
+    3. 对象写法(重点)：要加 name
+
+       ```js
+       // router 文件夹中的 index.js
+       export default new VueRouter({
+         routes: [
+           {
+             path: '/search/:keyword',
+             component: Search,
+             name: 'search' // 添加一个 name，命名路由
+           }
+         ]
+       })
+       ```
+
+       组件中可以写：
+
+       ```js
+       this.$router.push({
+           name: 'search', // 路由的名称
+           params: {
+               keyword: this.keyword
+           },
+           query: {
+               keyword1: this.keyword.toUpperCase()
+           }
+       })
+       ```
+
+    > 注意：router-link 当中的 to，也是可以写成上面的三种写法。
+
+12. 
+
+13. 整体引入 lodash：`import _ from 'lodash'`
+
+    按需引入 lodash 中的 throttle：`import throttle from 'lodash/throttle'`
+
+14. 事件控制 2、3 级分类的显示和隐藏：
 
    原来的是使用 css 去做的，改为一个类：
 
