@@ -219,7 +219,9 @@
    ?a=b&c=d
    ```
 
-   query 参数是不属于路径的一部分，路由匹配的时候，不需要关心我这个参数
+   query 参数是不属于路径的一部分，路由匹配的时候，不需要关心我这个参数。
+
+   > 无论是 params 参数还是 query 参数，最终匹配完成都会解析到当前这个路由对象当中
 
 10. 显示参数：
 
@@ -270,13 +272,76 @@
 
     > 注意：router-link 当中的 to，也是可以写成上面的三种写法。
 
-12. 
+12. 路由面试题：
 
-13. 整体引入 lodash：`import _ from 'lodash'`
+    问题：指定 params 参数时，可不可以用 path 和 params 配置的组合？(对象写法)
+
+    答：不能用 path 和 params 配置的组合。
+
+    如果传递的参数 **只有 query 参数**，没有 params 参数，那么我们可以不用 name，可以使用 path。
+
+    ```js
+    // router 文件夹中的 index.js
+    export default new VueRouter({
+      routes: [
+        {
+          path: '/search',
+          component: Search,
+        }
+      ]
+    })
+    ```
+
+    ```js
+    // 组件中
+    this.$router.push({
+        path: '/search',
+        query: {
+            keyword1:this.keyword.toUpperCase()
+        }
+    })
+    
+    
+    ```
+
+    
+
+    如果传递的参数包含了 params 参数，就不能使用 path 去配合。只要是 params 参数就不能写 path 了，否则会出现不会报错的一种错误。只能用 name 去跟 params 配合。
+
+    ```js
+    // router 文件夹中的 index.js
+    export default new VueRouter({
+      routes: [
+        {
+          path: '/search/:keyword',
+          component: Search,
+          name: 'search' // 添加一个 name，命名路由
+        }
+      ]
+    })
+    ```
+
+    ```js
+    // 组件中
+    this.$router.push({
+        name: 'search', // 路由的名称
+        params: {
+            keyword: this.keyword
+        }
+    })
+    ```
+
+    > 对象写法，最好以后写 name， 因为 name 既能和 params 去配合也能和 query 去配合。
+    >
+    > 而 path，只能跟 query 去配合，不能和 params 去配合。
+
+13. 
+
+14. 整体引入 lodash：`import _ from 'lodash'`
 
     按需引入 lodash 中的 throttle：`import throttle from 'lodash/throttle'`
 
-14. 事件控制 2、3 级分类的显示和隐藏：
+15. 事件控制 2、3 级分类的显示和隐藏：
 
    原来的是使用 css 去做的，改为一个类：
 
