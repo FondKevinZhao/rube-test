@@ -335,29 +335,166 @@
     >
     > 而 path，只能跟 query 去配合，不能和 params 去配合。
 
-13. 
+13.  面试题：
 
-14. 整体引入 lodash：`import _ from 'lodash'`
+    描述：编程式路由跳转到当前路由(参数不变)，多次执行会抛出 NavigationDuplication 的警告错误，声明式路由跳转内部已经处理。
+
+    原因：vue-router 3.1.0 之后，引入 promise 的语法，如果没有通过参数指定成功或者失败回调函数就返回一个 promise 且内部会判断，如果要跳转的路径和参数都没有变化，会抛出一个失败的 promise。
+
+    解决：可以使用 2.x 的版本，不会出现这种问题。
+
+    1. 在跳转时指定成功或失败的回调函数，或者 catch 处理错误。(这个解决办法不好，因为不能一劳永逸，后期如果用到了 push/replace 还要继续都得写)。
+
+       ```js
+       this.$router.push({
+           name: "search",
+           params: { keyword: this.keyword || undefined },
+           query: { keyword: this.keyword.toUpperCase() },
+       }).catch(() => {});
+       ```
+
+       
+
+    2. 修改 Vue 原型上的 push 和 replace 方法(优秀)。
+
+14. VueRouter 是路由器对象的构造函数
+
+    `this.$router.push` 调用的是路由器对象的方法。这个方法并不是路由器实例化对象的方法，而是这个对象原型上的方法。
+
+    这个实例化对象原型的方法 就是 VueRouter 的显式原型的方法。
+
+    this.$router 是实例化对象，是 VueRouter 的实例化对象。
+
+15. 路由器对象的方法：
+
+    1. 自己身上的方法。
+
+    2. $router 实例化对象身上的方法。
+
+    3. $router 原型身上的方法。
+
+16. 全局注册的组件，如果一个非路由组件被多个组件使用，那么定义在 components，注册在全局(main.js)中，如：
+
+    ```js
+    // main.js
+    import TypeNav from '@/components/TypeNav'
+    Vue.component('TypeNav', TypeNav); // 前面是组件名称，后面是组件
+    ```
+
+    全局注册过的组件在使用的时候就不用再注册了，如：
+
+    ```vue
+    // 在 home 组件中使用
+    <template>
+      <div>
+        <TypeNav></TypeNav>
+      </div>
+    </template>
+    
+    <script>
+    export default {
+      name: 'Home'
+    }
+    </script>
+    
+    <style>
+    </style>
+    ```
+
+17. HTTP 请求：
+
+    1. 普通的 http 请求。如：get(点击a标签跳转页面，在地址栏输入网址按回车等)、post(form 表单)。页面会刷新。
+    2. Ajax 请求。如：get、post、put、delete。一般都是异步发送的，页面不刷新，局部刷新。
+
+18. 浏览器上才有同源策略这个说法，服务器上是没有的。
+
+19. `vue.config.js`中配置的是 webpack 当中的东西。如：
+
+    ```js
+    module.exports = {
+      lintOnSave: false, // 禁用 eslint
+      devServer: {
+        // 代理服务器配置
+        proxy: {
+          // 只代理以 /api 开头的请求
+          "/api": {
+            // 目标服务器地址
+            target: "http://39.98.123.211",
+            // 允许跨域
+            changeOrigin: true,
+            // 路径重写
+            // pathRewrite: {
+            //   "^/api": "",
+            // },
+          }
+        },
+      },
+    }
+    ```
+
+    
+
+20. 查看路径的时候一定要选择  All 或者 Fetch/XHR，不然看不到返回的数据：
+
+    ![image-20211107194301737](北京PC项目笔记.assets/image-20211107194301737.png)
+
+21. vuex 中的modules 原理：
+
+    ![image-20211107211810620](北京PC项目笔记.assets/image-20211107211810620.png)
+
+18. axios 一旦被调用，返回的是 promise。
+
+23. 从 vuex 当中把数据捞到 vue 组件中使用：
+
+    - 以后只要是从 vuex 拿的是数据，都在 computed 当中拿，拿的就是 state 和 getters 当中的东西。
+
+    - 以后只要是从 vuex 拿的是方法(mutations 和 actions 当中的东西)，都在 methods 当中去拿，一般用的很少。
+
+24. 
+
+25. 整体引入 lodash：`import _ from 'lodash'`
 
     按需引入 lodash 中的 throttle：`import throttle from 'lodash/throttle'`
 
-15. 事件控制 2、3 级分类的显示和隐藏：
+    ` var throttled = _.throttle(renewToken, 300000, { 'trailing': false });`
+
+    `{ 'trailing': false }`的作用：是否在结束延迟之后调用。默认是 true。(trailing 常用)
+
+    `{ 'leading': false }`的作用：是否在结束延迟之前调用。默认是 false。(leading 一般不用)
+
+20. 事件控制 2、3 级分类的显示和隐藏：
 
    原来的是使用 css 去做的，改为一个类：
 
    1. 首先把原来的 hover 去掉，改为一个类。
+
    2. 在 item 身上动态的强制绑定 class，[item_on: 布尔值]，布尔值为 true，那么当前的这个 item 的类就生效。
+
    3. 移入哪一个 item，就让当前这个 item 的类为 true。
+
    4. 设计一个数据，`currentIndex = -1`。
+
    5. 移入 item 的时候，让 `currentIndex = index`。
+
    6. 移出不能再 item 身上去加，因为最后 item 和 h2 移出他们整体会把 2 级分类隐藏，所以需要用 div 把 item 和 h2 包裹，给 div 添加。
 
-11. 把所有的 a 标签换成 router-link 会卡，因为组件标签太多了，导致内存当中组件对象太多，容易造成鼠标移动到列表中的时候，一卡一卡的。(来自于111集 - 20: 00 - 点击分裂跳转到搜索页面，携带 query 参数 )
+7. 把所有的 a 标签换成 router-link 会卡，因为组件标签太多了，导致内存当中组件对象太多，容易造成鼠标移动到列表中的时候，一卡一卡的。(来自于111集 - 20: 00 - 点击分裂跳转到搜索页面，携带 query 参数 )
 
-    解决办法：
+   解决办法：
 
-    1. 把 **声明式导航 router-link **改为 **编程式导航 `$router.push({})`**。
-    2. 把声明式导航改为编程式导航，click 事件在点击之后，是需要调用函数的，同样每个 a 标签都添加了点击事件，那么内容中就会定义很多个函数，内存占用也是比较大的，效率虽然比声明式导航强，但是还是不够好。再用事件委托来把函数定义在父元素上来解决。
+   1. 把 **声明式导航 router-link **改为 **编程式导航 `$router.push({})`**。
+   2. 把声明式导航改为编程式导航，click 事件在点击之后，是需要调用函数的，同样每个 a 标签都添加了点击事件，那么内容中就会定义很多个函数，内存占用也是比较大的，效率虽然比声明式导航强，但是还是不够好。再用事件委托来把函数定义在父元素上来解决。
+
+8. 事件委派在哪两种场合使用？
+
+   - 一个爹有很多儿子，每个儿子身上都绑定了同样的事件，而且事件的回调处理效果都差不多。
+   - 一个爹有很多儿子，一部分儿子已经渲染在页面了，旁边有一个按钮，点击一下按钮添加一个儿子。
+
+9. 等号的右边：
+
+   1. 只要出现了 `[]`，就代表一个新的数组来了。
+   2. 只要出现了 `{}`，就代表一个新的对象来了。
+   3. 只要出现了 `function(){}`就代表一个新的函数来了。
 
 12. 事件委派(事件委托)：在共同的父级/祖辈元素身上添加事件监听。
 
@@ -521,7 +658,7 @@
 
     ![image-20210828024248509](北京PC项目笔记.assets/image-20210828024248509.png)
 
-24. 为什么要使用 vuex 中的 gettes？
+24. 为什么要使用 vuex 中的 getters？
 
     因为我们获取的数据结构比较复杂，使用起来不方便，甚至会出现小错误(假报错)。
 
@@ -782,7 +919,64 @@
 
     PubSub-js 要用这个包来实现消息订阅与发布，这个包使用起来会增加体积。
 
-33. 
+33. 自定义事件：
+
+    - 自己定义的事件：事件类型(自己定义无数个)和回调函数(自己定义自己触发，默认传参是自己传就有，不传就是 undefined)。
+
+    - 系统定义的事件：事件类型(固定几个，如：click，onmousemove 等)和回调函数(自己定义系统触发，默认参数是事件对象)
+
+    做法：
+
+    - 在父组件当中可以看到子组件对象，给子组件对象绑定自定义事件 `$on`，回调函数在父组件中。
+    - 在子组件当中，我们需要传递数据的地方，去触发自己身上的事件 `$emit`，调用回调函数中传参给父组件。
+
+    使用：子向父通信
+
+    原因：因为父组件内部可以看到子组件对象，可以给子组件对象绑定事件，回调函数在父组件定义。而子组件内部看不到父组件对象，没法给父组件对象绑定事件，子组件没法定义回调函数，但是可以看到自己，可以触发。
+
+    > - 接受数据的组件必须能看到预绑定事件的组件对象，才能绑定。
+    > - 发送数据的组件必须能看到绑定了事件的组件对象，才能触发事件。
+
+​			总结：回调函数在哪里，哪里就是接收数据。
+
+34. async  和 await：是使用同步代码实现异步效果。
+
+    promise 前面都可以加 await 来等待，加了 await，那么离 await 最近的函数就要加 async。
+
+    async 函数代表这是一个异步函数，async 函数返回的是 promise。
+
+    async 函数的返回值不看 return，必然返回 promise。
+
+    async 返回的 promise 是成功还是失败，看 return。
+
+    **return  的结果是什么代表 promise 是成功还是失败：**
+
+    1. 如果 return 的是一个非 promise 的值，代表 async 函数返回的  promise 是成功的。
+
+       **成功的结果：**是 return 的结果。
+
+    2. 如果返回的是成功的 promise，代表 async 函数的 promise 也是成功的(它们不是同一个 promise，一个是 async 函数返回的 promise，另一个是 return 后面返回的 promise)。
+
+       **成功的结果：**是 return 的 promise 的成功结果。
+
+    3. 如果返回的是失败的 promise，代表 async 函数返回的  promise 是失败的。
+
+       **失败的原因：**是 return 的 promise 失败的原因。
+
+    4. 如果 throw 抛出错误，代表 async 函数返回的  promise 是失败的。
+
+       **失败的原因：**是抛出的错误原因。
+
+    ```js
+    async function add(a, b){
+        return a + b
+    }
+    console.log(add(10, 20)); // 返回的是一个成功的 promise
+    ```
+
+    
+
+34. 
 
 
 

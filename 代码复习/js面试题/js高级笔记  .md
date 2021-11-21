@@ -1101,7 +1101,100 @@
 
 87. 埋点：是网站分析的一种常用的数据采集方法。如：统计客户点击某个按钮的次数。
 
-88. 
+88. reduce 使用：
+
+    功能：统计数组当中的符合条件的结果(数字或者其他类型)
+
+    参数：回调函数(参数：prev(上一次统计的结果) item index arr) 	统计的初始值
+
+    返回值：返回统计后的结果
+
+    ```js
+    let arr = [1, 2, 3];
+    let newArr = arr.reduce((prev, item, index, arr)=> {
+        // 这个方法也是暗含遍历，会拿数组的每一项执行回调函数
+        // 第一次执行回调的时候，prev 的值就是你给的初始值
+        // 第一次执行完回调函数后，会返回 prev 值，返回给了第二次执行时候的初始值
+        return i
+    }, 0)
+    console.log(newArr); // 6
+    ```
+
+    
+
+89. (刘渊哥)只要`todos`数据发生变化，就把变化后的数据存储到 localStorage 当中
+
+     localStorage 是前端本地存储的方案，是一个小型的数据库，存储到 localStorage 当中的东西，都会自动转化为字符串
+
+    localStorage 当中有 4 个 API：
+
+    - `localStorage.setItem('键', 值)` // 给 localStorage 存储数据
+    - `localStorage.getItem('键')` // 获取 localStorage 当中某个键的数据
+    - `localStorage.removeItem('键')` // 删除 localStorage 当中某个数据
+    - `localStorage.clearItem()` // 清空 localStorage 当中所有的数据
+
+    > 里面的“键”，通常都大写，如：`localStorage.setItem('TODOS_KEY', newVal)` 注意：这里的值不能直接存对象数据类型的值，否则会存入的 '[object Object]'。因为对象数据全部都会私自转基本，数据就不对了。
+    >
+    > 如果有对象，我们可以这样写：`localStorage.setItem('TODOS_KEY', JSON.stringify(newVal))`
+
+    
+
+90. (刘渊哥)隐式类型转换：
+
+    啥时候出现？计算、比较、全部转基本
+
+    判等的时候：判等如果都是对象，判地址。如果有一个不是对象类型，那转基本。
+
+    1. 数组转基本：去掉中括号，中间留下什么，就带引号。
+
+       ```js
+       console.log([1, 2, 3] + 100); // '1, 2, 3100'
+       ```
+
+       
+
+    2. 对象转基本：固定的 '[object Object]'。
+
+       ```js
+       console.log({name:'zs'} + 100); // '[object Object]100'
+       ```
+
+       
+
+    3. 函数转基本：固定的 函数整体加字符串。
+
+       ```js
+       function fn() {
+           console.log(111)
+       }
+       
+       console.log(fn + 100); // 'function fn() {console.log(111)}100'
+       ```
+
+       
+
+91. (刘渊)map 方法：
+
+    功能：加工数组。根据已有的数组，创建新的数组，新数组当中的每一项，和老数组当中的每一项对应有关系，没对应的没关系。
+
+    参数：回调函数(item，index，array)。
+
+    这个回调函数的作用：forEach、map、filter、some、every、reduce 暗含遍历，每个数组项都会执行这个回调函数，返回的是一个新的项，放在新数组当中。
+
+    返回值：把每一项都返回的新项组成的新数组返回。
+
+    ```js
+    this.users = response.data.items.map(item => ({
+        username: item.login,
+        userurl: item.url,
+        userimg: item.avatar_url
+    }))
+    // 其实这个 item 不止这三项，但是我映射的只有三项
+    ```
+
+    
+
+91. 
 
 
 
