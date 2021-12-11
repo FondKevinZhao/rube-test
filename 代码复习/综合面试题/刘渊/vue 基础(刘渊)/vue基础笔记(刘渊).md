@@ -156,7 +156,15 @@
 
     eslint 的配置的错误级别
 
-    1. 局部禁用某个错误提示：`eslint-disable no-unused-vars`。
+    1. 局部禁用某个错误提示(工作中基本不用)：`/* eslint-disable no-unused-vars */`。表示对当前文件生效，其他文件照样不行。如：
+
+       ```js
+       /* eslint-disable no-unused-vars */
+       var a;
+       // 如果直接 var a，在脚手架里面会报错。如果加上看起来像个注释的东西： /* eslint-disable no-unused-vars */ 就不会报错了。
+       ```
+
+       
 
     2. `package.json` 当中找到 `eslintConfig` 项，全局配置禁用某些错误提示：
 
@@ -168,7 +176,31 @@
 
        
 
-    3. 
+    3. 开发阶段直接关闭 eslint 的提示功能
+
+       手动创建 vue.config.js
+
+       ```js
+       module.exports = {
+           // 写自己想要配置的东西去覆盖系统自带的
+           // 关闭 Eslint 的规则
+           lintOnSave: false
+       }
+       ```
+
+       
+
+11.  webpack 配置
+
+    - 脚手架 2：配置是暴露的，我们可以直接在里面修改配置。
+    - 脚手架 3：配置是隐藏的，我们需要通过脚手架扩展的 vue.config.js 来配置。
+
+    vue.config.js(相当于一个小的 webpack 配置文件) 在构建项目的时候是没有的，我们要配置 webpack 的时候，需要自己建立。
+
+    运行启动命令行：
+
+    - 脚手架 2: npm run dev
+    - 脚手架3: npm run serve
 
 10. 
 
