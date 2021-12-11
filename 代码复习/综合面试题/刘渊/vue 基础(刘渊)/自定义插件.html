@@ -8,20 +8,26 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <p v-upper="msg"></p>
+  </div>
   <script src="./myPlugin.js"></script>
   <script>
     // 这句话贼重要，声明使用插件，这句话的本质是在自动调用插件当中的 install 方法
-    Vue.use(myPlugin); 
+    Vue.use(MyPlugin); // MyPlugin 的 My 首字母是大写。因为暴露出来的是大写。
 
-    new Vue({
+    Vue.myGlobalMethod() // 调用插件中的全局方法
+
+    const vm = new Vue({
       el: '#app',
       data() {
         return {
-
+          msg: 'i love you'
         }
       }
     })
+
+    vm.$myMethod(); // 调用插件中实例方法
   </script>
 </body>
 </html>
