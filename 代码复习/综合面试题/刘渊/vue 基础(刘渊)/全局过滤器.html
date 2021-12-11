@@ -14,10 +14,19 @@
   <div id="App">
     <p>{{ myTime }}</p>
     <p>{{ myTime | myFormat }}</p>
+    <!-- myFormat后面可以跟参数 -->
+    <p>{{ myTime | myFormat('YYYY-MM-DD') }}</p>
   </div>
   <script>
+    // 未传参数
     Vue.filter('myFormat', () => {
       return moment().format('MMMM Do YYYY, h:mm:ss a');
+    })
+
+    // 传参数：第一个永远是 value 值，第二个才是你传的参数
+    Vue.filter('myFormat', (value, format = "'MMMM Do YYYY, h:mm:ss a'") => {
+      // format="'MMMM Do YYYY, h:mm:ss a'：没传参数就用默认的，传了就用你传的
+      return moment().format(format);
     })
     // vue 当中的过滤器可以理解成是为了让数据进一步计算，得到最终的结果
     new Vue({
