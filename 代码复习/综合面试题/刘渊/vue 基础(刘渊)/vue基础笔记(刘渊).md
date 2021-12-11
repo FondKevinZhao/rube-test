@@ -108,6 +108,9 @@
 
      组件当中的 data 选项为什么非得是一个函数，而不能是一个对象？
 
+     - 在组件中 data 使用对象会报错。报错内容：组件必须要定义成一个函数。
+     - 当每次写标签使用的时候，都会偷偷的实例化定义出来的函数的实例化对象，被称作为组件对象。也就是说每一个组件标签(如：`<my-button></my-button>`)，背后都会对应自己的组件对象在支撑着。
+
    定义局部组件：在工作中，没有人定义局部组件，因为定义局部组件，只能在当前组件使用。
 
    缺点：
@@ -127,6 +130,45 @@
 9. 组件：由 html/css/js 组成的代码片段。
 
    组件化比模块化的范围要大。
+
+10. 脚手架的安装和目录结构
+
+    一、之前自己搭建环境、配置 webpack 只是一些基本的功能
+
+    脚手架 4/3
+
+    脚手架 2(现在没人用了)
+
+    区别：
+
+    1. 创建脚手架 4/3 的 vue 项目，并运行：
+       - npm install -g @vue/cli
+       - vue create vue-demo
+       - npm run serve
+    2. 创建脚手架 2 的 vue 项目
+       - npm install -g @vue/cli-init
+       - vue init webpack vue-demo
+       - npm run dev
+    3. 查看 vue 脚手架版本：vue --version 
+    4. 删除 vue 脚手架的指令(只是演示，下载好了就行，不需要删除)：npm uninstall -g @vue/cli
+
+    二、eslint 的禁用
+
+    eslint 的配置的错误级别
+
+    1. 局部禁用某个错误提示：`eslint-disable no-unused-vars`。
+
+    2. `package.json` 当中找到 `eslintConfig` 项，全局配置禁用某些错误提示：
+
+       ```js
+       "rules": {
+           "no-unused-vars":"off"
+       }
+       ```
+
+       
+
+    3. 
 
 10. 
 
