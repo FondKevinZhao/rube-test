@@ -13,13 +13,17 @@
 <body>
   <div id="App">
     <p>{{ myTime }}</p>
+    <p>{{ myTime | myFormat }}</p>
   </div>
   <script>
-    Vue.filter
+    Vue.filter('myFormat', () => {
+      return moment().format('MMMM Do YYYY, h:mm:ss a');
+    })
+    // vue 当中的过滤器可以理解成是为了让数据进一步计算，得到最终的结果
     new Vue({
       el: '#App',
       data: {
-        myTime: Date.now()
+        myTime: Date.now() // 1970年1月1日0时0分0秒到现在的毫秒数
       }
     })
   </script>
