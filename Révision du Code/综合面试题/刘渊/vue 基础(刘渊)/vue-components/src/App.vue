@@ -2,8 +2,10 @@
   <div>
     <Header></Header>
     <div class="container">
-      <Add></Add>
-      <List :coms="comments"></List>
+      <Add :addComment="addComment"></Add>
+      <!-- 传的是函数数据 -->
+      <List :coms="comments" :deleteComment="deleteComment"></List>
+      <!-- 传的是非函数数据 -->
     </div>
   </div>
 </template>
@@ -18,6 +20,13 @@ export default {
     Add,
     List
   },
+  methods: {
+    addComment(comment) {
+      this.comments.unshift(comment)
+    },
+    deleteComment(index) {
+      this.comments.splice(index, 1)    }
+  },
   data() {
     return {
       comments: [
@@ -27,9 +36,9 @@ export default {
       ]
     }
   }
+  
 }
 </script>
 
 <style>
-
 </style>

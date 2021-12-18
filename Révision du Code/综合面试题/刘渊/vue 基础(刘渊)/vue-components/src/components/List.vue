@@ -4,7 +4,7 @@
     <h2 style="display: none">暂无评论，点击左侧添加评论！！！</h2>
     <ul class="list-group">
       <!-- :comment="comment" 这个表示，遍历一个，就把comment传给对应的 Item 组件 -->
-      <Item v-for="comment in coms" :key="comment.id" :comment="comment"></Item>
+      <Item v-for="(comment,index) in coms" :key="comment.id" :comment="comment" :deleteComment="deleteComment" :index="index"></Item>
     </ul>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   components: {
     Item
   },
-  props: ['coms'] // 声明接收属性，而不是直接接收属性值
+  props: ['coms', 'deleteComment'] // 声明接收属性，而不是直接接收属性值
 };
 </script>
 
