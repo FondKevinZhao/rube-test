@@ -2,10 +2,14 @@
   <div>
     <Header></Header>
     <div class="container">
-      <Add :addComment="addComment"></Add>
-      <!-- 传的是函数数据 -->
+      <!-- 传的是函数数据 props 写法
+      <Add :addComment="addComment"></Add>  -->
+
+      <!-- 自定义事件写法 -->
+      <Add @></Add>
+      
       <List :coms="comments" :deleteComment="deleteComment"></List>
-      <!-- 传的是非函数数据 -->
+
     </div>
   </div>
 </template>
