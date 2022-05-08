@@ -141,15 +141,15 @@
 
     区别：
 
-    1. 创建脚手架 4/3 的 vue 项目，并运行：
+    1. 创建脚手架 4和3 的 vue 项目，并运行：
        - npm install -g @vue/cli
-       - vue create vue-demo
-       - npm run serve
-    2. 创建脚手架 2 的 vue 项目
+       - vue create vue-demo     使用安装的脚手架创建一个新的vue项目
+       - npm run serve    运行创建的项目
+    2. 创建脚手架 2 的 vue 项目(已经淘汰了)
        - npm install -g @vue/cli-init
        - vue init webpack vue-demo
        - npm run dev
-    3. 查看 vue 脚手架版本：vue --version 
+    3. 查看 vue 脚手架版本：vue --version 或 vue -V
     4. 删除 vue 脚手架的指令(只是演示，下载好了就行，不需要删除)：npm uninstall -g @vue/cli
 
     二、eslint 的禁用
