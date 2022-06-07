@@ -450,7 +450,7 @@
 
     - 以后只要是从 vuex 拿的是方法(mutations 和 actions 当中的东西)，都在 methods 当中去拿，一般用的很少。
 
-24. 
+    
 
 25. 整体引入 lodash：`import _ from 'lodash'`
 
@@ -574,37 +574,37 @@
 
 17. **一般情况下 router-link 太多，不推荐用 声明式导航，而是用编程式导航 + 事件委托。**
 
-18. mock 数据(P122)：
+### mock 数据(P122)：
 
-    作用：模拟数据 和 拦截 Ajax 请求。
+ 作用：模拟数据 和 拦截 Ajax 请求。
 
-    mock 会拦截我们的 Ajax 请求，不会真正去发送请求。(发送请求是往本地发，没有往后端发，请求的数据也是本地的)
+mock 会拦截我们的 Ajax 请求，不会真正去发送请求。(发送请求是往本地发，没有往后端发，请求的数据也是本地的)
 
-    1. 创建文件夹 + JSON文件：
+1. 创建文件夹 + JSON文件：
 
-       ![image-20210827003601396](北京PC项目笔记.assets/image-20210827003601396.png)
+   ![image-20210827003601396](北京PC项目笔记.assets/image-20210827003601396.png)
 
-    2. 下载：npm i mockjs
+2. 下载：npm i mockjs
 
-    3. 填写 banner.json 和 floor.js 中的 JSON 数据
+3. 填写 banner.json 和 floor.js 中的 JSON 数据
 
-    4. 填写 mockServer.js(写接口的文件)的内容：
+4. 填写 mockServer.js(写接口的文件)的内容：
 
-       ![image-20210827003739138](北京PC项目笔记.assets/image-20210827003739138.png)
+   ![image-20210827003739138](北京PC项目笔记.assets/image-20210827003739138.png)
 
-    5. 在 main.js 中引入 mockServer(关键步骤，不引入表示用不了)
+5. 在 main.js 中引入 mockServer(关键步骤，不引入表示用不了)
 
-       ![image-20210827003917279](北京PC项目笔记.assets/image-20210827003917279.png)
+   ![image-20210827003917279](北京PC项目笔记.assets/image-20210827003917279.png)
 
-    6. 在 api 文件中 创建 mockAjax.js，复制 ajax.js 中的内容进行修改(只修改一个地方)：把 baseURL 中的 /api 改成 /mock
+6. 在 api 文件中 创建 mockAjax.js，复制 ajax.js 中的内容进行修改(只修改一个地方)：把 baseURL 中的 /api 改成 /mock
 
-       ![image-20210827004225425](北京PC项目笔记.assets/image-20210827004225425.png)
+   ![image-20210827004225425](北京PC项目笔记.assets/image-20210827004225425.png)
 
-    7. 在 api 的 index.js 中发送请求：
+7. 在 api 的 index.js 中发送请求：
 
-       ![image-20210827005116274](北京PC项目笔记.assets/image-20210827005116274.png)
-
-       
+   ![image-20210827005116274](北京PC项目笔记.assets/image-20210827005116274.png)
+   
+    
 
 19. 发请求步骤：
 
@@ -612,35 +612,37 @@
 
     2. 写 store 里面的三连环：state、mutations、actions：
 
-       ![image-20210827010248330](北京PC项目笔记.assets/image-20210827010248330.png)
+![image-20210827010248330](北京PC项目笔记.assets/image-20210827010248330.png)
 
-    3. 拿数据。
+3. 拿数据。
 
-    4. 页面展示。
+4. 页面展示。
 
-20. Swiper 轮播图的使用：[官网地址](https://www.swiper.com.cn/usage/index.html)
+### Swiper 轮播图的使用：[官网地址](https://www.swiper.com.cn/usage/index.html)
+
+
 
     1. 安装：npm i swiper@5。5 表示版本号。
-
+    
     2. 引入 js 和 css。在 main.js 中引入 css(检查页面是否正常，如果正常代表 css 生效了)。后续在哪里用只需要在那里的组件里引入 js 就行了。
-
+    
     3. 书写 swiper 的结构。
-
+    
     4. 实例化 swiper 实例对象。
-
+    
        在 轮播图组件的 mounted 中去实例化 swiper 是不行的，因为页面显示还不一定成功，我们必须得保证请求数据回来之后，再去实例化，有了数据，slide 的 div 才会动态创建好。
 
-       ![image-20210827035031017](北京PC项目笔记.assets/image-20210827035031017.png)
+![image-20210827035031017](北京PC项目笔记.assets/image-20210827035031017.png)
+    
+**方法一：** 上面的代码搞不定，我们就要想办法，最简单粗暴的办法就是使用定时器(时间是自己定义的，做法不完美，项目中不用这个方法)：
+    
+![image-20210827035229656](北京PC项目笔记.assets/image-20210827035229656.png)
+    
+**方法二：** 我们不在 mounted 里面去写，可以在 watch 来监视，使用 nextTick 的方法来完成。(完美的解决方案)：
 
-       **方法一：** 上面的代码搞不定，我们就要想办法，最简单粗暴的办法就是使用定时器(时间是自己定义的，做法不完美，项目中不用这个方法)：
-
-       ![image-20210827035229656](北京PC项目笔记.assets/image-20210827035229656.png)
-
-       **方法二：** 我们不在 mounted 里面去写，可以在 watch 来监视，使用 nextTick 的方法来完成。(完美的解决方案)：
-
-       ![image-20210827043606802](北京PC项目笔记.assets/image-20210827043606802.png)
-
-    **注意：** swiper 必须在页面的数据结构显示完成后创建才会生效。
+![image-20210827043606802](北京PC项目笔记.assets/image-20210827043606802.png)
+    
+**注意：** swiper 必须在页面的数据结构显示完成后创建才会生效。
 
 21. 其实 swiper 也可以写在 updated 里面，那么为什么选择 watch + nextTick 而不是 updated 呢？
 
@@ -656,7 +658,7 @@
 
 23. vuex 中的 dispatch 只能传递一个参数，如果有多个参数需要传递，请写成一个对象：
 
-    ![image-20210828024248509](北京PC项目笔记.assets/image-20210828024248509.png)
+![image-20210828024248509](北京PC项目笔记.assets/image-20210828024248509.png)
 
 24. 为什么要使用 vuex 中的 getters？
 
@@ -898,90 +900,326 @@
 
     注意：有了全局事件总线，PubSub(消息订阅与发布) 几乎不用，因为在 vue 当中，本身就有全局事件总线，而且它们的作用几乎是一样的，如果用 PubSub(第三方包) 那么体积肯定会变大。
 
-31. vuex 这里不详细说
+31. vuex 的使用
 
     5个核心概念：
 
-    1. state
-    2. mutations
-    3. actions
-    4. getters
-    5. modules
+    1. state：代表初始化数据。是一个包含n个属性(不是方法)的对象。
 
-    注意：
+    2. mutations：代表直接修改数据的数据。是一个包含n个直接修改状态数据的方法和对象(用来让action的行为调用)。在index.js中的第一个参数是state，第二个参数如果有，可以写在state的后面，第二个参数是actions方法中触发mutations的方法时传过来的。
 
-    1. 项目大用 vuex，我们去公司项目一般都很大，会用到。
-    2. 项目小，使用 vuex 反而会降低效率，因为 vuex 是需要占用打包体积的。
+    3. actions：代表用户行为数据。是一个包含n个用户行为回调方法的对象，(用来映射组件用户的行为回调函数)。在index.js中actions中的方法的第一个参数必然是context，也可以解构成{commit}，就算不用也要占位，第二个参数才是你dispatch的时候传递过来的参数。
 
-32.  消息订阅和发布**(所有场合)**：
+       dispatch 在触发的时候本质就是在调用actions当中的方法，可以传递参数，但是只能传递一个，如果要传递多个，请把多个参数封装成对象再传。
+
+    4. getters：代表计算属性数据。是一个包含n个计算属性的方法和对象。
+
+    5. modules：模块化管理数据
+
+    **注意：**
+
+    1. 项目大用 Vuex，我们去公司项目一般都很大，会用到。
+    2. 项目小，使用 Vuex 反而会降低效率，因为 Vuex 是需要占用打包体积的。
+
+    Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式 + 库**。
+
+    1. 状态管理是什么：
+
+       - Vuex是一个专门为Vue.js应用程序开发的状态管理模式，是一个vue官方的插件。
+
+       - 它采用集中式存储管理应用的所有组件的状态(数据)，并以相应的规则保证状态以一种可预测的方式发生变化。
+       - 我们也可以认为它也是一种组件间通信的方式，并且适用于任意组件。
+
+    2. 理解：对vue应用中多个组件的共享状态进行集中式的管理(读/写)。
+
+    3. 为什么要有这个Vuex(问题)：
+
+       - 多个视图依赖于同一状态。
+       - 来自不同视图的行为需要变更同一状态。
+       - 以前的解决办法：
+         - 1. 将数据以及操作数据的行为都定义在父元素上。
+         - 2. 将数据以及操作数据的行为传递给需要的各个子组件(有可能需要多级传递)。
+       - Vuex就是用来解决这个问题的。
+
+    4. 什么时候用：
+
+       - Vuex可以帮助我们管理共享状态，并附带了更多的概念和框架。这需要对短期和长期效益进行权衡。
+       - 也就是说应用简单(组件比较少)就不需要使用(虽然可以用，但是没必要)，如果应用复杂，使用就会带来很大的便捷。
+
+    5. Vuex的核心：把所有的共享状态数据拿出来放在Vuex中进行集中式管理
+
+       1. 安装Vuex。
+
+          ```js
+          npm i vuex -S
+          ```
+
+       2. 引入Vuex并声明使用。
+
+          ```js
+          import Vue from 'vue';
+          import Vuex from 'vuex';
+          Vue.use(Vuex);
+          ```
+
+       3. 向外暴露一个store的实例化对象。
+
+          ```js
+          export default new Vuex.Store({
+            // 包含了6个核心概念，现在咱们讲4个
+          })
+          ```
+
+       4. 将暴露出去的store实例化对象引入到Vue的配置对象当中(main.js中配置)使用。
+
+          ```js
+          import Vue from 'vue';
+          import App from '@/App';
+          import store from '@/store';
+          
+          Vue.config.productionTip = false;
+          new Vue({
+            store, // 将store对象在配置对象当中配置使用，每个组件对象当中都可以通过this.$store获取到我们的这个对象
+            el: '#app',
+            render: h => h(App)
+          })
+          ```
+
+          
+
+       5. 书写store对象当中包含的4个核心概念
+
+    6. 优化：
+
+       1. 如果用户在操作的时候就是很简单的数据更改，那么可以不用分发给actions，直接提交给mutations去更改。
+       
+       2. 页面上如果数据不想写的太长，可以利用getters，去计算出来，然后在组件computed当中获取计算的这个数据。
+       
+       3. mapActions等。
+       
+       4. mapActions 的使用：这个函数允许传递一个数组，当回调函数名字和actions当中方法名字一样的时候，才能传数组。
+       
+          第一步引入：
+       
+          ```js
+          import { mapActions } from 'vuex'; // 在要操作的组件中引入
+          ```
+       
+          第二步书写：
+       
+          ```js
+          ...mapActions(['increment', 'decrement', 'inrementIfOdd', 'inrementAsync'])
+          ```
+       
+          这个mapActions调用之后返回的是一个对象，这个对象如下：
+       
+          ```js
+          {
+            increment() {
+            // this.count++;
+            // dispatch 和 emit 很像，都是触发，分发的意思。这个dispatch是分发触发actions当中对应的方法
+              this.$store.dispatch("increment");
+            },
+            decrement() {
+              // this.count--;
+              this.$store.dispatch('decrement');
+            },
+            inrementIfOdd() {
+              // if (this.count % 2 != 0) {
+              //   this.count++;
+              // }
+              this.$store.dispatch('inrementIfOdd');
+            },
+            inrementAsync() {
+              /* setTimeout(() => {
+                this.count++;
+              }, 1000); */
+              this.$store.dispatch('inrementAsync');
+            },
+          }
+          ```
+       
+       5. 如果是映射方法，无论是mapActions还是mapMutations的方法都映射到methods里面。如果是映射属性数据，无论是state的数据还是getters当中的方法，都映射到computed里面。
+
+32. 消息订阅和发布**(所有场合)**：PubSubJS插件
+
+    插件地址：https://github.com/mroderick/PubSubJS
+
+    步骤：
+
+    1. 安装：`npm install pubsub-js`;
+
+    2. 引入：`import PubSub from 'pubsub-js'`;
+
+    3. 关键词：
+
+       ```js
+       PubSub.subscribe('MY TOPIC', mySubscriber); // 订阅
+       PubSub.publish('MY TOPIC', 'hello world!'); // 发布
+       PubSub.unsubscribe(token); // 取消订阅
+       ```
+
+       
+
+    关键词：
 
     代码类似于全局时间总线，但是在 vue 当中存在了全局事件总线，所有这个东西几乎不用。
 
     PubSub-js 要用这个包来实现消息订阅与发布，这个包使用起来会增加体积。
 
-33. 自定义事件：
+### 自定义事件
 
-    - 自己定义的事件：事件类型(自己定义，可以有无数个)和回调函数(自己定义自己触发，默认传参是自己传就有，不传就是 undefined)。
+- 自己定义的事件：事件类型(自己定义，可以有无数个)和回调函数(自己定义自己触发，默认传参是自己传就有，不传就是 undefined)。
 
-    - 系统定义的事件：事件类型(固定几个，如：click，mouseover 等)和回调函数(自己定义系统触发，默认参数是事件对象)
+- 系统定义的事件：事件类型(固定几个，如：click，mouseover 等)和回调函数(自己定义系统触发，默认参数是事件对象)
 
-    做法：
+做法：
 
-    - 在父组件当中可以看到子组件对象，给子组件对象绑定自定义事件 `$on`，回调函数在父组件中。
-    - 在子组件当中，我们需要传递数据的地方，去触发自己身上的事件 `$emit`，调用回调函数中传参给父组件
+- 在父组件当中可以看到子组件对象，给子组件对象绑定自定义事件 `$on`，回调函数在父组件中。
+- 在子组件当中，我们需要传递数据的地方，去触发自己身上的事件 `$emit`，调用回调函数中传参给父组件
 
-    使用：子向父通信
+使用：子向父通信
 
-    原因：因为父组件内部可以看到子组件对象，可以给子组件对象绑定事件，回调函数在父组件定义。而子组件内部看不到父组件对象，没法给父组件对象绑定事件，子组件没法定义回调函数，但是可以看到自己，可以触发。
+原因：因为父组件内部可以看到子组件对象，可以给子组件对象绑定事件，回调函数在父组件定义。而子组件内部看不到父组件对象，没法给父组件对象绑定事件，子组件没法定义回调函数，但是可以看到自己，可以触发。
 
-    > - 接收数据的组件必须能看到预绑定事件的组件对象，才能绑定。
-    > - 发送数据的组件必须能看到绑定了事件的组件对象，才能触发事件。
+> - 接收数据的组件必须能看到预绑定事件的组件对象，才能绑定。
+> - 发送数据的组件必须能看到绑定了事件的组件对象，才能触发事件。
 
-    - `$on` 解绑事件
-    - `$emit` 解绑事件
-    - `$off` 解绑事件
-    - `once` 绑定只能触发一次的事件
+- `$on` 解绑事件
+- `$emit` 解绑事件
+- `$off` 解绑事件
+- `once` 绑定只能触发一次的事件
 
-​			总结：回调函数在哪里，哪里就是接收数据。
+总结：
 
-34. async  和 await：是使用同步代码实现异步效果。
+- 回调函数在哪里，哪里就是接收数据。
+- 既然是子传父亲，那么父亲可以看到儿子，然后在子组件中给儿子一个绑定。
+- 那么函数就在父亲那儿，儿子那儿触发函数并把数据带过去。
 
-    promise 前面都可以加 await 来等待，加了 await，那么离 await 最近的函数就要加 async。
+​						
 
-    async 函数代表这是一个异步函数，async 函数返回的是 promise。
+### async  和 await：是使用同步代码实现异步效果。
 
-    async 函数的返回值不看 return，必然返回 promise。
+promise 前面都可以加 await 来等待，加了 await，那么离 await 最近的函数就要加 async。
 
-    async 返回的 promise 是成功还是失败，看 return。
+async 函数代表这是一个异步函数，async 函数返回的是 promise。
 
-    **return  的结果是什么代表 promise 是成功还是失败：**
+async 函数的返回值不看 return，必然返回 promise。
 
-    1. 如果 return 的是一个非 promise 的值，代表 async 函数返回的  promise 是成功的。
+async 返回的 promise 是成功还是失败，看 return。
 
-       **成功的结果：**是 return 的结果。
+**return  的结果是什么代表 promise 是成功还是失败：**
 
-    2. 如果返回的是成功的 promise，代表 async 函数的 promise 也是成功的(它们不是同一个 promise，一个是 async 函数返回的 promise，另一个是 return 后面返回的 promise)。
+1. 如果 return 的是一个非 promise 的值，代表 async 函数返回的  promise 是成功的。
 
-       **成功的结果：**是 return 的 promise 的成功结果。
+   **成功的结果：**是 return 的结果。
 
-    3. 如果返回的是失败的 promise，代表 async 函数返回的  promise 是失败的。
+2. 如果返回的是成功的 promise，代表 async 函数返回的 promise 也是成功的(它们不是同一个 promise，一个是 async 函数返回的 promise，另一个是 return 后面返回的 promise)。
 
-       **失败的原因：**是 return 的 promise 失败的原因。
+   **成功的结果：**是 return 的 promise 的成功结果。
 
-    4. 如果 throw 抛出错误，代表 async 函数返回的  promise 是失败的。
+3. 如果返回的是失败的 promise，代表 async 函数返回的  promise 是失败的。
 
-       **失败的原因：**是抛出的错误原因。
+   **失败的原因：**是 return 的 promise 失败的原因。
 
-    ```js
-    async function add(a, b){
-        return a + b
-    }
-    console.log(add(10, 20)); // 返回的是一个成功的 promise
-    ```
+4. 如果 throw 抛出错误，代表 async 函数返回的  promise 是失败的。
 
-    
+   **失败的原因：**是抛出的错误原因。
 
-34. 
+**await 的意思就是放在promise的前面等待它成功的结果，并且让我们的异步变成同步。**
+
+```js
+async function add(a, b){
+    return a + b
+}
+console.log(add(10, 20)); // 返回的是一个成功的 promise
+```
+
+在做访问GitHub网站前30名的时候，有个例子：
+
+```js
+async getSearchAjax(keyword) {
+  // 修改页面显示的状态数据，为了让页面显示正在搜索
+  this.isFirst = false;
+  this.isLoading = true;
+  // console.log('keyword',keyword);
+  try {
+    const response = await axios({
+      url: "https://api.github.com/search/users",
+      method: "get",
+      // query 参数的写法
+      params: {
+        q: keyword,
+      },
+    });
+
+    this.isLoading = false;
+    // console.log(response.data);
+    this.users = response.data.items.map((item) => ({
+      // map函数会返回一个经过处理的新对象
+      // 箭头函数中：对象外面再加一个对象，代表返回的是一个对象
+      username: item.login,
+      userurl: item.html_url,
+      userimg: item.avatar_url,
+    }));
+  } catch (error) {
+    this.isLoading = false;
+    this.errMsg = error.message;
+    console.log(error.message);
+  }
+},
+```
+
+
+
+### 三点运算符
+
+三点运算符，就是扩展运算符
+
+打包和拆包，要么是数组要么是对象。
+
+**注意：数组可以打包和拆包，对象只能拆包。**
+
+对于`打包`只有一种情况：打包只能打包数组。
+
+#### 数组的拆包：
+
+```js
+// 数组的拆包
+let arr = [1, 2, 3, 4];
+// 这是拆包，这个是数组的直接拆包
+console.log(...arr); 1 2 3 4 
+// 这是拆包：把arr数组中的内容，拆开放在一个新数组中
+console.log([1, 2, 3, 4, ...arr]); // [1, 2, 3, 4, 1, 2, 3, 4]
+```
+
+#### 数组的打包：只在函数中出现。函数的形参，如果你传的是不定参数(不确定有多少个参数)
+
+```js
+// ...arr 不确定有多少个参数，把剩余的参数打包成一个数组
+function add(a, b, ...arr) { 
+    console.log(arr); // [3, 4, 5, 6, 7, 8, 9, 10]
+    console.log(arr instanceof Array); // true
+}
+add(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+```
+
+
+
+#### 对象只能拆包
+
+对象只能拆包，而且不能直接拆包(因为没有迭代器)，但是可以套一个对象后再拆
+
+拆包对象只能是在一个新的对象当中去拆老的对象
+
+```js
+let obj = {
+    name: 'zly',
+    age: 33
+}
+console.log(...obj); // 报错：Uncaught TypeError: Found non-callable @@iterator
+console.log({ ...obj }); { name: 'zly', age: 33 } // 其实还是内容是一样的，所以想要浅拷贝一个对象最快的方法是三点(...对象名)。
+```
 
 
 

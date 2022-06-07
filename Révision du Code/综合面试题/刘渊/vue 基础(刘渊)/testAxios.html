@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+
+<body>
+  <!-- 引入axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+    /* 
+      axios 是一个什么东西？是一个基于promise的HTTP库，可以用在浏览器和Node.js中。
+      源哥定义：是根据xhr和promise封装而来的HTTP库(插件)。
+      http请求：包括普通的http请求 和 Ajax请求(是特殊的http请求)。
+
+      今后我们用来发送Ajax请求最多的工具就是axios。
+
+      axios引入之后，暴露给我们的是一个函数(axios是一个函数)。
+      axios有两种用法：函数用法 和 对象用法。
+        - axios() 函数用法
+        - axios.get() 对象用法
+
+      axios 掌握好不好，关键是三种参数分得清不清：
+        1. params 参数：参数是路径的一部分，并且这个参数只能在url路径中出现。如：'localhost:8080/users/info/1'
+        2. query 参数：这个参数叫查询参数，这个参数可以出现在url当中，也可以在配置项当中去配置，query参数不属于路径的一部分(以问号为分隔符，前面的是路径，后面的是参数)。
+          - 在url当中是问号?后面的 key=value&key=value
+          - 如果是在配置项当中，配置项的名称叫params
+        3. body 请求体参数：
+          - 通常用在post和put当中，只能在配置对象当中配置，这个配置项的名字叫做data，这个配置项就是你的body请求体参数，这个数据必须是一个对象
+          如：
+            axios({ // 这是一个配置对象
+              url: 'https://api.github.com/search/repositories', 
+              method: 'get',
+              data: { 
+                q: 'v',
+                sort: 'stars'
+              }
+            })
+
+      请求方式：
+        - 普通的http请求就是get和post。
+        - Ajax请求一般情况下包含四种：get post put delete
+
+      前后端分离：
+        分离前：
+          - 前端只负责搭网页，然后后面的逻辑和接口都是由后端来做。
+        分离后：
+          - 前端做前端的(搭页面、做交互(请求获取数据，展示渲染))，后端做后端的(数据库的存储操作，接口的书写，服务器的部署)。就是把后端的一些东西剥离出来给前端工程师，其实是减轻了后端人员的工作量。
+
+      restfut API 接口规范：是现在目前最流行的书写后端接口的一个规范
+        1. 资源化：每个数据都会被看作是一个资源(商品、表格等)，对于每一个资源来说，操作数据库有4个情况(增、删、改、查)。
+        2. 后端人员对数据库的每个操作，对应前端人员Ajax的4个请求：get post put delete
+          get：调用后端人员写的查的资源接口
+          post：调用后端人员写的添加的资源接口
+          put: 调用后端人员写的修改的资源接口
+          delete：调用后端人员写的删除的资源接口
+    */
+
+    // 函数的写法
+    axios({ // 这是一个配置对象
+      // 后端给的接口地址
+      //  url: 'https://api.github.com/search/repositories?q=v&sort=stars', 
+      url: 'https://api.github.com/search/repositories',
+      method: 'get',
+      params: { // 这个是query参数的写法
+        q: 'v',
+        sort: 'stars'
+      }
+    }).then((response) => {
+      // 成功的回调
+      // console.log(response);
+      console.log(response.data);
+    }).catch((error) => {
+      // 失败的回调
+      // console.log(error);
+      console.log(error.message);
+    })
+
+
+
+    // 对象的写法
+    /*
+      如果是对象写法：
+        1. 请求方式就是对象的方法名，第一个参数都代表url(params和query都直接写在url当中)
+        2. 如果有body请求体参数，post和put 第二个参数代表的就是请求体参数，get和delete第二个参数不是请求体参数，代表的是一个配置对象(但是get和delete第二个参数几乎用不掉)。
+
+        官网：https://github.com/axios/axios
+          axios#get(url[, config]) // 第二个不是请求体参数
+          axios#delete(url[, config]) // 第二个不是请求体参数
+
+          axios#post(url[, data[, config]]) // 第二个是请求体参数
+          axios#put(url[, data[, config]]) // 第二个是请求体参数
+    */
+    /* // get请求
+    axios.get('https://api.github.com/search/repositories?q=v&sort=stars');
+    // post请求
+    axios.post('https://api.github.com/search/repositories?q=v&sort=stars',{
+      // 请求体参数
+    }) */
+  </script>
+</body>
+
+</html>
