@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    // 正则的test方法：判断字符串中是否包含数字
+    /* var str = 'sdfdkjfdkfj3434DDJFKDJF_#$*';
+    var pat = /\d/;
+    console.log(pat.test(str)); */
+    
+    // 字符串的match方法
+    /* var str = '12345678901*erererdffd';
+    // var res = str.match(/\d/); //返回第一个符合要求的字符
+    var res = str.match(/\d/g); // 返回所有符合要求的字符
+    console.log(res); */
+
+    // 字符串的replace方法
+    /* var str = '12345678901*erererdffd';
+    var res = str.replace(/\d/, '是'); //返回第一个替换的字符串
+    // var res = str.replace(/\d/g, '是'); // 返回所有符合替换的字符串
+    console.log(res); */
+
+
+
+    // 上面是正则+字符串匹配的常用方法
+    // 下面是：实现一个函数使得英文字符开头字母大写
+    function firtLetterToUpperCase(str) {
+      if (str[0] == str.match(/[a-zA-Z]/)) {
+        var newStr = str.slice(1);
+        return console.log('首字母已修改：', str[0].toUpperCase() + newStr);
+      } else {
+        // 如果不是字母开头，就返回原字符串
+        return console.log('不是字母开头，返回源字符串：', str);;
+      }
+    }
+    firtLetterToUpperCase('dfkjdklfj2323');
+    firtLetterToUpperCase('3dfkjdklfj2323');
+  </script>
+</body>
+
+</html>

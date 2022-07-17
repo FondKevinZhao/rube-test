@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #eee;
+    }
+
+    .title {
+      margin-top: 200px;
+      font-size: 30px;
+      text-align: center;
+    }
+
+    .eat {
+      font-size: 34px;
+      font-weight: 900;
+      color: red;
+      text-align: center;
+    }
+
+    .block {
+      width: 160px;
+      border: 1px solid black;
+      font-size: 20px;
+      text-align: center;
+      line-height: 40px;
+      margin: 0 auto;
+    }
+
+    .end {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="title">中午吃什么？</div><br><br>
+  <div class="eat"></div><br>
+  <div class="start block">开始</div>
+  <div class="end block">停止</div>
+
+  <script>
+    let arr = ['馄饨', '拉面', '烩面', '热干面', '刀削面', '油泼面', '炸酱面', '炒面', '重庆小面', '米线', '酸辣粉', '土豆粉', '螺狮粉', '凉皮儿', '麻辣烫', '肉夹馍', '羊肉汤', '炒饭', '盖浇饭', '卤肉饭', '烤肉饭', '黄焖鸡米饭', '驴肉火烧', '川菜', '麻辣香锅', '火锅', '酸菜鱼', '烤串', '披萨', '烤鸭', '汉堡', '炸鸡', '寿司', '蟹黄包', '煎饼果子', '生煎', '炒年糕'];
+    let eat = document.querySelector('.eat');
+    let start = document.querySelector('.start');
+    let end = document.querySelector('.end');
+    let timer = null;
+    let i = 0;
+
+    start.onclick = function () {
+      ++i;
+      start.style.display = 'none';
+      end.style.display = 'block';
+      if (i == 4) {
+        alert('这么作，别吃了');
+        start.style.display = 'none';
+        end.style.display = 'none'
+      } else {
+        timer = setInterval(() => {
+          //random_num随机数
+          //Math.floor 向下取整
+          //Math.random() 随机数
+          //Math.random()*(最大值-最小值+1)+最大值  得到最小值到最大值范围内的数值
+          let random_num = Math.floor(Math.random() * ((arr.length - 1) + 1));
+          eat.innerText = arr[random_num];
+        }, 50)
+      }
+    }
+    end.onclick = function () {
+      start.style.display = 'block';
+      start.innerText = '不行，换一个'
+      end.style.display = 'none';
+      clearInterval(timer); //取消定时器
+      timer = null;
+    }
+
+  </script>
+</body>
+
+</html>
