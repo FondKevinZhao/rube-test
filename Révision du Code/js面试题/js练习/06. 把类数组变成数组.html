@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>我是伪元素1</div>
+  <div>我是伪元素2</div>
+  <div>我是伪元素3</div>
+
+  <script>
+    // 方法一：Array.prototype.slice.call(类数组)
+    /* 
+      最经典的方法，使用Array的slice方法，此方法如果不传参数的话会返回原数组的一个拷贝，因此可以用此方法转换类数组到数组
+    */
+    // 创建一个类数组对象
+    /* var obj = { 0: "a1", 1: "b1", 2: "c1", length: 3 };
+    // 创建一个数组接收原数组返回会的拷贝
+    var arr = Array.prototype.slice.call(obj);
+    console.log(arr); */
+
+
+
+    // 方法二：Array.from(类数组)
+    // 创建一个类数组对象
+    /* var obj = { 0: "a2", 1: "b2", 2: "c2", length: 3 };
+    var arr = Array.from(obj);
+    console.log(arr); */
+
+
+
+    // 方法三：es6 扩展运算符
+    // 获取上面的div
+    /* var divs = document.getElementsByTagName('div');
+    console.log(divs);
+    // divs.forEach(item => console.log(item)); // 报错：divs.forEach is not a function
+    var divs = [...divs];
+    console.log(divs);
+    divs.forEach(item => console.log(item)); */
+  </script>
+</body>
+
+</html>
