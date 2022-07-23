@@ -10,6 +10,7 @@
 
 <body>
   <script>
+    // 方法一：
     function formatNum(str) {
       var newStr = "";
       var count = 0;
@@ -43,6 +44,15 @@
     formatNum('132134.2');  // 输出132,134.20
     formatNum('132134');  // 输出132,134.00
     formatNum('132134.236');  // 输出132,134.23
+
+
+
+    // 方法二：
+    let num = 12345678;
+    console.log(num.toLocaleString()); // 12,345,678
+
+    let num2 = 34378473847;
+    console.log(num2.toLocaleString());  // 34,378,473,847
   </script>
 </body>
 
