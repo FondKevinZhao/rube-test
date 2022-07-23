@@ -53,6 +53,10 @@
 
     let num2 = 34378473847;
     console.log(num2.toLocaleString());  // 34,378,473,847
+
+    // 使用方法二的时候要注意，我们的请求都是异步的，那么这个num是后台给的数据，一开始可能没有拿到，那么就是undefined，控制台就会报错。
+    // 解决：先判断
+    if (num === undefiend) return "";
   </script>
 </body>
 
