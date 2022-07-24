@@ -183,7 +183,7 @@
 * 运行指令：webpack
 
 ### 8、 js兼容性处理
-####第一种方法：使用经典的polyfill
+#### 第一种方法：使用经典的polyfill
 
 * 安装包
   
@@ -198,7 +198,7 @@
 * 缺点：将所有高级语法都进行了转换，但实际上可能只使用一部分(打包之后的js文件,会变的很大)
 * 解决：需要按需加载（使用了什么高级语法，就转换什么，而其他的不转换）
 
-####第二种方法：借助按需引入core-js按需引入
+#### 第二种方法：借助按需引入core-js按需引入
 
 * 安装包
   
@@ -305,7 +305,6 @@
         template: './src/index.html', // 以当前文件为模板创建新的HtML(1. 结构和原来一样 2. 会自动引入打包的资源)
       }),
     ]
-    
     ```
 * 运行指令：webpack
 
@@ -396,8 +395,8 @@
     //出现这个问题: Cannot find module 'webpack-cli/bin/config-yargs' 
     // 需要确保这些包的版本一致
     "webpack": "^4.44.2",
-     "webpack-cli": "^3.3.12",
-     "webpack-dev-server": "^3.11.0"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
     ```
 
     
@@ -408,12 +407,12 @@
 * 详细配置见官网：指南 -> 模块热替换
 * 修改devServer配置
 	```
-    devServer: {
+  devServer: {
       open: true, // 自动打开浏览器
-	  compress: true, // 启动gzip压缩
-	  port: 3000, // 端口号
-	  hot: true // 开启热模替换功能 HMR
-    }
+	    compress: true, // 启动gzip压缩
+	    port: 3000, // 端口号
+	    hot: true // 开启热模替换功能 HMR
+  }
   ```
 * 问题：html文件无法自动更新了，需要增加一个入口
 	```
@@ -471,19 +470,19 @@ devtool: 'cheap-module-eval-source-map' // 开发环境下
   // 打包之后,项目根目录就变成dist了.所以找不到图片
     // 将publicPath的路径改为: './imgs',
   {
-            test: /\.(png|jpe?g|gif)$/i,
-            use: [
-              {
-                loader: 'url-loader',
-                options: {
-                  limit: 8192,
-                  outputPath: 'imgs', // 决定文件本地输出路径
-                  publicPath: './imgs', // 决定图片的url路径
-                  name: '[hash:8].[ext]' // 修改文件名称 [hash:8] hash值取8位  [ext] 文件扩展名
-                }
-              }
-            ]
-          },
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              outputPath: 'imgs', // 决定文件本地输出路径
+              publicPath: './imgs', // 决定图片的url路径
+              name: '[hash:8].[ext]' // 修改文件名称 [hash:8] hash值取8位  [ext] 文件扩展名
+            }
+          }
+        ]
+    },
     ```
   
   * 注意: 生产环境代码需要部署到服务器上才能运行 
@@ -599,7 +598,7 @@ devtool: 'cheap-module-eval-source-map' // 开发环境下
 
 
 
-entry: 入口     entry:{main: '路径'}
+entry: 入口     entry: {main: '路径'}
 
 output: 出口  output: {filename: path:}
 
