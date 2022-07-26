@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!-- <link rel="stylesheet" href="./screen.css" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="./print.css" type="text/css" media="print"/> -->
+    <!-- <style media='print'>
+        h1 {
+            color: red;
+        }
+    </style>
+    <style media='screen'>
+        h1 {
+            color: blue;
+        }
+    </style> -->
+    <!-- <style media="screen,print">
+        h1{
+            color:brown;
+        }
+    </style> -->
+    <style>
+        /*适用于所有的媒体类型*/
+        h1{
+            font-weight: normal;
+        }
+        /*适配于screen媒体类型*/
+        @media screen{
+            h1{
+                color:red;
+            }
+        }
+        /*适配于打印机*/
+        @media print{
+            h1{
+                font-size:0px;
+                color:green;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>沛华真呵呵！</h1>
+</body>
+
+</html>
