@@ -17,12 +17,12 @@ Boolean类型用来做开关、条件的处理。
 假：false 0  off
 
 ```js
-var bool1 = true;//布尔值
+var bool1 = true; // 布尔值
 var bool2 = false;
 console.log(bool1); // true
 console.log(bool2); // false
 
-var str1 = 'true';//字符串
+var str1 = 'true'; // 字符串
 var str2 = 'false';
 console.log(str1); // true
 console.log(str2); // false
@@ -57,13 +57,15 @@ console.log(typeof test); // object
 
 **注意：**
 
-- ```js
-  document.write('123\r\n456'); // 123 456  这里的换行以空格来表示。
-  console.log('123\r\n456'); // 123
-  						  //  456 这一个在控制台中，实现了换行。
-  //以上的两行代码都是字符串才行。
-  document.write('<h1>闫海静真英俊！</h1>'); // h1的效果会在页面中出现。
-  ```
+```js
+document.write('123\r\n456'); // 123 456  这里的换行以空格来表示。
+console.log('123\r\n456'); // 123
+						  // 456 这一个在控制台中，实现了换行。
+// 以上的两行代码都是字符串才行。
+document.write('<h1>闫海静真英俊！</h1>'); // h1的效果会在页面中出现。
+```
+
+
 
 
 
@@ -106,7 +108,7 @@ console.log(typeof test); // object
 
   * 未声明这个变量或变量未初始化都会返回undefined，这个时候可以认为这个变量不能真正使用。
 
-    ```html
+    ```js
     console.log(typeof xiaoshuageshilipeihua); // undefined
     
     var taiXu;
@@ -116,8 +118,8 @@ console.log(typeof test); // object
   * 变量在没有声明时将会报错，变量没有声明只能进行一种操作就是 typeof
 
     ```js
-    console.log(typeof tiaXu);//undefined
-    console.log(tiaXu);//报错
+    console.log(typeof taiXu); // undefined
+    console.log(taiXu); // 报错
     ```
 
 * object，对象或null。
@@ -128,7 +130,7 @@ console.log(typeof test); // object
 
   ```js
   var obj1 = null;
-  var obj2 = {};//这个意思是声明了一个空对象。
+  var obj2 = {}; // 这个意思是声明了一个空对象。
   console.log(typeof obj1); // object
   console.log(typeof obj2); // object
   ```
@@ -192,10 +194,10 @@ JavaScript是弱类型语言，弱在哪里。
     var str3 = '刚才的铃声真刺激！';
     var str4 = '123456789';
     // 通过Boolean强制的把 str1、str2、str3、str4转为布尔值。
-    console.log(Boolean(str1));//false 
-    console.log(Boolean(str2));//true
-    console.log(Boolean(str3));//true
-    console.log(Boolean(str4));//true 
+    console.log(Boolean(str1)); // false 
+    console.log(Boolean(str2)); // true
+    console.log(Boolean(str3)); // true
+    console.log(Boolean(str4)); // true 
     ```
 
   * 任何的**非零数值转换为true**，**0**和**NaN**转换为**false**。
@@ -242,7 +244,7 @@ JavaScript是弱类型语言，弱在哪里。
     ```js
     console.log(Boolean(undefined)); // false
     ```
-    
+  
 * 任何**对象**都会被转换为**true**，**null**转换为**false**。
   
   ```js
@@ -250,9 +252,8 @@ JavaScript是弱类型语言，弱在哪里。
     var obj2 = null;
     console.log(Boolean(obj1)); // true
     console.log(Boolean(obj2)); // false
-    
     console.log(Boolean(null)); // false
-    ```
+  ```
   
 * `Number()`小工具，将非数值转换为数值。
 
@@ -536,6 +537,7 @@ console.log(parseInt(a)); // NaN
     console.log(true + '1'); // true1
     // 解析：true 不是一个字符串，要先将true变为字符串。String(true) + '1'  --> 'true' + '1' --> true1
     
+  
   console.log(true + 1); // 2
     ```
   
@@ -551,7 +553,7 @@ console.log(parseInt(a)); // NaN
     console.log(+a); // 1
   // 解析：这个+a在内部执行了一个 +Number(a);
     ```
-
+  
     
   
     > 有字符串那最终结果为字符串，如果都是Number，那最终结果为数值。如果有一个是字符串型，那么其他值会转换成字符串再拼接。
@@ -563,9 +565,9 @@ console.log(parseInt(a)); // NaN
     > ① 拼接字符串 
   >
     > ② 进行数学运算
-
+  
   * `-`
-
+  
     * 如果一个操作数是字符串、布尔值、null、undefined则直接调用Number进行转换。
   
       ```js
@@ -573,16 +575,17 @@ console.log(parseInt(a)); // NaN
       var num2 = true;
       
       console.log(num1 - num2); // 0
-    // 因为这个true 现在被转换为了1
+      // 因为这个true 现在被转换为了1
       ```
   
       ```js
       var num1 = '1';
       var num2 = '2';
       
+  
     console.log(num1 - num2); // -1
       ```
-  
+    
       ```js
       var num3 = true; // 经过Number()转换之后，为1。
       var num4 = null; // 经过Number()转换之后，为0;
@@ -605,7 +608,7 @@ console.log(parseInt(a)); // NaN
       // 方法五：
     console.log(+str); // 99
       ```
-
+  
       
   
       > - 加、减、乘、除肯定会进行数学运算，如果不是数值的情况下，肯定会转换为数值。
@@ -626,7 +629,7 @@ console.log(parseInt(a)); // NaN
       Infinity参与运算结果还是Infinity。
 
     * 被除数和除数都为0，结果是NaN。
-
+  
     * 如果操作数不是数值，则在后台调用Number()进行转换。
   
       ```js
@@ -635,13 +638,13 @@ console.log(parseInt(a)); // NaN
       console.log(1 / 0 + 1); // Infinity // 无穷再+1还是无穷。
       console.log(0 / 0); // NaN
       console.log(true * true / null); // Infinity
-    console.log(true * true / 1); // 1
+      console.log(true * true / 1); // 1
       ```
 
       
 
   * `%`，余数，求模。
-
+  
     * `console.log(3 % 5); // 2` // 第一个数小于第二个数则求模的结果为第一个数。
   
       ```js
@@ -651,7 +654,7 @@ console.log(parseInt(a)); // NaN
       ```
 
       
-
+  
     * 求模的结果的正、负由第一个数决定。(第一个数是正数结果就是正数，第一个数是负数，结果就是负数)
   
       ```js
@@ -662,7 +665,7 @@ console.log(parseInt(a)); // NaN
       console.log(-5 % 5); // -0
     console.log(-5 % -5); // -0
       ```
-
+  
       
   
     * 第二个数不能为`0`，如果为`0`结果为`NaN`。
