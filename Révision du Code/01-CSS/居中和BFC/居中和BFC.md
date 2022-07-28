@@ -1,6 +1,6 @@
 #### BFC
 
-`block formatting context`，块格式化上下文，是web页面的可视化CSS渲染出的一部分。__形成了BFC就形成了一个独立的区域，区域里面的子元素不会影响到外面的元素。__
+`block formatting context`，块级格式化上下文，是web页面的可视化CSS渲染出的一部分。__形成了BFC就形成了一个独立的区域，区域里面的子元素不会影响到外面的元素。__
 
 形成BFC的方法：
 
@@ -151,14 +151,14 @@
              <div>123456789</div>
          </div>
      </body>
-       </html>
+     </html>
      ```
 
 
 
 ​     
 
-#### 水平、垂直居中的总结
+#### [水平、垂直居中的总结](https://blog.csdn.net/weixin_47021982/article/details/110244922)
 
 1. 内联元素水平居中
 
