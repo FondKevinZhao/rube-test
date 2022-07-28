@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // js 中一共有6个false值：0, NaN, '', false, null, undefined
+
+    // 基本数据类型 VS 基本数据类型
+    // toNumber 基本数据类型比较，把数据全部往数字转。Number(数据)
+    console.log('1', true == 1);
+    console.log('2', true == '1');
+    console.log('3', '2' == 1);
+    console.log('4', 'a' == 1);
+    console.log('5', true == 'true');
+    console.log('6', true == 'false');
+
+    // 引用数据类型 VS 引用数据类型
+    // 引用类型比较地址值
+    // 考的是同一个东西 --- 比较是否是同一个地址
+    console.log('7', [] == []); // new Array([]) == new Array([])
+    console.log('8', {} == {}); // new Object({}) == new Object({})
+    console.log('9', [] === []); // new Array([]) === new Array([])
+    console.log('10', {} === {}); // new Object({}) === new Object({})
+    console.log('11', [] !== []);
+    console.log('12', {} !== {});
+
+
+
+    // 引用数据类型 VS 基本数据类型
+    /* 
+      第十三题：
+        注意, 取反! 的优先级要高于赋值运算符，所以会先算取反
+        // 第一步：arr === arr.valueOf() // true 第二步：toString 第三步：转数字
+        // 数组的toString返回的结果是数组中的字符串内容。[1, 2, 3] ==> "1, 2, 3"
+      第十四题：
+        第一步：arr === arr.valueOf() // true 第二步：toString 第三步：转数字
+    */
+    console.log('13', [] == ![]); // 1. []==false  ==>  2. ""==false  ==>  3. 0==0
+    console.log('14', {} == !{}); // 1. {}==false  ==>  2. "[object Object]"==false  ==>  3. NaN==0
+  </script>
+</body>
+
+</html>
