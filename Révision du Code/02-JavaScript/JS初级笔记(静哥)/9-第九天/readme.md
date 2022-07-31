@@ -32,8 +32,8 @@
   new 后面在其他语言中是类，但是在JS中不是。
 
   ```js
-  new Array(); //这样是创建了一个Array类型的对象。
-  new Object(); //创建了一个Object类型的对象。
+  new Array(); // 这样是创建了一个Array类型的对象。
+  new Object(); // 创建了一个Object类型的对象。
   ```
 
 * 第一种方法，直接使用大括号方式就是第二种方法的简化版，在内部也会调用`Object()`函数。
@@ -46,7 +46,7 @@
       cate:'泰迪',
       color:'棕色',
       sex:'公'
-  };//狗的一个对象。
+  }; // 狗的一个对象。
   
   var person = {
       name:'沛华',
@@ -56,7 +56,7 @@
       say:function(){
           console.log('我错了，下回我改！');
       }
-  }//人的一个对象。
+  }; // 人的一个对象。
   ```
 
 * 鸭子类型
@@ -66,22 +66,23 @@
   有一个国王喜欢鸭子的叫声，于是召集大臣，组建一个1000只鸭子组成的合唱团。但是大臣找遍了全国都没有凑够1000只，只找到了999只。但是他们发现有只很特别的鸡，它的叫声和鸭子一模一样，于是这只鸡就加入了合唱团。
 
   ```js
-  //鸭子类型
-  
+  // 鸭子类型
   var duck = {
       mouth:'扁的',
       singIng:function(){
           console.log('嘎嘎嘎，嘎嘎嘎嘎！');
       }
   };
+  
   var chicken = {
       mouth:'尖的',
       singIng:function(){
           console.log('嘎嘎嘎，嘎嘎嘎嘎！');
       }
   }
-  //合唱团
-  var choir = [duck,chicken];
+  
+  // 合唱团
+  var choir = [duck, chicken];
   
   for (var i = 0; i < choir.length ; i++) {
       choir[i].singIng();
@@ -161,16 +162,16 @@
           name:'李沛华'
       }
       
-      delete t.name;//删除t对象中的name属性。
+      delete t.name; // 删除t对象中的name属性。
       
       console.log(t);
       ```
 
       ```js
-      aaa = '111';//如果不加var 只不过是单纯的在window对象上面加了一个叫aaa的属性。
-      delete aaa;//既然是对象中的属性所以可以删除掉
+      aaa = '111'; // 如果不加var 只不过是单纯的在window对象上面加了一个叫aaa的属性。
+      delete aaa; // 既然是对象中的属性所以可以删除掉
       console.log(window);
-      console.log(aaa);//报错，变量没有定义。 
+      console.log(aaa); // 报错，变量没有定义。 
       ```
 
       ```js
@@ -207,49 +208,46 @@
       }
   };
   
-  
-var p2 = {
-      name:'李四',
-    age:19,
-      say:function(){
-          console.log('heihei');
-      }
+  var p2 = {
+  name:'李四',
+  age:19,
+    say:function(){
+        console.log('heihei');
+    }
   };
   ```
   
   上面声明两个人的时候会产生大量重复的代码。
   
-  ![image-20210118110143025](readme_img/image-20210118110143025.png)
-
-#### 构造调用函数来创建对象
-
-我们现在所有的对象都是Object类型的实例，都是万能的对象。
-
-如何检测呢：`instanceof 操作符。`
-
-
-
-```js
-var dog = {
-    name: '大黄',
-    cate: '泰迪',
-    color: '棕色',
-    sex: '公'
-};//狗的一个对象。
-
-var person = {
-    name: '沛华',
-    sex: '女',
-    height: 1.69,
-    weight: 200,
-    say: function () {
-        console.log('我错了，下回我改！');
-    }
-}//人的一个对象。 
-
-console.log(dog instanceof Array);//dog这个对象是Array类型的吗？ //false
-console.log(person instanceof Object);//person这个对象是Object类型的吗？//true
-```
+    ![image-20210118110143025](readme_img/image-20210118110143025.png)
+  
+  #### 构造调用函数来创建对象
+  
+  我们现在所有的对象都是Object类型的实例，都是万能的对象。
+  
+  如何检测呢：`instanceof 操作符。`
+  
+  ```js
+  var dog = {
+      name: '大黄',
+      cate: '泰迪',
+      color: '棕色',
+      sex: '公'
+  }; // 狗的一个对象。
+  
+  var person = {
+      name: '沛华',
+      sex: '女',
+      height: 1.69,
+      weight: 200,
+      say: function () {
+          console.log('我错了，下回我改！');
+      }
+  }; // 人的一个对象。 
+  
+  console.log(dog instanceof Array); // dog这个对象是Array类型的吗？ // false
+  console.log(person instanceof Object); // person这个对象是Object类型的吗？ // true
+  ```
 
 `instanceof`操作符还有一些坑，现在先记住它的作用：用来检测某个对象是否是某个类型的。
 
@@ -264,7 +262,7 @@ console.log(person instanceof Object);//person这个对象是Object类型的吗�
 ```js
 function Person(){
 
-        }
+}
 
 var p = new Person();
 console.log(p);
@@ -275,17 +273,16 @@ function Dog(){
 var d = new Dog();
 console.log(d);
 
-console.log(p instanceof Dog);//p这个对象是狗类吗？//false
-console.log(p instanceof Person);//p这个对象是人类吗？//true
+console.log(p instanceof Dog); // p这个对象是狗类吗？// false
+console.log(p instanceof Person); // p这个对象是人类吗？// true
 ```
 
 使用new 操作符操作函数之后将会生成一个对象，这个生成的对象就是`被构造调用的函数的类型`，也就是上例中`new Dog`，生成的对象就是`Dog`类型的。
 
 ```js
 function Person(){
-    //this是个关键字
+    // this是个关键字
     this.name = 'yanhaijing';
-
 }
 
 var p1 = new Person();
@@ -298,10 +295,9 @@ console.log(p1);
 
 ```js
 function Person(name1,sex1){
-    //this是个关键字
+    // this是个关键字
     this.name = name1;
     this.sex = sex1;
-
 }
 var p1 = new Person('张三','男');
 var p2 = new Person('李四','女');
@@ -335,9 +331,7 @@ Array、Object 这些函数是系统自带的。
 
    ```js
    function Test(){
-   
        /* return 1; */
-   
        // return {name:'小乖乖！'};//{} new Object()
        // return [1,2,3];
        return undefined;
@@ -345,19 +339,19 @@ Array、Object 这些函数是系统自带的。
    var t = new Test();
    console.log(t);
    ```
-
+   
    ![image-20210118142712691](readme_img/image-20210118142712691.png)
 
    ```js
-   //这是设计的一个商品的构造函数。
-   //我将所有商品的共有属性提取出来了。
+   // 这是设计的一个商品的构造函数。
+   // 我将所有商品的共有属性提取出来了。
    function Product(id,cate,detail){
-       this.id = id;//商品唯一的编号
-       this.cate = cate;//类别
-       this.detail = detail;//存储的是商品的详情。
+       this.id = id; // 商品唯一的编号
+       this.cate = cate; // 类别
+       this.detail = detail; // 存储的是商品的详情。
    }
    
-   function CD(name,time,author,id,cate){//这三个属性都是应该放在new CD时候生成的对象里面的。
+   function CD(name,time,author,id,cate){ // 这三个属性都是应该放在new CD时候生成的对象里面的。
        this.name = name;
        this.time = time;
        this.author = author;
@@ -376,7 +370,7 @@ Array、Object 这些函数是系统自带的。
    console.log(cd);
    console.log(book);
    ```
-
+   
 2. 函数既是对象又是可执行的代码块（面试的坑）。
    1. 对象：它拥有属性和方法。
    2. 可执行的代码块：它既可以执行特定的代码（普通的函数），又可以用来创建特定类型的对象（函数的构造调用）；
@@ -391,21 +385,19 @@ Array、Object 这些函数是系统自带的。
       function test () {
           return 1;
       }
-      
       console.log(test()); // 1
       
       function test () {
           return '闫海静真英俊！';
       }
-      
       console.log(test()); // 闫海静真英俊！
       ```
-   
+      
    2. 如果你是被构造函数调用的。返回的是`Test`类型新生成的对象。
    
       ```js
       function Test () {
-           return '闫海静真英俊！';
+          return '闫海静真英俊！';
       }
       
       console.log(new Test()); // Test {}
@@ -463,7 +455,7 @@ Array、Object 这些函数是系统自带的。
   ```js
   function Test(){
   
-              }
+  }
   console.log(Test.prototype);
   var t = new Test();
   console.log(t.__proto__);
@@ -563,9 +555,9 @@ __原型链：用来描述通过隐式原型对象查找属性的过程。__
 1. 所有引用类型的值都是`Object`实例的实例，所以在检测引用类型的值和`Object`时候`instanceof`始终返回`true`。
 2. 基本类型不是对象，所以在使用`instanceof`操作符检测基本类型的值的时候始终返回的是`false`。
 
-> console.log('abc' instanceof Object); //  false
+> console.log('abc' instanceof Object);  //  false
 >
-> console.log(null instanceof Object); //  false
+> console.log(null instanceof Object);  //  false
 
 #### for...in遍历
 
@@ -612,33 +604,16 @@ __原型链：用来描述通过隐式原型对象查找属性的过程。__
 
 #### 知识扩展
 
-> 计算数组元素个数：
->
-> 数组的扁平化，就是将一个嵌套多层的数组 array (嵌套可以是任何层数)转换为只有一层的数组。
->
-> 如：
->
-> 1. var arr = [1, [2, [3, 4]]];
-> 2. console.log(flatten(arr)) // [1, 2, 3, 4]
-
 > 删除文件夹：
 >
 > 1. 判断第一层文件夹的个数，并遍历第一层是否全是文件夹，如果不是就直接删除。
 > 2. 如果是文件夹，就检查文件夹内部是否有文件夹，并删除所遍历内容知道文件夹为空，最后把空文件夹删除。
 > 3. 删完后退回第一层，如法炮制，直到删除所有的第一层的文件夹。
 
-> 对象：根据里面存的内容来判断它到底代表的是什么对象。
-
-> 如果变量不存在，会直接报错。
->
-> console.log(a); // a is not defined.
-
 > window 的作用：
 >
 > 1. 操纵 BOM 、DOM 的接口。
 > 2. window顶层对象。
-
-> 函数生成的变量跟属性没啥关系。
 
 > 什么属性是不可遍历的?
 >

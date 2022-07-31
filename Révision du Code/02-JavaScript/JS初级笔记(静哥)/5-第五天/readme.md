@@ -12,7 +12,7 @@
   
   /*  colors[3] = 'pink';
   colors[4] = 'yellow'; */
-  colors[colors.length] = 'pink';//数组的length属性等于下一个元素下标的值。 [red,blue,green,pink]
+  colors[colors.length] = 'pink'; // 数组的length属性等于下一个元素下标的值。 [red,blue,green,pink]
   colors[colors.length] = 'yellow';
   console.log(colors);
   ```
@@ -24,7 +24,7 @@
   ```js
   var peiHuaF = ['杨洪波', '熊键', '常富', '罗电雷', '杨博超', '莹玉'];
   
-  console.log(peiHuaF[2]); //常富
+  console.log(peiHuaF[2]); // 常富
   ```
 
 
@@ -75,7 +75,7 @@
 
   ```js
   var peiHuaF = ['杨洪波', '熊键', '常富', '罗电雷', '杨博超', '莹玉'];
-  for (var i = peiHuaF.length - 1; i >=0 ;i--) {
+  for (var i = peiHuaF.length - 1; i >= 0 ;i--) {
       // console.log(i);
       console.log(peiHuaF[i]);
   }
@@ -88,9 +88,9 @@
   ```js
   // 数组添加用反向遍历，删除用正向遍历
   var colors = ['red', 'blue', 'green']; 
-  //需求：用学过的代码在数组的最刚开始处插入一个元素。
+  // 需求：用学过的代码在数组的最刚开始处插入一个元素。
   
-  for (var i = colors.length ; i >= 0 ;i--) {//i=3 3>=0 true//2>=0 true//1>=0 true//0>=0 true
+  for (var i = colors.length ; i >= 0 ;i--) { //i=3 3>=0 true//2>=0 true//1>=0 true//0>=0 true
       /*
       colors[3] = colors[2];//colors[3] = green
       colors[2] = colors[1];//colors[2] = blue
@@ -110,9 +110,9 @@
   ```js
   var colors = ['red', 'blue', 'yellow','green']; 
   
-  for (i = colors.length ; i >= 0 ; i--) {//4>=0 true//3>=0 true//2>=0 true
-      if (i == 2) {//4==2 false//3==2 false //2==2 true
-          break;//跳出循环。
+  for (i = colors.length ; i >= 0 ; i--) { //4>=0 true //3>=0 true //2>=0 true
+      if (i == 2) { //4==2 false //3==2 false //2==2 true
+          break; // 跳出循环。
       }
       /*
           colors[4] = colors[3];
@@ -130,9 +130,9 @@
 - 求数组的和。
 
   ```js
-  //数组的和
+  // 数组的和
   var arr = [1,2,3,4,5,6,7,8,9,10];
-  var num = 0;//用来存储数值的和的。
+  var num = 0; // 用来存储数值的和的。
   for (var i = 0; i < arr.length ; i++) {
       // console.log(arr[i]);
       num += arr[i];
@@ -147,10 +147,10 @@
   ```js
   var arr = [1, 2, 3];
   
-  //最小值
-  var min = arr[0];//1
-  for (var i = 0; i < arr.length; i++) {//0<3 true//1<3//2<3 true//3<3 false
-      if (arr[i] < min) {//1<1 false//2<1 false//3<1 false
+  // 最小值
+  var min = arr[0]; // 1
+  for (var i = 0; i < arr.length; i++) { //0<3 true //1<3 //2<3 true //3<3 false
+      if (arr[i] < min) { //1<1 false//2<1 false//3<1 false
           min = arr[i];
       }
   }
@@ -163,11 +163,11 @@
 
   ```js
   var arr = [1, 2, 3];
-  //最大值
-  var max = arr[0];//1
-  for (var i = 0; i < arr.length; i++) {//0<3//1<3 true//2< 3 true//3<3 false
-      if (arr[i] > max) {//1>1 false//2>1 true//3>2 true
-          max= arr[i];//max = 2//max = 3;
+  // 最大值
+  var max = arr[0]; // 1
+  for (var i = 0; i < arr.length; i++) { //0<3 //1<3 true //2< 3 true //3<3 false
+      if (arr[i] > max) { //1>1 false //2>1 true //3>2 true
+          max= arr[i]; //max = 2 //max = 3;
       }
   }
   console.log(max);
@@ -178,15 +178,14 @@
 - 反转数组（面试题）
 
   ```js
-  //1. 将新数组作为容器。
-   var arr = [1, 2, 3, 4, 5, 6];
-   var newArr = [];//newArr.length=0;
+  // 1. 将新数组作为容器。
+  var arr = [1, 2, 3, 4, 5, 6];
+  var newArr = []; // newArr.length=0;
   
-  for (var i = arr.length - 1 ; i>=0 ; i--) {//i=1 1>=0 true//i=0 =>=0 true//i=-1 -1>=0 false
-      //newArr[0]=arr[1]//newArr[0]=2;
-      //newArr[1]=arr[0]//newArr[1]=1;
+  for (var i = arr.length - 1; i >= 0; i--) { //i=1 1>=0 true //i=0 =>=0 true  //i=-1 -1>=0 false
+       // newArr[0]=arr[1] //newArr[0]=2;
+      // newArr[1]=arr[0] //newArr[1]=1;
       newArr[newArr.length] = arr[i];
-  
   }
   console.log(newArr);
   ```
@@ -196,24 +195,23 @@
 - 合并数组
 
   ```js
-  //合并数组
+  // 合并数组
   var arr1 = [1];
   var arr2 = [6];
   
-  //1. 新数组中合并
-  var newArr = [];//newArr.length=0
-  for (var i = 0 ; i < arr1.length ;i++) {//0<1 true//1<1 false
-      //newArr[0] = arr1[0]
+  // 1. 新数组中合并
+  var newArr = []; // newArr.length=0
+  for (var i = 0 ; i < arr1.length ;i++) { // 0<1 true //1<1 false
+      // newArr[0] = arr1[0]
       newArr[newArr.length] = arr1[i];
   }
-  for (var j = 0 ; j < arr2.length ;j++) {//0<1 true//1<1 false
-      //newArr[1] = arr2[0]
+  for (var j = 0 ; j < arr2.length ;j++) { //0<1 true //1<1 false
+      // newArr[1] = arr2[0]
       newArr[newArr.length] = arr2[j];
   }
-  
   console.log(newArr);
   
-  //2. 将arr2合并到arr1里面
+  // 2. 将arr2合并到arr1里面
   for (var i = 0 ; i < arr2.length; i++) {
       arr1[arr1.length] = arr2[i];
   }
@@ -225,33 +223,32 @@
 - 数组去重(面试题)
 
   ```js
-  //数组去重，面试题，新数组中去重，原数组中不动。
+  // 数组去重，面试题，新数组中去重，原数组中不动。
   var arr = [1,2,1];
-  var newArr = [];//去重之后的数组。
+  var newArr = []; // 去重之后的数组。
   
-  for (var i = 0 ; i < arr.length ; i++) {//i=0 0<3 true//i=1 1<3 true//2<3 true//3<3 false
+  for (var i = 0; i < arr.length; i++) { //i=0 0<3 true //i=1 1<3 true //2<3 true //3<3 false
   
-      var flag = true;//一个标志位，默认的时候都往里面放//true//true//true
+      var flag = true; // 一个标志位，默认的时候都往里面放 //true //true //true
       /*
       j = 0 j < 2 true
-  
       */
-      for (var j = 0 ; j < newArr.length ; j++) {//j=0 j<0 false//j=0 j<1 true//j=1 1<1 false
-          if (newArr[j] === arr[i]) {//这里已经有了//1===2 false//1===1 true
-              flag = false;//不行，不能让你往里面放了。//现在flag设置为了false。
+      for (var j = 0; j < newArr.length; j++) { //j=0 j<0 false //j=0 j<1 true //j=1 1<1 false
+          if (newArr[j] === arr[i]) { // 这里已经有了 //1===2 false //1===1 true
+              flag = false; // 不行，不能让你往里面放了。// 现在flag设置为了false。
               break;
           }
       }
   
-      if (flag) {//newArr[0] = 1//newArr[1]=2
+      if (flag) { //newArr[0] = 1 //newArr[1]=2
           newArr[newArr.length] = arr[i];
       }
   }
   
   console.log(newArr);
   ```
-
   
+
 
 #### 基本操作
 
@@ -311,7 +308,7 @@
       
       /*  colors[3] = 'pink';
       colors[4] = 'yellow'; */
-      colors[colors.length] = 'pink';//数组的length属性等于下一个元素下标的值。 [red,blue,green,pink]
+      colors[colors.length] = 'pink'; // 数组的length属性等于下一个元素下标的值。 [red,blue,green,pink]
       colors[colors.length] = 'yellow';
       console.log(colors);
       ```
@@ -320,9 +317,9 @@
 
     ```js
     var colors = ['red', 'blue', 'green']; 
-            //需求：用学过的代码在数组的最刚开始处插入一个元素。
+            // 需求：用学过的代码在数组的最刚开始处插入一个元素。
     
-    for (var i = colors.length ; i >= 0 ;i--) {//i=3 3>=0 true//2>=0 true//1>=0 true//0>=0 true
+    for (var i = colors.length ; i >= 0 ;i--) { //i=3 3>=0 true //2>=0 true //1>=0 true //0>=0 true
         /*
         colors[3] = colors[2];//colors[3] = green
         colors[2] = colors[1];//colors[2] = blue
@@ -342,9 +339,9 @@
     ```js
     var colors = ['red', 'blue', 'yellow','green']; 
     
-    for (i = colors.length ; i >= 0 ; i--) {//4>=0 true//3>=0 true//2>=0 true
-        if (i == 2) {//4==2 false//3==2 false //2==2 true
-            break;//跳出循环。
+    for (i = colors.length ; i >= 0 ; i--) { //4>=0 true //3>=0 true //2>=0 true
+        if (i == 2) { //4==2 false //3==2 false //2==2 true
+            break; // 跳出循环。
         }
         /*
         colors[4] = colors[3];
@@ -365,7 +362,7 @@
 
     ```js
     var colors = ['red', 'blue', 'yellow','green']; 
-    colors.length = 3;//将整个数组长度设置为3。
+    colors.length = 3; // 将整个数组长度设置为3。
     console.log(colors);
     ```
 
@@ -381,22 +378,22 @@
 * 删除开头的。
   
   ```js
-      var colors = ['red', 'blue', 'yellow']; 
-      ///这里写1的原因是不让他导致出现-1的下标出现。
-      for (var i = 1;i < colors.length ;i++) {//1<3 true//2<3 true//3<3 false
-          //colors[0] = colors[1]
-          //colors[1] = colors[2]
-          colors[i-1] = colors[i];//
-      }
-      colors.length--;
-      console.log(colors);
+  var colors = ['red', 'blue', 'yellow']; 
+  // 这里写1的原因是不让他导致出现-1的下标出现。
+  for (var i = 1; i < colors.length; i++) { //1<3 true //2<3 true //3<3 false
+      // colors[0] = colors[1]
+      // colors[1] = colors[2]
+      colors[i-1] = colors[i];
+  }
+  colors.length--;
+  console.log(colors);
   ```
   
 * 删除指定下的
   
   ```js
       var colors = ['red', 'blue', 'green','yellow']; 
-      //要删除下标为1的。
+      // 要删除下标为1的。
       for (var i = 3;i < colors.length ;i++) {//3<4 true//4<4 false
       
           colors[i-1] = colors[i];//colors[2] = colors[3]
@@ -410,36 +407,35 @@
 数组中的每个元素的值可以存储任意类型的数据，将值存储为数组类型。
 
 ```js
-  //判断是几维数组你就看最多有几层 中括号。
-  var arr = [
-      [1,2],
-      [3,4,
-       [5,6]
-      ]
-  ];
+// 判断是几维数组你就看最多有几层 中括号。
+var arr = [
+  [1,2],
+  [3,4,
+   [5,6]
+  ]
+];
+// console.log(arr);
   
-  // console.log(arr);
-  
-  console.log(arr[1][2][1]);
+console.log(arr[1][2][1]);
 ```
 
 取多维数组的值的时候要一层一层的往里面进。不管是多少维的数组，都是一层一层的往里面找。我们用的最多的是一维、二维数组，三维用的都比较少。
 
 ```js
-  var performeres = [
-      //编号,演员姓名,饰演角色,性格
-      [1,'孙红雷','何辅堂','为人正直不阿，欺强怜弱，善于机变。'],
-      [2,'巍子','魏正先','鹰视狼顾，心狠手黑。'],
-      [3,'陈数','程立雪','气质如兰，观之可亲，思想卓荦，才华压众。'],
-      [4,'郭珍霓','刘二泉','动不便，但若论手段心机，十个健全人也不是她的对手。'],
-      [5,'陈祉希','朱彩灵','刀马旦出身，水般柔美，火样性格。含威不露，顾盼神飞。']
-  ];
+var performeres = [
+  // 编号,演员姓名,饰演角色,性格
+  [1,'孙红雷','何辅堂','为人正直不阿，欺强怜弱，善于机变。'],
+  [2,'巍子','魏正先','鹰视狼顾，心狠手黑。'],
+  [3,'陈数','程立雪','气质如兰，观之可亲，思想卓荦，才华压众。'],
+  [4,'郭珍霓','刘二泉','动不便，但若论手段心机，十个健全人也不是她的对手。'],
+  [5,'陈祉希','朱彩灵','刀马旦出身，水般柔美，火样性格。含威不露，顾盼神飞。']
+];
 ```
 
 ```js
-  //遍历表格
+  // 遍历表格
   var performeres = [
-      //编号,演员姓名,饰演角色,性格
+      // 编号,演员姓名,饰演角色,性格
       [1, '孙红雷', '何辅堂', '为人正直不阿，欺强怜弱，善于机变。'],
       [2, '巍子', '魏正先', '鹰视狼顾，心狠手黑。'],
       [3, '陈数', '程立雪', '气质如兰，观之可亲，思想卓荦，才华压众。'],
@@ -447,9 +443,9 @@
       [5, '陈祉希', '朱彩灵', '刀马旦出身，水般柔美，火样性格。含威不露，顾盼神飞。']
   ];
   document.write('<table border="1" width="800"><tr><td>编号</td><td>演员姓名</td><td>饰演角色</td><td>性格</td></tr>');
-  for (var i = 0 ; i < performeres.length ; i++){//0//1
+  for (var i = 0; i < performeres.length; i++){ //0 //1
       document.write('<tr>');
-      /* console.log(performeres[i]);// */
+      /* console.log(performeres[i]); */
       document.write('<td>'+performeres[i][0]+'</td>');
       document.write('<td>'+performeres[i][1]+'</td>');
       document.write('<td>'+performeres[i][2]+'</td>');

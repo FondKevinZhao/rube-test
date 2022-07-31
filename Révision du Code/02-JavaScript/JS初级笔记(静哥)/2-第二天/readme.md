@@ -399,10 +399,8 @@ JavaScript是弱类型语言，弱在哪里。
   console.log(bool.toString());
   ```
 
-  
-
   ```js
-  var str = '太虚真人说要不抽烟了！'；
+var str = '太虚真人说要不抽烟了！'；
   var num = 250;
   var bool = false;
   
@@ -412,21 +410,21 @@ JavaScript是弱类型语言，弱在哪里。
   console.lg(num.toString()); // 250 数值型转换成字符串了
   console.lg(bool.toString()); // false 布尔值，最后转换成字符串
   ```
-
+  
   ```js
-  var und = undefined;
+var und = undefined;
   var nul = null;
   
   // 如果是undefined和null将会直接报错。
   console.log(und.toString()); // 报错
   console.log(nul.toString()); // 报错
   ```
-
+  
   ```js
-  var b = 我不饿; // 这里的值不是数字的话，要加引号，不然会报错。
-  console.log(b.toString()); //报错
+var b = 我不饿; // 这里的值不是数字的话，要加引号，不然会报错。
+  console.log(b.toString()); // 报错
   ```
-
+  
   
 
 * `String()`小工具。
@@ -443,7 +441,7 @@ JavaScript是弱类型语言，弱在哪里。
   console.log(String(null)); // null
   ```
   
-```js
+  ```js
   // 加了typeof我们可以看到他们是属于什么类型的。
   var und = undefined;
   var nul = null;
@@ -451,24 +449,22 @@ JavaScript是弱类型语言，弱在哪里。
   // 如果是undefined和null将会直接报错。
   console.log(typeof String(und)); // string
   console.log(typeof String(null)); // string
-```
-
-
+  ```
 
 > toString 和 String 我们一般用 String。因为很多时候，我们不能确定当前变量中的值是什么。
 
 
 
 ```js
-现场题目：
+// 现场题目：
 
 var a = true;
 
 console.log(parseInt(a)); // NaN 
-//解析：parseInt是将字符串转换成什么什么整数，但是这里传进来的是true布尔值，类型就不一样。这时候parseInt调用string。parseInt(String(true))，返回字符串的“true”。你是一个字符串的true，这时候我再运行，它会先找第一位是不是数值，如果不是，那最后的结果就是NaN了。
+// 解析：parseInt是将字符串转换成什么什么整数，但是这里传进来的是true布尔值，类型就不一样。这时候parseInt调用String。parseInt(String(true))，返回字符串的“true”。你是一个字符串的true，这时候我再运行，它会先找第一位是不是数值，如果不是，那最后的结果就是NaN了。
 
 console.log(Number(a)); // 1
-// 解析：Number里面传的是布尔值，不是1就是0，传的是true，所以返回的是0。
+// 解析：Number里面传的是布尔值，不是1就是0，传的是true，所以返回的是1。
 ```
 
 ```js
@@ -479,8 +475,8 @@ console.log(parseInt('123abc456')); // 123
 ```js
 var a true;
 /* 
-	a = true 是一个布尔值 boolean
-	parseInt()//传入的参数必须是字符串。也就是说a现在得是个字符串才行。但是现在不是，这个时候 a 就调用了 String 把 a 扔进去了。Sring(a)'
+	a = true; 是一个布尔值 boolean
+	parseInt(); // 传入的参数必须是字符串。也就是说a现在得是个字符串才行。但是现在不是，这个时候 a 就调用了 String 把 a 扔进去了。String(a);
 	a = Sring(a) // a = 'true';
 	parseInt('true'); // NaN
 */
@@ -536,22 +532,20 @@ console.log(parseInt(a)); // NaN
     ```js
     console.log(true + '1'); // true1
     // 解析：true 不是一个字符串，要先将true变为字符串。String(true) + '1'  --> 'true' + '1' --> true1
+    ```
     
-  
-  console.log(true + 1); // 2
-    ```
-  
     ```js
-  console.log(true + true); // 2 // 数值型的2
+    console.log(true + 1); // 2
+    console.log(true + true); // 2 // 数值型的2
     ```
-  
+    
     ```js
     var a = true;
     console.log(a); // true 数字型的true。
     
     var a = true;
     console.log(+a); // 1
-  // 解析：这个+a在内部执行了一个 +Number(a);
+    // 解析：这个+a在内部执行了一个 +Number(a);
     ```
   
     
@@ -563,7 +557,7 @@ console.log(parseInt(a)); // NaN
     > +（加法）的作用：
     >
     > ① 拼接字符串 
-  >
+    >
     > ② 进行数学运算
   
   * `-`
@@ -581,32 +575,30 @@ console.log(parseInt(a)); // NaN
       ```js
       var num1 = '1';
       var num2 = '2';
-      
-  
-    console.log(num1 - num2); // -1
+      console.log(num1 - num2); // -1
       ```
-    
+      
       ```js
       var num3 = true; // 经过Number()转换之后，为1。
       var num4 = null; // 经过Number()转换之后，为0;
       
-    console.log(num3 - num4); // 1
+      console.log(num3 - num4); // 1
       ```
-  
+      
       ```js
-      // 题目：快速将字符串转换为数值
-      var str = '99';
-      // 想办法转换成数值型。
-      // 方法一：
-      console.log(Number(str)); // 99
-      // 方法二：
-      console.log(parseInt(str)); // 99
-      // 方法三：
-      console.log(parseFloat(str)); // 99
-      // 方法四：
-      console.log(str - 0); // 99 // str 会调用Number()转换为99。
-      // 方法五：
-    console.log(+str); // 99
+        // 题目：快速将字符串转换为数值
+        var str = '99';
+        // 想办法转换成数值型。
+        // 方法一：
+        console.log(Number(str)); // 99
+        // 方法二：
+        console.log(parseInt(str)); // 99
+        // 方法三：
+        console.log(parseFloat(str)); // 99
+        // 方法四：
+        console.log(str - 0); // 99 // str 会调用Number()转换为99。
+        // 方法五：
+        console.log(+str); // 99
       ```
   
       
@@ -615,9 +607,9 @@ console.log(parseInt(a)); // NaN
       >
     > - 但是**加号**是一个特殊的存在，它可以在遇到字符串的时候，作为拼接来使用。
       > - 加号遇到字符串，字符串优先，如果没有字符串那就是数值。
-
+  
   * `*`，乘法在计算中使用`*`不是用`X`
-
+  
     * 如果操作数不是数值，则在后台调用Number()
 
   * `/`，`被除数/除数=商`
@@ -629,34 +621,38 @@ console.log(parseInt(a)); // NaN
       Infinity参与运算结果还是Infinity。
 
     * 被除数和除数都为0，结果是NaN。
-  
+
     * 如果操作数不是数值，则在后台调用Number()进行转换。
-  
+
       ```js
+      console.log(0 / 0); // NaN
       console.log(0 / 1); // 0 // 0 除以 1
       console.log(1 / 0); // Infinity // 1 除以 0
+      
+      
       console.log(1 / 0 + 1); // Infinity // 无穷再+1还是无穷。
-      console.log(0 / 0); // NaN
       console.log(true * true / null); // Infinity
       console.log(true * true / 1); // 1
       ```
-
+      
       
 
   * `%`，余数，求模。
+
+    * `console.log(3 % 5); // 3` 
   
-    * `console.log(3 % 5); // 2` // 第一个数小于第二个数则求模的结果为第一个数。
-  
+       第一个数小于第二个数则求模的结果为第一个数。
+    
       ```js
       console.log(5 % 3); // 2
       console.log(3 % 5); // 3 
-    // 第一个数小于第二个数则求模的结果为第一个数。
+      // 第一个数小于第二个数则求模的结果为第一个数。
       ```
 
       
   
     * 求模的结果的正、负由第一个数决定。(第一个数是正数结果就是正数，第一个数是负数，结果就是负数)
-  
+    
       ```js
       // 求模的结果的正、负由第一个数决定。
       console.log(-5 % 3); // -2
@@ -667,11 +663,12 @@ console.log(parseInt(a)); // NaN
       ```
   
       
-  
+    
     * 第二个数不能为`0`，如果为`0`结果为`NaN`。
+  
     * 任何涉及到NaN操作都会返回NaN。
       * NaN与任何值都不相等，包括NaN本身。
-  
+    
       ```js
       console.log(-5 % 0); // NaN
       ```
@@ -691,42 +688,41 @@ console.log(parseInt(a)); // NaN
 
 ```js
 for (j = 1; j <= 100; j++) {
-            if (j % 2 == 0)
-            console.log(j);
-        }
+    if (j % 2 == 0)
+    console.log(j);
+}
 ```
 
 
 
-    ```js
-    /*第一个作用：获得奇偶数*/
-    /*var x = 101;
-    console.log(x % 2 == 0); // false*/
-    
-    /*第二个作用：获得一个范围内的数*/
-    /*var x = 104;
-    console.log(x % 8);//不管x是多少获得的都是0~7之间的数。*/
-    
-    //现在我有一个数是678
-    //我想算出来个位数是多少，十位数是多少，百位数是多少。
-    
-    /*var x = 678;
-    console.log(parseInt(x / 100));
-    console.log(parseInt(x / 10 % 10));
-    console.log(parseInt(x % 10));*/
-    
-    //  数 / 要求的位数 % 10
-    var  y = 6789;
-    /*console.log(parseInt(y /1000 % 10));//千位
-    console.log(parseInt(y /100 % 10));//百位
-    console.log(parseInt(y /10 % 10));//十位
-    console.log(parseInt(y /1 % 10));//个位*/
-    
-    console.log(parseInt(y /1000));//千位
-    console.log(parseInt(y /100 % 10));//百位
-    console.log(parseInt(y /10 % 10));//十位
-    console.log(parseInt(y % 10));//个位
-    ```
+```js
+/* 第一个作用：获得奇偶数 */
+var x = 101;
+console.log(x % 2 == 0); // false
+
+/* 第二个作用：获得一个范围内的数 */
+var x = 104;
+console.log(x % 8); // 不管x是多少获得的都是0~7之间的数。
+
+// 现在我有一个数是678
+// 我想算出来个位数是多少，十位数是多少，百位数是多少。
+var x = 678;
+console.log(parseInt(x / 100));
+console.log(parseInt(x / 10 % 10));
+console.log(parseInt(x % 10)); // 任何数字模上10，都得它的个位数
+
+//  数 / 要求的位数 % 10
+var  y = 6789;
+console.log(parseInt(y / 1000 % 10)); // 千位
+console.log(parseInt(y / 100 % 10)); // 百位
+console.log(parseInt(y / 10 % 10)); // 十位
+console.log(parseInt(y / 1 % 10)); // 个位
+
+console.log(parseInt(y / 1000)); // 千位
+console.log(parseInt(y / 100 % 10)); // 百位
+console.log(parseInt(y / 10 % 10)); // 十位
+console.log(parseInt(y % 10)); // 个位
+```
 
 > 余数：
 >
@@ -747,6 +743,9 @@ for (j = 1; j <= 100; j++) {
     var num = 1;
     num++;
     console.log(num); // 2
+    
+    var num = 1;
+    console.log(num++); // 1
     ```
     
     ```js
@@ -778,7 +777,7 @@ for (j = 1; j <= 100; j++) {
     ```
     
     ```js
-    视频位置：在第18天的第五个视频，10分钟处。
+    // 视频位置：在第18天的第五个视频，10分钟处。
     var a = 2;
     var b = 3;
     var c = a + b++; // a = 2, b = 4, c = 5
@@ -788,42 +787,42 @@ for (j = 1; j <= 100; j++) {
     console.log(b);
     console.log(c);
     ```
-
-  ```js
-  // 加或减
-  var str1 = 'abc';
-  var str2 = 1;
-  console.log(str1 + str2); // abc1
-  console.log(typeof str2); // number
-  // strs 为啥不是string，不是在上面运算时已经转换成了string了吗？因为虽然自动类型转换了，但是只是转换了变量的值，变量本身并没有改变。
-  ```
-
-  ```js
-  // 自增或自减 如果操作数不是数值则内部调用 Number()工具进行转换，会改变原变量的值。
-  var a = true;
-  a++;
-  console.log(a); // 2
-  
-  var a = true;
-  a++;
-  console.log(typeof a); // number
-  // 加加 或 减减本来是要对数值进行操作，所以我就认为你是要操作数值。整个的操作数值。
-  ```
-
-  ```js
-  a++; 等于 a = a + 1; 一样吗？
-  
-  var a = '1';
-  a++;
-  console.log(a); // 2
-  
-  var b = 'a';
-  var b = b + 1;
-  console.log(b); // 11
-  // a++ 不一定 等于 a = a + 1;
-  ```
-
-  
+    
+    ```js
+    // 加或减
+    var str1 = 'abc';
+    var str2 = 1;
+    console.log(str1 + str2); // abc1
+    console.log(typeof str2); // number
+    // strs 为啥不是string，不是在上面运算时已经转换成了string了吗？因为虽然自动类型转换了，但是只是转换了变量的值，变量本身并没有改变。
+    ```
+    
+    ```js
+    // 自增或自减 如果操作数不是数值则内部调用 Number()工具进行转换，会改变原变量的值。
+    var a = true;
+    a++;
+    console.log(a); // 2
+    
+    var a = true;
+    a++;
+    console.log(typeof a); // number
+    // 加加 或 减减本来是要对数值进行操作，所以我就认为你是要操作数值。整个的操作数值。
+    ```
+    
+    ```js
+    a++; 等于 a = a + 1; 一样吗？
+    
+    var a = '1';
+    a++;
+    console.log(a); // 2
+    
+    var b = 'a';
+    var b = b + 1;
+    console.log(b); // 11
+    // a++ 不一定 等于 a = a + 1;
+    ```
+    
+    
 
 * 复合运算符
 
@@ -836,8 +835,6 @@ for (j = 1; j <= 100; j++) {
   * `/=`，`a/=b`完全等价于`a = a / b;`
 
   * `%=`，`a%=b`完全等价于`a = a % b;`
-
-    
 
   
 
@@ -855,7 +852,7 @@ for (j = 1; j <= 100; j++) {
 
 * 比较运算符
 
-  比较后的结果应该是布尔值，true或false。
+  比较后的结果是布尔值，true或false。
 
   * `>`，大于
   * `<`，小于
@@ -969,7 +966,7 @@ for (j = 1; j <= 100; j++) {
 
      
 
-  3. 基本数据类型 Number、String、Boolean 和基本数据类型 Number、String、Boolean 相互比较时会先转换为数值型。
+  3. 基本数据类型 Number、String、Boolean 和基本数据类型 Number、String、Boolean 相互比较时会先转换为数值型，也就是说会先调用Number(数据)。
 
   4. NaN和NaN不相等。
 
@@ -999,13 +996,13 @@ for (j = 1; j <= 100; j++) {
     ```js
     var str1 = '1';
     var str2 = 1;
-    console.log(str2 == str1); //true
+    console.log(str2 == str1); // true
     ```
 
     ```js
     var str1 = '1';
     var str2 = 1;
-    console.log(str2 === str1); //false
+    console.log(str2 === str1); // false
     // 在没有转换的情况下它们的值是不相等的。
     ```
 

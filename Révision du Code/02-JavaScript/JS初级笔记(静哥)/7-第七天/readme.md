@@ -72,10 +72,10 @@
           c = 30;
       }
       test();
-console.log(c); // 30
+      console.log(c); // 30
       ```
       
-      > 在案例2中，如果局部的 `c = 30`, 表示给全局的 `var c = 30`, 如果局部的 `var c = 30`; 那么输出结果还是为 `c = 3`。
+      > 在案例2中，如果局部的 `c = 30`, 表示给全局的 `var c = 30`，如果局部的 `var c = 30`; 那么输出结果还是为 `c = 3`。
       >
       > 所以局部的`c`前面有没有`var`结果大不相同。
       
@@ -90,7 +90,7 @@ console.log(c); // 30
           var c = 30;
       }
       test();
-    console.log(c); // 3
+      console.log(c); // 3
       ```
 
   
@@ -109,14 +109,14 @@ console.log(c); // 30
           test1();
       console.log('test');
       }
-test();
+      test();
       ```
 
       上面这个例子为什么输出的是1而不是0，是因为作用域链导致的。
 
       作用域是变量起作用的范围，作用域链是用来描述查找变量的一系列的过程。
 
-      一个函数在定义时会生成一个`[[scope]]`属性（向这种带双找中括号的表示的是系统调用的我们自己访问不到），这个属性中存储了函数定义时的作用域的层级。
+      一个函数在定义时会生成一个`[[scope]]`属性（像这种带双中括号的表示的是系统调用的我们自己访问不到），这个属性中存储了函数定义时的作用域的层级。
 
       ![image-20210115101704602](readme_img/image-20210115101704602.png)
 
@@ -180,15 +180,15 @@ test();
   >
   >​        *console.log(arr);*
   >
-  >​      *}*
+  >}
   >
   >
   >
-  >​      *var arr = [1,2,3];*
+  >var arr = [1,2,3];
   >
-  >​      abc(arr); //传递的参数实际上是传递的地址。
+  >abc(arr);  // 传递的参数实际上是传递的地址。
   >
-  >​      console.log(arr); 
+  >console.log(arr); 
 
 * 分析
 
@@ -250,11 +250,9 @@ test();
 console.log(a);
 var a = 1;  // undefined
 
-
-//上面的代码实际执行的是： 
-
-var a;//undefined
-console.log(a);//undefiend
+// 上面的代码实际执行的是： 
+var a; // undefined
+console.log(a); // undefiend
 a = 1;
 ```
 
@@ -278,17 +276,17 @@ a = 1;
 
 ​	3. 函数声明和变量都会被提升，但是函数会首先被提升，然后才是变量。
 
-```
-函数是一等公民。
+```js
+// 函数是一等公民。
 
-   foo();//1
-   var foo;
-   function foo(){
-       console.log(1);
-   }
-   foo = function (){
-       console.log(2);
-   }
+foo(); // 1
+var foo;
+function foo(){
+    console.log(1);
+}
+foo = function (){
+	console.log(2);
+}
 ```
 
    如下代码：
@@ -314,7 +312,7 @@ a = 1;
 
    ```js
    var a = 1;
-   var a ; // 这里的a直接忽略。
+   var a; // 这里的a直接忽略。
    console.log(a);
    ```
 
@@ -322,7 +320,7 @@ a = 1;
 
    ```js
    var a;
-   a =1;
+   a = 1;
    console.log(a);
    ```
 

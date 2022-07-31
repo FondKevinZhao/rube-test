@@ -14,9 +14,9 @@ while(i <= 3){
 
 // 递减
 /* var i = 3;
-while(i >= 1){//3>=1 true//2>=1 true//1>=1 true//0>=1 false
-    console.log(i);//3//2//1
-    i--;//2//1//0
+while(i >= 1){ //3>=1 true //2>=1 true //1>=1 true //0>=1 false
+    console.log(i); //3 //2 //1
+    i--; //2 //1 //0
 } */
 
 
@@ -167,18 +167,18 @@ do{
 // 死循环
 /* var i = 1;
 do {
-    console.log('hello');//hello hello hello
+    console.log('hello'); //hello hello hello
 
-    i++;//2//3//4
-} while (i <= 3);//2<=3 true//3<=3 //4<=3 false */
+    i++; //2 //3 //4
+} while (i <= 3); //2<=3 true //3<=3 //4<=3 false */
 
-//罚   刘杰  做俯卧撑。   ~ 死
+// 罚   刘杰  做俯卧撑。   ~ 死
 
-//做到第五个的时候，他说：静哥真英俊！   然后我心软了就说行了别做了。
+// 做到第五个的时候，他说：静哥真英俊！   然后我心软了就说行了别做了。
 
 /* var count = 1; */
 
-/* while(true){//死循环，不管怎么样里面的代码都会执行
+/* while(true){ // 死循环，不管怎么样里面的代码都会执行
 
     console.log('第一步：打开双手');
     console.log('第二步：趴在地上');
@@ -188,8 +188,9 @@ do {
     }
     console.log('第三步：开始运动');
 
-    count++;//2
+    count++; // 2
 } */
+
 /*
 console.log('第一步：打开双手');
 console.log('第二步：趴在地上');
@@ -200,52 +201,51 @@ console.log('静哥真英俊!');
 */
 ```
 
-- 写作业  周一~周六  周日休息
+写作业  周一~周六  周日休息
 
-  ```js
-  for (var i = 1; i <=6 ; i++) {
-  
-  if (i === 4){
-      console.log('今天真好，作业不用写！');
-      console.log('--------------');
-      continue;
-  }
-  console.log(i+'------------');
-  console.log('先写作业!');
-  console.log('再写罚写!');
-  console.log('还得背笔记!');
-  console.log('-----------------');
-  } 
-  
-  for (var i = 1; i <= 100; i++) {
-  // console.log(i);
-  var count = 0;
-  for (var j = 1 ; j <= i ;j++) {
-      if (i % j === 0) {
-          count++;
-      }
-  }
-  
-  if (count === 2) {
-      console.log(i);
-  }
-  }
-  ```
+```js
+for (var i = 1; i <= 6; i++) {
+    if (i === 4){
+        console.log('今天真好，作业不用写！');
+        console.log('--------------');
+        continue;
+    }
+    console.log(i + '------------');
+    console.log('先写作业!');
+    console.log('再写罚写!');
+    console.log('还得背笔记!');
+    console.log('-----------------');
+} 
 
-  ```js
-  /* var i = 1;
-  do{
-      console.log('1');
-  } while(i >= 10);//1>=10 false */
-  
-  var i = 1;
-  do{
-      console.log(i);//1 2
-      i++;//2//3
-  } while(i <= 2);//2<=2 true//3<=2 false
-  ```
+for (var i = 1; i <= 100; i++) {
+    // console.log(i);
+    var count = 0;
+    for (var j = 1 ; j <= i ;j++) {
+        if (i % j === 0) {
+            count++;
+        }
+    }
 
-  
+    if (count === 2) {
+        console.log(i);
+    }
+}
+```
+
+```js
+/* var i = 1;
+do{
+    console.log('1');
+} while(i >= 10); // 1>=10 false */
+
+var i = 1;
+do{
+    console.log(i); //1 2
+    i++; //2//3
+} while(i <= 2); // 2<=2 true // 3<=2 false
+```
+
+
 
 
 
@@ -259,28 +259,28 @@ console.log('静哥真英俊!');
   * 作用2：跳出循环（本层循环），break之后代码不执行了。
   
     ```js
-    /* //江鉴哲 犯错了。
+    /* // 江鉴哲 犯错了。
             var count = 1;
-            while (true) {//一直做
-                console.log(count);//1//2//3
-                console.log('动作1');//动作1//动作1//动作1
-                console.log('动作2');//动作2//动作2//动作2
+            while (true) { // 一直做
+                console.log(count); // 1 // 2 // 3
+                console.log('动作1'); // 动作1 // 动作1 // 动作1
+                console.log('动作2'); // 动作2 // 动作2 // 动作2
                 if (count === 3) {//1===3 false//2===3 false//3===3 true
-                    break;//break; 中断循环。
+                    break; // break; 中断循环。
                 }
-                console.log('动作3');//动作3//动作3
+                console.log('动作3'); // 动作3 // 动作3
     
-                count++;//2//3
+                count++; // 2 // 3
                 console.log('沛华真是个小机灵鬼');
     
             }
-            // console.log(count);//3 */
+            // console.log(count); // 3 */
     
-            //1~5上课 4表现不错，周四没有作业。
+            // 1~5上课 4表现不错，周四没有作业。
             for (var i = 1; i <= 5; i ++) {//1 1<=5 true//2 2<=5 true//3 3<=5 true//4 4<=5 true//5<=5 true//6<=5 false
                 if (i === 4) {//1===4 false//2===4 false//3===4 false//4===4 true//5===4 false
-                    console.log('今天表现不错，皇恩浩荡！没有作业');//输出
-                    continue;//
+                    console.log('今天表现不错，皇恩浩荡！没有作业'); //输出
+                    continue;
                 }
                 console.log('今天是' + i + ':我要写作业');//输出1//输出2//输出3//输出5
             }
@@ -323,8 +323,8 @@ console.log('静哥真英俊!');
 1. 使用Array来创建。
 
    ```js
-   var colors = new Array();//创建了一个空数组。
-   console.log(typeof colors); //object
+   var colors = new Array(); // 创建了一个空数组。
+   console.log(typeof colors); // object
    ```
 
    new是操作符表示调用后面的内容（Array，你可以__暂时__看成是一个类。）。
@@ -341,8 +341,9 @@ console.log('静哥真英俊!');
    2. 在`Array()`中如果只有一个元素，并且这个元素是`数值`，将会创建有`数值`个数的元素组成的数组。如果只有一个元素并且值是其他类型则会创建只有一个元素的数组。
 
       ```js
-      var color = new Array(5);//创建了有5个元素的数组。
-      var color1 = new Array('red');//创建了只有一个元素的数组。它的值是red
+      var color = new Array(5); // 创建了有5个元素的数组。
+      var color1 = new Array('red'); // 创建了只有一个元素的数组。它的值是red
+      // new Array(5) 对比 Array.of(5)
       ```
 
    3. 声明数组时也可以省略new操作符，与 new Array()这种结果相同（内部也会调用 new Array()）
@@ -368,17 +369,19 @@ console.log('静哥真英俊!');
    console.log(color);
    ```
 
+
+
 #### 数组的元素的个数
 
 数组的元素个数保存在数组的length属性中。
 
 数组中元素的个数保存length中，这个属性的值始终大于等于0。
 
-数组的最后一项的索引（最大的索引值）始终是length-1 。
+数组的最后一项的索引（最大的索引值）始终是 length-1 。
+
+
 
 #### 数组的基本操作
-
-
 
 ----------------------------------------------------------
 
@@ -400,10 +403,10 @@ console.log('静哥真英俊!');
 
 2. 求100~999之间，求水仙花数。
 
-   abc  = a^3 + b^  + c^3，百位数的三次方加上十位数的三次方加上个位数的三次上正好等于这个数字。
+   abc  = a^3 + b^3  + c^3，百位数的三次方加上十位数的三次方加上个位数的三次上正好等于这个数字。
 
    ```js
-   //abc  = a^3 + b^3  + c^3，百位数的三次方加上十位数的三次方加上个位数的三次上正好等于这个数字。
+   //  abc  = a^3 + b^3  + c^3，百位数的三次方加上十位数的三次方加上个位数的三次上正好等于这个数字。
    
    for (var i = 100; i <= 999; i++) {
        var b = parseInt(i / 100 % 10);
@@ -460,29 +463,29 @@ console.log('静哥真英俊!');
    - 方法一：
 
      ```js
-     //总共分成3部分。
-     //1. 上个月剩余的天数 = 本月1号的星期数。
+     // 总共分成3部分。
+     // 1. 上个月剩余的天数 = 本月1号的星期数。
      var first = 3;
-     //2. 本月总共有多少天
+     // 2. 本月总共有多少天
      var days = 31;
      var count = 1;
      document.write('<table border="1" width="800"><tr>');
      for (var i = 1; i <= 42; i++) {
-         //第一部分
+         // 第一部分
          if (i <= first) {
              document.write('<td>&nbsp;</td>')
          }
-         //第二部分
+         // 第二部分
          if (i > first && i <= (days + first)) {
              document.write("<td>"+count+"</td>");
              count++;
          }
-         //第三部分
+         // 第三部分
          if (i > (days + first)) {
              document.write("<td>&nbsp;</td>");
          }
      
-         //换行。
+         // 换行。
          if (i === 42) {
              document.write('</tr>');
          } else if (i % 7 === 0) {
@@ -527,55 +530,55 @@ console.log('静哥真英俊!');
    一个数只能够被1和自己整除这个数就是质数。1不是质数。
 
    ![20200605085106696_13509](readme_img/20200605085106696_13509.png)
-
-
-
-```js
-//质数
-//只能被1和自身整除  2
-
-//4 1 4
-
-// 方法一：
-for (var i = 1 ; i <= 100 ; i++) {//4
-    //定义一个标志位，flag为true的时候表示的是是质数。
-    var flag = true;
-    for (var j = 2; j < i ;j++) {//2<4 true
-        if (i % j == 0) {//4%2 ==0 
-            flag = false;
-            break;
-        }
-    }
-
-    if (flag && i != 1) {
-        console.log(i);
-    }
-} 
-
-// 方法二：
-for (var i = 1 ; i <= 100 ; i++) {//4
-    //定义一个标志位，flag为false的时候表示的是是质数。
-    var flag = false;
-    for (var j = 2; j < i ;j++) {//2<4 true
-        if (i % j == 0) {//4%2==0 true
-            flag = true;
-            break;
-        }
-    }
-
-    if (!flag) {//flag=false  //flag =true  !true
-        console.log(i);
-    }
-} 
-```
+   
+   
+   
+   ```js
+   // 质数
+   // 只能被1和自身整除  2
+   
+   // 4 1 4
+   
+   // 方法一：
+   for (var i = 1 ; i <= 100 ; i++) { // 4
+       // 定义一个标志位，flag为true的时候表示的是是质数。
+       var flag = true;
+       for (var j = 2; j < i; j++) { // 2<4 true
+           if (i % j == 0) { // 4%2 ==0 
+               flag = false;
+               break;
+           }
+       }
+   
+       if (flag && i != 1) {
+           console.log(i);
+       }
+   } 
+   
+   // 方法二：
+   for (var i = 1 ; i <= 100 ; i++) {//4
+       // 定义一个标志位，flag为false的时候表示的是是质数。
+       var flag = false;
+       for (var j = 2; j < i ;j++) { // 2<4 true
+           if (i % j == 0) { // 4%2==0 true
+               flag = true;
+               break;
+           }
+       }
+   
+       if (!flag) { // flag=false  // flag =true  !true
+           console.log(i);
+       }
+   } 
+   ```
 
 
 
 6. 等腰三角形
 
    ```js
-   //昨天做了一个直角三角形，现在要等腰三角形。
-   //思路是什么，
+   // 昨天做了一个直角三角形，现在要等腰三角形。
+   // 思路是什么，
    // 方法一：
    for (var i = 1; i <= 7; i += 2) {
        var c = (7 - i)/2;
@@ -598,7 +601,7 @@ for (var i = 1 ; i <= 100 ; i++) {//4
            document.write('*');
        }
        document.write('<br />');
-}
+   }
    document.write('</center>');
    ```
    

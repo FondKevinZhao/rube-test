@@ -4,8 +4,8 @@
 console.log(Number.MIN_VALUE > 0); // true
 // Number.MIN_VALUE 数值类型的最小正有限值，它无限接近0。
 
-//我们写的时候将值一般定在正负2的53次方-1，叫安全整数区间。
-console.log(Number.MIN_VALUE >0); // true
+// 我们写的时候将值一般定在正负2的53次方-1，叫安全整数区间。
+console.log(Number.MIN_VALUE > 0); // true
 console.log(-Number.MAX_VALUE); // -1.7976931348623157e+308
 ```
 
@@ -43,7 +43,7 @@ console.log(-Number.MAX_VALUE); // -1.7976931348623157e+308
   var b;
   
   a && (b = 2);
-  console.log(b);//undefined
+  console.log(b); // undefined
   ```
 
   
@@ -106,13 +106,9 @@ console.log(year % 4 == 0 && year % 100 != 0 || year % 400 == 0);
 var flag = true;
 console.log(!flag);
 
- var a = 1; 
- var b = 10;
- console.log(!(a||b)); // false //!(Boolean(1))//!true//false
-
-var a = 1;
-console.log(Boolean(a));
-console.log(!!a); 
+var a = 1; 
+var b = 10;
+console.log(!(a||b)); // false //!(Boolean(1)) // !true // false
 ```
 
 
@@ -124,16 +120,16 @@ console.log(!!a);
 
 /* var a = 3;
 var b = a + a++;//3 + 3 //a=4
-console.log(b);//6
-console.log(a);//4 */
+console.log(b);
+console.log(a); */
 
 /* var a = 3;
 var b = a + ++a;//3 + 4 a=4
-console.log(b);//7 */
+console.log(b); */
 
 /*  var a = 3;
 var b = a + 1 + 3 * 2 + ++a;
-console.log(b);//3 + 1 + 3 * 2 + 4//3 + 1 + 6 + 4//14 */
+console.log(b); */
 
 /* var a = 3;
 //3+1+3*2+4-4+5
@@ -193,10 +189,9 @@ console.log(a); */
 // var year = 2021;
 // (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) ? document.write("<h1 style='color:red;'>闰年</h1>") : document.write("<h1 style='color:green;'>平年</h1>");
 
-//沛华找女朋友。18~25    现在 女生 = 24
+// 沛华找女朋友。18~25    现在 女生 = 24
 var age = 18;
 var gf = ((age >= 18 && age <=25) ? '赵泽文': '江鉴哲');
-//g f
 
 console.log(gf); 
 ```
@@ -330,30 +325,28 @@ __如果拿不准就加括号。__
   * 程序中有if、else必须执行其中一个括号内的代码。
 
   ```js
-  /* //相亲：年龄：23~26之间 ， 有钱。
+  /* // 相亲：年龄：23~26之间 ， 有钱。
   var age = 35;
-  var money = true;//长的还挺漂亮。
+  var money = true; // 长的还挺漂亮。
   
   if (age >= 23 && age <= 26 && money) {
-  console.log('我感觉咱们可以试试！');
+  	console.log('我感觉咱们可以试试！');
   }
-  
   console.log('想想都觉的美！'); */
   
   /*  var age = 35;
-  var money = true;//长的还挺漂亮。
+  var money = true; // 长的还挺漂亮。
   console.log(money && age);
-  if (money && age) {//if (35) 
-   console.log('我感觉咱们可以试试！');
+  if (money && age) { // if (35) 
+       console.log('我感觉咱们可以试试！');
   } */
   
   /* var age = 35;
   var money = true;//长的还挺漂亮。
-  
   if (age >= 23 && age <= 26 && money) console.log('我感觉咱们可以试试！');
   console.log('想想都觉的美！'); */
   ```
-
+  
   
 
 * 多向分支结构
@@ -392,16 +385,16 @@ __如果拿不准就加括号。__
       console.log('今年是平年');
       console.log('就这？？？');
   }
-  
   console.log('李沛华真有"地位"!'); */
+  
   /* 
-  //及其不建议省略大括号。
+  // 及其不建议省略大括号。
   var year = 2020;
   if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
       console.log('今年是闰年');
       console.log('xxxx');
   else
-      console.log('今年是平年');*/
+      console.log('今年是平年'); */
   
   /*  var num = 1;
    if (num >= 1) {
@@ -413,13 +406,13 @@ __如果拿不准就加括号。__
   ```
 
   ```js
-   //判断年龄
+  // 判断年龄
   // var age = 30;
-  //男人越老越值钱。
-  //二十的男人，是期货。
-  //三十的男人，是抢手货。
-  //四十的男人，是现货。
-  //五十的男人，跳楼货。
+  // 男人越老越值钱。
+  // 二十的男人，是期货。
+  // 三十的男人，是抢手货。
+  // 四十的男人，是现货。
+  // 五十的男人，跳楼货。
   var age = 30;
   if (age >= 20 && age <=29) {
       console.log('期货');
@@ -490,7 +483,7 @@ __如果拿不准就加括号。__
   }
   ```
 
-  * switch中的`有值的东西`和if中的条件处理方式不同，因为switch中需要得到一个值，并且这个值不会进行类型转换。
+  * switch中的`有值的东西`和if中的条件处理方式不同，因为switch中需要得到一个值，**并且这个值不会进行类型转换**。
   * case后面的`值`，用来和switch中的值进行对比。如果能够匹配上就执行其中的代码块。
   * 每个case下面的break用来跳出当前的switch语句。
   * 最后的default表示case后面的值都没有匹配上该怎么办。
@@ -513,15 +506,15 @@ __如果拿不准就加括号。__
 
   4. switch通常用于判断是否等于某个值，但是也可以用来判断是否在某个范围之内。
 
-     满分100份
+     满分100分
 
-     100~90是学霸
+     100~90 是学霸
 
-     89~75是学的还行
+     89~75 是学的还行
 
-     74~60是学的还凑合
+     74~60 是学的还凑合
 
-     59分及一下为学渣
+     59 分及以下为学渣
 
      ```js
      var score = -1;
@@ -566,19 +559,19 @@ __如果拿不准就加括号。__
      
      ```js
      var day = 4;
-     switch (day) {//4
-         case 1://1 === 4 false
+     switch (day) { // 4
+         case 1: // 1 === 4 false
              console.log('周一：今天周一，上班的心情比上坟还沉重！');
              break;
-         case 2://2 === 4 false
+         case 2: // 2 === 4 false
              console.log('周二：今天心情还不错，外面天气也挺好，瓜点风，下点雨');
              break;
-         case 3://3 === 4 false
+         case 3: // 3 === 4 false
              console.log('周三：今天天气比昨天好');
              break;
-         case 4://4 === 4 true
+         case 4: // 4 === 4 true
              console.log('周四，真高兴，今天放假---我');
-             break;//跳出switch
+             break; // 跳出switch
          case 5:
              console.log('终于周五了，还有一天就放假了');
              break;
@@ -626,9 +619,9 @@ __如果拿不准就加括号。__
      ```
      
      ```js
-     //需求是周一~周五输出上班  周六、周日输出 休息。
+     // 需求是周一 ~ 周五输出上班  周六、周日输出 休息。
      var day = 1;
-     switch (day) {//3
+     switch (day) { // 3
          case 1: // case 和数字之间一定一定一定要有空格
          case 2:
          case 3:
@@ -671,16 +664,15 @@ __如果拿不准就加括号。__
   嵌套的时候尽量不要超过三层，保证结构清晰。
 
   ```js
-  //沛华找女朋友 年龄在 23~26并且有钱，在一起。没有钱那就再继续找。
-  
-  	//如果在一起后比较开心就准备结婚，不开心就再找。
+  // 沛华找女朋友 年龄在 23 ~ 26 并且有钱，在一起。没有钱那就再继续找。
+  // 如果在一起后比较开心就准备结婚，不开心就再找。
           
   var age = 23;
   var money = true;
   if (age >= 23 && age <= 26 && money) {
-  
       console.log('我们可以试试');
       var frameOfMind = false;
+      
       if(frameOfMind){
           console.log('我们准备结婚吧！');
       } else {
@@ -688,9 +680,7 @@ __如果拿不准就加括号。__
       }
   
   } else {
-  
       console.log('你是个好人！');
-  
   }
   ```
 
@@ -708,11 +698,11 @@ __如果拿不准就加括号。__
 
 ```js
 while(条件表达式){
-      重复执行的代码。
+	重复执行的代码。
 }
 ```
 
-执行过程；第一步先执行条件表达式，表达式为true时，执行循环体中的代码。然后再看表达式是否成立，如果成立再次执行循环体重的代码，一直到条件表达式为false，终止循环。
+执行过程；第一步先执行条件表达式，表达式为true时，执行循环体中的代码。然后再看表达式是否成立，如果成立再次执行循环体中的代码，一直到条件表达式为false，终止循环。
 
 **使用while循环时候要注意三个要素：**
 
@@ -725,7 +715,7 @@ while(条件表达式){
 循环中可以嵌套任意我们学过的代码，包括循环，这样就形成了循环的嵌套。
 
 ```js
-//1. 循环1~100之间的整数。
+// 1. 循环1~100之间的整数。
 
 var i = 1;
 while(i <= 100){
@@ -735,34 +725,34 @@ while(i <= 100){
 ```
 
 ```js
-//2. 得到1~100之间的所有的奇数。
+// 2. 得到1~100之间的所有的奇数。
 var i = 1;
-while(i <= 3){//1<=3 true//2<=3 true//3<=3 true//4<=3 false
+while(i <= 3){ // 1<=3 true // 2<=3 true // 3<=3 true // 4<=3 false
 
-    if (i % 2 == 1){//1% 2==1 true //2 % 2 ==1 false//3%2==1 true
-        console.log(i); //1//3
+    if (i % 2 == 1){ // 1 % 2==1 true // 2 % 2 ==1 false // 3 % 2==1 true
+        console.log(i); // 1 // 3
     }
-    i++;//2//3//4
+    i++; // 2 // 3 // 4
 }
 
 var i = 1;
-while (i <= 3) {//1<=3 true//3<=3 true//5<=3 false
-    console.log(i);//1//3
+while (i <= 3) { // 1<=3 true // 3<=3 true // 5<=3 false
+    console.log(i); // 1 // 3
 
-    // i+=2;//3//5
+    // i+=2; // 3 // 5
     // i = i + 2;
 } 
 ```
 
 ```js
-//3. 求1~100的和。  (100 +1 ) * 50
+// 3. 求 1 ~ 100的和。  (100 +1 ) * 50
 
 var sum = 0;
 var i = 1;
-while(i <= 3){//1<=3 true//2<=3 true//3<=3 true//4<=3 false
-    // sum = sum + i;//sum = 0 + 1 sum=1//sum = 1 + 2 sum=3//sum = 3 + 3 sum = 6
+while(i <= 3){ // 1<=3 true // 2<=3 true // 3<=3 true // 4<=3 false
+    // sum = sum + i; // sum = 0 + 1 sum=1 // sum = 1 + 2 sum=3 // sum = 3 + 3 sum = 6
     sum += i;
-    i++;//2//3//4
+    i++; // 2 // 3 // 4
 }
 console.log(sum); 
 
@@ -781,7 +771,7 @@ while(i <= 2){//1<=2 true//2<=2 true//3<=2 false
 ```
 
 ```js
-//我要一个星星的矩形 5 行6列。
+// 我要一个星星的矩形 5 行6列。
 
         /* 
         ******
@@ -792,42 +782,42 @@ while(i <= 2){//1<=2 true//2<=2 true//3<=2 false
         */
 
 var row = 1;
- while(row <= 3){//1<=3 true//2<=3 true//3<=3 true//4<=3 false
+while(row <= 3){ // 1<=3 true // 2<=3 true // 3<=3 true // 4<=3 false
 
-     var col = 1;//1//1//1
-     while(col <= 3){//1<=3 true//2<=3 true//3<=3 true//4<=3 false
+    var col = 1; // 1 // 1 // 1
+    while(col <= 3){ //1<=3 true //2<=3 true //3<=3 true //4<=3 false
 
-         document.write('*');//
-         col++;//2//3//4
-     }
-     document.write('<br />');
-     row++;//2//3//4
- } 
+         document.write('*');
+         col++; //2 //3 //4
+    }
+    document.write('<br />');
+    row++; //2 //3 //4
+} 
 ```
 
 ```js
-//我要一个直角三角形。
+// 我要一个直角三角形。
 
 var row = 1;
 var col = 1;
-while (row <= 2) {//1<=2 true//2<=2 true//3<=2 false
-    var j = 1;//j=1//j=1
-    while(j <= col){//j<=1//2<=1 false//j<=3//2<=3//3<=3 true//4<=3 false
-        document.write('*');//
+while (row <= 2) { //1<=2 true//2<=2 true//3<=2 false
+    var j = 1; //j=1//j=1
+    while(j <= col){ //j<=1//2<=1 false//j<=3//2<=3//3<=3 true//4<=3 false
+        document.write('*');
 
-        j++;//2//2//3//4
+        j++; //2//2//3//4
     }
     document.write('<br />');
-    col += 2;//col = col + 2//col = 3//col = 5
-    row++;//2//3
+    col += 2; //col = col + 2//col = 3//col = 5
+    row++; //2//3
 } 
 
 var j = 1;
-while (j <= 3) {//1<=3 true//3<=3 true//5<=3 false
-    var i = 1;//1//1
-    while (i <= j) {//1<=1 true//2<=1 false//1<=3 true//2<=3 true//3<=3 true//4<=3 false
+while (j <= 3) { //1<=3 true//3<=3 true//5<=3 false
+    var i = 1; //1//1
+    while (i <= j) { //1<=1 true//2<=1 false//1<=3 true//2<=3 true//3<=3 true//4<=3 false
         document.write('*');
-        i++;//2//2//3//4
+        i++; //2//2//3//4
     }
     document.write('<br />');
     j += 2;//3//5

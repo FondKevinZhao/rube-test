@@ -418,6 +418,10 @@
 
     ` beforeDestory():` 做收尾工作, 如: 清除定时器、解绑自定义事件，解绑消息订阅与发布等。
 
+54. 父子组件嵌套，生命周期函数顺序：、
+
+    先执行父组件的3个 beforeCreate —> created --> beforeMount –> 然后执行子组件4个 beforeCreate —> created —> beforeMount —> mounted --> 再执行父组件的 mounted。。。
+
 54. 面试题: 请求在 created 发送还是 mounted 发送，为什么？
 
     ​      created优势：发送请求的时机快一点，最终响应回来的速度就快一点。
