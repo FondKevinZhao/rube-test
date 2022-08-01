@@ -1181,7 +1181,42 @@
 
     
 
-91. 
+91. 会改变原数组的方法：
+
+    1. shift()
+
+    2. unshift()
+
+    3. push()
+
+    4. pop()
+
+    5. reverse()
+
+    6. sort()
+
+    7. splice
+
+    8. arr.fill(target, start, end)
+
+       - target -- 待填充的元素
+       - start -- 开始填充的位置-索引
+       - end -- 终止填充的位置-索引（不包括该位置)
+
+       ```js
+       let arr = [1,2,3,4,5];
+       let arr3 = arr.fill(5,1,3)
+       console.log(arr3)
+       ```
+
+       
+
+92. 与indexOf()的区别：
+
+    - indexOf()返回的是数值，而includes()返回的是布尔值
+    - indexOf() 不能判断NaN，返回为-1 ，includes()则可以判断
+
+93. 
 
 
 

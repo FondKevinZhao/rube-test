@@ -13,24 +13,24 @@
         // demo1
         var v = "hello";
         (function () {
-            alert(v); //undefined
+            alert(v); 
             var v = "world";
         })();
-        alert(v); //hello
+        alert(v); 
 
         // demo2
         (function () {
-            alert(a + b + c); //NaN
+            alert(a + b + c); 
             var a = "1";
-            var f = function () {};
+            var f = function () { };
             var b = "2";
             var c = "3";
         })();
 
         // demo3
         (function () {
-            f2(); //1
-            f1(); //f1 is not a function
+            f2(); 
+            f1(); 
             var f1 = function () {
                 alert(2)
             };
@@ -48,7 +48,7 @@
 
             function inner() {
                 var c = 4;
-                alert(a); //1
+                alert(a); // 1
             }
             inner();
         }
@@ -58,19 +58,29 @@
         var a = 1;
 
         function check() {
-            a = 100; //修改的是全局的a
-            alert(a); //100
+            a = 100; 
+            alert(a); 
         }
         check();
-        alert(a); //100
+        alert(a); 
 
         // demo6
         var v = "hello";
         if (true) {
-            alert(v); //hello
+            alert(v); 
             var v = "world";
         }
-        alert(v); //world
+        alert(v); 
+
+        // 注意：在if里面的var会提升，if里面的function是不提升的
+        console.log(a);
+        foo();
+        if (true) {
+            var a = 1;
+            function foo() {
+                console.log(2);
+            }
+        }
 
         // demo7
         function rain() {
@@ -80,7 +90,7 @@
                 x = 100;
             }
             man();
-            alert(x); //100
+            alert(x); 
         }
         rain();
 
@@ -88,11 +98,11 @@
         var x = 1;
 
         function rain() {
-            alert(x); //undefined
+            alert(x); 
             var x = 'man';
-            alert(x); //'man'
+            alert(x); 
         }
-        rain()
+        rain();
 
 
         // demo9
@@ -101,15 +111,15 @@
             var x = 100;
         }
         rain();
-        alert(x); //100
+        alert(x); 
 
         // demo10
         var t = 'a';
 
         function test2() {
-            alert(t); //undefined
+            alert(t); 
             var t = 'b';
-            alert(t); //b
+            alert(t); 
         }
         test2();
 
@@ -117,21 +127,21 @@
         var t = 'a';
 
         function test2() {
-            alert(t); //a
+            alert(t); 
             t = 'b';
-            alert(t); //b
+            alert(t); 
         }
-        alert(t); //a
+        alert(t); 
         test2();
-        alert(t); //b
+        alert(t); 
 
         // demo12
         var a = "Hello";
 
         function test() {
-            alert(a); //hello
+            alert(a); 
             a = "World";
-            alert(a); //world
+            alert(a); 
         }
         test();
 
@@ -139,14 +149,14 @@
         var a = 1;
 
         function test() {
-            alert(a); //undefined
+            alert(a); 
             a = 4;
-            alert(a) //4
+            alert(a) 
             var a = 2;
-            alert(a); //2
+            alert(a); 
         }
         test();
-        alert(a); //1
+        alert(a); 
     </script>
 </body>
 

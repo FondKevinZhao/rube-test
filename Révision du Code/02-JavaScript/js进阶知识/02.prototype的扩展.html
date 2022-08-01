@@ -12,12 +12,12 @@
     <script>
         /* 
             一旦我们把方法扩展到构造函数的原型上，则所有的实例化对象就都能够使用
-        
         */
         String.prototype.trimAll = function () {
-            //在原型对象的方法中，this指向调用当前方法的实例化对象
+            // 在原型对象的方法中，this指向调用当前方法的实例化对象
             var newStr = "";
             for (var i = 0; i < this.length; i++) {
+                // 注意：this[i] === " " 后面的字符串必须要有一个空格才行
                 if (this[i] === " ") {
                     continue;
                 }
