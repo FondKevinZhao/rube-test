@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        
         #info {
             width: 300px;
             height: 500px;
@@ -15,16 +14,17 @@
             background-color: lightblue;
             color: #008c8c;
         }
+
         input {
             cursor: pointer;
         }
     </style>
 
-    
+
 </head>
 
 <body>
-    <h3>欢迎亲爱的用户注册</h3>
+    <h3>滚动条触底才可注册哦！</h3>
     <p id="info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima sit soluta quisquam unde dolores
         eligendi doloremque blanditiis, dicta praesentium omnis quam nihil animi vero cum voluptate ullam nulla vitae
         accusamus voluptates modi! Voluptatem mollitia, dolorum aut, perferendis ea quas maiores voluptatum perspiciatis
@@ -59,31 +59,31 @@
     <input type="submit" value="注册" disabled='disabled' id="inputs2" />
 
     <script>
-        
-            // 获取id为info的P标签
-            var info = document.getElementById('info');
-            var inputs = document.getElementsByTagName('input');
-            console.log(inputs[0]);
-            // 为info绑定一个滚动条滚动的事件
-            info.onscroll = function () {
-                // 检查垂直滚动条是否滚动到底
-                // console.log(info.scrollHeight);
-                // console.log(info.scrollTop);
-                // console.log(info.clientHeight);
-                //数据会有一点误差 滚动的距离可能是一个小数 到不了临界值 向上取整才能到达临界值
-                if (info.scrollHeight - Math.ceil(info.scrollTop) === info.offsetHeight) {
-                    // 滚动条滚动到底，我们要使表单项可用
-                    // inputs[0].disabled = true;
-                    // inputs[1].disabled = true;
-                    //移出属性
-                    inputs[0].removeAttribute('disabled')
-                    console.log(inputs[0]);
-                    //移出属性
-                    inputs[1].removeAttribute('disabled')
-                    console.log(inputs[1]);
 
-                }
+        // 获取id为info的P标签
+        var info = document.getElementById('info');
+        var inputs = document.getElementsByTagName('input');
+        console.log(inputs[0]);
+        // 为info绑定一个滚动条滚动的事件
+        info.onscroll = function () {
+            // 检查垂直滚动条是否滚动到底
+            // console.log(info.scrollHeight);
+            // console.log(info.scrollTop);
+            // console.log(info.clientHeight);
+            //数据会有一点误差 滚动的距离可能是一个小数 到不了临界值 向上取整才能到达临界值
+            if (info.scrollHeight - Math.ceil(info.scrollTop) === info.offsetHeight) {
+                // 滚动条滚动到底，我们要使表单项可用
+                // inputs[0].disabled = true;
+                // inputs[1].disabled = true;
+                //移出属性
+                inputs[0].removeAttribute('disabled')
+                console.log(inputs[0]);
+                //移出属性
+                inputs[1].removeAttribute('disabled')
+                console.log(inputs[1]);
+
             }
+        }
     </script>
 </body>
 
