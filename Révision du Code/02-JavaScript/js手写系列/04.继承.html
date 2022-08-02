@@ -10,7 +10,11 @@
 
 <body>
     <script>
-        //构造函数+原型 组合继承
+        /* 
+            构造函数+原型 组合继承
+                - 构造函数继承 --- 可以使用父类的属性
+                - 原型链继承 --- 可以使用父类的原型方法
+        */
 
         //父类
         function Person(name, age) {
@@ -23,19 +27,19 @@
 
         //子类
         function Teacher(name, age, type, classNum) {
-            //构造函数继承
+            //构造函数继承 --- 可以使用父类的属性
             //调用父类，并让父类的this指向当前子类的this
             Person.call(this, name, age);
             this.type = type;
             this.classNum = classNum
         } 
 
-        //原型链继承
+        //原型链继承 --- 可以使用父类的原型方法
         //不能直接把Person.prototype赋值给子类，这样改变子类就会影响父类
         //父类的实例化对象，也能访问父类的原型对象
         //故把父类的实例化对象赋值给子类的原型对象
         Teacher.prototype = new Person();
-        //修正构造器指向
+        //修正构造器指向 --- 因为上面的new Person()后，导致Teacher.prototype原型上的constructor还是父类的，所以要修正成Teacher的
         Teacher.prototype.constructor = Teacher;
 
         Teacher.prototype.do = function () {
