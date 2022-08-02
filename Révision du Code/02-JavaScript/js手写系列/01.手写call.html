@@ -10,46 +10,31 @@
 
 <body>
     <script>
-        Function.prototype.myCall = function (thisArg) {
-            //判断指定this的类型 
-            if (thisArg === null || thisArg === undefined) {
-                thisArg = window;
-            }
-            if (typeof thisArg !== 'undefined' && typeof thisArg !== 'function' && typeof thisArg !== 'object') {
-                thisArg = Object(thisArg);
-            }
-
-            //获取用户给被call调用的函数的参数
-            var argArr = Array.from(arguments).slice(1);
-
-            //给thisArg扩展一个方法 这个方法就是调用call的那个函数this
-            //创建一个独一无二的值，作为thisArg的方法key
-            var uniqKey = Date.now().toString(36);
-            thisArg[uniqKey] = this;
-
-            //调用thisArg的uniqKey方法，此时 调用call的fn函数将被调用，并且this也指向了thisArg
-            //因为我们还要把参数也传递进去，所以目前需要使用eval方法
-            eval("var re = thisArg[uniqKey](" + argArr.toString() + ")");
-
-            //删除给thisArg扩展的方法
-            delete thisArg[uniqKey];
-
-            //其实call的返回值 就是被调用函数的返回值 也就是this的返回值
-            return re;
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.eat = function () {
+            console.log('eat方法');
         }
 
-
-
-        var obj = {
-            name: "laowang"
+        function Teacher(name, age, type, classNum) {
+            Person.call(this, name, age);
+            this.type = type;
+            this.classNum = classNum;
         }
 
-        function fn(a, b, c) {
-            console.log(this, a + b + c);
-            // return "hello"
+        Teacher.prototype = new Person();
+
+        Teacher.prototype.constructor = Teacher;
+        Teacher.prototype.do = function () {
+            console.log('备课');
         }
-        var re = fn.myCall(obj, 1, 2, 3);
-        console.log(re)
+
+        var teacher1 = new Teacher('haijing', 40, 'html5', 0223);
+        console.log(teacher1);
+        console.log(teacher1.eat);
+        console.log(teacher1.constructor);
     </script>
 </body>
 
