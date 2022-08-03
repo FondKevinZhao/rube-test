@@ -13,15 +13,53 @@
 
 ### 自己添加的内容：
 1. 组建中可以不需要一个根标签包裹了。
-2. 取消了全局事件总线。在*Vue3*中,从实例中完全*移除了* $on、$off 和 $once 方法。$emit 仍然包含于现有的 API 中。
-2. 取消了项目中的生产提示 ：`Vue.config.productionTip = false`
-2. 移除了过滤器，官网的说法是，过滤器有学习成本，可以使用方法或者计算属性来代替。
-2. 删除了在组件上使用原生的事件时，需要加上.native的做法。
-2. 移除了键盘事件中的用KeyCode码来代替键盘上的键名的做法，原因是因为数字语义不太好。
-3. v-if 和 v-for 同时存在于一个标签内，执行顺序对调了。vue2 是先执行的 v-for 再执行 v-if，vue3 是执行 v-if，再执行 v-for。
-4. beforDestroy 和 destroyed 改为了 beoreUnmount 和 unmounted
-4. slot=“abc” 不生效了。要使用v-slot:abc
-4. `router-link 中的tag属性取消了。tag属性是用来渲染标签的，如：tag="span" ，那么router-link最终渲染为 span 标签。`
+
+2. 取消了全局事件总线。在*Vue3*中,从实例中完全*移除了* `$on`、`$off` 和 `$once` 方法。`$emit` 仍然包含于现有的 API 中。
+
+3. 取消了项目中的生产提示 ：`Vue.config.productionTip = false`
+
+4. 移除了过滤器，官网的说法是，过滤器有学习成本，可以使用方法或者计算属性来代替。
+
+5. 删除了在组件上使用原生的事件时，需要加上.native的做法。
+
+6. 移除了键盘事件中的用KeyCode码来代替键盘上的键名的做法，原因是因为数字语义不太好。
+
+7. v-if 和 v-for 同时存在于一个标签内，执行顺序对调了。vue2 是先执行的 v-for 再执行 v-if，vue3 是执行 v-if，再执行 v-for。
+
+8. beforDestroy 和 destroyed 改为了 beoreUnmount 和 unmounted
+
+9. slot=“abc” 不生效了。要使用v-slot:abc
+
+10. `router-link 中的tag属性取消了。tag属性是用来渲染标签的，如：tag="span" ，那么router-link最终渲染为 span 标签。`
+
+11. css属性的值，可以使用v-bind写成一个变量
+
+    ```vue
+    <script setup>
+    const boxWidth = "100px";
+    </script>
+    
+    <style lang="scss">
+    .box {
+      width: v-bind(boxWidth);
+      height: 100px;
+      background-color: red;
+    }
+    </style>
+    ```
+
+12. 深层样式穿透，一起拿使用`/deep/` `>>>`，现在使用
+
+    ```css
+    ::v-deep .el-form-item {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      color: #454545;
+    }
+    ```
+
+    
 
 ### 1.性能的提升
 

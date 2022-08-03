@@ -32,6 +32,7 @@
    
    
    
+   
    【参考答案】: B
    ```
    
@@ -96,11 +97,11 @@
    
    var a = 10;
    function test() {
-   a = 100;
-   alert(a);
-   alert(this.a);
-   var a;
-   alert(a);
+       a = 100;
+       alert(a);
+       alert(this.a);
+       var a;
+       alert(a);
    }
    
    test();
@@ -164,6 +165,7 @@
    
    
    【参考答案】: A
+   为什么第二个函数调用是undefined？因为第二个是普通函数调用，把Person当做普通函数又没有返回值，那么返回值就是undefined
    ```
    
    
@@ -192,10 +194,9 @@
 11. ```js
     分析下面的 JavaScript 代码段，输出的结果是( )
     
-    function employee(name,code)
-    {
-    this.name="wangli";
-    this.code="A001";
+    function employee(name,code) {
+        this.name="wangli";
+        this.code="A001";
     }
     
     var newemp = new employee("zhangming",'A002');
@@ -211,7 +212,7 @@
     
     
     
-    【参考答案】: A //this.name = 'wangli'; 和 this.code = "A001";这两个值写死了，怎么改都是这两个不会变。除非改成: this.name = name; this.code = code;
+    【参考答案】: A //this.name = 'wangli'; 和 this.code = "A001"; 这两个值写死了，怎么改都是这两个不会变。除非改成: this.name = name; this.code = code;
     ```
     
     
@@ -275,12 +276,12 @@
 15. ``` js 
     有以下JS代码：
     
-     var User = {   
+    var User = {   
       count:1,   
       getCount:function(){
        return this.count;   
       }   
-     }  
+    }  
      console.log(User.getCount()); 
      var func = User.getCount; 
      console.log(func());
@@ -302,15 +303,15 @@
     
 16. ```js
     有以下代码：
-     var x = 5;
+    var x = 5;
     
-     (function () { 
+    (function () { 
       console.log(x); 
       var x = 10; 
       console.log(x); 
-     }());
+    }());
     
-     上面的代码，输出的两个值是（ ）
+    上面的代码，输出的两个值是（ ）
     
     - A、没有输出，抛出ReferenceError：x没有定义
     - B、undefined 10
@@ -350,14 +351,15 @@
     
     
 18. ```js
-    阅读以下代码，输出true的是function Person(){};
+    阅读以下代码，输出true的是()
+    function Person(){};
     
     var person = new Person;
     
     - A、person.__proto__ === Person.prototype
     - B、person.__proto__ !== Person.prototype
     - C、person.__proto__.constructor === Person
-    - D、 person.__proto__.constructor !== Person
+    - D、person.__proto__.constructor !== Person
     
     
     
@@ -400,6 +402,7 @@
     
     
 20. ```js
+    // 这道题要小心，有坑
     var b = 1;
     
     function fn1() {

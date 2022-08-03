@@ -19,9 +19,9 @@
 
    给目标元素原有基础上增加一个类名acitve，正确的是（）？
 
-   < div id='box' >hello atguigu</div >
+   `< div id='box' >hello atguigu</div >`
 
-   var box = document.getElementById('box')
+   `var box = document.getElementById('box')`
 
    - A、 box.className = ‘.active’
    - B、box.classList.remove(‘active’)
@@ -46,15 +46,13 @@
 
 4. **题目4：**
 
-   关于鼠标事件对象event,以下说法正确的是（）?
-
-   
+   关于鼠标事件对象event, 以下说法正确的是（）?
 
    - A、event.clientX/event.clientY 获取的是鼠标在页面上的位置
-   - B、**event.clientX/event.clientY 获取的是鼠标在视口上的位置**
+- B、**event.clientX/event.clientY 获取的是鼠标在视口上的位置**
    - C、event.screenX/event.screenY 获取的是鼠标在视口上的位置
    - D、event.pageX/event.pageY 获取的是鼠标在元素上的位置
-
+   
    【参考答案】: B
 
    【您的答案】: C
@@ -160,7 +158,7 @@
     - A、keydown 代表键盘按键抬起触发的事件
     - **B、keydown 代表键盘按键按下触发的事件**
     - C、keyup 代表键盘按键按下触发的事件
-    - D、keypress代表键盘方向键按下触发的事件
+    - D、keypress 代表键盘方向键按下触发的事件
 
     【参考答案】: B
 

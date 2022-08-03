@@ -95,39 +95,41 @@
    
     【参考答案】: B
 
+ 7. 
+
+    ```js
+    // 请问一下代码运行后的结果是
+       
+    function funcSwitch(sFlag){
+        switch(sFlag) { 
+            case 'Test1': alert('Test1');
+            break;
+            case 'Test2': alert('Test2'); 
+            break; 
+            default:; 
+        } 
+    } 
+    funcSwitch('Test2');
+    
+    A、Test2
+    B、Test1
+    C、undefined
+    D、"null"
+       
+       
+       
+       
+    【参考答案】: A
+    ```
+
+    
 
 
-
-   ```
-
-7. ```js
-   请问一下代码运行后的结果是
-   
-   function funcSwitch(sFlag){
-   switch(sFlag) { 
-   case 'Test1': alert('Test1');
-   break;
-   case 'Test2': alert('Test2'); 
-   break; default:; 
-   	} 
-   } 
-   funcSwitch('Test2');
-   
-   A、Test2
-   B、Test1
-   C、undefined
-   D、"null"
-   
-   
-   
-   
-【参考答案】: A
-   ```
 
 
 
 8. ```js
-   请选择结果为真的选项（  ）
+   // 请选择结果为真的选项（  ）
       
    A、null == undefined
    B、null === undefined
@@ -163,26 +165,32 @@
    
    
    【参考答案】: B
-
-
-
-​    
-
    ```
+   
+   
+   
+   
+   
+   
+   
+9. ```js
+   下列的哪一个表达式将返回值为假（  ）
+       
+   A、!(3<=1)
+   B、(4>=4)&&(5<=2)
+   C、(“a”==“a”)&&(“c”!=“d”)
+   D、(2<3)||(3<2)
+   
+   
+   
+   
+   
+   
+   【参考答案】: B
 
- ```js
-10.     下列的哪一个表达式将返回值为假（  ）
-    
-    A、!(3<=1)
-    B、(4>=4)&&(5<=2)
-    C、(“a”==“a”)&&(“c”!=“d”)
-    D、(2<3)||(3<2)
 
 
 
-
-    【参考答案】: B
-   ```
 
 11. ```js
     以下不属于JS基本数据类型的选项是 ()
@@ -299,7 +307,7 @@
     A、typeof ‘123’ 返回 number
     B、typeof true 返回 boolean
     C、typeof null 返回 object
-    D、typeof undefined 返回undefined
+    D、typeof undefined 返回 undefined
     
     
     

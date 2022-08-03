@@ -7,6 +7,40 @@
    - C、-4 -3
    - D、-3 -4
 
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
    【参考答案】: D
 
    【您的答案】: D
@@ -15,15 +49,15 @@
 
    var bird = {
 
-    size: "small"
+    	size: "small"
 
    };
 
    var mouse = {
 
-    name: "Mickey",
+   ​	 name: "Mickey",
 
-    small: true
+    	small: true
 
    };
 
@@ -31,9 +65,21 @@
    - B、mouse[bird.size] // 运算符优先级：先做括号里面的，再做括号外面的。
    - C、mouse[bird["size"]] // 运算符优先级：先做括号里面的，再做括号外面的。
 
+   
+
+   
+
+   
+
+   
+
+   
+
    【参考答案】: A
 
    【您的答案】: C
+
+   第二题出的有问题，B和C都可以的
 
 3. 下面代码的输出是什么?( )
 
@@ -52,6 +98,16 @@
    - B、undefined
    - C、报错
 
+
+
+
+
+
+
+
+
+
+
    【参考答案】: A
 
    【您的答案】: A
@@ -60,9 +116,9 @@
 
    function Person(firstName, lastName) {
 
-    this.firstName = firstName;
+   ​	 this.firstName = firstName;
 
-    this.lastName = lastName;
+    	this.lastName = lastName;
 
    }
 
@@ -81,6 +137,16 @@
    - C、Person {firstName: "Lydia", lastName: "Hallie"} , {}
    - D、Person{firstName:"Lydia",lastName:"Hallie"} , 报错
 
+   
+
+   
+
+   
+
+   
+
+   
+
    【参考答案】: A
 
    【您的答案】: A
@@ -92,26 +158,46 @@
    - C、obj(@"age") = 25
    - D、obj("age") = 25
 
+   
+
+   
+
+   
+
+   
+
+   
+
    【参考答案】: A
 
    【您的答案】: A
 
 6. 有以下代码：
 
-    function Dog(){
+   function Dog(){
 
-     this.name = “小黑”
+    	this.name = “小黑”
 
-    }；
+   }；
 
-    var dog1 = new Dog();
+   var dog1 = new Dog();
 
-    请问此时this代表的是（  ）
+   请问此时this代表的是（  ）
 
    - A、Dog
    - B、function Dog(){}
    - C、dog1
    - D、window
+
+   
+
+   
+
+   
+
+   
+
+   
 
    【参考答案】: C
 
@@ -119,30 +205,38 @@
 
 7. 有以下JS代码：
 
-    var User = {   
+   var User = {   
 
-     count:1,   
+    	count:1,   
 
-     getCount:function(){
+    	getCount:function(){
 
-      return this.count;   
+     		return this.count;   
 
-     }   
+    	}   
 
-    }  
+   }  
 
-    console.log(User.getCount()); 
+   console.log(User.getCount()); 
 
-    var func = User.getCount; 
+   var func = User.getCount; 
 
-    console.log(func());
+   console.log(func());
 
-    以上代码的打印结果分别是（  ）
+   以上代码的打印结果分别是（  ）
 
    - A、1,1
    - B、1,2
    - C、1,undefined
    - D、程序报错
+
+   
+
+   
+
+   
+
+   
 
    【参考答案】: C
 
@@ -155,30 +249,50 @@
    - C、(“a”==“a”)&&(“c”!=“d”)
    - D、(2<3)||(3<2)
 
+   
+
+   
+
+   
+
+   
+
+   
+
    【参考答案】: B
 
    【您的答案】: B
 
 9. 有以下代码：
 
-    var x = 5;
+   var x = 5;
 
-    (function () { 
+   (function () { 
 
-     console.log(x); 
+   ​	console.log(x); 
 
-     var x = 10; 
+   ​	var x = 10; 
 
-     console.log(x); 
+   ​	console.log(x); 
 
-    }());
+   }());
 
-    上面的代码，输出的两个值是（ ）
+   上面的代码，输出的两个值是（ ）
 
    - A、没有输出，报错：x没有定义
    - B、undefined 10
    - C、5 10
    - D、10 10
+
+   
+
+   
+
+   
+
+   
+
+   
 
    【参考答案】: B
 
@@ -191,62 +305,84 @@
     - C、基本类型的值存储在堆中
     - D、复杂类型的对象在栈中存储
 
+    
+
+    
+
+    
+
+    
+
+    
+
     【参考答案】: B
 
     【您的答案】: B
 
 11. 以下代码输出正确的是（）?
 
-    function f1(num){
+     function f1(num){
 
-    ​    function f2(){
+     ​    function f2(){
 
-    ​      console.log(num);
+     ​      console.log(num);
 
-    ​    }
+     ​    }
 
-    ​    return f2;
+     ​    return f2;
 
-      }
+       }
 
-      var fa = f1(10);
+       var fa = f1(10);
 
-      var fb = f1(20);
+       var fb = f1(20);
 
-      var fc = f1(30);
+       var fc = f1(30);
 
-      fa();
+       fa();
 
-      fb();
+       fb();
 
-    fc(); 
+     fc(); 
 
-    - A、10 20 30
-    - B、10 10 10
-    - C、undefined undefined undefined
-    - D、num is not defined
+     - A、10 20 30
+     - B、10 10 10
+     - C、undefined undefined undefined
+     - D、num is not defined
 
-    【参考答案】: A
+     
 
-    【您的答案】: A
+     
+
+     
+
+     
+
+     
+
+     【参考答案】: A
+
+     【您的答案】: A
 
 12. 阅读以下代码，正确打印顺序结果为（）?
 
+    
+
+
     console.log(1)
-
+    
     setTimeout(function(){
-
-     console.log(2)
-
+    
+    	console.log(2)
+    
     })
-
+    
     setTimeout(function(){
-
-     console.log(3)
-
+    
+    	console.log(3)
+    
     }, 100)
-
-
+     
      setTimeout(function(){
     
      console.log(4)
@@ -259,6 +395,12 @@
     - B、1 5 2 4 3
     - C、1 5 2 3 4
     - D、1 2 4 3 5
+    
+    
+    
+    
+    
+    
     
     【参考答案】: B
     
@@ -300,6 +442,18 @@
 
      console.log(7)
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     - A、1 2 3 4 5 6 7
     - B、1 7 5 4 6 3 2
     - C、1 7 2 3 4 5 6
@@ -316,6 +470,16 @@
     - C、function Car(){this.name = “王五”}; var car1 = new Car(); var result = car1.name;result的值为undefined
     - D、我们可以将一个函数作为另一个函数的结果返回
 
+    
+
+    
+
+    
+
+    
+
+    
+
     【参考答案】: C
 
     【您的答案】: C
@@ -327,6 +491,16 @@
     - C、继承
     - D、多态
 
+    
+
+    
+
+    
+
+    
+
+    
+
     【参考答案】: A
 
     【您的答案】: D
@@ -337,10 +511,20 @@
 
     var person = new Person;
 
-    - A、person.__proto__.__proto__ === Object.prototype
-    - B、person.__proto__.__proto__ !== Object.prototype
-    - C、person.__proto__.__proto__.constructor.__proto__ === Function.prototype
-    - D、Object.prototype.__proto__ === null
+    - A、`person.__proto__.__proto__` === Object.prototype
+    - B、`person.__proto__.__proto__` !== Object.prototype
+    - C、`person.__proto__.__proto__.constructor.__proto__` === Function.prototype
+    - D、`Object.prototype.__proto__` === null
+
+    
+
+    
+
+    
+
+    
+
+    
 
     【参考答案】: ACD
 
@@ -352,10 +536,20 @@
     - C、typeof null 返回 object
     - D、typeof undefined 返回undefined
 
+    
+
+    
+
+    
+    
+    
+    
+    
+    
     【参考答案】: A
-
+    
     【您的答案】: A
-
+    
 18. 对以下Javascript代码运行结果的描述正确的是:()
 
      var a = {},
@@ -363,15 +557,25 @@
      b = { key: 'b' },
 
      c = { key: 'c' };
-    
+
      a[b] = 123;
 
-     a[c] = 456
+     a[c] = 456;
 
     - A、变量 `a` 有两个属性
     - B、`console.log(a[b])` 输出 `123`
     - C、`console.log(a[c])` 输出 `456`
     - D、`console.log(a[a])` 输出 `undefined`
+
+    
+
+    
+
+    
+
+    
+
+    
 
     【参考答案】: C
 
@@ -385,15 +589,17 @@
 
     var z="";
 
-    function assert(xVar){
+    function assert(xVar) {
 
-     if(xVar)  
+     	if(xVar)  {
 
-      console.log(true);
+    ​		console.log(true);
 
-     else 
+    ​	}  else {
 
-      console.log(false);
+    ​		console.log(false);
+
+    ​	}
 
     }
 
@@ -402,12 +608,22 @@
     assert(y);
 
     assert(z);
-
+    
     - A、true，true，true
     - B、true，true，false
     - C、false，false，true
     - D、false，false，false
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     【参考答案】: B
-
+    
     【您的答案】: C
