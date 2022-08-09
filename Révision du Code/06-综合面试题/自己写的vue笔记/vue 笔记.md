@@ -1217,6 +1217,38 @@
 
         ![image-20211119231528514](vue 笔记.assets/image-20211119231528514.png)
 
+130. 在组件标签上绑定的所有事件(包括原生事件的名字click，input等等)，都是自定义事件，都需要组件内`$emit`来触发才行。在element-ui组件中，都已经帮我们做好了触发的事件，所以我们的组件在methods中定义后只要点击组件就会触发的。
+
+     ![image-20220808163617958](vue 笔记.assets/image-20220808163617958.png)
+
+     注意：如果组件内不支持这个原生事件名字。
+
+     解决：@事件名.native=‘methods里方法名’ 
+
+131. 点击退出登录，重新登陆，直走相关组件代码(异步dom切换，不会导致所有代码重新执行，App.vue并不会执行)
+
+     解决：
+
+     1. 可以在登录页面，登录成功后，再发请求去拿到用户信息
+
+     2. 可以在全局前置路由守卫中获取(路由跳转的时候，判断+获取)
+
+        ```js
+        // 引入store
+        import store from '@/store'
+        // 全局前置路由守卫
+        router.beforeEach((to, from, next)=>{
+            const token = store.state.token
+            if(token && !store.state.userInfo.username) {
+                // 你本地有token值，并且没有用户信息，才去请求用户的信息，保存
+                 store.dispatch('getUserInfoActions')
+            }
+            next()
+        })
+        ```
+
+        
+
 127. 
 
 

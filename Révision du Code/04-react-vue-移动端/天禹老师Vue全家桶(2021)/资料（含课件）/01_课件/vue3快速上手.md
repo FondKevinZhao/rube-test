@@ -59,7 +59,44 @@
     }
     ```
 
-    
+13. $listeners在vue3中使用
+
+    - vue2中使用`$attrs`从父组件传递数据给子组件嵌套组件，父组件通过通过`$listeners`监听子组件的事件
+    - vue3把把`$attrs`和`$listeners`统一合并到`$attrs`中
+
+    vue2：
+
+    ```js
+    <template>
+      <label>
+        <input type="text" v-bind="$attrs" v-on="$listeners" />
+      </label>
+    </template>
+    <script>
+      export default {
+        inheritAttrs: false
+      }
+    </script>
+    ```
+
+    vue3: 
+
+    ```js
+    <template>
+      <label>
+        <input type="text" v-bind="$attrs" />
+      </label>
+    </template>
+    <script>
+    export default {
+      inheritAttrs: false
+    }
+    </script>
+    ```
+
+    [博客地址](https://blog.csdn.net/weixin_44869002/article/details/113176068)
+
+14. 
 
 ### 1.性能的提升
 

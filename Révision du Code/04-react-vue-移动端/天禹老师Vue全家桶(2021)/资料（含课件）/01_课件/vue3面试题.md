@@ -1,0 +1,164 @@
+#### 1. Vue 3.0 性能提升主要是通过哪几方面体现的？
+
+1、响应式系统提升
+
+- vue2在初始化的时候，对data中的每个属性使用defineProperty调用getter和setter使之变为响应式对象。如果属性值为对象，还会递归调用defineProperty使之变为响应式对象。
+- vue3使用proxy对象重写响应式。proxy的性能本来比defineProperty好，proxy可以拦截属性的访问、赋值、删除等操作，不需要初始化的时候遍历所有属性，另外有多层属性嵌套的话，只有访问某个属性的时候，才会递归处理下一级的属性。
+
+>优势：
+>可以监听动态新增的属性；
+>可以监听删除的属性 ；
+>可以监听数组的索引和 length 属性；
+
+2、编译优化
+
+- 优化编译和重写虚拟dom，让首次渲染和更新dom性能有更大的提升
+  vue2 通过标记静态根节点,优化 diff 算法
+  vue3 标记和提升所有静态根节点,diff 的时候只比较动态节点内容
+- Fragments, 模板里面不用创建唯一根节点,可以直接放同级标签和文本内容
+- 静态提升
+- patch flag, 跳过静态节点, 直接对比动态节点
+- 缓存事件处理函数
+
+3、 源码体积的优化
+
+- vue3移除了一些不常用的api，例如：inline-template、filter等
+- 使用tree-shaking
+
+#### 2. Vue 3.0 所采用的 Composition Api 与 Vue 2.x使用的Options Api 有什么区别？
+
+[博客地址](https://blog.csdn.net/qq_38110572/article/details/116055832)
+
+#### 3. 3.2 版本新特性
+
+[博客地址](https://blog.csdn.net/var_deng/article/details/119726194)
+
+#### 4. Vite是什么
+
+首先，vite为什么叫做vite，vite实际上是法语中快的意思，所以顾名思义，这个工具给我们带来的就是更快的开发体验，它实际上是一个面向现代浏览器，基于ECMA标准的ES module实现的一个更轻更快的web应用开发工具
+
+之所以是面向现代浏览器，而不顾之前的浏览器，是因为vite本身是一个web应用开发者工具，而对于开发者来说，一般都是使用比较先进的浏览器来进行开发，所以我们可以直接使用一些现代浏览器支持的特性，而不考虑去兼容一些老的浏览器
+
+而现代浏览器支持的特性中，在vite中最为重要的一个，就是ES module。由于vite是面向现代浏览器的，所以它利用浏览器去解析imports，在服务器端按需编译返回，跳过打包过程。同时支持Vue文件和HMR（热更新），针对生产环境可以使用rollup打包。
+
+此外要注意的一点是，vite仅支持 vue3.0+ 的项目，也即是说我们无法在其中使用vue2.x
+
+##### 1. 认识ES module
+
+ES Module 是模块化的一种方式，除IE 外，其他主流浏览器都支持
+
+通过下面方式加载模块
+
+```js
+<script type="module" src="..."></script>
+```
+
+默认延迟加载模块，执行时机，在文档解析之后，触发DOMContentLoaded 事件前执行。
+
+##### 2. 认识HMR
+
+HMR 全称 Hot Module Replacement，中文语境通常翻译为模块热更新，它能够在保持页面状态的情况下动态替换资源模块，提供丝滑顺畅的 Web 页面开发体验。
+
+[博客地址](https://zhuanlan.zhihu.com/p/410510492)
+
+##### 3. 认识Vite
+
+`webpack`是目前整个前端使用最多的构建工具，但是除了`webpack`之后也存在其他一些构建工具。比如说`rollup`,`parcel`,`gulp`,`vite`等等。`vite`的官方定位是`下一代前端开发和构建工具`。
+
+但是随着项目越来越大，需要处理的`javascript`呈指数级增长，模块越来越多。构建工具需要很长时间才能开启服务器，`HMR`也需要几秒钟才能在浏览器反应过来。所以出现了`vite`。
+
+---
+
+
+
+#### 5. webpack和vite的比较
+
+1. webpack和vite都是现代化打包工具：
+
+2. 底层语言的不同：
+
+   从底层原理上来说，Vite是基于esbuild预构建依赖。而esbuild是采用go语言编写，因为go语言的操作是纳秒级别，而js是以毫秒计数，所以vite比用js编写的打包器快10-100倍。
+
+3. webpack和vite的启动方式不同：
+
+   - webpack: 分析依赖=> 编译打包=> 交给本地服务器进行渲染。首先分析各个模块之间的依赖，然后进行打包，在启动webpack-dev-server，请求服务器时，直接显示打包结果。webpack打包之后存在的问题：随着模块的增多，会造成打出的 bundle 体积过大，进而会造成热更新速度明显拖慢。
+   - vite: 启动服务器=> 请求模块时按需动态编译显示。是先启动开发服务器，请求某个模块时再对该模块进行实时编译，因为现代游览器本身支持ES-Module，所以会自动向依赖的Module发出请求。所以vite就将开发环境下的模块文件作为浏览器的执行文件，而不是像webpack进行打包后交给本地服务器。
+   - 热更新方面，vite效率更高。当改动了某个模块的时候，也只用让浏览器重新请求该模块，不需要像webpack那样将模块以及模块依赖的模块全部编译一次。
+
+4. 优缺点：
+
+   - vite开发阶段，打包快。
+   - vite相关生态没有webpack完善，vite可以作为开发的辅助。
+
+还有一篇博客讲得不错：https://www.jianshu.com/p/504d8c79424d
+
+还有一篇博客讲得不错：https://www.cnblogs.com/zhengrongbaba/p/15177153.html
+
+
+
+#### 6. Object.defineProperty和proxy的区别
+
+- Proxy使用上比Object.defineProperty方便的多。
+- Proxy代理整个对象，Object.defineProperty只代理对象上的某个属性。
+- vue中，Proxy在调用的时候递归，Object.defineProperty在一开始就全部递归，Proxy性能优于Object.defineProperty。
+- 对象上定义新属性时，Proxy可以监听到，Object.defineProperty监听不到。需要借助vm.$set方法或Vue.set()
+- 数组新增删除修改时，Proxy可以监听到，Object.defineProperty监听不到。
+- Proxy不兼容IE，Object.defineProperty不兼容IE8及以下。
+
+
+
+#### 7. vue2和vue3 路由的写法
+
+```
+// 模式为hash:createWebHashHistory()，模式为history:createWebHistory()
+history:createWebHashHistory()/createWebHistory(), 
+```
+
+[博客地址1](https://blog.csdn.net/weixin_46022934/article/details/125744089)
+
+[博客地址2](https://www.cnblogs.com/DDjans/p/14844364.html)
+
+#### 8. vue2和vue3 vuex的写法
+
+在store.js中：`import { createStore } from 'vuex'`
+
+在main.js中：
+
+```js
+import store from '@/store'
+createApp(App).use(store).mount('#app')
+```
+
+在使用时：
+
+```js
+import { useStore } from 'vuex';
+const store = useStore();
+console.log(store.state.count);
+```
+
+[博客地址(顺便包含pinia)](https://blog.csdn.net/weixin_42232622/article/details/125451861)
+
+#### 9. 有了vuex为什么还要有pinia
+
+pinia 目前已经是 vue 官方正式的状态库。适用于 vue2 和 vue3
+
+pinia中没有了mutations和modules，pinia不必以嵌套（通过modules引入）的方式引入模块，因为它的每个store便是一个模块，如storeA，storeB... 。在我们使用Vuex的时候每次修改state的值都需要调用mutations里的修改函数（下面会说到），因为Vuex需要追踪数据的变化，这使我们写起来比较繁琐。而pinia则不再需要mutations，同步异步都可在actions进行操作，至于它没有了mutations具体是如何最终到state变化的，这里我们不过多深究。
+
+相比于Vuex，Pinia是可以直接修改状态的，并且调试工具能够记录到每一次state的变化
+
+pinia使用$patch方法可以修改多个state中的值
+
+**相对于以前的 vuex，pinia具有以下优势：**
+
+- 更简单的写法，代码更清晰简洁，支持 `composition api` 和 `options api` 语法
+- 抛弃传统的 Mutation ，只有 state,  getter 和 action ，简化状态管理库
+- 不需要嵌套模块，符合 Vue3 的 Composition api，让代码扁平化
+- 更完善的 typescript 支持，无需创建自定义复杂的包装类型来支持 TypeScript，所有内容都是类型化的，并且 [API](https://so.csdn.net/so/search?q=API&spm=1001.2101.3001.7020) 的设计方式尽可能利用 TS 类型推断
+- 非常轻量，只有1kb的大小
+- 代码简洁，很好的代码自动分割
+
+[博客地址1(好文)](https://mp.weixin.qq.com/s?__biz=MzA5MTI0ODUzNQ==&mid=2652957572&idx=1&sn=c77f7ca8550aace7714b26d6781ccca3&chksm=8bab097cbcdc806a190092a0c083f36b47f9eb9d15951f22248598f5f6e7eedf667d35d67ed0&scene=27)
+
+[博客地址2](https://www.jianshu.com/p/c45218b4a5e0)
+
