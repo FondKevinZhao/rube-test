@@ -203,3 +203,13 @@ pinia使用$patch方法可以修改多个state中的值
 - 小型项目，涉及到多处跨组件通信的情况，可以考虑使用。
 
 [Vue3学习之全局事件总线mitt](https://blog.csdn.net/m0_50789696/article/details/125168752)
+
+#### 13. 虚拟DOM和diff算法
+
+虚拟 DOM 简单说就是 **用JS对象来模拟 DOM 结构**
+
+Diff 算法，在 Vue 里面就是叫做 `patch` ，它的核心就是参考 **[Snabbdom](https://link.zhihu.com/?target=https%3A//github.com/snabbdom/snabbdom)**，通过新旧虚拟 DOM 对比(即 patch 过程)，找出最小变化的地方转为进行 DOM 操作
+
+[博客地址1](https://zhuanlan.zhihu.com/p/421197879)
+
+[博客地址2](https://www.cnblogs.com/sugartang/p/16189101.html)
