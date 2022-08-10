@@ -239,14 +239,91 @@ npm run dev
     ```
 
 - 存在问题：
-  - 新增属性、删除属性, 界面不会更新。
+  - 新增属性、删除属性, 界面不会更新(新增和删除不是响应式的)。(读取和修改是响应式的)
+  
+    新增需要自己通过这种方式：
+  
+    ```js
+    this.$set(targetObj, '属性名', '属性值')
+    Vue.set(targetObj, '属性名', '属性值')
+    ```
+  
+    删除需要自己通过这种方式
+  
+    ```js
+    this.$delete(targetObj, '属性名')
+    ```
+  
+    
+  
   - 直接通过下标修改数组, 界面不会自动更新。
+  
+    ```vue
+    // 修改数组中的第一个内容
+    <template>
+    	<p @click=“updateArrayOne”>{{person.hobby}}</p>
+    </template>
+    <script>
+    export default {
+        data(){
+            return {
+                person: {
+                    hobby: ['抽烟', '喝酒']
+                }
+            }
+        },
+        methods: {
+            updateArrayOne() {
+                // 这样修改不奏效
+                this.person.hobby[0] = '看书'
+                
+                // 解决方法一：
+                this.$set(this.person.hobby, 0, '看书')
+                // 解决方法二：
+                Vue.set(this.person.hobby, 0, '看书')
+                // 解决方法二：因为vue重写了数组的splice方法，所以是响应式的
+                this.person.hobby.splice(0,1,'看书')
+            }
+        }
+    }
+    </script>
+    ```
+  
+    
 
 ### Vue3.0的响应式
 
 - 实现原理: 
   - 通过Proxy（代理）:  拦截对象中任意属性的变化, 包括：属性值的读写、属性的添加、属性的删除等。
+  
   - 通过Reflect（反射）:  对源对象的属性进行操作。
+  
+    - **Reflect** 是一个内置的对象，它提供拦截 JavaScript 操作的方法。
+  
+    - `Reflect`不是一个函数对象，因此它是不可构造的。
+  
+    - `Reflect`的所有属性和方法都是静态的（就像[`Math`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math)对象）。
+    - Reflect.getPrototypeOf和Object.getPrototypeOf的一个区别是，如果参数不是对象，Object.getPrototypeOf会将这个参数转为对象，然后再运行，而Reflect.getPrototypeOf会报错。
+  
+    - `Reflect`是window身上的内置对象，因此你可以window.Reflect使用。如：
+  
+      
+  
+      ```js
+      const duck = {
+        name: 'Maurice',
+        color: 'white',
+        greeting: function() {
+          console.log(`Quaaaack! My name is ${this.name}`);
+        }
+      }
+      
+      window.Reflect.has(duck, 'color'); // window可以省略：Reflect.has(duck, 'color');
+      // true
+      ```
+  
+      [Reflect博客地址](https://blog.csdn.net/qq_35036255/article/details/80942572)
+  
   - MDN文档中描述的Proxy与Reflect：
     - Proxy：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy
     
@@ -394,7 +471,7 @@ npm run dev
 
 ## 8.生命周期
 
-<div style="border:1px solid black;width:380px;float:left;margin-right:20px;"><strong>vue2.x的生命周期</strong><img src="https://cn.vuejs.org/images/lifecycle.png" alt="lifecycle_2" style="zoom:33%;width:1200px" /></div><div style="border:1px solid black;width:510px;height:985px;float:left"><strong>vue3.0的生命周期</strong><img src="https://v3.cn.vuejs.org/images/lifecycle.svg" alt="lifecycle_2" style="zoom:33%;width:2500px" /></div><br>
+<div style="border:1px solid black;width:380px;float:left;margin-right:20px;"><strong>vue2.x的生命周期</strong><img src="https://v2.cn.vuejs.org/images/lifecycle.png" alt="lifecycle_2" style="zoom:50%;width:2500px" /></div><div style="border:1px solid black;width:510px;height:985px;float:left"><strong>vue3.0的生命周期</strong><img src="https://cn.vuejs.org/assets/lifecycle.16e4c08e.png" alt="lifecycle_3" style="zoom:33%;width:2500px" /></div><br>
 
 
 
@@ -497,8 +574,6 @@ npm run dev
 
 
 
-
-1
 
 - Vue3.0中可以继续使用Vue2.x中的生命周期钩子，但有有两个被更名：
   - ```beforeDestroy```改名为 ```beforeUnmount```
