@@ -213,3 +213,14 @@ Diff 算法，在 Vue 里面就是叫做 `patch` ，它的核心就是参考 **[
 [博客地址1](https://zhuanlan.zhihu.com/p/421197879)
 
 [博客地址2](https://www.cnblogs.com/sugartang/p/16189101.html)
+
+#### 14.  聊聊Vue3(陈辉鸿)
+
+- 今年9月份发布的正式版
+- Vue3支持vue2的大多数特性
+- 设计了一套强大的组合API来替代option API: 可读性和可复用性更好
+- 更好的支持Typescript
+- 使用Proxy代替defineProperty实现数据响应式: 效率更高, 功能更强大
+- 重写虚拟DOM的实现和Tree-Shaking: 更小更快
+- 新的组件: Fragment / Teleport / Suspense
+- 设计了一个新的脚手架工具vite: 开发启动快了很多

@@ -1249,7 +1249,17 @@
 
         
 
-127. 
+132. token过期问题，一般前端不用考虑，是由后端来判断。
+
+133. 清除vuex里的一切，记得通过commit来调用mutations里面的方法来清除。不可直接操作state。
+
+134. echarts内部用的是命名导出 export const 变量名 多个
+
+      正常导入 `import {变量名, 变量名} form 'echarts'` 需要一个一个导出来
+
+      但是现在我想导入所有，并且形成一个对象使用就可以：`import * as echarts from 'echarts'`
+
+135. 
 
 
 

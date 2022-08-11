@@ -587,6 +587,7 @@ npm run dev
   - `updated` =======>`onUpdated`
   - `beforeUnmount` ==>`onBeforeUnmount`
   - `unmounted` =====>`onUnmounted`
+- [生命周期官网解释](https://cn.vuejs.org/api/composition-api-lifecycle.html)
 
 ## 9.自定义hook函数
 
