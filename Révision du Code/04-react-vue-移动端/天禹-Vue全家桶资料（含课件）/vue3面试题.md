@@ -224,3 +224,26 @@ Diff 算法，在 Vue 里面就是叫做 `patch` ，它的核心就是参考 **[
 - 重写虚拟DOM的实现和Tree-Shaking: 更小更快
 - 新的组件: Fragment / Teleport / Suspense
 - 设计了一个新的脚手架工具vite: 开发启动快了很多
+
+#### 15. vue3 tree-shaking
+
+**是什么？**
+
+Tree shaking 是一种通过清除多余代码方式来优化项目打包体积的技术，专业术语叫 Dead code elimination
+
+**如何做？**
+
+`Tree shaking`无非就是做了两件事：
+
+- 编译阶段利用`ES6 Module`判断哪些模块已经加载
+- 判断那些模块和变量未被使用或者引用，进而删除对应代码
+
+**作用**
+
+通过`Tree shaking`，`Vue3`给我们带来的好处是：
+
+- 减少程序体积（更小）
+- 减少程序执行时间（更快）
+- 便于将来对程序架构进行优化（更友好）
+
+[博客地址](https://www.jianshu.com/p/975073fef572)
