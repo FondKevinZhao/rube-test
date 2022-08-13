@@ -11,7 +11,7 @@
 
 大致总结：
 
-1. 支持**选项式api** 和 **组合式api**写法
+1. 支持**vue2选项式api** 和 **vue3组合式api**写法
 2. Pinia没有mutations，只有：state、getters、actions
 3. Pinia分模块不需要modules(vuex分模块需要modules)
 4. TypeScript支持很好
@@ -87,7 +87,7 @@
    console.log( name, num)
    // 此处假设有个按钮 --- 修改无效
    const btn = () => {
-       num.value = 2
+       num.value = 2 // 或者写成：store.num++ 也可以
    }
        
        
@@ -155,7 +155,7 @@
    }
    </script>
    ```
-#### Pinia的使用之state
+#### Pinia的使用之getters
 
 getters是有缓存的，使用几乎跟vuex一样
 

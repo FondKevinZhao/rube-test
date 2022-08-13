@@ -211,7 +211,17 @@
        1. 一套架构，提供一套整体解决方案，它能完全搞定整个项目开发，并且很轻松就能解决复杂的问题。
        2. 特征：大而全(比较大，功能比较全)。
 
-40. MVC、MVP 和 MVVM：
+39. MVP、MVC 和 MVVM：
+
+    **MVP：**
+
+    1. 各部分之间的通信，都是双向的。
+
+    2. View 与 Model 不发生联系，都通过 Presenter 传递。
+
+    3. View 非常薄，不部署任何业务逻辑，称为“被动视图(Passive View)”，既没有任何主动性，而 Presenter 非常厚，所有逻辑都部署到那里。
+
+       
 
     **MVC：**
 
@@ -225,11 +235,7 @@
 
     Model 将新的数据发送到 View，用户得到反馈。
 
-    **MVP：**
-
-    1. 各部分之间的通信，都是双向的。
-    2. View 与 Model 不发生联系，都通过 Presenter 传递。
-    3. View 非常薄，不部署任何业务逻辑，称为“被动视图(Passive View)”，既没有任何主动性，而 Presenter 非常厚，所有逻辑都部署到那里。
+    
 
     **MVVM：**
 
@@ -798,7 +804,7 @@
     2. 一般业务数据不推荐使用，数据来源不清晰。
     3. 适用于自己封装的组件，因为可以明确的知道数据来源。
     
-    **任意组件间传参：**全局事件总线、消息订阅与发布、vuex。
+    **任意组件间传参：** localStorage、sessionStorage、全局事件总线、消息订阅与发布、vuex、pinia。
     
 91. 全局时间总线：可以实现任意组件间的通信。但需要有一个东西做傀儡，这个傀儡最好是放在 main.js 中的 beforeCreate 钩子函数中。`Vue.prototype.$bus = this`。这个 this 就是当前的 vm。
 
@@ -1258,6 +1264,16 @@
       正常导入 `import {变量名, 变量名} form 'echarts'` 需要一个一个导出来
 
       但是现在我想导入所有，并且形成一个对象使用就可以：`import * as echarts from 'echarts'`
+
+135. 非login和register页面时，上传数据时后端大哥为什么需要我们传token？
+
+     因为后端需要知道你上传的数据是哪一个用户的内容，主要是用于用户校验的。
+
+136. Vue启动项目如何区分启动的是开发环境、测试环境、生产环境
+
+     创建 .env结尾的环境变量文件，增加后缀来区分特有的环境模式。以development模式为例：文件名未 **.env.development**
+
+     [博客地址](https://blog.csdn.net/xiaopihair123/article/details/123382057)
 
 135. 
 
