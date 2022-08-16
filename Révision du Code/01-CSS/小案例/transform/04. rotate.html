@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .wrap {
+        width: 300px;
+        height: 300px;
+        border: 1px solid red;
+        overflow: hidden;
+        margin: 100px auto;
+      }
+
+      .wrap > .rotate {
+        /* position是为了居中.rotate */
+        position: relative;
+        left: 50px;
+        top: 140px;
+        width: 200px;
+        height: 10px;
+        background-color: pink;
+        transition: all 0.3s linear;
+      }
+
+      .wrap:hover .rotate {
+        transform: rotate(45deg);
+      }
+    </style>
+  </head>
+  <body>
+    <h3>旋转</h3>
+    <div class="wrap">
+      <div class="rotate"></div>
+    </div>
+  </body>
+</html>
