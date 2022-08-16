@@ -13,7 +13,7 @@
           background-color: green;
         }
         70% {
-          left: 400px;
+          left: 350px;
           background-color: blueviolet;
         }
         from {
@@ -27,22 +27,34 @@
         height: 100px;
         background-color: red;
         /* 使用动画无需触发，会自动触发。使用transition需要触发 */
-        animation: move 1s linear infinite alternate-reverse;
+        animation: move 3s linear infinite alternate;
+      }
+
+      .animate:hover {
+        /* 鼠标移入，停止动画 */
+        animation: move 1s linear infinite alternate paused;
+        /* animation-play-state: paused; 或者这样写  */
       }
     </style>
   </head>
   <body>
     <!-- 
       animation属性介绍：
-        animation-name：设置需要绑定到元素的动画名称；
-        animation-duration：设置完成动画所需要花费的时间，单位为秒或毫秒，默认为 0；
-        animation-timing-function：设置动画的速度曲线，默认为 ease；
-        animation-fill-mode：设置当动画不播放时（动画播放完或延迟播放时）的状态；
-        animation-delay：设置动画开始之前的延迟时间，默认为 0；
-        animation-iteration-count：设置动画被播放的次数，默认为 1；
-        animation-direction：设置是否在下一周期逆向播放动画，默认为 normal；
-        animation-play-state：设置动画是正在运行还是暂停，默认是 running，还有一个值是pause
-        animation：所有动画属性的简写属性。
+        - animation-name：设置需要绑定到元素的动画名称；
+        - animation-duration：设置完成动画所需要花费的时间，单位为秒或毫秒，默认为 0；
+        - animation-timing-function：设置动画的速度曲线，默认为 ease；
+        - animation-fill-mode：设置当动画不播放时（动画播放完或延迟播放时）的状态；
+        - animation-delay：设置动画开始之前的延迟时间，默认为 0；
+        - animation-iteration-count：设置动画被播放的次数，默认为 1；
+
+        - animation-direction：设置是否在下一周期逆向播放动画，默认为 normal；
+          - normal	以正常的方式播放动画
+          - reverse	以相反的方向播放动画
+          - alternate	播放动画时，奇数次（1、3、5 等）正常播放，偶数次（2、4、6 等）反向播放
+          - alternate-reverse	播放动画时，奇数次（1、3、5 等）反向播放，偶数次（2、4、6 等）正常播放
+
+        - animation-play-state：设置动画是正在运行还是暂停，默认是 running，还有一个值是paused
+        - animation：所有动画属性的简写属性。
 
       animation简写：
         animation: animation-name animation-duration animation-timing-function animation-delay animation-iteration-count animation-direction animation-fill-mode animation-play-state;

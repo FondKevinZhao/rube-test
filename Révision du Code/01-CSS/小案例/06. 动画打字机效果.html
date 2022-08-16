@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 0px;
+        height: 30px;
+        line-height: 30px;
+        background-color: pink;
+        /* 
+          overflow: hidden; 当width小于内容的宽度的时候，防止字往下掉
+          测试：可以去掉动画和overflow，把width变小(如：100px)测试一下。
+        */
+        overflow: hidden;
+        /* 无限滚动 */
+        /* animation: move 5s infinite; */
+
+        /* 
+          forwards 动画结束停在最后一帧 
+          steps 动画分多少步完成
+        */
+        animation: move 5s steps(16) forwards;
+      }
+
+      /* 设置动画 */
+      @keyframes move {
+        0% {
+          width: 100;
+        }
+        50% {
+          width: 200;
+        }
+        100% {
+          width: 240px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div>业精于勤荒于嬉，行成于思毁于随</div>
+  </body>
+</html>

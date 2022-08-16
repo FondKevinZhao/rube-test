@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @keyframes run {
+        0% {
+          left: 0px;
+        }
+        50% {
+          left: 200px;
+        }
+        100% {
+          left: 400px;
+        }
+      }
+
+      div {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        /* 有匀速 */
+        /* animation: run 3s linear alternate infinite; */
+        /* 没有匀速 */
+        animation: run 3s alternate infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+  </body>
+</html>
