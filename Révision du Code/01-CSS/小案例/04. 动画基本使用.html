@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 创建动画 --- to,from 可以跟百分比%混合使用 */
+      @keyframes move {
+        to {
+          left: 0px;
+          background-color: green;
+        }
+        70% {
+          left: 400px;
+          background-color: blueviolet;
+        }
+        from {
+          left: 300px;
+          background-color: green;
+        }
+      }
+      .animate {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        /* 使用动画无需触发，会自动触发。使用transition需要触发 */
+        animation: move 1s linear infinite alternate-reverse;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+      animation属性介绍：
+        animation-name：设置需要绑定到元素的动画名称；
+        animation-duration：设置完成动画所需要花费的时间，单位为秒或毫秒，默认为 0；
+        animation-timing-function：设置动画的速度曲线，默认为 ease；
+        animation-fill-mode：设置当动画不播放时（动画播放完或延迟播放时）的状态；
+        animation-delay：设置动画开始之前的延迟时间，默认为 0；
+        animation-iteration-count：设置动画被播放的次数，默认为 1；
+        animation-direction：设置是否在下一周期逆向播放动画，默认为 normal；
+        animation-play-state：设置动画是正在运行还是暂停，默认是 running，还有一个值是pause
+        animation：所有动画属性的简写属性。
+
+      animation简写：
+        animation: animation-name animation-duration animation-timing-function animation-delay animation-iteration-count animation-direction animation-fill-mode animation-play-state;
+      
+      博客地址：http://c.biancheng.net/css3/animation.html
+     -->
+    <div class="animate"></div>
+  </body>
+</html>
