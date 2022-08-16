@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .demo {
+        width: 100px;
+        height: 100px;
+        box-shadow: 0px 0px 0px 1px #abcdef inset;
+        border-radius: 50%;
+        margin: 100px auto;
+        text-align: center;
+        line-height: 100px;
+        font-weight: 700;
+        color: #abcdef;
+        transition: all 2s ease-in;
+      }
+
+      .demo:hover {
+        /* 重点：box-shadow */
+        box-shadow: 0px 0px 0px 100px #abcdef inset;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 阴影加过渡完成hover效果 -->
+    <!-- 
+      box-shadow: h-shadow v-shadow blur spread color inset;
+      h-shadow	必需的。水平阴影的位置。允许负值
+      v-shadow	必需的。垂直阴影的位置。允许负值
+      blur	可选。模糊距离
+      spread	可选。阴影的大小
+      color	可选。阴影的颜色。在CSS颜色值寻找颜色值的完整列表
+      inset	可选。从外层的阴影（开始时）改变阴影内侧阴影 
+    -->
+
+    <!-- 
+      transition: property duration timing-function delay;
+        transition-property	指定CSS属性的name，transition效果
+        transition-duration	transition效果需要指定多少秒或毫秒才能完成
+        transition-timing-function	指定transition效果的转速曲线
+        transition-delay	定义transition效果开始的时候
+     -->
+
+    <div class="demo">文字</div>
+  </body>
+</html>
