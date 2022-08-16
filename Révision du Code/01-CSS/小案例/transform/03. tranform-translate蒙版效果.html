@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .wrap {
+        width: 230px;
+        height: 160px;
+        background-color: red;
+        /* 隐藏，是隐藏.mask。可以注释overflow测试 */
+        overflow: hidden;
+        margin: 100px auto;
+      }
+
+      .mask {
+        width: 230px;
+        height: 160px;
+        background-color: rgba(0, 0, 0, 0.3);
+        /* 把mask设置到wrap的外面：从左往右进入 */
+        transform: translateX(-230px);
+
+        /* 把mask设置到wrap的外面：从上往下进入 */
+        /* transform: translateY(-160px); */
+        /* 
+          加上transition，让其淡进淡出
+          再次强调：transition不要给hover加，不然退出是没有transition的效果的
+        */
+        transition: all 1s;
+      }
+
+      .wrap:hover .mask {
+        /* 移动位置，让mask盖住.wrap */
+        transform: translateX(0px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="mask"></div>
+    </div>
+  </body>
+</html>
