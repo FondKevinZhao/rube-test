@@ -10,11 +10,13 @@
   <!-- 
     transform 2D转换是改变标签在二维平面上的位置和形状
       1. 移动：translate(x, y), translateX(n), translateY(n)
+
       2. 旋转：rotate()
         transform: rotate(度数)
         使用步骤：
           - 给元素添加转换属性transform
           - 属性值为 rotate(角度) 如：transform: rotate(30deg) 顺时针方向旋转30度
+
       3. 缩放：scale()
         scale 用来控制元素的放大与缩小
         语法：transform: scale(x, y), transform: scaleX(x), transform: scaleY(y)
@@ -27,6 +29,17 @@
         transform: scaleY(2) 只放大高
 
       4. 倾斜：skew()
+        skew定义了一个元素在二维平面上的倾斜转换
+        skew语法：skew() 函数指定一个或两个参数，它们表示在每个方向上应用的倾斜量
+        skew(ax)
+        skew(ax, ay)
+        skewX(ax)
+        skewY(ay)
+
+        知识要点
+          - 如果skew只写一个参数ax，表示在x轴方向上元素倾斜的角度
+          - 如果skew写两个参数ax和ay，表示在x轴和y轴方向上元素同时倾斜的角度
+          - 想象理解：可以想象成一股神秘力量将元素的右下角向x轴或y轴方向上进行拉扯，元素就扯变形了
       
     重点：
       - 2D的移动主要是指水平、垂直方向上的移动
