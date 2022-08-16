@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <!-- 
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
     transform 2D转换是改变标签在二维平面上的位置和形状
       1. 移动：translate(x, y), translateX(n), translateY(n)
 
@@ -40,11 +40,18 @@
           - 如果skew只写一个参数ax，表示在x轴方向上元素倾斜的角度
           - 如果skew写两个参数ax和ay，表示在x轴和y轴方向上元素同时倾斜的角度
           - 想象理解：可以想象成一股神秘力量将元素的右下角向x轴或y轴方向上进行拉扯，元素就扯变形了
+
+    简写顺序
+      tranform: translate() rotate() skew() scale()
+      如：
+        div:hover{
+          tranform: translate(200px, 0) rotate(360deg) skew(5deg) scale(1.2)
+        }
       
     重点：
       - 2D的移动主要是指水平、垂直方向上的移动
       - translate 最大的优点就是不影响其他元素的位置
       - translate 中的100%单位，是相对于本身的宽度和高度来进行计算的
    -->
-</body>
+  </body>
 </html>
