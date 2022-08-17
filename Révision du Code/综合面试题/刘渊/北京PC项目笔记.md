@@ -1,3 +1,5 @@
+### 路由
+
 1. 路由组件和非路由组件的区别：
 
    相同点：使用都是三大步：定义、注册、使用。
@@ -118,65 +120,9 @@
 
       相比于声明式导航，编程式导航更加的灵活，编程式导航里面可以写多余的代码，而声明式导航不可以(一点击就立马跳转了)。
 
-4. eslint 错误级别禁用：
-
-   原因：默认项目当中是安装了 eslint 语法检查工具，而且默认这个检查的严格级别很高。
-
-   我们要在开发阶段要把 eslint 完全禁掉。否则，很多语法问题，会导致项目运行不了。
-
-   方法：自己在脚手架中创建 webpack 配置文件：`vue.config.js`。
-
-   ```js
-   lintOnSave: false,
-       module.export = {
-       	lintOnSave: false,
-   }
-   ```
-
-   这个 `vue.config.js`相当于 vue 给我们的一个配置 webpack 的文件，我们就在这个文件里面配置我们所需要的 webpack 就好了。
-
-5. jsconfig.json 配置别名 @ 提示：下面的代码配置是 @/ 的提示，也就是你在写了 @/ 后会有提示后面有些什么文件。
-
-   ```js
-   {
-       "compilerOptions":{
-           "baseUrl": "./",
-           "paths": {
-               "@/*": ["src/*"]
-           }
-       },
-       "exclude": ["node_modules", "dist"]
-   }
-   ```
-
-   注意：@ 是一个小名，代表的就是 我们 src 的路径(在脚手架中早就配好了，不用我们去配)。
-
-6. 不管是配置 jsconfig.json 或 vue.config.js 或 babel.config.js 等，只要是改了配置文件，那么就要重启项目。
-
-7. 把静态页面的东西复制到对应组件当中：
-
-   - HTML
-   - css(less)：安装 less 和 less-loader 的包，否则 less 不认识。less-loader 的版本不能太高，不然这里会报错。
-   - images：在对应的组件目录下，创建 images，把对应的图片复制到这个文件夹下面。(注意：路径要对应好)
-   - reset.css
-
-   在内容复制过程当中，莫急莫慌
-
-   复制完成之后，需要把 router-link 用上，对应的 a 标签得修改过来，按钮点击跳转需要用到编程式导航。
-
-   重定向路由：访问根路径，默认访问的就是 home 首页：
-
-   ```js
-   // router 文件夹下的 index.js
-   {
-     path:'/', // 重定向路由(如果你是/，那么就重定向到/home页面)
-     redirect:'/home'
-   }
-   ```
-
    
 
-8. 当点击了 router-link 或者 按钮，这三步必然要经历：
+3. 当点击了 router-link 或者 按钮，这三步必然要经历：
 
    未带参数：
 
@@ -186,7 +132,7 @@
 
    ![image-20211019221229404](北京PC项目笔记.assets/image-20211019221229404.png)
 
-9. 路由的两种传参：query 参数 和 params 参数
+4. 路由的两种传参：query 参数 和 params 参数
 
    params 参数：params 参数是属于路径的一部分，路由当中匹配的时候，是要照顾到这个参数的。
 
@@ -223,119 +169,118 @@
 
    > 无论是 params 参数还是 query 参数，最终匹配完成都会解析到当前这个路由对象当中
 
-10. 显示参数：
+5. 显示参数：
 
-    params: `{{$route.params.keyword}}`
+   params: `{{$route.params.keyword}}`
 
-    query: `{{$route.query.keyword1}}`
+   query: `{{$route.query.keyword1}}`
 
-11. 路由路径带参数的三种写法：
 
-    1. 字符串写法：
+### 路由路径带参数的三种写法：
 
-       `this.$router.push('/search/' + this.keyword + '?keyword1=' + this.keyword.toUpperCase())`
+1. 字符串写法：
 
-    2. 模板字符串写法：
+   `this.$router.push('/search/' + this.keyword + '?keyword1=' + this.keyword.toUpperCase())`
 
-       ```js
-       this.$router.push(`/search/${this.keyword}?keyword1=${this.keyword.toUpperCase()}`)
-       ```
+2. 模板字符串写法：
 
-    3. 对象写法(重点)：要加 name
+   ```js
+   this.$router.push(`/search/${this.keyword}?keyword1=${this.keyword.toUpperCase()}`)
+   ```
 
-       ```js
-       // router 文件夹中的 index.js
-       export default new VueRouter({
-         routes: [
-           {
-             path: '/search/:keyword',
-             component: Search,
-             name: 'search' // 添加一个 name，命名路由
-           }
-         ]
-       })
-       ```
+3. 对象写法(重点)：要加 name
 
-       组件中可以写：
+   ```js
+   // router 文件夹中的 index.js
+   export default new VueRouter({
+     routes: [
+       {
+         name: 'search' // 添加一个 name，命名路由
+         path: '/search/:keyword',
+         component: Search,
+       }
+     ]
+   })
+   ```
 
-       ```js
-       this.$router.push({
-           name: 'search', // 路由的名称
-           params: {
-               keyword: this.keyword
-           },
-           query: {
-               keyword1: this.keyword.toUpperCase()
-           }
-       })
-       ```
+   组件中可以写：**如果是params参数，一定要写name，而不是写path**
 
-    > 注意：router-link 当中的 to，也是可以写成上面的三种写法。
+   ```js
+   this.$router.push({
+       name: 'search', // 路由的名称
+       params: {
+           keyword: this.keyword
+       },
+       query: {
+           keyword1: this.keyword.toUpperCase()
+       }
+   })
+   ```
 
-12. 路由面试题：
+> 注意：router-link 当中的 to，也是可以写成上面的三种写法。
 
-    问题：指定 params 参数时，可不可以用 path 和 params 配置的组合？(对象写法)
+### 路由面试题：
 
-    答：不能用 path 和 params 配置的组合。
+问题：指定 params 参数时，可不可以用 path 和 params 配置的组合？(对象写法)
 
-    如果传递的参数 **只有 query 参数**，没有 params 参数，那么我们可以不用 name，可以使用 path。
+答：不能用 path 和 params 配置的组合。
 
-    ```js
-    // router 文件夹中的 index.js
-    export default new VueRouter({
-      routes: [
-        {
-          path: '/search',
-          component: Search,
-        }
-      ]
-    })
-    ```
+如果传递的参数 **只有 query 参数**，没有 params 参数，那么我们可以不用 name，可以使用 path。
 
-    ```js
-    // 组件中
-    this.$router.push({
-        path: '/search',
-        query: {
-            keyword1:this.keyword.toUpperCase()
-        }
-    })
-    
-    
-    ```
+```js
+// router 文件夹中的 index.js
+export default new VueRouter({
+  routes: [
+    {
+      path: '/search',
+      component: Search,
+    }
+  ]
+})
+```
 
-    
+```js
+// 组件中
+this.$router.push({
+    path: '/search',
+    query: {
+        keyword1:this.keyword.toUpperCase()
+    }
+})
+```
 
-    如果传递的参数包含了 params 参数，就不能使用 path 去配合。只要是 params 参数就不能写 path 了，否则会出现不会报错的一种错误。只能用 name 去跟 params 配合。
 
-    ```js
-    // router 文件夹中的 index.js
-    export default new VueRouter({
-      routes: [
-        {
-          path: '/search/:keyword',
-          component: Search,
-          name: 'search' // 添加一个 name，命名路由
-        }
-      ]
-    })
-    ```
 
-    ```js
-    // 组件中
-    this.$router.push({
-        name: 'search', // 路由的名称
-        params: {
-            keyword: this.keyword
-        }
-    })
-    ```
+如果传递的参数包含了 params 参数，就不能使用 path 去配合。只要是 params 参数就不能写 path 了，否则会出现不会报错的一种错误。只能用 name 去跟 params 配合。
 
-    > 对象写法，最好以后写 name， 因为 name 既能和 params 去配合也能和 query 去配合。
-    >
-    > 而 path，只能跟 query 去配合，不能和 params 去配合。
+```js
+// router 文件夹中的 index.js
+export default new VueRouter({
+  routes: [
+    {
+      path: '/search/:keyword',
+      component: Search,
+      name: 'search' // 添加一个 name，命名路由
+    }
+  ]
+})
+```
 
-13.  面试题：
+```js
+// 组件中
+this.$router.push({
+    name: 'search', // 路由的名称
+    params: {
+        keyword: this.keyword
+    }
+})
+```
+
+> 对象写法，最好以后写 name， 因为 name 既能和 params 去配合也能和 query 去配合。
+>
+> 而 path，只能跟 query 去配合，不能和 params 去配合。
+
+1.  面试题：
 
     描述：编程式路由跳转到当前路由(参数不变)，多次执行会抛出 NavigationDuplication 的警告错误，声明式路由跳转内部已经处理。
 
@@ -357,112 +302,177 @@
 
     2. 修改 Vue 原型上的 push 和 replace 方法(优秀)。
 
-14. VueRouter 是路由器对象的构造函数
+2. VueRouter 是路由器对象的构造函数
 
-    `this.$router.push` 调用的是路由器对象的方法。这个方法并不是路由器实例化对象的方法，而是这个对象原型上的方法。
+   `this.$router.push` 调用的是路由器对象的方法。这个方法并不是路由器实例化对象的方法，而是这个对象原型上的方法。
 
-    这个实例化对象原型的方法 就是 VueRouter 的显式原型的方法。
+   这个实例化对象原型的方法 就是 VueRouter 的显式原型的方法。
 
-    this.$router 是实例化对象，是 VueRouter 的实例化对象。
+   this.$router 是实例化对象，是 VueRouter 的实例化对象。
 
-15. 路由器对象的方法：
+3. 路由器对象的方法：
 
-    1. 自己身上的方法。
+   1. 自己身上的方法。
 
-    2. $router 实例化对象身上的方法。
+   2. $router 实例化对象身上的方法。
 
-    3. $router 原型身上的方法。
+   3. $router 原型身上的方法。
 
-16. 全局注册的组件，如果一个非路由组件被多个组件使用，那么定义在 components，注册在全局(main.js)中，如：
+4. 全局注册的组件，如果一个非路由组件被多个组件使用，那么定义在 components，注册在全局(main.js)中，如：
 
-    ```js
-    // main.js
-    import TypeNav from '@/components/TypeNav'
-    Vue.component('TypeNav', TypeNav); // 前面是组件名称，后面是组件
-    ```
+   ```js
+   // main.js
+   import TypeNav from '@/components/TypeNav'
+   Vue.component('TypeNav', TypeNav); // 前面是组件名称，后面是组件
+   ```
 
-    全局注册过的组件在使用的时候就不用再注册了，如：
+   全局注册过的组件在使用的时候就不用再注册了，如：
 
-    ```vue
-    // 在 home 组件中使用
-    <template>
-      <div>
-        <TypeNav></TypeNav>
-      </div>
-    </template>
-    
-    <script>
-    export default {
-      name: 'Home'
-    }
-    </script>
-    
-    <style>
-    </style>
-    ```
+   ```vue
+   // 在 home 组件中使用
+   <template>
+     <div>
+       <TypeNav></TypeNav>
+     </div>
+   </template>
+   
+   <script>
+   export default {
+     name: 'Home'
+   }
+   </script>
+   
+   <style>
+   </style>
+   ```
 
-17. HTTP 请求：
+5. 如何指定params参数可传可不传？
 
-    1. 普通的 http 请求。如：get(点击a标签跳转页面，在地址栏输入网址按回车等)、post(form 表单)。页面会刷新。
-    2. Ajax 请求。如：get、post、put、delete。一般都是异步发送的，页面不刷新，局部刷新。
+   path: '/search/:keyword?'
 
-18. 浏览器上才有同源策略这个说法，服务器上是没有的。
+   
 
-19. `vue.config.js`中配置的是 webpack 当中的东西。如：
+### eslint 错误级别禁用：
 
-    ```js
-    module.exports = {
-      lintOnSave: false, // 禁用 eslint
-      devServer: {
-        // 代理服务器配置
-        proxy: {
-          // 只代理以 /api 开头的请求
-          "/api": {
-            // 目标服务器地址
-            target: "http://39.98.123.211",
-            // 允许跨域
-            changeOrigin: true,
-            // 路径重写
-            // pathRewrite: {
-            //   "^/api": "",
-            // },
-          }
-        },
-      },
-    }
-    ```
+原因：默认项目当中是安装了 eslint 语法检查工具，而且默认这个检查的严格级别很高。
 
-    
+我们要在开发阶段要把 eslint 完全禁掉。否则，很多语法问题，会导致项目运行不了。
 
-20. 查看路径的时候一定要选择  All 或者 Fetch/XHR，不然看不到返回的数据：
+方法：自己在脚手架中创建 webpack 配置文件：`vue.config.js`。
 
-    ![image-20211107194301737](北京PC项目笔记.assets/image-20211107194301737.png)
+```js
+lintOnSave: false,
+    module.export = {
+    	lintOnSave: false,
+}
+```
 
-21. vuex 中的modules 原理：
+这个 `vue.config.js`相当于 vue 给我们的一个配置 webpack 的文件，我们就在这个文件里面配置我们所需要的 webpack 就好了。
 
-    ![image-20211107211810620](北京PC项目笔记.assets/image-20211107211810620.png)
+1. jsconfig.json 配置别名 @ 提示：下面的代码配置是 @/ 的提示，也就是你在写了 @/ 后会有提示后面有些什么文件。
 
-18. axios 一旦被调用，返回的是 promise。
+   ```js
+   {
+       "compilerOptions":{
+           "baseUrl": "./",
+           "paths": {
+               "@/*": ["src/*"]
+           }
+       },
+       "exclude": ["node_modules", "dist"]
+   }
+   ```
 
-23. 从 vuex 当中把数据捞到 vue 组件中使用：
+   注意：@ 是一个小名，代表的就是 我们 src 的路径(在脚手架中早就配好了，不用我们去配)。
 
-    - 以后只要是从 vuex 拿的是数据，都在 computed 当中拿，拿的就是 state 和 getters 当中的东西。
+2. 不管是配置 jsconfig.json 或 vue.config.js 或 babel.config.js 等，只要是改了配置文件，那么就要重启项目。
 
-    - 以后只要是从 vuex 拿的是方法(mutations 和 actions 当中的东西)，都在 methods 当中去拿，一般用的很少。
+   把静态页面的东西复制到对应组件当中：
 
-    
+   - HTML
+   - css(less)：安装 less 和 less-loader 的包，否则 less 不认识。less-loader 的版本不能太高，不然这里会报错。
+   - images：在对应的组件目录下，创建 images，把对应的图片复制到这个文件夹下面。(注意：路径要对应好)
+   - reset.css
 
-25. 整体引入 lodash：`import _ from 'lodash'`
+   在内容复制过程当中，莫急莫慌
 
-    按需引入 lodash 中的 throttle：`import throttle from 'lodash/throttle'`
+   复制完成之后，需要把 router-link 用上，对应的 a 标签得修改过来，按钮点击跳转需要用到编程式导航。
 
-    ` var throttled = _.throttle(renewToken, 300000, { 'trailing': false });`
+   重定向路由：访问根路径，默认访问的就是 home 首页：
 
-    `{ 'trailing': false }`的作用：是否在结束延迟之后调用。默认是 true。(trailing 常用)
+   ```js
+   // router 文件夹下的 index.js
+   {
+     path:'/', // 重定向路由(如果你是/，那么就重定向到/home页面)
+     redirect:'/home'
+   }
+   ```
 
-    `{ 'leading': false }`的作用：是否在结束延迟之前调用。默认是 false。(leading 一般不用)
 
-20. 事件控制 2、3 级分类的显示和隐藏：
+### HTTP 请求：
+
+1. 普通的 http 请求。如：get(点击a标签跳转页面，在地址栏输入网址按回车等)、post(form 表单)。页面会刷新。
+2. Ajax 请求。如：get、post、put、delete。一般都是异步发送的，页面不刷新，局部刷新。
+
+### 配置代理
+
+浏览器上才有同源策略这个说法，服务器上是没有的。
+
+1. `vue.config.js`中配置的是 webpack 当中的东西。如：
+
+   ```js
+   module.exports = {
+     lintOnSave: false, // 禁用 eslint
+     devServer: {
+       // 代理服务器配置
+       proxy: {
+         // 只代理以 /api 开头的请求
+         "/api": {
+           // 目标服务器地址
+           target: "http://39.98.123.211",
+           // 允许跨域
+           changeOrigin: true,
+           // 路径重写
+           // pathRewrite: {
+           //   "^/api": "",
+           // },
+         }
+       },
+     },
+   }
+   ```
+
+   
+
+2. 查看路径的时候一定要选择  All 或者 Fetch/XHR，不然看不到返回的数据：
+
+   ![image-20211107194301737](北京PC项目笔记.assets/image-20211107194301737.png)
+
+### vuex 中的modules 原理：
+
+![image-20211107211810620](北京PC项目笔记.assets/image-20211107211810620.png)
+
+1. axios 一旦被调用，返回的是 promise。
+
+2. 从 vuex 当中把数据捞到 vue 组件中使用：
+
+   - 以后只要是从 vuex 拿的是数据，都在 computed 当中拿，拿的就是 state 和 getters 当中的东西。
+
+   - 以后只要是从 vuex 拿的是方法(mutations 和 actions 当中的东西)，都在 methods 当中去拿，一般用的很少。
+
+   
+
+3. 整体引入 lodash：`import _ from 'lodash'`
+
+   按需引入 lodash 中的 throttle：`import throttle from 'lodash/throttle'`
+
+   ` var throttled = _.throttle(renewToken, 300000, { 'trailing': false });`
+
+   `{ 'trailing': false }`的作用：是否在结束延迟之后调用。默认是 true。(trailing 常用)
+
+   `{ 'leading': false }`的作用：是否在结束延迟之前调用。默认是 false。(leading 一般不用)
+
+4. 事件控制 2、3 级分类的显示和隐藏：
 
    原来的是使用 css 去做的，改为一个类：
 
@@ -490,89 +500,92 @@
    - 一个爹有很多儿子，每个儿子身上都绑定了同样的事件，而且事件的回调处理效果都差不多。
    - 一个爹有很多儿子，一部分儿子已经渲染在页面了，旁边有一个按钮，点击一下按钮添加一个儿子。
 
-9. 等号的右边：
 
-   1. 只要出现了 `[]`，就代表一个新的数组来了。
-   2. 只要出现了 `{}`，就代表一个新的对象来了。
-   3. 只要出现了 `function(){}`就代表一个新的函数来了。
+### 等号的右边：
 
-12. 事件委派(事件委托)：在共同的父级/祖辈元素身上添加事件监听。
+1. 只要出现了 `[]`，就代表一个新的数组来了。
+2. 只要出现了 `{}`，就代表一个新的对象来了。
+3. 只要出现了 `function(){}`就代表一个新的函数来了。
 
-    问题：怎么知道点击的是不是 a 标签？  
+### 事件委派(事件委托)：
 
-    问题：假如你知道你点击的是 a 标签，怎么知道点击的是一级还是二级还是三级？
+事件委派(事件委托)在共同的父级/祖辈元素身上添加事件监听。
 
-    问题：参数怎么携带，要携带哪些个的参数？
+问题：怎么知道点击的是不是 a 标签？  
 
-    这三个问题可以使用自定义属性`data-`来解决。如：
+问题：假如你知道你点击的是 a 标签，怎么知道点击的是一级还是二级还是三级？
 
-    ```js
-    <a href="javascript:;" :data-category1Id="c1.categoryId" :data-categoryName="c1.categoryName"> {{c1.categoryName}}
-    </a>
-    
-    <a href="javascript:;" :data-category2Id="c2.categoryId" :data-categoryName="c2.categoryName"> {{c2.categoryName}}
-    </a>
-    
-    <a href="javascript:;" :data-category3Id="c3.categoryId" :data-categoryName="c3.categoryName"> {{c3.categoryName}}
-    </a>
-    ```
+问题：参数怎么携带，要携带哪些个的参数？
 
-    
+这三个问题可以使用自定义属性`data-`来解决。如：
 
-13. js 原生中的 event 是什么？
+```js
+<a href="javascript:;" :data-category1Id="c1.categoryId" :data-categoryName="c1.categoryName"> {{c1.categoryName}}
+</a>
 
-    ```js
-    box.onclick = function (event) {
-        var targetNode = event.target
-    }
-    // box 事件源。
-    // event.target 目标元素(你当前点击的那个元素)
-    // 这个 回调函数，最终是浏览器调用的。
-    ```
+<a href="javascript:;" :data-category2Id="c2.categoryId" :data-categoryName="c2.categoryName"> {{c2.categoryName}}
+</a>
 
-    - event 是事件对象。
-    - 每一次触发事件的时候，系统(浏览器内核)都会把这一次触发事件相关的所有信息，封装为一个对象。
-    - 在浏览器调用回调函数的时候，自动传递给回调函数的第一个形参。
+<a href="javascript:;" :data-category3Id="c3.categoryId" :data-categoryName="c3.categoryName"> {{c3.categoryName}}
+</a>
+```
 
-14. js 原生的 event 和 Vue 的 $event 的区别：
+### 原生event和$event
 
-    原生的 event 形参是写在第一位的。
+1. js 原生中的 event 是什么？
 
-    Vue 的 $event 形参可以放在第一位，也可以放在后面：
+   ```js
+   box.onclick = function (event) {
+       var targetNode = event.target
+   }
+   // box 事件源。
+   // event.target 目标元素(你当前点击的那个元素)
+   // 这个 回调函数，最终是浏览器调用的。
+   ```
 
-    ```js
-    @click = "toSearch('zhaoliying', $event)"
-    @click = "toSearch($event, 'zhaoliying')"
-    ```
+   - event 是事件对象。
+   - 每一次触发事件的时候，系统(浏览器内核)都会把这一次触发事件相关的所有信息，封装为一个对象。
+   - 在浏览器调用回调函数的时候，自动传递给回调函数的第一个形参。
 
-    $event 只能在 Vue 的模板中出现。
+2. js 原生的 event 和 Vue 的 $event 的区别：
 
-15. 主页的侧边导航栏一上来是显示的，详情页的侧边导航栏一开始是隐藏的，鼠标放上去才出来。(P115开始就介绍了)
+   原生的 event 形参是写在第一位的。
 
-    ![image-20210826210734003](北京PC项目笔记.assets/image-20210826210734003.png)
+   Vue 的 $event 形参可以放在第一位，也可以放在后面：
 
-    
+   ```js
+   @click = "toSearch('zhaoliying', $event)"
+   @click = "toSearch($event, 'zhaoliying')"
+   ```
 
-    ![按钮](北京PC项目笔记.assets/按钮.gif)
+   $event 只能在 Vue 的模板中出现。
 
-    **可以用 v-show 来做。**
+3. 主页的侧边导航栏一上来是显示的，详情页的侧边导航栏一开始是隐藏的，鼠标放上去才出来。(P115开始就介绍了)
 
-    ```js
-    // 不是主页，一开始不出来
-    mounted(){
-        if(this.$route.path !== '/home') {
-            this.isShow = false;
-        }
-    }
-    ```
+   ![image-20210826210734003](北京PC项目笔记.assets/image-20210826210734003.png)
 
-    鼠标**移入**全部商品分类**显示列表**：`@mouseenter="isShow = true"`
+   
 
-    鼠标**移出**全部商品分类**隐藏列表**：`@mouseleaver="moveOutDiv"`这个需要用函数，然后来判断是在 home 页面移除(home页面是不需要移除的)，还是在 search 页面移除。
+   ![按钮](北京PC项目笔记.assets/按钮.gif)
 
-16. 侧边导航栏在主页切换到 search 页面或者在切换到主页，都会重新发请求 侧边导航栏的 数据。解决：在 App.vue 中发送请求就好了，因为 App.vue 只会请求一次。而且一次就够了，因为数据不变。
+   **可以用 v-show 来做。**
 
-17. **一般情况下 router-link 太多，不推荐用 声明式导航，而是用编程式导航 + 事件委托。**
+   ```js
+   // 不是主页，一开始不出来
+   mounted(){
+       if(this.$route.path !== '/home') {
+           this.isShow = false;
+       }
+   }
+   ```
+
+   鼠标**移入**全部商品分类**显示列表**：`@mouseenter="isShow = true"`
+
+   鼠标**移出**全部商品分类**隐藏列表**：`@mouseleaver="moveOutDiv"`这个需要用函数，然后来判断是在 home 页面移除(home页面是不需要移除的)，还是在 search 页面移除。
+
+4. 侧边导航栏在主页切换到 search 页面或者在切换到主页，都会重新发请求 侧边导航栏的 数据。解决：在 App.vue 中发送请求就好了，因为 App.vue 只会请求一次。而且一次就够了，因为数据不变。
+
+5. **一般情况下 router-link 太多，不推荐用 声明式导航，而是用编程式导航 + 事件委托。**
 
 ### mock 数据(P122)：
 
@@ -611,26 +624,32 @@ mock 会拦截我们的 Ajax 请求，不会真正去发送请求。(发送请�
     1. 先写 api。
 
     2. 写 store 里面的三连环：state、mutations、actions：
-
-![image-20210827010248330](北京PC项目笔记.assets/image-20210827010248330.png)
-
-3. 拿数据。
-
-4. 页面展示。
-
-### Swiper 轮播图的使用：[官网地址](https://www.swiper.com.cn/usage/index.html)
-
-
-
-    1. 安装：npm i swiper@5。5 表示版本号。
     
-    2. 引入 js 和 css。在 main.js 中引入 css(检查页面是否正常，如果正常代表 css 生效了)。后续在哪里用只需要在那里的组件里引入 js 就行了。
+       ![image-20210827010248330](北京PC项目笔记.assets/image-20210827010248330.png)
     
-    3. 书写 swiper 的结构。
+    3. 拿数据。
     
-    4. 实例化 swiper 实例对象。
+    4. 页面展示。
     
-       在 轮播图组件的 mounted 中去实例化 swiper 是不行的，因为页面显示还不一定成功，我们必须得保证请求数据回来之后，再去实例化，有了数据，slide 的 div 才会动态创建好。
+    5. [mockjs不错的博客](https://www.bbsmax.com/A/A2dm6D8Aze/)
+
+### Swiper 轮播图的使用
+
+[官网地址](https://www.swiper.com.cn/usage/index.html) 如果不会，就打开swiper的官网，让后点击开始使用，把那一页看完就会了。结构都是从官网复制来的。
+
+1. 安装：npm i swiper@5。5 表示版本号。
+
+2. 引入 js 和 css。在 main.js 中引入 css(检查页面是否正常，如果正常代表 css 生效了)。后续在哪里用只需要在那里的组件里引入 js 就行了。
+
+   ![image-20220817191516272](北京PC项目笔记.assets/image-20220817191516272.png)
+
+3. 书写 swiper 的结构。
+
+4. 实例化 swiper 实例对象。
+
+   在 轮播图组件的 mounted 中去实例化 swiper 是不行的，因为页面显示还不一定成功，我们必须得保证请求数据回来之后，再去实例化，有了数据，slide 的 div 才会动态创建好。
+   
+   ![image-20220817191719135](北京PC项目笔记.assets/image-20220817191719135.png)
 
 ![image-20210827035031017](北京PC项目笔记.assets/image-20210827035031017.png)
     
@@ -1220,6 +1239,615 @@ let obj = {
 console.log(...obj); // 报错：Uncaught TypeError: Found non-callable @@iterator
 console.log({ ...obj }); { name: 'zly', age: 33 } // 其实还是内容是一样的，所以想要浅拷贝一个对象最快的方法是三点(...对象名)。
 ```
+
+
+
+### 路由懒加载
+
+调用import函数把一次性打包的所有路由组件分开去打包
+
+**路由懒加载的特点：**
+
+- 每个路由组件打包会打包成一个单独的文件
+
+- 第一次访问哪一个路由组件，再去加载哪一个打包好的文件。
+
+**为什么要使用路由懒加载？**
+
+1. 当打包构建应用时，JS包会变得非常大，影响页面加载。如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就更加高效了。
+
+2. 本质就是vue的异步组件在路由组件上的应用。
+
+3. 需要使用动态import语法，也就是`import()`函数。
+
+4. import('模块路径')：webpack会对被引入的模块单独打包一个小文件。
+
+5. 当第一次访问某个路径对应的组件时，此时才会调用import函数去加载对应的js打包文件。
+
+6. ```js
+   // 普通引入
+   import Home from '@/pages/Home'
+   
+   // 路由懒加载引入
+   const Home = () => import('@/pages/Home')
+   ```
+
+
+
+### 正向代理和反向代理
+
+**正向代理是偏向客户端。**用户很明确的知道数据来源(数据目的地网站)
+
+如：翻墙、VPN等都是正向代理，通过一个代理服务器去请求国外的数据，然后这个服务器再把响应返回给国内。这就是帮助用户来实现。
+
+**反向代理是偏向后端。**用户根本不知道数据来源
+
+我们配的proxy代理就是反向代理(我们一般做网站的配的全是反向代理)。
+
+我们在开发环境中是有DevServe下的proxy代理帮我们转发请求，那么现在是在生产环境了，没有DevServer了。就需要使用Nginx来做反向代理，帮我们转发请求。
+
+如：你访问淘宝网，淘宝有些图片是京东的，你直接在淘宝访问肯定访问不到京东的图片，那这个时候中间就得有一个代理，这个代理是帮服务器去干活的，这个代理就被称为反向代理。
+
+**Nginx作用：**
+
+1. Nginx帮我们做简易的web服务器，怎么访问IP找到dist文件访问。
+
+2. Nginx帮我们做代理转发，因为生产环境灭有DevServer
+
+安装Nginx命令：yum install nginx //centOS里面安装Nginx
+
+![image-20220817050806389](北京PC项目笔记.assets/image-20220817050806389.png)
+
+
+
+### v-model深入
+
+[我的demo地址](https://github.com/FondKevinZhao/vue2-v-model-advanced)
+
+普通：
+
+```vue
+<input type="text" v-model="msg">
+<span>我爱你{{msg}}</span>
+
+data() {
+	return {
+		msg:'赵丽颖'
+	}
+}
+```
+
+原理：
+
+```vue
+// msg = $event.target.value 把输入框最新的值赋值给msg
+<input type="text" :value="msg" @input="msg = $event.target.value">
+<span>我爱你{{msg}}</span>
+
+data() {
+	return {
+		msg:'赵丽颖'
+	}
+}
+```
+
+
+
+v-model 在表单类元素上用得比较多。
+
+v-model其实是可以在组件标签上使用(渊哥视频P230)。
+
+父组件：
+
+```vue
+// html标签 :value="msg" 在html标签身上是单项数据绑定, @input 是原生dom事件
+// 组件标签 :value="msg" 在组件标签身上就变为是props组件通信，@input 是自定义事件
+<CustomInput :value="msg" @input="msg=$event"></CustomInput>
+
+data() {
+	return {
+		msg:'赵丽颖'
+	}
+}
+```
+
+子组件：
+
+```vue 
+<template>
+	<div>
+    // :value="value" 在input框内展示父组件传过来的msg
+    // 此时的@input是原生dom事件，因为它添加个了input html标签上身上。这里的@input一旦发生输入，就会触发父组件中的input事件。触发<CustomInput :value="msg" @input="msg=$event"></CustomInput>这个标签里的@input事件。触发父组件的@input事件就会把子组件中输入的值传给父组件的$event，然后这个父组件中的$event再把值给msg
+    // $emit('input', $event.target.value) 触发父组件的@input事件，并把子组件中的input值传给父组件
+    <input type=text :value="value" @input="$emit('input', $event.target.value)">
+  </div>
+</template>
+
+props: ['value'] // 这里接收的就是父组件的msg内容
+```
+
+
+
+### sync修饰符-实现父子同步、
+
+[自己的demo地址](https://github.com/FondKevinZhao/vue2-sync-v-model)
+
+.sync和v-model用在组件标签身上，都可以达到父子组件数据同步
+
+sync和v-model的区别：
+
+- .sync达到数据同步，子组件内部不是表单类元素
+- v-model达到数据同步，子组件内部是表单类元素
+
+
+
+### css当中使用@
+
+在css当中使用`@符号`，前面必须要加`~波浪线`
+
+如：
+
+```html
+.list-item {
+	background-image: url(~@/assets/images/icons.png);
+}
+```
+
+### 根据登录的token获取用户信息
+
+根据登录的token获取用户信息(token校验，也可以去判定token是不是过期)，先把token放到请求头中，然后发送请求获取用户信息。
+
+配合路由导航守卫来做
+
+导航守卫定义：当路由跳转的时候，这个守卫可以去检测你是否有去往这个页面的条件
+
+有特定条件才能去响应的页面的功能
+
+[导航守卫官网](https://router.vuejs.org/zh/guide/advanced/navigation-guards.html)
+
+拦截路由，查看是否满足条件，满足条件就放行，不满足的就处理
+
+**全局导航守卫：**无路是从哪个页面往哪个页面跳转，只要有路由跳转就会拦住，进行检测。
+
+1. 前置守卫 `router.beforeEach`：配置的比较靠前，匹配路由前拦截
+2. 解析守卫 `router.beforeResolve`：配置的位置中间，匹配路由中拦截
+3. 后置守卫 `router.afterEach`：配置的比较靠后，匹配路由完成拦截
+
+**路由独享守卫：** `beforeEnter` 只能去拦住固定的往某个页面跳转的，是配置在当前路由当中，事件比较靠前。`beforeEnter` 守卫 **只在进入路由时触发**，不会在 `params`、`query` 或 `hash` 改变时触发。
+
+```js
+const routes = [
+  {
+    path: '/users/:id',
+    component: UserDetails,
+    beforeEnter: (to, from) => {
+      // reject the navigation
+      return false
+    },
+  },
+]
+```
+
+
+
+**组件内守卫(基本不用)：**只能去拦住固定的往某个页面跳转的，是配置在组件内部，也就是说路由匹配已经完成了，时间比较靠后。
+
+- `beforeRouteEnter`
+- `beforeRouteUpdate`
+- `beforeRouteLeave`
+
+```js
+const UserDetails = {
+  template: `...`,
+  beforeRouteEnter(to, from) {
+    // 在渲染该组件的对应路由被验证前调用
+    // 不能获取组件实例 `this` ！
+    // 因为当守卫执行时，组件实例还没被创建！
+  },
+  beforeRouteUpdate(to, from) {
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 `/users/:id`，在 `/users/1` 和 `/users/2` 之间跳转的时候，
+    // 由于会渲染同样的 `UserDetails` 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 因为在这种情况发生的时候，组件已经挂载好了，导航守卫可以访问组件实例 `this`
+  },
+  beforeRouteLeave(to, from) {
+    // 在导航离开渲染该组件的对应路由时调用
+    // 与 `beforeRouteUpdate` 一样，它可以访问组件实例 `this`
+  },
+}
+```
+
+#### 路由前置守卫代码
+
+```js
+//注册全局前置导航守卫，用来对token校验（根据token获取用户信息）
+router.beforeEach(async (to, from, next) => {
+  //to  跳转的目的地路由对象
+  //from 从哪来的路由对象
+  //next 是一个函数
+  // 根据参数不同，功能不同
+  // next() 代表无条件放行
+  // next('/') 代表强制跳转到指定的位置
+  // next(false)代表什么都不做，原地不动
+
+  //第一步：守卫拦截住，先去获取用户的token和用户的信息
+  let token = store.state.user.token
+  let userInfo = store.state.user.userInfo.name
+
+  if(token){
+    //如果token是存在的，代表用户登录过
+    if(to.path === '/login'){
+      //用户已经登录了，还要往登录页面去跳，没必要
+      next('/')
+    }else{
+      // 如果用户已经登录了，但是跳转的不再是登录页，那么我们得看用户的信息获取了没有
+      if(userInfo){
+        //如果用户的信息已经获取,无条件放行
+        next()
+      }else{
+        //用户已经登录，但是用户还没有获取用户信息，在这里就需要请求获取用户信息
+        try {
+          //如果获取用户信息成功，用户信息拿到就无条件放行
+          await store.dispatch('getUserInfo') //用户根据token获取用户信息 
+          next() 
+        } catch (error) {
+          //根据token获取用户信息失败，代表token可能过期
+          //把用户的过期token给清理掉，重新跳转到登录页
+          store.dispatch('clearToken')
+          next('/login')
+        }
+      }
+    }
+  }else{
+    //用户根本没登录，
+    //目前我们什么都不做，直接放行，后面我们是需要添加功能的
+    //如果用户访问的是 交易相关  支付相关 个人中心相关，那么跳转到登录页面
+    let targetPath = to.path
+    if(targetPath.indexOf('/trade')!==-1 || targetPath.indexOf('/pay')!==-1 || targetPath.startsWith('/center')){
+      // next('/login') 这样写可以直接去到登录页，但是登录成功不会去到之前想去的地方
+      next('/login?redirect='+targetPath) //想要回到之前想去的地方，必须把想去的那个路径给带到登录里面  
+    }else{
+      next()
+    }
+    
+  }
+
+})
+```
+
+
+
+### ES6模块化暴露和引入
+
+无论什么样的暴露方式，往外暴露的都是一个对象
+
+只不过，暴露的对象形成方式不一样
+
+
+
+#### 1. 默认暴露
+
+```js
+export default {a:100}
+
+// 暴露的是一个对象，这个对象里面是以default为属性名，以default后面的东西为值的对象 *****
+
+{
+
+	default:{a:100}
+
+}
+```
+
+
+
+引入的时候，如果是默认暴露
+
+```js
+// 通常我们是这样引入  import a from './xxx.js'  它其实是一个简写方式
+
+// 全写应该是  import {default as a} from './xxx.js'
+
+// 由于默认暴露引入的时候如果全写会很麻烦，因此才出现上面我们的简写
+```
+
+
+
+
+
+
+
+#### 2. 分别暴露
+
+```js
+// export const a = 100
+
+// export const reqXX = () => {}
+
+//最终暴露出文件的时候，会自动的把分别暴露的信息封装为一个对象 
+
+// {
+
+//  a:a,
+
+//  reqXX:reqXX
+
+// }
+```
+
+
+
+引入的时候
+
+```js
+// import {reqXX} from './xx.js'
+
+// import {a} from './xx.js
+```
+
+
+
+#### 3. 整体暴露/统一暴露
+
+```js
+const a = 100
+const obj = {a:100}
+
+//最终暴露的就是你export 后面的对象  
+export {
+  a,
+ obj
+}
+```
+
+
+
+引入的时候
+
+```js
+import {a} from './xx.js'
+
+import {obj} from './xx.js'
+```
+
+
+
+无论什么暴露方式，如果你想拿到暴露出文件的整个那个对象，就得这么干
+
+`import * as xxx from './xx.js'`
+
+
+
+### 自动登录
+
+自动登录其实就是把用户的token，给存储一下子
+
+以后只要是重新登录，我们直接拿存储好的token就可以了
+
+自动登录，就是在拿到token的时候保存在localStorage当中，并且初始化的时候需要先从localStorage当中去拿
+
+当token过期的时候，也得需要把localStorage当中的token也清除。
+
+### 退出登录
+
+```js
+async logout() {
+  // 发送请求退出登录 --- 一般是get请求，并且没有参数
+  // 其他的逻辑在vuex中完成
+  try{
+    await this.$store.dispatch('userLogout')
+    alert('退出登录成功')
+    this.$router.push('/')
+  }catch{
+    alert('退出登录失败')
+  }
+}
+```
+
+vuex — actions 退出登录
+
+```js
+async userLogout({commit}) {
+  const result = await reqUserLogout()
+  if(result.code === 200) {
+    // 退出成功
+    // 清空数据
+    commit('RESET_USER')
+    return 'ok'
+  } else {
+    return Promise.reject(new Error('failed'))
+  }
+}
+```
+
+vuex — mutations 退出登录
+
+```js
+RESET_USER(state) {
+  // 清空state的token
+  // 清空state的用户信息
+  // 清空localStorage的token
+  state.token = ''
+  state.userInfo = {}
+  localStorage.removeItem('TOKEN_KEY')
+}
+```
+
+### 临时标识userTempId和登录标识token
+
+userTempId: 未登录状态下的用户身份识别标识
+
+token: 登录状态下的用户身份识别标识
+
+两个都存在的话，后台会合并临时id对应的信息到token对应的信息上，token是老大。
+
+比如说临时标识下的购物车是一个商品，登录标识下是5个商品。此时你登录了，那么就变成6个商品了。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
