@@ -489,11 +489,66 @@ vw和vh是两个相对单位
 
 #### 点击穿透
 
-touch事件结束后会默认触发元素的click事件。如米诶有设置完美视口，则事件触发的时间间隔为300ms左右，如设置完美视口则时间间隔为 30ms 左右(备注：具体的时间也看设备的特性)。
+**touch事件结束后会默认触发元素的click事件。**如米诶有设置完美视口，则事件触发的时间间隔为300ms左右，如设置完美视口则时间间隔为 30ms 左右(备注：具体的时间也看设备的特性)。
 
 如果touch事件隐藏了元素，则 click 动作将作用到新的元素上，触发新元素的 click 事件或页面跳转，此现象称为点击穿透。
 
+##### 解决方法一
 
+阻止默认行为
+
+```js
+node.addEventListener('touchstart', function(e){
+  console.log('hello')
+  e.preventDefault()
+})
+```
+
+##### 解决方法二
+
+使背后元素不具备click特性，用touchxxx代理click
+
+```js
+banner_img.addEventListener('touchstart', () => {
+  location.href = 'http://www.baidu.com'
+})
+```
+
+
+
+##### 解决方法三
+
+让背后的元素暂时失去click事件，300毫秒左右再复原
+
+```html
+#anode {
+	// point-events: none; 让元素失去click特性
+  point-events: none;
+}
+```
+
+```js
+btn.addEventListener('touchstart', (event) => {
+  shade.style.display = 'none'
+  setTimeout(()=>{
+    anode.style.pointerEvents = 'auto'
+  }, 500)
+})
+```
+
+
+
+##### 解决方法四
+
+让隐藏的元素延迟300毫秒左右再隐藏
+
+```js
+btn.addEventListener('touchstart', (event) => {
+  setTimeout(()=>{
+    shade.style.display = 'none'
+  }, 3)
+})
+```
 
 
 

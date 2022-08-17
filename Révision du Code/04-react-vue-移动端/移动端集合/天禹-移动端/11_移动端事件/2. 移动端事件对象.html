@@ -23,7 +23,7 @@
       /* 
       touches: 屏幕上的触点数
       targetTouches: 当前元素上的触点数
-      changedTouches: 当前屏幕上元素上改变了的触点数
+      changedTouches: 同时按下几个手指
     */
       const demo = document.getElementById('demo')
       demo.addEventListener('touchstart', (event) => {
@@ -32,7 +32,7 @@
         demo.innerHTML +=
           '橙色盒子上的触点数：' + event.targetTouches.length + '<br>'
         demo.innerHTML +=
-          '橙色盒子上改变了的触点数：' + event.targetTouches.length + '<br>'
+          '屏幕上同时按下几个手指：' + event.targetTouches.length + '<br>'
       })
     </script>
   </body>
