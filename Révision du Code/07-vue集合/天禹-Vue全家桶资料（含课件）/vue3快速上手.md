@@ -461,7 +461,7 @@ npm run dev
   - 而watchEffect更注重的是过程（回调函数的函数体），所以不用写返回值。
 
   ```js
-  //watchEffect所指定的回调中用到的数据只要发生变化，则直接重新执行回调。
+  // watchEffect所指定的回调中用到的数据只要发生变化，则直接重新执行回调。
   watchEffect(()=>{
       const x1 = sum.value
       const x2 = person.age
@@ -471,7 +471,29 @@ npm run dev
 
 ## 8.生命周期
 
-<div style="border:1px solid black;width:380px;float:left;margin-right:20px;"><strong>vue2.x的生命周期</strong><img src="https://v2.cn.vuejs.org/images/lifecycle.png" alt="lifecycle_2" style="zoom:50%;width:2500px" /></div><div style="border:1px solid black;width:510px;height:985px;float:left"><strong>vue3.0的生命周期</strong><img src="https://cn.vuejs.org/assets/lifecycle.16e4c08e.png" alt="lifecycle_3" style="zoom:33%;width:2500px" /></div><br>
+<div style="border:1px solid black;width:800px;float:left;margin-right:20px;"><strong>vue2.x的生命周期</strong><img src="https://img-blog.csdnimg.cn/915b9f85e4264142a3e1935135c10204.png" alt="lifecycle_2" style="zoom:50%;width:2500px" /></div><div style="border:1px solid black;width:800px;float:left"><strong>vue3.0的生命周期</strong><img src="https://cn.vuejs.org/assets/lifecycle.16e4c08e.png" alt="lifecycle_3" style="zoom:33%;width:2500px" /></div><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -601,8 +623,45 @@ npm run dev
 
 ## 10.toRef
 
-- 作用：创建一个 ref 对象，其value值指向另一个对象中的某个属性。
+- 作用：创建一个 ref 对象，其value值指向另一个对象中的某个属性。改变源属性的值将更新 ref 的值，反之亦然。
+
+- 大白话：把一个不是ref的数据变成是ref的数据。
+
 - 语法：```const name = toRef(person,'name')```
+
+  ```js
+  import {ref, reactive, toRef, toRefs} from 'vue'
+  let person = reactive({
+    name: '张三',
+    age: 18
+  })
+  
+  // name1不是响应式的
+  const name1 = person.name
+  // name2是响应式的
+  cosnt name2 = toRef(person, 'name')
+  
+  
+  // 数据不是响应式的(一旦改变，页面改变，原数据不改变)
+  return {
+    name: ref(person.name),
+    age: ref(person.age)
+  }
+  
+  // 数据是响应式的(一旦改变，页面改变，原数据改变)
+  return {
+    name: toRef(person, 'name'),
+    age: toRef(person, 'age')
+  }
+  
+  // toRefs的使用(toRefs的返回值是一个对象)
+  return {
+    ...toRefs(person)
+  }
+  ```
+
+  
+
 - 应用:   要将响应式对象中的某个属性单独提供给外部使用时。
 
 
@@ -614,7 +673,7 @@ npm run dev
 ## 1.shallowReactive 与 shallowRef
 
 - shallowReactive：只处理对象最外层属性的响应式（浅响应式）。
-- shallowRef：只处理基本数据类型的响应式, 不进行对象的响应式处理。
+- shallowRef：只处理基本数据类型的响应式, **不进行对象的响应式处理**。
 
 - 什么时候使用?
   -  如果有一个对象数据，结构比较深, 但变化时只是外层属性变化 ===> shallowReactive。
@@ -623,13 +682,51 @@ npm run dev
 ## 2.readonly 与 shallowReadonly
 
 - readonly: 让一个响应式数据变为只读的（深只读）。
+
 - shallowReadonly：让一个响应式数据变为只读的（浅只读）。
+
 - 应用场景: 不希望数据被修改时。
+
+  ```js
+  import {ref,reactive,toRefs,readonly,shallowReadonly} from 'vue'
+  export default {
+    name: 'Demo',
+    setup(){
+      //数据
+      let sum = ref(0)
+      let person = reactive({
+        name:'张三',
+        age:18,
+        job:{
+          j1:{
+            salary:20
+          }
+        }
+      })
+  
+      // reactive类型上使用
+      person = readonly(person)
+      // person = shallowReadonly(person) // name age 不能改，j1 和 salary可以改
+      
+      // ref类型上使用
+      // sum = readonly(sum)
+      // sum = shallowReadonly(sum)
+  
+      //返回一个对象（常用）
+      return {
+        sum,
+        ...toRefs(person)
+      }
+    }
+  }
+  ```
+
+  
 
 ## 3.toRaw 与 markRaw
 
 - toRaw：
-  - 作用：将一个由```reactive```生成的<strong style="color:orange">响应式对象</strong>转为<strong style="color:orange">普通对象</strong>。
+  - 作用：将一个由```reactive```生成的<strong style="color:orange">响应式对象</strong>转为<strong style="color:orange">普通对象</strong>。**不能处理ref生成的响应式数据。**
   - 使用场景：用于读取响应式对象对应的普通对象，对这个普通对象的所有操作，不会引起页面更新。
 - markRaw：
   - 作用：标记一个对象，使其永远不会再成为响应式对象。
@@ -688,7 +785,7 @@ npm run dev
 
 ## 5.provide 与 inject
 
-<img src="https://v3.cn.vuejs.org/images/components_provide.png" style="width:300px" />
+<img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.pianshen.com%2Fimages%2F991%2F41a47ab54bc7a3e9df63259138d74717.png&refer=http%3A%2F%2Fwww.pianshen.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663534150&t=0e9cb0a33a026ba516be702f0ad90ebe" style="width:300px" />
 
 - 作用：实现<strong style="color:#DD5145">祖与后代组件间</strong>通信
 
@@ -725,51 +822,64 @@ npm run dev
 - isReadonly: 检查一个对象是否是由 `readonly` 创建的只读代理
 - isProxy: 检查一个对象是否是由 `reactive` 或者 `readonly` 方法创建的代理
 
+```vue
+<script>
+	import {ref, reactive,toRefs,readonly,isRef,isReactive,isReadonly,isProxy } from 'vue'
+	export default {
+		name:'App',
+		setup(){
+			let car = reactive({name:'奔驰',price:'40W'})
+			let sum = ref(0)
+			let car2 = readonly(car)
+
+			console.log(isRef(sum))
+			console.log(isReactive(car))
+			console.log(isReadonly(car2))
+			console.log(isProxy(car))
+			console.log(isProxy(sum))
+
+			
+			return {...toRefs(car)}
+		}
+	}
+</script>
+```
+
+
+
 # 四、Composition API 的优势
 
 ## 1.Options API 存在的问题
 
 使用传统OptionsAPI中，新增或者修改一个需求，就需要分别在data，methods，computed里修改 。
 
-<div style="width:600px;height:370px;overflow:hidden;float:left">
+<div style="width:600px;">
     <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f84e4e2c02424d9a99862ade0a2e4114~tplv-k3u1fbpfcp-watermark.image" style="width:600px;float:left" />
 </div>
-<div style="width:300px;height:370px;overflow:hidden;float:left">
-    <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e5ac7e20d1784887a826f6360768a368~tplv-k3u1fbpfcp-watermark.image" style="zoom:50%;width:560px;left" /> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="width:600px;">
+    <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e5ac7e20d1784887a826f6360768a368~tplv-k3u1fbpfcp-watermark.image" style="width:600px; height: 500px" /> 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -777,25 +887,13 @@ npm run dev
 
 我们可以更加优雅的组织我们的代码，函数。让相关功能的代码更加有序的组织在一起。
 
-<div style="width:500px;height:340px;overflow:hidden;float:left">
-    <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bc0be8211fc54b6c941c036791ba4efe~tplv-k3u1fbpfcp-watermark.image"style="height:360px"/>
-</div>
-<div style="width:430px;height:340px;overflow:hidden;float:left">
-    <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6cc55165c0e34069a75fe36f8712eb80~tplv-k3u1fbpfcp-watermark.image"style="height:360px"/>
+<div style="width:600px;">
+    <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bc0be8211fc54b6c941c036791ba4efe~tplv-k3u1fbpfcp-watermark.image""/>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+<div style="width:600px;height:340px;overflow:hidden;float:left">
+    <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6cc55165c0e34069a75fe36f8712eb80~tplv-k3u1fbpfcp-watermark.image"/>
+</div>
 
 
 
@@ -830,6 +928,7 @@ npm run dev
 - 什么是Teleport？—— `Teleport` 是一种能够将我们的<strong style="color:#DD5145">组件html结构</strong>移动到指定位置的技术。
 
   ```vue
+  // to="body" 把teleport所包裹的内容传入到body里，一点击，那么这个内容就进入到body中了
   <teleport to="移动位置">
   	<div v-if="isShow" class="mask">
   		<div class="dialog">
@@ -840,9 +939,15 @@ npm run dev
   </teleport>
   ```
 
+官网介绍：`<Teleport>` 是一个内置组件，它可以将一个组件内部的一部分模板“传送”到该组件的 DOM 结构外层的位置去。
+
+有时我们可能会遇到这样的场景：一个组件模板的一部分在逻辑上从属于该组件，但从整个应用视图的角度来看，它在 DOM 中应该被渲染在整个 Vue 应用外部的其他地方。
+
+这类场景最常见的例子就是全屏的模态框。
+
 ## 3.Suspense
 
-- 等待异步组件时渲染一些额外内容，让应用有更好的用户体验
+- **等待异步组件时**渲染一些额外内容，让应用有更好的用户体验
 
 - 使用步骤：
 
@@ -855,6 +960,8 @@ npm run dev
 
   - 使用```Suspense```包裹组件，并配置好```default``` 与 ```fallback```
 
+    `v-slot:default` 和 `v-slot:fallback` 这两个名字不能换
+    
     ```vue
     <template>
     	<div class="app">
@@ -941,7 +1048,7 @@ npm run dev
     }
     ```
 
-- <strong style="color:#DD5145">移除</strong>keyCode作为 v-on 的修饰符，同时也不再支持```config.keyCodes```
+- <strong style="color:#DD5145">移除</strong>keyCode作为 v-on 的修饰符，同时也不再支持```config.keyCodes```。如：不能使用`@keyup.13="xxx"`
 
 - <strong style="color:#DD5145">移除</strong>```v-on.native```修饰符
 
@@ -960,6 +1067,7 @@ npm run dev
     <script>
       export default {
         emits: ['close']
+        // emits: ['close', 'click'] 如果这样写，会认为click也是自定义事件，如果不写，click会被认为是原生事件
       }
     </script>
     ```

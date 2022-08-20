@@ -67,9 +67,9 @@
    解决：
 
    1. 最简单粗暴也是最有效的方法：`img{display:block;}`。
-   2. `img{vertical-align:middle;}`。
+   2. 给图片添加 `vertical-align: middle | top | bottom` 等。（推荐使用）
 
-   [博客链接](https://blog.csdn.net/weixin_30359737/article/details/117836582)
+   [博客链接](https://blog.csdn.net/qq_15034541/article/details/108522224?spm=1001.2014.3001.5506)
 
 7. CSS3 新特性：
 
@@ -198,24 +198,26 @@
    console.log(newArr);
    ```
 
-   
-
-   
-
-   
-
-   
-
    ```js
-   var arr = [12, 23, 12, 15, 23, 25, 14, 12];
-   var newArr = [];
-   for(var i=0,len=arr.length;i<len;i++){
-       if(newArr.indexOf(arr[i]) == -1){
-       newArr.push(arr[i]);
-       }
-   }
-   console.log(newArr);
+   // 用es5 + reduce() 去重
+   let arr = ['a', 'b', 'c', 'a', 'd', 'c'];
+   let newArr = arr.reduce((pre, cur) => {
+     // 此时的pre一开始上来是一个空数组[]
+     // cur 是数组中的每一项。如：'a', 'b', 'c', 'a', 'd', 'c'
+     // if(!pre.includes(cur)) 判断pre数组中是否包含当前所遍历的cur
+     // console.log('pre', pre);
+     if (!pre.includes(cur)) {
+       // 这里要用concat，不能用push
+       return pre.concat(cur);
+     } else {
+       return pre;
+     }
+   }, []);
    ```
+
+   
+
+   
 
    
 

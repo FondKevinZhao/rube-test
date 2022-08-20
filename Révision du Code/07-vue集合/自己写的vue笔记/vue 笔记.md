@@ -1275,7 +1275,16 @@
 
      [博客地址](https://blog.csdn.net/xiaopihair123/article/details/123382057)
 
-135. 
+### 如果用同一个按钮，如何做状态区分？(黑马-老李)
+
+vue2大事件项目(视频P45)
+
+1. 定义一个标记变量isEdit(true 编辑， false 新增)，还要定义本次要编辑的数据唯一id值，editId
+2. 在点击修改的时候，isEdit改为true，editId保存要修改的数据id
+3. 在点击新增按钮的时候，isEdit改为false，editId置空
+4. 在点击保存按钮时(确定按钮时)，就可以用isEdit变量来区分了
+
+
 
 
 
