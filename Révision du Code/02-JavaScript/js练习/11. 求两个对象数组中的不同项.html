@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 需求：过滤出一个新数组，此数组是arr1和arr2对比之后，arr2中未包含的数组内容
+
+      let arr1 = [
+        {
+          id: 1,
+          name: '尺码',
+        },
+        {
+          id: 2,
+          name: '颜色',
+        },
+        {
+          id: 3,
+          name: '内存',
+        },
+      ]
+
+      let arr2 = [
+        {
+          id: 2,
+          name: '颜色',
+        },
+        {
+          id: 3,
+          name: '内存',
+        },
+      ]
+
+      // 方法一：(效率低一些)
+      /* 
+      步骤：
+        1. 使用filter获取到arr1中的每一项
+        2. 在filter的每一项的名字跟arr2中的名字进行匹配
+        3. 如果遇到名字一样的，那么就收到一个result数组中
+        4. filter的返回值中对result取反，因为我们不需要他们是一样的，我们需要的是不一样的
+    */
+      /* let newArr = arr1.filter((arr1Item) => {
+      let result = arr2.some((arr2Item) => {
+        console.log('arr1Item.name', arr1Item.name)
+        console.log('arr2Item.name', arr2Item.name)
+        return arr2Item.name == arr1Item.name
+      })
+
+      return !result
+    })
+    console.log(newArr) */
+
+      // 方法二：(效率高一些)
+      /* 
+      步骤：
+        1. 通过map把arr2中的每一个对象抽离出arr1Item.name，放入到names中。如：['颜色', '内存']
+        2. 使用arr1的filter来找出arr1Item.name是否包含newArr的内容
+    */
+      // 通过一个对象记录已经出现过的销售属性
+      /* let names = arr2.map((arr2Item) => {
+      let name = arr2Item.name
+      return name
+    })
+
+    let newArr = arr1.filter((arr1Item) => {
+      return !names.includes(arr1Item.name)
+    })
+    console.log(newArr) */
+
+      // 方法三：对象+for循环
+      // 通过一个对象记录已经出现过的销售属性
+      const mapObj = {}
+
+      arr2.forEach((arr2Item) => {
+        const key = arr2Item.name
+        mapObj[key] = true
+      })
+      console.log('mapObj', mapObj)
+
+      const newArr = arr1.filter((arr1Item) => {
+        const name = arr1Item.name
+        return !mapObj[name]
+      })
+
+      console.log(newArr)
+    </script>
+  </body>
+</html>

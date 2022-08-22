@@ -64,8 +64,18 @@ var sisterAn = Color.Red
 
 #### 6.  implements 与 extends 的区别
 
-- extends, 子类会继承父类的所有属性和方法。
-- implements，使用implements关键字的类将需要实现需要实现的类的所有属性和方法。
+- extends, 子类会继承父类的所有属性和方法。不可以重写属性，但可以重写方法
+- implements，使用implements关键字实现一个新的类，从父类或者接口实现所有的属性和方法，同时可以重写属性和方法，包含一些新的功能
+
+注意：
+
+- 接口可以继承接口或类
+
+- 类不可以继承接口，类只能继承类
+
+  
+
+[博客地址](https://www.cnblogs.com/kunmomo/p/15272705.html)
 
 
 
