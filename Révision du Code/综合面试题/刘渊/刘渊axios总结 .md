@@ -132,8 +132,8 @@ axios.post('https://api.github.com/search/respositories?q=v&sort=stars',{请求�
 ### axios二次封装代码
 
 ```js
-//这个文件是对axios进行二次封装
-//额外的让axios发请求的时候，具有其它的功能
+//  这个文件是对axios进行二次封装
+// 额外的让axios发请求的时候，具有其它的功能
 // 配置基础路径和超时限制
 // 添加进度条信息  nprogress
 // 返回的响应不再需要从data属性当中拿数据，而是响应就是我们要的数据
@@ -163,7 +163,7 @@ service.interceptors.request.use(
   (config)=>{
     // config其实就是我们的请求报文
     // 这个请求报文，最后一定要返回去，因为还要继续往下走
-    //在这里我们可以添加额外的功能，也可以给请求头添加需要的数据
+    //  在这里我们可以添加额外的功能，也可以给请求头添加需要的数据
     NProgress.start(); //开启进度条
 
     //请求头内部需要添加临时标识，后期每个请求都会带上这个临时标识

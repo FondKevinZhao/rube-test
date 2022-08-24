@@ -1,4 +1,4 @@
-问题一:Vuecli脚手架,是如何解析.vue中的style样式的,请说明过程
+问题一: Vuecli脚手架,是如何解析.vue中的style样式的,请说明过程
 回答:
 	1.通过webpack调用vue-loader,去解析vue文件,可以从中得到style标签的内容
 	2.调用scss-loader,将style内部的scss代码解析为css代码
