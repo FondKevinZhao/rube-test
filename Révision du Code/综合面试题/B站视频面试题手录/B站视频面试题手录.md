@@ -146,326 +146,335 @@
 
 3. 比较
 
-	```js
-	[10] == 10; // true
-	[10] === 10; // false // 全等不支持类型转换
-	```
-	
-	数据类型比较：
-	
-	== 数据类型不一样
-	
-	1. 对象 == 字符串	`对象.toString()`变为字符串。(对象如果变成数字是先 `对象.toString()` 然后 `Number(放刚转成的字符串)`)
-	2. null == undefined 相等。但是和其他值比较就不再相等了。
-	3. NaN == NaN 不相等。
-	4. 剩下的都是转换为数字。如：`"1"==true`// true
-	
-	
+  ```js
+  [10] == 10; // true
+  [10] === 10; // false // 全等不支持类型转换
+  ```
 
-4. 数组去重
+  数据类型比较：
 
-   ```js
-   let arr = [12, 23, 12, 15, 23, 25, 14, 12]
-   
-   /* set */
-   // set 方式一
-   let arr1 = [...new Set(arr)];
-   console.log(arr1); 
-   
-   // set 方式二
-   let arr1 = Array.from(new Set(arr));
-   console.log(arr1); // [ 12, 14, 15, 23, 25 ]
-   ```
+  == 数据类型不一样
 
-   ```js
-   // 用 filter 方法
-   var arr = [12, 23, 12, 15, 23, 25, 14, 12];
-       var newArr = arr.filter(function(value,index,self){
-       return self.indexOf(value) === index;
-   });
-   console.log(newArr);
-   ```
+  1. 对象 == 字符串	`对象.toString()`变为字符串。(对象如果变成数字是先 `对象.toString()` 然后 `Number(放刚转成的字符串)`)
+  2. null == undefined 相等。但是和其他值比较就不再相等了。
+  3. NaN == NaN 不相等。
+  4. 剩下的都是转换为数字。如：`"1"==true`// true
 
-   ```js
-   // 用 es5 的方法
-   var arr = [12, 23, 12, 15, 23, 25, 14, 12];
-   var newArr = [];
-   for (var i = 0; i <arr.length; i++) {
-       if(newArr.indexOf(arr[i]) == -1) {
-           newArr.push(arr[i]);
-       }
-   }
-   console.log(newArr);
-   ```
 
-   ```js
-   // 用es5 + reduce() 去重
-   let arr = ['a', 'b', 'c', 'a', 'd', 'c'];
-   let newArr = arr.reduce((pre, cur) => {
-     // 此时的pre一开始上来是一个空数组[]
-     // cur 是数组中的每一项。如：'a', 'b', 'c', 'a', 'd', 'c'
-     // if(!pre.includes(cur)) 判断pre数组中是否包含当前所遍历的cur
-     // console.log('pre', pre);
-     if (!pre.includes(cur)) {
-       // 这里要用concat，不能用push
-       return pre.concat(cur);
-     } else {
-       return pre;
-     }
-   }, []);
-   ```
+### 数组去重
 
-   
+```js
+let arr = [12, 23, 12, 15, 23, 25, 14, 12]
 
-   
+/* set */
+// set 方式一
+let arr1 = [...new Set(arr)];
+console.log(arr1); 
 
-   
+// set 方式二
+let arr1 = Array.from(new Set(arr));
+console.log(arr1); // [ 12, 14, 15, 23, 25 ]
+```
 
-3. 数组排序
-
-   1. 冒泡排序
-
-      ```js
-      let arr = [12, 23, 12, 15, 23, 25, 14, 12];
-      for (var i = 1; i < arr.length; i++) {
-          for (var j = 0; j < arr.length - 1; j++) {
-              if (arr[j] > arr[j + 1]) {
-                  var tmp = arr[j];
-                  arr[j] = arr[j + 1];
-                  arr[j + 1] = tmp;
-              }
-          }
-      }
-      console.log(arr);
-      ```
-
-      ```js
-      let ary = [12, 23, 12, 15, 23, 25, 14, 12];
-      
-      function bubble(ary) {
-        let temp= null;
-        // 外层循环i 控制比较的轮数
-        for(let i = 0; i < ary.length; i++) {
-          // 里层循环控制每一轮比较的次数
-          for (let j = 0; j < ary.length -1-i; j++ ) {
-            if(ary[j] >ary[j+1]) {
-              // 当前项大于后一项
-              temp = ary[j];
-              ary[j] = ary[j+1];
-              ary[j+1] = temp;
-            }
-          }
-        }
-        return ary;
-      }
-      ary= bubble(ary);
-      console.log(ary);
-      ```
-
-      
-
-   2. 插入排序
-
-      ```js
-      var a = [4,3,9,2,6,1,7,2]
-      function insetSort(arr) {
-        var index = 0
-        for (let i = 1; i < arr.length; i++) {
-          index = i
-          for (let j = i - 1; j >= 0; j--) {
-            if (arr[j] > arr[i]) {
-              index = j
-            }
-          }
-          arr.splice(index, 0, arr[i]) // 插入元素的位置
-          arr.splice(i + 1, 1) // 从小到大排序，且i大于等于index，插入的元素原本在的位置后移一位
-        }
-      }
-      insetSort(a)
-      console.log(a); // [1, 2, 2, 3, 4, 6, 7, 9]
-      ```
-
-      ```js
-      var ary = [4,3,9,2,6,1,7,2]
-      function insert(ary) {
-        // 1. 准备一个新数组，用来存储抓到手里的牌，开始先抓一张牌进来
-        let handle=[];
-        handle.push(ary[0]);
-      
-        // 2. 猜哦昂第二项开始依次抓牌，一直到把台面上的牌抓光
-        for (let i = 1; i < ary.length; i++) {
-          // A是新抓的牌
-          let A = ary[i];
-          // 和HANDLE手里的牌依次比较(从后向前比)
-          for (let j = handle.length-1; j >= 0; j--) {
-            // 每一次要比较的手里的牌
-            let B = handle[j];
-            // 如果当前新牌A比要比较的牌B大了，把A放到B的后面
-            if(A>B) {
-              handle.splice(j+1,0,A);
-              break;
-            }
-            // 已经比到第一项，我们把新牌放到手中最前面即可
-            if(j===0) {
-              handle.unshift(A);
-            }
-          }
-        }
-        return handle;
-      }
-      ary = insert(ary);
-      console.log(ary); // [1, 2, 2, 3, 4, 6, 7, 9]
-      ```
-
-      
-
-   3. 快速排序
-
-      ```js
-      var ary = [4,3,9,2,6,1,7,2]
-      function quick(ary) {
-        // 4. 结束递归(当ARY小于等于一项，则不用处理)
-        if (ary.length<=1) {
-          return ary;
-        }
-        // 1. 找到数组中的中间项，在原有的数组中把它移除
-        let middleIndex = Math.floor(ary.length/2);
-        let middleValue = ary.splice(middleIndex,1)[0];
-        // 2. 准备左右两个数组，循环剩下数组中的每一项，比当前项小的放到左边数组中，反之放到右边数组中
-        let aryLeft=[];
-            aryRight=[];
-        for(let i = 0; i < ary.length; i++) {
-          let item = ary[i];
-          item<middleValue?aryLeft.push(item):aryRight.push(item);
-        }
-        // 3. 递归方式让左右两边的数组持续这样处理，一直到左右两边都排好序位置(最后让左边+中间+右边拼接成为最后的结果)
-        return quick(aryLeft).concat(middleValue,quick(aryRight));
-      }
-      
-      ary = quick(ary);
-      console.log(ary);
-      ```
-
-      
-
-6. 数组扁平化的N种实现方案
-
-   ```js
-   // 5层let arr = [  [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
-   // 使用 ES6中提供的 Array.prototype.flat 处理
-   arr = arr.flat(Infinity);
-   console.log(arr);
-   // 结果：[1,  2,  2, 3,  4,  5,  5, 6,  7,  8, 9, 11, 12, 12, 13, 14, 10]
-   ```
-
-   > 注意：`arr = arr.flat();`括号中写数字，表示扁平化几层。如：
-   >
-   > `arr = arr.flat(2);`表示扁平化两层。
-   >
-   > `arr = arr.flat(200);`表示扁平化200层，如果数组只有5层，它也是可以实现。
-
-    ```js
-    // 5层
-    let arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
-    
-    // 循环验证是否为数组
-    // 基于数组的some方法进行判断检测，验证数组中的某一项有没有符合函数中提供的规则的
-    while (arr.some((item) => Array.isArray(item))) {
-      arr = [].concat(...arr);
+```js
+// 用 es5 的方法 for + indexOf
+var arr = [12, 23, 12, 15, 23, 25, 14, 12];
+var newArr = [];
+for (var i = 0; i < arr.length; i++) {
+    if(newArr.indexOf(arr[i]) == -1) {
+        newArr.push(arr[i]);
     }
-    console.log(arr);
-    ```
+}
+console.log(newArr);
 
-   
+// 或者这样写 forEach + indexOf
+let arr = [12, 23, 12, 15, 23, 25, 14, 12]
+let newArr = []
+arr.forEach((item) => {
+  if (newArr.indexOf(item) === -1) {
+    newArr.push(item)
+  }
+})
+console.log('indexOf', newArr)
+```
 
-   ```js
-   // 5层let arr = [  [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
-   // 用toString 把所有数组转成字符串 1,2,2,3,4,5,5,6,7,8,9,11,12,12,13,14,10
-   // 再用split用逗号分隔成数组, 这时候，数组里面的数字都是字符串类型的
-   // 用map方法再把数组里面的字符串变成数字
-   arr = arr.toString().split(",").map(item=>parseFloat(item)); 
-   console.log(arr);
-   ```
+```js
+// 用 filter + indexOf
+var arr = [12, 23, 12, 15, 23, 25, 14, 12];
+    var newArr = arr.filter(function(value,index,self){
+    return self.indexOf(value) === index;
+});
+console.log(newArr);
 
-    
+详解
+我们来走走遍历过程：
 
-   ```js
-   // 5层
-   let arr = [
-     [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10
-   ];
-   // JSON + 正则 (不推荐时候，f)
-   arr = JSON.stringify(arr).replace(/(\[|\])/g,'').split(',').map(item=>parseFloat(item));
-   
-   console.log(arr);
-   ```
+第一次循环，传入元素1，index(1)的索引为0，而此时1的索引本来就是1，OK，满足。
+第二次循环，传入元素2，index(2)的索引为1，而此时2的索引也是1，OK，也满足。
+第三次循环，传入元素2，index(2)的索引为1，而此时2的索引为2，OK，不满足，被PASS，这里就是巧妙的借用了indexOf始终查找到第一次出现的位置。
+```
 
-   
+```js
+// 用es5 + reduce() 去重
+let arr = ['a', 'b', 'c', 'a', 'd', 'c'];
+let newArr = arr.reduce((pre, cur) => {
+  // pre传进来的是一个数组，此时的pre一开始上来是一个空数组[]
+  // cur 是数组中的每一项。如：'a', 'b', 'c', 'a', 'd', 'c'
+  // if(!pre.includes(cur)) 判断pre数组中是否包含当前所遍历的cur
+  // console.log('pre', pre);
+  if (!pre.includes(cur)) {
+    // 这里要用concat，不能用push
+    return pre.concat(cur);
+  } else {
+    return pre;
+  }
+}, []);
+```
 
-   
 
-7. 斐波拉契数列
 
-   请实现一个 `fibonacci[ˌfɪbəˈnɑːtʃi] ` 函数，要求试下你一下的功能：
+### 数组排序
 
-   1. 斐波那契数列为：`[1, 1, 2, 3, 5, 8, 13, 21,...];`
+#### 冒泡排序
 
-   2. `fibonacci(0) ->(返回) 1` 传入的 0 是索引
-
-   3. `fibonacci(4) ->(返回) 5` 传入的 4 是索引
-
-      ```js
-      function fb(n) {
-      	if (n === 1 || n === 2) {
-          return 1;
-      }
-          return fb(n - 1) + fb(n - 2);
-      }
-      console.log(fb(3));
-      console.log(fb(6));
-      ```
-      
-      
-      
-      ```js
-      function fibonacci(n) {
-        // 如果索引小于等于1，那就等于1
-        if (n <= 1) return 1;
-      
-        let arr = [1, 1];
-        // i 存储的是我即将要创建多少个
-        let i = n + 1 - 2;
-        while (i > 0) {
-          let a = arr[arr.length-2],
-              b = arr[arr.length-1];
-          arr.push(a+b);
-          i--;
+```js
+let arr = [12, 23, 12, 15, 23, 25, 14, 12];
+for (var i = 1; i < arr.length; i++) {
+    for (var j = 0; j < arr.length - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+            var tmp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = tmp;
         }
-        return arr[arr.length-1];
-      }
-      
-      console.log(fibonacci(5));
-      ```
-      
-      ```js
-      // 这种方式比较难
-      function fibonacci(count) {
-          // curr 是当前项，next 是下一项
-        function fn(count, curr = 1, next = 1) {
-          if (count ==0) {
-            return curr;
-          } else {
-            return fn(count -1, next, curr + next);
-          }
-        };
-        return fn (count);
-      }
-      console.log(fibonacci(5));
-      ```
-      
-      
+    }
+}
+console.log(arr);
+```
 
-6. 实现`(5).add(3).minus(2)`，5+3-2 使其输出结果为：6
+```js
+let ary = [12, 23, 12, 15, 23, 25, 14, 12];
+
+function bubble(ary) {
+  let temp= null;
+  // 外层循环i 控制比较的轮数
+  for(let i = 0; i < ary.length; i++) {
+    // 里层循环控制每一轮比较的次数
+    for (let j = 0; j < ary.length -1-i; j++ ) {
+      if(ary[j] >ary[j+1]) {
+        // 当前项大于后一项
+        temp = ary[j];
+        ary[j] = ary[j+1];
+        ary[j+1] = temp;
+      }
+    }
+  }
+  return ary;
+}
+ary = bubble(ary);
+console.log(ary);
+```
+
+
+
+#### 插入排序
+
+```js
+var a = [4,3,9,2,6,1,7,2]
+function insetSort(arr) {
+  var index = 0
+  for (let i = 1; i < arr.length; i++) {
+    index = i
+    for (let j = i - 1; j >= 0; j--) {
+      if (arr[j] > arr[i]) {
+        index = j
+      }
+    }
+    arr.splice(index, 0, arr[i]) // 插入元素的位置
+    arr.splice(i + 1, 1) // 从小到大排序，且i大于等于index，插入的元素原本在的位置后移一位
+  }
+}
+insetSort(a)
+console.log(a); // [1, 2, 2, 3, 4, 6, 7, 9]
+```
+
+```js
+var ary = [4,3,9,2,6,1,7,2]
+function insert(ary) {
+  // 1. 准备一个新数组，用来存储抓到手里的牌，开始先抓一张牌进来
+  let handle=[];
+  handle.push(ary[0]);
+
+  // 2. 猜第二项开始依次抓牌，一直到把台面上的牌抓光
+  for (let i = 1; i < ary.length; i++) {
+    // A是新抓的牌
+    let A = ary[i];
+    // 和HANDLE手里的牌依次比较(从后向前比)
+    for (let j = handle.length-1; j >= 0; j--) {
+      // 每一次要比较的手里的牌
+      let B = handle[j];
+      // 如果当前新牌A比要比较的牌B大了，把A放到B的后面
+      if(A>B) {
+        handle.splice(j+1,0,A);
+        break;
+      }
+      // 已经比到第一项，我们把新牌放到手中最前面即可
+      if(j===0) {
+        handle.unshift(A);
+      }
+    }
+  }
+  return handle;
+}
+ary = insert(ary);
+console.log(ary); // [1, 2, 2, 3, 4, 6, 7, 9]
+```
+
+
+
+#### 快速排序
+
+```js
+var ary = [4,3,9,2,6,1,7,2]
+function quick(ary) {
+  // 4. 结束递归(当ARY小于等于一项，则不用处理)
+  if (ary.length<=1) {
+    return ary;
+  }
+  // 1. 找到数组中的中间项，在原有的数组中把它移除
+  let middleIndex = Math.floor(ary.length/2);
+  let middleValue = ary.splice(middleIndex,1)[0];
+  // 2. 准备左右两个数组，循环剩下数组中的每一项，比当前项小的放到左边数组中，反之放到右边数组中
+  let aryLeft=[];
+      aryRight=[];
+  for(let i = 0; i < ary.length; i++) {
+    let item = ary[i];
+    item<middleValue?aryLeft.push(item):aryRight.push(item);
+  }
+  // 3. 递归方式让左右两边的数组持续这样处理，一直到左右两边都排好序位置(最后让左边+中间+右边拼接成为最后的结果)
+  return quick(aryLeft).concat(middleValue,quick(aryRight));
+}
+
+ary = quick(ary);
+console.log(ary);
+```
+
+
+
+### 数组扁平化的N种实现方案
+
+```js
+// 5层let arr = [  [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+// 使用 ES6中提供的 Array.prototype.flat 处理
+arr = arr.flat(Infinity);
+console.log(arr);
+// 结果：[1,  2,  2, 3,  4,  5,  5, 6,  7,  8, 9, 11, 12, 12, 13, 14, 10]
+
+注意：
+	1. arr = arr.flat(); 括号中写数字，表示扁平化几层。如：
+	2. arr = arr.flat(2); 表示扁平化两层。
+	3. arr = arr.flat(200); 表示扁平化200层，如果数组只有5层，它也是可以实现。
+```
+
+```js
+ // 5层
+ let arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+ 
+ // 循环验证是否为数组
+ // 基于数组的some方法进行判断检测，验证数组中的某一项有没有符合函数中提供的规则的
+ while (arr.some((item) => Array.isArray(item))) {
+   arr = [].concat(...arr);
+ }
+ console.log(arr);
+```
+
+
+
+```js
+// 5层let arr = [  [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+// 用toString 把所有数组转成字符串 1,2,2,3,4,5,5,6,7,8,9,11,12,12,13,14,10
+// 再用split用逗号分隔成数组, 这时候，数组里面的数字都是字符串类型的
+// 用map方法再把数组里面的字符串变成数字
+arr = arr.toString().split(",").map(item=>parseFloat(item)); 
+console.log(arr);
+```
+
+ 
+
+```js
+// 5层
+let arr = [
+  [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10
+];
+// JSON + 正则 (不推荐时候，f)
+arr = JSON.stringify(arr).replace(/(\[|\])/g,'').split(',').map(item=>parseFloat(item));
+
+console.log(arr);
+```
+
+
+
+### 斐波拉契数列
+
+请实现一个 `fibonacci[ˌfɪbəˈnɑːtʃi] ` 函数，要求试下你一下的功能：
+
+1. 斐波那契数列为：`[1, 1, 2, 3, 5, 8, 13, 21,...];`
+
+2. `fibonacci(0) ->(返回) 1` 传入的 0 是索引
+
+3. `fibonacci(4) ->(返回) 5` 传入的 4 是索引
+
+   ```js
+   function fb(n) {
+   	if (n === 1 || n === 2) {
+       return 1;
+   	}
+     return fb(n - 1) + fb(n - 2);
+   }
+   console.log(fb(3));
+   console.log(fb(6));
+   ```
+   
+   
+   
+   ```js
+   function fibonacci(n) {
+     // 如果索引小于等于1，那就等于1
+     if (n <= 1) return 1;
+   
+     let arr = [1, 1];
+     // i 存储的是我即将要创建多少个
+     let i = n + 1 - 2;
+     while (i > 0) {
+       let a = arr[arr.length-2],
+           b = arr[arr.length-1];
+       arr.push(a+b);
+       i--;
+     }
+     return arr[arr.length-1];
+   }
+   
+   console.log(fibonacci(5));
+   ```
+   
+   ```js
+   // 这种方式比较难
+   function fibonacci(count) {
+       // curr 是当前项，next 是下一项
+     function fn(count, curr = 1, next = 1) {
+       if (count ==0) {
+         return curr;
+       } else {
+         return fn(count -1, next, curr + next);
+       }
+     };
+     return fn (count);
+   }
+   console.log(fibonacci(5));
+   ```
+   
+   
+
+1. 实现`(5).add(3).minus(2)`，5+3-2 使其输出结果为：6
 
    5用括号包起来的原因：因为变量不能是数字开头。
 
@@ -530,11 +539,11 @@
 
    
 
-7. this += n 也就是 this = this + n;  这样会报错的，this 不能像变量一样赋值的。
+2. this += n 也就是 this = this + n;  这样会报错的，this 不能像变量一样赋值的。
 
-8. 如 `n = Number(n) && (isNaN(n) ? 0 : n);` n = Number(n) 赋值这个操作，永远都为 true。
+3. 如 `n = Number(n) && (isNaN(n) ? 0 : n);` n = Number(n) 赋值这个操作，永远都为 true。
 
-9. 如何把一个字符串的大小写取反(大写变小写，小写变大写)，例如：`"AbC"` 变成 `"aBc"`。
+4. 如何把一个字符串的大小写取反(大写变小写，小写变大写)，例如：`"AbC"` 变成 `"aBc"`。
 
    ```js
    let str = "AbcdEFg六六六！haha";
@@ -563,90 +572,90 @@
 
    
 
-10. 实现一个字符串匹配算法，从字符串 S 中，查找是否存在字符串 T，若存在返回所在位置，不存在返回-1！(如果不能基于 indexOf/includes 等内置的方法，你会如何处理？)
+5. 实现一个字符串匹配算法，从字符串 S 中，查找是否存在字符串 T，若存在返回所在位置，不存在返回-1！(如果不能基于 indexOf/includes 等内置的方法，你会如何处理？)
 
-    ```js
-    (function () {
-      /* 
-        循环原始字符串中的每一项，让每一项从当前位置向后截取T.length个字符，然后和T进行比较，如果不一样，继续循环; 如果不一样返回当前索引即可(循环结束);
-      */
-      function myIndexOf(T) {
-        // This是 字符串S
-        let lenT = T.length,
-          lenS = this.length, // this 是 S
-          res = -1;
-        for (let i = 0; i <= lenS - lenT; i++) {
-          if(this.substr(i, lenT) === T) {
-            res = i;
-            break;
-          }
-        }
-        return res;
-      }
-      String.prototype.myIndexOf = myIndexOf;
-    })();
-    
-    let S = "xiaozhupeiqi",
-      T = "pei";
-    console.log(S.myIndexOf(T)); // 7
-    ```
+   ```js
+   (function () {
+     /* 
+       循环原始字符串中的每一项，让每一项从当前位置向后截取T.length个字符，然后和T进行比较，如果不一样，继续循环; 如果不一样返回当前索引即可(循环结束);
+     */
+     function myIndexOf(T) {
+       // This是 字符串S
+       let lenT = T.length,
+         lenS = this.length, // this 是 S
+         res = -1;
+       for (let i = 0; i <= lenS - lenT; i++) {
+         if(this.substr(i, lenT) === T) {
+           res = i;
+           break;
+         }
+       }
+       return res;
+     }
+     String.prototype.myIndexOf = myIndexOf;
+   })();
+   
+   let S = "xiaozhupeiqi",
+     T = "pei";
+   console.log(S.myIndexOf(T)); // 7
+   ```
 
-    ```js
-    (function () {
-      /* 正则处理 */
-      function myIndexOf(T) {
-        // This是 字符串S
-        let reg = new RegExp(T),
-          res = reg.exec(this);
-        return res === null? -1 : res.index;
-      }
-      String.prototype.myIndexOf = myIndexOf;
-    })();
-    
-    let S = "xiaozhupeiqi",
-      T = "pei";
-    console.log(S.myIndexOf(T)); // 7
-    ```
+   ```js
+   (function () {
+     /* 正则处理 */
+     function myIndexOf(T) {
+       // This是 字符串S
+       let reg = new RegExp(T),
+         res = reg.exec(this);
+       return res === null? -1 : res.index;
+     }
+     String.prototype.myIndexOf = myIndexOf;
+   })();
+   
+   let S = "xiaozhupeiqi",
+     T = "pei";
+   console.log(S.myIndexOf(T)); // 7
+   ```
 
-    
+   
 
-11. 输出下面代码运行结果：
+6. 输出下面代码运行结果：
 
-    ```js
-    // example 1
-    var a = {}, b = '123', c = 123;
-    a[b] = 'b';
-    a[c] = 'c';
-    console.log(a[b]); // c
-    // 因为: a['123'] == a[123]
-    
-    // example 2
-    var a ={}, b = Symbol('123'), c = Symbol('123');
-    a[b] = 'b';
-    a[c] = 'c';
-    console.log(a[b]); // b
-    // Symbol是ES6中新增的数据类型 typeof Symbol('123') === "symbol"
-    // 它创建出来的值是唯一值：Symbol('123') === Symbol('123') // false
-    
-    // example 3
-    var a ={}, b = {key: '123'}, c = {key:'456'};
-    a[b] = 'b';
-    a[c] = 'c';
-    console.log(a[b]); // c
-    ```
+   ```js
+   // example 1
+   var a = {}, b = '123', c = 123;
+   a[b] = 'b';
+   a[c] = 'c';
+   console.log(a[b]); // c
+   // 因为: a['123'] == a[123]
+   
+   // example 2
+   var a ={}, b = Symbol('123'), c = Symbol('123');
+   a[b] = 'b';
+   a[c] = 'c';
+   console.log(a[b]); // b
+   // Symbol是ES6中新增的数据类型 typeof Symbol('123') === "symbol"
+   // 它创建出来的值是唯一值：Symbol('123') === Symbol('123') // false
+   
+   // example 3
+   var a ={}, b = {key: '123'}, c = {key:'456'};
+   a[b] = 'b';
+   a[c] = 'c';
+   console.log(a[b]); // c
+   ```
 
-    
+   
 
-12. 对象里面的属性是可以为数字的，用中括号来取就可以了：
+7. 对象里面的属性是可以为数字的，用中括号来取就可以了：
 
-    ```js
-    var obj = {100: 99}; 
-    console.log(obj[100]) // 99
-    ```
+   ```js
+   var obj = {100: 99}; 
+   console.log(obj[100]) // 99
+   ```
 
-    
+   
 
-13.  对象的属性名不能是一个对象(遇到对象属性名，会默认转换为字符串)：
+8.  对象的属性名不能是一个对象(遇到对象属性名，会默认转换为字符串)：
 
     ```js
     obj = {}
@@ -662,40 +671,39 @@
     console.log(obj.toString()) // "[object Object]"
     ```
 
-16. 不过 es6 中的 map 支持属性名是任意类型，包括对象，数组等。
+9. 不过 es6 中的 map 支持属性名是任意类型，包括对象，数组等。
 
-    - JavaScript 的对象（Object），本质上是键值对的集合（Hash 结构），但是传统上只能用字符串当作键。这给它的使用带来了很大的限制。
-    - 为了解决这个问题，ES6 提供了 Map 数据结构。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。也就是说，Object 结构提供了“字符串—值”的对应，Map 结构提供了“值—值”的对应，是一种更完善的 Hash 结构实现。如果你需要“键值对”的数据结构，Map 比 Object 更合适。
+   - JavaScript 的对象（Object），本质上是键值对的集合（Hash 结构），但是传统上只能用字符串当作键。这给它的使用带来了很大的限制。
+   - 为了解决这个问题，ES6 提供了 Map 数据结构。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。也就是说，Object 结构提供了“字符串—值”的对应，Map 结构提供了“值—值”的对应，是一种更完善的 Hash 结构实现。如果你需要“键值对”的数据结构，Map 比 Object 更合适。
 
-    ```js
-     //为什么会有Map，因为对象属性名称必须是字符串，如果是其他类型则不行
-    let p1 = { name: "lily" };
-    let obj1 = {
-        id: 1,
-        [p1]: "good"
-    }
-    console.log(obj1)
-    
-    // Map也是新增的数据结构  类似于对象
-    let mp1 = new Map([
-        ["a", 1],
-        ["b", 2],
-    ])
-    console.log(mp1)
-    
-    
-    
-    let p2 = { name: "lily" };
-    let mp2 = new Map([
-        ["a", 1],
-        [p2, 2],
-    ])
-    console.log(mp2)
-    ```
-
-    
-
-17. 在输入框中如何判断输入的是一个正确的网址，例如：用户输入一个字符串，验证是否符合 URL 网址的格式。
+   ```js
+   // 为什么会有Map? 因为对象属性名称必须是字符串，如果是其他类型则不行
+   let p1 = { name: "lily" };
+   let obj1 = {
+       id: 1,
+       [p1]: "good"
+   }
+   console.log(obj1)
+   
+   // Map也是新增的数据结构  类似于对象
+   let mp1 = new Map([
+       ["a", 1],
+       ["b", 2],
+   ])
+   console.log(mp1)
+   
+   
+   let p2 = { name: "lily" };
+   let mp2 = new Map([
+       ["a", 1],
+       [p2, 2],
+   ])
+   console.log(mp2)
+   ```
+   
+   
+   
+10. 在输入框中如何判断输入的是一个正确的网址，例如：用户输入一个字符串，验证是否符合 URL 网址的格式。
 
     ```js
     // 1. 协议:// http/https/ftp
@@ -721,7 +729,7 @@
 
     
 
-18. ```js
+11. ```js
     function Foo() {
       Foo.a = function () {
         console.log(1);
@@ -746,7 +754,7 @@
 
     
 
-19. 给定两个数组，写一个方法计算它们的交集
+12. 给定两个数组，写一个方法计算它们的交集
 
     ```js
     // 方法一：
@@ -785,7 +793,7 @@
 
     
 
-20. 给定两个数组，写一个方法计算它们的“**交差并补**”：
+13. 给定两个数组，写一个方法计算它们的“**交差并补**”：
 
     ```js
     var a = [1, 2, 3, 4, 5]
@@ -814,7 +822,7 @@
 
     
 
-21. 旋转数组
+14. 旋转数组
 
      给定一个数组，将数组中的元素向右移动 K 个位置，其中 K 是非负数
 
@@ -909,7 +917,7 @@
 
     
 
-22. 利用柯里化函数(函数柯里化：预先处理的思想(利用闭包的机制)。)实现：
+15. 利用柯里化函数(函数柯里化：预先处理的思想(利用闭包的机制)。)实现：
 
     请实现一个 add 函数，满足以下功能：
 
@@ -944,282 +952,289 @@
     console.log(add(1)(2)(3)); 
     ```
 
-    
 
-23. 一共有几种模块化语法：4种
+### js模块化
 
-    1. common.js：仅用于 Node
-    2. AMD：运用于浏览器(作为了解)
-    3. CMD：运用于浏览器(作为了解，sea.js)
-    4. ES6 modules： ES6 模块化
+1. 一共有几种模块化语法：4种
 
-    [模块化介绍](https://segmentfault.com/a/1190000017466120)
+   1. common.js：仅用于 Node
+   2. AMD：运用于浏览器(作为了解)
+   3. CMD：运用于浏览器(作为了解，sea.js)
+   4. ES6 modules： ES6 模块化
 
-24. es6 模块化(modules)语法关键字
+2. es6 模块化(modules)语法关键字
 
-    1. import
-    2. export
-    3. default
+   1. import
+   2. export
+   3. default
 
-25. es6 暴露方式：
+3. es6 暴露方式：
 
-    1. 默认暴露：`export default 100;`
+   1. 默认暴露：`export default 100;`
 
-       暴露出去的是什么？暴露出去的是：对象。真正暴露的这样的：`{default:100};`
+      暴露出去的是什么？暴露出去的是：对象。真正暴露的这样的：`{default:100};`
 
-       引入方式：
+      引入方式：
 
-       1. 简写方式：`import a from './path'`
-       2. 完整语法：`import {default as a} from './path'` default 是关键字，不能直接解构，给default 起了个别名叫作 a。
+      1. 简写方式：`import a from './path'`
+      2. 完整语法：`import {default as a} from './path'` default 是关键字，不能直接解构，给default 起了个别名叫作 a。
 
-    2. 分别暴露：`export const a = 100; export const b = 100;`
+   2. 分别暴露：`export const a = 100; export const b = 100;`
 
-       暴露出去的是什么？暴露出去的是：对象。真正暴露的内容：对象。`{a:100,b:100};`
+      暴露出去的是什么？暴露出去的是：对象。真正暴露的内容：对象。`{a:100, b:100};`
 
-       引入方式：
+      引入方式：
 
-       1. 简写方式：`import {a,b} from './path'` 
-       2. 完整语法：`import * as obj from './path'`
+      1. 简写方式：`import {a,b} from './path'` 
+      2. 完整语法：`import * as obj from './path'`
 
-    3. 统一暴露：`export default {a: 100, b: 100};`
+   3. 统一暴露：`export default {a: 100, b: 100};`
 
-       暴露出去的是什么？对象。
+      暴露出去的是什么？对象。
 
-26. 构造函数中的 new，是 js 中内置的。
+4. 构造函数中的 new，是 js 中内置的。
 
-    new 做了什么？
+   new 做了什么？
 
-    ​        1. 创建了一个对象
+   ​        1. 创建了一个对象
 
-    ​        2. 调用构造函数，并把构造函数的 this 指向了这个对象，这个对象就是当前实例
+   ​        2. 调用构造函数，并把构造函数的 this 指向了这个对象，这个对象就是当前实例
 
-    ​        3. 对象的隐式原型指向了当前函数的显式原型（构成原型链）
+   ​        3. 对象的隐式原型指向了当前函数的显式原型（构成原型链）
 
-    ​		 4. 判断构造函数的返回值，如果是基本类型，则正常返回实例化对象，如果是对象类型，则返回			  当前的对象 。
+   ​		 4. 判断构造函数的返回值，如果是基本类型，则正常返回实例化对象，如果是对象类型，则返回			  当前的对象 。
 
-    ```js
-    function _new(Fn, ...arg) {
-        let obj = {};
-        obj.__proto__ = Fn.prototype;
-        Fn.call(obj, ...arg);
-        return obj;
+   ```js
+   function _new(Fn, ...arg) {
+       let obj = {};
+       obj.__proto__ = Fn.prototype;
+       Fn.call(obj, ...arg);
+       return obj;
+   }
+   let sanmao = _new(Dog, '三毛');
+   ```
+
+   ```js
+   注意：
+   let obj = {};
+   obj.__proto__ = Fn.prototype;
+   可以改写为：
+   let obj = Object.create(Fn.prototype);
+   ```
+
+   
+
+### 数组合并
+
+```js
+// 方法一
+let ary1 = ['a1','a2','a3'];
+let ary2 = ['a','b'];
+let ary3 = ary1.concat(ary2);
+console.log(ary3)
+
+// 方法二：
+let arr1 = [1, 2, 3]
+let arr2 = [4, 5, 6]
+let arr3 = [...arr1, ...arr2]
+console.log('arr3', arr3)
+```
+
+```js
+// 需求：
+// 1. 合并数组
+// 2. a 到 a2的后面，b 到 b2 的后面, 一次类推
+let ary1 = ['a1','a2','b1','b2', 'c1','c2'];
+let ary2 = ['a','b','c'];
+ary2 = ary2.map(item => item + 'Z'); //这个Z只要大于2就行
+// console.log(ary2) // [ 'aZ', 'bZ', 'cZ' ]
+let arr = ary1.concat(ary2);
+// console.log(arr); // ['a1', 'a2', 'b1','b2', 'c1', 'c2','aZ', 'bZ', 'cZ']
+arr = arr.sort((a,b) =>a.localeCompare(b)).map(item => {
+  return item.replace('Z','')
+});
+console.log(arr); // 返回：['a1', 'a2', 'a', 'b1', 'b2', 'b', 'c1', 'c2', 'c']
+// 这种方法弊端：如果 'b1','b2' 在 'c1','c2' 的后面，那么会对数组的顺序产生影响
+```
+
+```js
+// 需求：
+// 1. 合并数组
+// 2. a 到 a2的后面，b 到 b2 的后面, 一次类推
+let ary1 = ["d1", "d2", "a1", "a2", "c1", "c2", "b1", "b2"];
+let ary2 = ["b", "a", "d", "c"];
+// 需求顺序：["d1", "d2", "d", "a1", "a2", "a", "c1", "c2", "c","b1", "b2", "b"]
+let n = 0; // 用来记录索引
+for (let i = 0; i < ary2.length; i++) {
+  let item2 = ary2[i];
+  for (let k = 0; k < ary1.length; k++) {
+    let item1 = ary1[k];
+    if (item1.includes(item2)) {
+      // k 是当前项在第一个数组中出现的索引，后面如果还有包含的会重新记录这个值
+      // 这个 k 记录的一定是最后一个包含的索引
+      n = k;
     }
-    let sanmao = _new(Dog, '三毛');
-    ```
+  }
+  // 把当前 item2 这一项插入到 ary1 中 N 的后面
+  ary1.splice(n + 1, 0, item2);
+}
+console.log(ary1); // ['d1', 'd2', 'd',  'a1','a2', 'a',  'c1', 'c2','c',  'b1', 'b2', 'b']
+```
 
-    ```js
-    注意：
-    let obj = {};
-    obj.__proto__ = Fn.prototype;
-    可以改写为：
-    let obj = Object.create(Fn.prototype);
-    ```
 
-    
 
-27. 数组合并
+1. 闭包题：
 
-    ```js
-    let ary1 = ['a1','a2','a3'];
-    let ary2 = ['a','b'];
-    let ary3 = ary1.concat(ary2);
-    console.log(ary3)
-    ```
+   ```js
+   for (var i = 0; i < 10; i++) {
+     setTimeout(() => {
+       console.log(i); // 10,10,10,10,10,10,10,10,10,10
+     }, 1000);
+   }
+   // 定时器执行时异步的，每一轮循环设置定时器，无需等定时器触发执行，继续下一轮循环(定时器触发的时候，循环已经结束了)
+   ```
 
-    ```js
-    // 需求：
-    // 1. 合并数组
-    // 2. a 到 a2的后面，b 到 b2 的后面, 一次类推
-    let ary1 = ['a1','a2','b1','b2', 'c1','c2'];
-    let ary2 = ['a','b','c'];
-    ary2 = ary2.map(item => item + 'Z'); //这个Z只要大于2就行
-    // console.log(ary2) // [ 'aZ', 'bZ', 'cZ' ]
-    let arr = ary1.concat(ary2);
-    // console.log(arr); // ['a1', 'a2', 'b1','b2', 'c1', 'c2','aZ', 'bZ', 'cZ']
-    arr = arr.sort((a,b) =>a.localeCompare(b)).map(item => {
-      return item.replace('Z','')
-    });
-    console.log(arr); // 返回：['a1', 'a2', 'a', 'b1', 'b2', 'b', 'c1', 'c2', 'c']
-    // 这种方法弊端：如果 'b1','b2' 在 'c1','c2' 的后面，那么会对数组的顺序产生影响
-    ```
+   ```js
+   // 通过块级作用域
+   for (let i = 0; i < 10; i++) {
+     setTimeout(() => {
+       console.log(i); // 0 1 2 3 4 5 6 7 8 9
+     }, 1000);
+   } 
+   // let是块级作用域，每一次循环都会把当前循环的变量值i,存入块级作用域中
+   // 当定时器执行的时候，所使用的 i，就是所处作用域中的 i。
+   ```
 
-    ```js
-    // 需求：
-    // 1. 合并数组
-    // 2. a 到 a2的后面，b 到 b2 的后面, 一次类推
-    let ary1 = ["d1", "d2", "a1", "a2", "c1", "c2", "b1", "b2"];
-    let ary2 = ["b", "a", "d", "c"];
-    // 需求顺序：["d1", "d2", "d", "a1", "a2", "a", "c1", "c2", "c","b1", "b2", "b"]
-    let n = 0; // 用来记录索引
-    for (let i = 0; i < ary2.length; i++) {
-      let item2 = ary2[i];
-      for (let k = 0; k < ary1.length; k++) {
-        let item1 = ary1[k];
-        if (item1.includes(item2)) {
-          // k 是当前项在第一个数组中出现的索引，后面如果还有包含的会重新记录这个值
-          // 这个 k 记录的一定是最后一个包含的索引
-          n = k;
-        }
-      }
-      // 把当前 item2 这一项插入到 ary1 中 N 的后面
-      ary1.splice(n + 1, 0, item2);
-    }
-    console.log(ary1); // ['d1', 'd2', 'd',  'a1','a2', 'a',  'c1', 'c2','c',  'b1', 'b2', 'b']
-    ```
+   ```js
+   // 通过 IIFE 自执行函数形成闭包
+   for (var i = 0; i < 10; i++) {
+     (function (i) {
+       setTimeout(() => {
+         console.log(i); // 0 1 2 3 4 5 6 7 8 9
+       }, 1000);
+     })(i);
+   }
+   ```
 
-    
+   ```js
+   // 箭头函数闭包写法：
+   for (var i = 0; i < 10; i++) {
+     setTimeout(((i) => {
+       return () => {
+         console.log(i); // 0 1 2 3 4 5 6 7 8 9
+       }
+     })(i), 1000);
+   }
+   
+   // 可以简写为：
+   for (var i = 0; i < 10; i++) {
+     setTimeout((i => () => console.log(i))(i),1000); 
+   }
+   // 0 1 2 3 4 5 6 7 8 9
+   ```
 
-28. 闭包题：
+   
 
-    ```js
-    for (var i = 0; i < 10; i++) {
-      setTimeout(() => {
-        console.log(i); // 10,10,10,10,10,10,10,10,10,10
-      }, 1000);
-    }
-    // 定时器执行时异步的，每一轮循环设置定时器，无需等定时器触发执行，继续下一轮循环(定时器触发的时候，循环已经结束了)
-    ```
+2. ```js
+   // 匿名函数
+   // 1. 本应匿名的函数如果设置了函数名，在外面还是无法调用，但是在当前函数里面是可以使用的
+   // 2. 而且类似于创建常量一样，这个名字存储的值，不能被再修改。(非严格模式下，不会报错，但是不会有任何的效果，在严格模式下直接报错，我们可以把AAA理解为是用 const 创建出来的)
+   
+   let fn = function AAA() {
+     console.log(AAA);
+   };
+   console.log(fn())
+   ```
 
-    ```js
-    // 通过块级作用域
-    for (let i = 0; i < 10; i++) {
-      setTimeout(() => {
-        console.log(i); // 0 1 2 3 4 5 6 7 8 9
-      }, 1000);
-    } 
-    // let是块级作用域，每一次循环都会把当前循环的变量值i,存入块级作用域中
-    // 当定时器执行的时候，所使用的 i，就是所处作用域中的 i。
-    ```
+3. 变量作用域
 
-    ```js
-    // 通过 IIFE 自执行函数形成闭包
-    for (var i = 0; i < 10; i++) {
-      (function (i) {
-        setTimeout(() => {
-          console.log(i); // 0 1 2 3 4 5 6 7 8 9
-        }, 1000);
-      })(i);
-    }
-    ```
+   ```js
+   var b = 10;
+   (function b() {
+     b = 20; // 这个名字存储的值，不能被再修改。
+     console.log(b); // 函数
+   })();
+   console.log(b); // 10 
+   ```
 
-    ```js
-    // 箭头函数闭包写法：
-    for (var i = 0; i < 10; i++) {
-      setTimeout(((i) => {
-        return () => {
-          console.log(i); // 0 1 2 3 4 5 6 7 8 9
-        }
-      })(i), 1000);
-    }
-    
-    // 可以简写为：
-    for (var i = 0; i < 10; i++) {
-      setTimeout((i => () => console.log(i))(i),1000); 
-    }
-    // 0 1 2 3 4 5 6 7 8 9
-    ```
+   ```js
+   var a = 10;
+   (function b(b) {
+     b = 20;
+     console.log(b); // 20 改为形参
+   })(a);
+   console.log(a); // 10 
+   ```
 
-    
+   ```js
+   var b = 10;
+   (function b() {
+     var b = 20;
+     console.log(b); // 20 // 声明 b (前面加var)
+   })();
+   console.log(b); // 10 
+   ```
 
-29. ```js
-    // 匿名函数
-    // 1. 本应匿名的函数如果设置了函数名，在外面还是无法调用，但是在当前函数里面是可以使用的
-    // 2. 而且类似于创建常量一样，这个名字存储的值，不能被再修改。(非严格模式下，不会报错，但是不会有任何的效果，在严格模式下直接报错，我们可以把AAA理解为是用 const 创建出来的)
-    
-    let fn = function AAA() {
-      console.log(AAA);
-    };
-    console.log(fn())
-    ```
+   
 
-30. 变量作用域
+4. == 比较
 
-    ```js
-    var b = 10;
-    (function b() {
-      b = 20; // 这个名字存储的值，不能被再修改。
-      console.log(b); // 函数
-    })();
-    console.log(b); // 10 
-    ```
+   == 进行比较的时候，如果左右两边数据类型不一样，则先转换为相同的数据类型，然后再进行比较
 
-    ```js
-    var a = 10;
-    (function b(b) {
-      b = 20;
-      console.log(b); // 20 改为形参
-    })(a);
-    console.log(a); // 10 
-    ```
+   1. {} == {} 两个对象进行比较，比较的是堆内存的地址
 
-    ```js
-    var b = 10;
-    (function b() {
-      var b = 20;
-      console.log(b); // 20 // 声明 b (前面加var)
-    })();
-    console.log(b); // 10 
-    ```
+   2. null == undefined 相等的 / null === undefined 不相等
 
-    
+   3. NaN == NaN 不相等 NaN 和谁都不相等 
 
-31. == 比较
+   4. [12] == "12" 对象和字符串比较，是把对象 toString() 转换为字符串后，再进行比较
 
-    == 进行比较的时候，如果左右两边数据类型不一样，则先转换为相同的数据类型，然后再进行比较
+   5. 剩余所有情况在进行比较的时候，都是转换为数字(前提是数据类型不一样)：
 
-    1. {} == {} 两个对象进行比较，比较的是堆内存的地址
+      - 对象转数字：先转换为字符串，然后在转换为数字。
+      - 字符串转数字：只要出现一个非数字字符，结果就是 NaN。
+      - 布尔转数字：true 为 1，false 为 0。
+      - null 转数字：0。
+      - undefined 转数字：NaN。
 
-    2. null == undefined 相等的 / null === undefined 不相等
+      ```js
+      [] == false
+      var a = Number([].toString()) == false 
+      // [].toString()是空字符串， 空数组转成数字为 0。
+      console.log(a); // true
+      
+      [12] == true
+      var a = Number([12].toString()) == true
+      console.log(a); // false
+      ```
+      
+      
 
-    3. NaN == NaN 不相等 NaN 和谁都不相等 
+5. a 在什么情况下，能让下面的条件成立？
 
-    4. [12] == "12" 对象和字符串比较，是把对象 toString() 转换为字符串后，再进行比较
+   ```js
+   // a 在什么情况下，能让下面的条件成立
+   // 方法一：
+   var a = {
+     n: 0,
+     toString: function () {
+       return ++this.n;
+     }
+   };
+   if (a == 1 && a == 2 && a == 3) {
+     console.log(1); // 1
+   }
+   ```
 
-    5. 剩余所有情况在进行比较的时候，都是转换为数字(前提是数据类型不一样)：
-
-       - 对象转数字：先转换为字符串，然后在转换为数字。
-       - 字符串转数字：只要出现一个非数字字符，结果就是 NaN。
-       - 布尔转数字：true 为 1，false 为 0。
-       - null 转数字：0。
-       - undefined 转数字：NaN。
-
-       ```js
-       [] == false
-       var a = Number([].toString()) == false // 空数组转成数字为 0。
-       console.log(a); // true
-       
-       [12] == true
-       var a = Number([12].toString()) == true
-       console.log(a); // false
-       ```
-
-       
-
-32. a 在什么情况下，能让下面的条件成立？
-
-    ```js
-    // a 在什么情况下，能让下面的条件成立
-    // 方法一：
-    var a = {
-      n: 0,
-      toString: function () {
-        return ++this.n;
-      }
-    };
-    if (a == 1 && a == 2 && a == 3) {
-      console.log(1); // 1
-    }
-    ```
-
-    ```js
-    // a 在什么情况下，能让下面的条件成立
-    // 方法二：
-    var a = [1, 2, 3];
-    a.toString = a.shift;
-    if (a == 1 && a == 2 && a == 3) {
-      console.log(1); // 1
-    }
-    ```
+   ```js
+   // a 在什么情况下，能让下面的条件成立
+   // 方法二：
+   var a = [1, 2, 3];
+   a.toString = a.shift;
+   if (a == 1 && a == 2 && a == 3) {
+     console.log(1); // 1
+   }
+   ```
 
 ****
 
@@ -1350,19 +1365,21 @@
     console.log(obj); // { '2': 1, '3': 2, length: 4, push: [Function: push] }
     ```
 
-    [详解地址(ctrl+左击)](https://www.bilibili.com/video/BV1Mf4y1r7xX?p=31&spm_id_from=pageDriver)
+    [视频详解(ctrl+左击)](https://www.bilibili.com/video/BV1Mf4y1r7xX?p=31&spm_id_from=pageDriver)
 
 33. 某公司 1 到 12 月份的销售额存在一个对象里面
 
-    如下：{
+    如下：
 
+    ```js
+    {
      1: 122,
-
      2: 123,
-
      5: 888
-
     },
+    ```
+
+    
 
     请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]
 
@@ -1427,7 +1444,7 @@
 
     2. ==
 
-       如：`100 == "100"; //true `
+       如：`100 == "100"; // true `
 
     3. if 语句和逻辑运算
 
@@ -1479,8 +1496,6 @@
 
        
 
-35. js 模拟实现 Array 的 sort 的方法：[博客地址](https://www.jb51.net/article/13113.htm)
-
 36. form 表单怎么阻止重复提交？
 
     **会引起表单重复提交的情况：**f5 刷新页面，点击浏览器后退，重复点击提交按钮。
@@ -1491,9 +1506,9 @@
     2. PRG 模式：表单提交后，redirect 到一个倒计时页面，或者信息提示页面，等有成功信息返回后，再跳转回之前页面。
     3. js 中设置标记为判断：
 
-    ```js
+    ```vue
     <script>
-        var isCommitted = false; // 表单是否已经提交标识，默认为 false
+      var isCommitted = false; // 表单是否已经提交标识，默认为 false
     	function doSubmit() {
             if(isCommitted == false) {
                 isCommitted = true; // 提交表单后，将表单是否已经提交标识设置为 true 
@@ -1516,7 +1531,7 @@
 
     1. 图片资源的压缩。
     2. 监听滚动条事件，当滚动条到底时，增加显示数据个数。
-    3. 可以使用虚拟列表，`Object.freeze` 冻结对象，`Object.preventExtentsion` 阻止对象扩展来阻止 vue 给每个对象加上 get,set，但是缺点是不能响应了。
+    3. 可以使用虚拟列表，`Object.freeze` 冻结对象，`Object.preventExtentsion` 阻止对象扩展来阻止 vue 给每个对象加上 get, set，但是缺点是不能响应了。
     4. icon 资源使用雪碧图。
     5. 开启 gzip 压缩("命令行执行：`npm i compression-webpack-plugin -D`")。
 
@@ -1556,7 +1571,7 @@
     function myFunction() {
         x = document.getElementById("demo")
         x.innerHTML = numbers.map(Math.sqrt);
-    }// 2,3,4,5
+    } // 2,3,4,5
     ```
 
     map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。

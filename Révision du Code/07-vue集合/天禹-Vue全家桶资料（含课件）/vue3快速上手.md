@@ -51,7 +51,18 @@
 12. 深层样式穿透，一起拿使用`/deep/` `>>>`，现在使用
 
     ```css
+    ::v-deep 第三方组件类名{
+          样式
+    }
     ::v-deep .el-form-item {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      color: #454545;
+    }
+    
+    或者使用
+    :deep(.el-form-item) {
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: rgba(0, 0, 0, 0.1);
       border-radius: 5px;
