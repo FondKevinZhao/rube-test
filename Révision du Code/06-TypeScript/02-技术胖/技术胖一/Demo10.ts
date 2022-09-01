@@ -26,13 +26,14 @@ class XiaoJieJie extends Lady {
 }
 
 const goddess = new XiaoJieJie();
+console.log(goddess)
 console.log(goddess.content);
 console.log(goddess.sayHello());
 console.log(goddess.sayLove()); */
 
 
 
-// 类的重写
+// 类的重写 --- 就是父元素的属性或者方法，在子类里面有相同的属性或者方法
 /* class Lady {
   content = 'Hi, 帅哥！';
   sayHello() {
@@ -48,6 +49,7 @@ class XiaoJieJie extends Lady {
   sayLove() {
     return 'I love you';
   }
+  content = 'good'
 }
 
 const goddess = new XiaoJieJie();
@@ -58,7 +60,7 @@ console.log(goddess.sayLove()); */
 
 
 // super 关键字
-class Lady {
+/* class Lady {
   content = 'Hi, 帅哥！';
   sayHello() {
     return this.content;
@@ -78,4 +80,4 @@ class XiaoJieJie extends Lady {
 }
 
 const goddess = new XiaoJieJie();
-console.log(goddess.sayGood());
+console.log(goddess.sayGood()); */

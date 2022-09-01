@@ -59,11 +59,11 @@ console.log(res); */
 
 
 // 泛型也支持类型推断
-function join<T, P>(first: T, second: P) {
+/* function join<T, P>(first: T, second: P) {
   return `${first}${second}`
 }
 
 // 调用的时候不进行类型定义，会自动推断
 // 鼠标放到join('abc', 1)，可以看到提示
 let res = join('abc', 1);
-console.log(res);
+console.log(res); */

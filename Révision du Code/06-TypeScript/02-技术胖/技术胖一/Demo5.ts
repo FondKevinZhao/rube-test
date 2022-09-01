@@ -34,7 +34,7 @@ sayHello(); */
   throw new Error();
   console.log('Hello World'); // 这句话永远也执行不到，这个时候可以在形参括号旁写一个never
 }
-// errorFunction(); */
+errorFunction(); */
 
 // 如果是个死循环，也会用到never
 /* function forNever(): never {
@@ -42,8 +42,8 @@ sayHello(); */
   while (true) {
     console.log('Hello World');
   }
-}
-// forNever(); */
+} */
+// forNever();
 
 
 
@@ -60,11 +60,22 @@ const total = add({ one: 1, two: 2 }); */
 const total = add({ one: 1, two: 4 });
 console.log(total); */
 
+// 或者使用接口的方式定义
+/* interface INumber {
+  one: number
+  two: number
+}
+function add({ one, two }: INumber) {
+  return one + two
+}
+const total = add({ one: 1, two: 4 });
+console.log(total); */
 
 
-// 您记住了，只要是对象的参数，直接在后面加冒号跟上上一个对象，给它加类型
-function getNumber({ one }: { one: number }) {
+
+// 您记住了，只要是对象的参数，直接在后面加冒号跟上一个对象，给它加类型
+/* function getNumber({ one }: { one: number }) {
   return one
 }
 const one = getNumber({ one: 1 });
-console.log(one);
+console.log(one); */

@@ -1,4 +1,9 @@
 // 类的构造函数 
+/* 
+  类中constructor函数就是构造函数
+  构造函数会在对象创建的时候调用
+*/
+
 // 注意：下面的public可以省略，因为默认就是public
 /* class Person {
   public name!: string;
@@ -23,6 +28,17 @@ console.log(person.name); */
 const person = new Person('jspang222');
 console.log(person.name); */
 
+// 上面的也可以这样写
+/* class Person {
+  name: string
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+const person = new Person('jspang333');
+console.log(person.name); */
+
 
 
 // 继承时的构造函数的写法
@@ -36,7 +52,7 @@ console.log(person.name); */
 
 class Teacher extends Person {
   constructor(public age: number) {
-    super('jspang333', '男'); // 因为父类中有name, 需要传递参数，不然会报错
+    super('jspang333', '男'); // 因为父类中有name和sex, 需要传递参数，不然会报错
   }
 }
 
@@ -44,6 +60,8 @@ const teacher = new Teacher(18);
 console.log(teacher.name);
 console.log(teacher.age);
 console.log(teacher.sex); */
+
+
 
 
 

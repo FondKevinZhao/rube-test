@@ -64,7 +64,7 @@ person.name = 'jspang';
 
 class Teacher extends Person {
   public sayGood() {
-    return super.sayHello()
+    return super.sayHello() // 子类中访问父类的 protected 方法
   }
 }
 

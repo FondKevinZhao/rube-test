@@ -1,11 +1,11 @@
 // 联合类型和类型保护/类型断言
 interface Waiter {
-  anjiao: boolean; // 按脚
+  shangcai: string;
   say: () => {}
 }
 
 interface Teacher {
-  anjiao: boolean;
+  anjiao: boolean; // 按脚
   skill: () => {}
 }
 
@@ -15,11 +15,11 @@ function judgeWho(animal: Waiter | Teacher) {
   // animal.say(); // 直接写会报错
 
   // 解决方法一：类型守护/类型断言
-  /* if (animal.anjiao) {
+  if ((animal as any).anjiao) {
     (animal as Teacher).skill()
   } else {
     (animal as Waiter).say()
-  } */
+  }
 
   // 解决方法二：
   /* if ('skill' in animal) {

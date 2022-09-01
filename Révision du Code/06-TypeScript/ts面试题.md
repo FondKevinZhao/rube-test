@@ -92,6 +92,13 @@ var sisterAn = Color.Red
 - Contravariant 逆变，禁用`strictFunctionTypes`编译，函数参数类型是逆变的，父类 <= 子类，是错误。子类 <= 父类，是可以的。
 - Bivariant 双向协变，函数参数的类型默认是双向协变的。父类 <= 子类，是可以的。子类 <= 父类，是可以的。
 
+#### 9. 变量后面的感叹号的意思
+
+- 用在变量前表示取反
+- 用在赋值的内容后时，使null和undefined类型可以赋值给其他类型并通过编译，表示该变量值可空
+
+在TypeScript中，后缀!从表达式的类型中删除null和undefined。
+
 [ts面试题50个](https://blog.csdn.net/weixin_44727080/article/details/123108565)
 
 [30道TypeScript 面试问题解析](https://cloud.tencent.com/developer/article/1848651)

@@ -15,16 +15,28 @@ const arr1 = [1, 'string', 2];
 
 
 // 数组中包含对象
-const xiaojiejies: { name: string, age: number }[] = [
+/* const xiaojiejies: { name: string, age: number }[] = [
   { name: '刘英', age: 18 },
   { name: '谢大脚', age: 28 },
 ]
-console.log(xiaojiejies);
+console.log(xiaojiejies); */
+
+// 接口的写法
+/* interface IXiaoJieJie {
+  name: string
+  age: number
+}
+const xiaojiejies: IXiaoJieJie[] = [
+  { name: '刘英', age: 18 },
+  { name: '谢大脚', age: 28 },
+]
+console.log(xiaojiejies); */
+
 
 
 
 // 数组中包含对象 - type alias 类型别名的写法
-type Lady = {
+/* type Lady = {
   name: string,
   age: number
 }
@@ -32,16 +44,17 @@ const xiaojiejies2: Lady[] = [
   { name: '刘英', age: 18 },
   { name: '谢大脚', age: 28 },
 ]
-console.log(xiaojiejies2);
+console.log(xiaojiejies2); */
 
 
 
-// 数组中包含对象 - 用类的方式 -- 打印不出来，不知道为啥,好像是不能这样写了，以前可以
+// 数组中包含对象 - 用类的方式 -- 打印不出来，不知道为啥, 好像是不能这样写了，以前可以
+// 查了一些资料，没找到这种写法
 /* class Madam {
   name: string;
   age: number;
 }
-const xiaojiejies3: Madam[] = [
+let xiaojiejies3: Madam[] = [
   { name: '刘英', age: 18 },
   { name: '谢大脚', age: 28 },
 ]

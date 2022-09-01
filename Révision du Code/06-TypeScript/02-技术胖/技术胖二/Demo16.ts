@@ -35,8 +35,8 @@ console.log(`我要去${result}`); */
 
 
 
-// 高级程序员的写法
-enum Status {
+// 高级程序员的写法 --- 枚举，默认从0开始
+/* enum Status {
   MASSAGE,
   SPA,
   DABAOJIAN
@@ -57,4 +57,4 @@ console.log(`我要去${result}`);
 console.log(Status.MASSAGE);
 console.log(Status.SPA);
 console.log(Status.DABAOJIAN);
-console.log(Status[1]); // 反查
+console.log(Status[1]); // 反查 */

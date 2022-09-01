@@ -57,10 +57,13 @@ console.log('userName', userName); */
 
 // 元组：已知元素的数组(我知道数组里面有什么玩意儿的一个数组)
 /* let typeArr: [string, number, boolean, string];
-// typeArr = ['小肖', 20, true]; // 如果写了多少的元素，你都要写全，不然也会报错
+// typeArr = ['小肖', 20, true]; // 只要元组中有的类型，数组中都要写全，不然也会报错
+// typeArr = ['小肖', 20, '3', true]; // 元组和数组中的类型是对应的，如果同一个位置的类型和值不同都会报错
+
 // typeArr = ['小肖', 20, true,'aa', 11];  // 写多了也不行
-typeArr = ['小肖', 20, true, 'aa']; // 写全就不会报错了
+// typeArr = ['小肖', 20, true, 'aa']; // 写全就不会报错了
 console.log('typeArr', typeArr); */
+
 
 
 // 枚举
@@ -84,7 +87,8 @@ console.log(typeS); */
   "账号错误" = 206 // 账号错误 206
 }
 console.log(msgs);
-console.log(msgs[206]); */
+console.log(msgs[206]);
+console.log(msgs['账号错误']); */
 
 
 
@@ -153,13 +157,14 @@ obj.color = 'red'; */
 */
 
 // 接口之：函数类型
-// 想要给定一个包含函数的接口可以直接定义某个属性的值是一个Function类型，但是如果还需要限定函数的参数就需要使用特定的表达式。它就像是一个只有参数列表和返回值类型的函数定义。参数列表里的每个参数都需要名字个类型。
+// 想要给定一个包含函数的接口可以直接定义某个属性的值是一个Function类型，但是如果还需要限定函数的参数就需要使用特定的表达式。它就像是一个只有参数列表和返回值类型的函数定义。参数列表里的每个参数和返回值都需要明确类型。
 /* interface IsayHi {
   (str: string): string
 }
-var fun1: IsayHi = (userName: string) => `hi~~${userName}`
+var fun1: IsayHi = (userName: string):string => `hi~~${userName}`
+console.log(fun1('good')) */
 
-interface IuserInfo {
+/* interface IuserInfo {
   name: string,
   sayHi(): void
 }
@@ -171,7 +176,7 @@ var user: IuserInfo = {
 
 
 // 接口之：继承接口
-// 接口继承就是从一个接口里复制成员的嗷另一个接口里，可以更灵活地将接口分割到可重用的模块里
+// 接口继承就是从一个接口里复制成员到另一个接口里，可以更灵活地将接口分割到可重用的模块里
 /* interface IuserName {
   name: string,
 }
@@ -232,7 +237,9 @@ console.log(Ninfo); */
 }
 
 let TinaInfo = new UserInfo('张三')
-TinaInfo.getName() */
+console.log('TinaInfo', TinaInfo)
+let res = TinaInfo.getName()
+console.log(res) */
 
 
 
@@ -274,6 +281,7 @@ console.log('count1', count1); */
 
 const count1 = getNum(1, 3, 5, 7, 9);
 console.log('count1', count1); */
+
 
 
 

@@ -1,12 +1,15 @@
 // 类的Getter、Setter和static
-/* class XiaoJieJie {
-  constructor(private _age: number) { }
+class XiaoJieJie {
+  constructor(private _age: number) {
+    console.log(_age)
+  }
   get age() {
     return this._age - 10;
   }
 
   set age(age: number) {
     this._age = age + 3;
+    console.log('this._age', this._age)
   }
 }
 
@@ -14,7 +17,7 @@ const dajiao = new XiaoJieJie(28)
 console.log(dajiao.age)
 
 dajiao.age = 25
-console.log(dajiao.age) */
+console.log(dajiao.age)
 
 
 

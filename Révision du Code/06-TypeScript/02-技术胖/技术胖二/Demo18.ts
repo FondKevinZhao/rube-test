@@ -53,9 +53,10 @@ class SelectGirl<T extends Girl> {
 }
 
 const arr = [
-  {name: '大脚'},
-  {name: '刘英'},
-  {name: '晓红'},
+  { name: '大脚' },
+  { name: '刘英' },
+  { name: '晓红' },
 ]
 const selectGirl = new SelectGirl(arr);
+console.log(selectGirl)
 console.log(selectGirl.getGirl(1)); */

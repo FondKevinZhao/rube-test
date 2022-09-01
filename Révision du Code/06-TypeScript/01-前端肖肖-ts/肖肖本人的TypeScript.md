@@ -155,7 +155,7 @@ var fun:Function = ()=>{};
 
 使用接口（Interfaces）来定义对象的类型。除了可用于对类的一部分行为进行抽象以外，也常用于对**对象数据**进行描述
 
-使用**interface** 关键字定义一个必须包含`name`属性且值是`sting`类型的接口
+使用**interface** 关键字定义一个必须包含`name`属性且值是`string`类型的接口
 
 ```js
 interface IuserName {
@@ -165,7 +165,6 @@ interface IuserName {
 let userName: IuserName = {
     name:"张三"
 }
-
 ```
 
 
@@ -184,7 +183,6 @@ let userName:IuserName = {
     name:"张三",
     age:18,
 }
-
 ```
 
 
@@ -209,7 +207,6 @@ let userName:IuserName = {
 userName.name="张三"
 userName.age=19
 userName.type=1 // 报错
-
 ```
 
 
@@ -267,7 +264,6 @@ let userName:IuserName = {
     sex:1,
     phone:123456
 }
-
 ```
 
 
@@ -382,7 +378,7 @@ class Zhaoxi extends UserInfo {
     }
     sayHi(){
         console.log("欢迎");
-         console.log(this.userName);
+        console.log(this.userName);
     }
 }
 
@@ -415,7 +411,7 @@ let add: (x: number, y: number) => number = function(x: number, y: number): numb
 
 #### 可选参数
 
-一般情况下ts定义的函数参数都是必穿的，如果想要参数成为可选参数则需要特殊定义
+一般情况下ts定义的函数参数都是必传的，如果想要参数成为可选参数则需要特殊定义
 
 可选参数必须跟在必须参数后面
 
@@ -426,7 +422,6 @@ function buildName(firstName: string, lastName?: string) {
     else
         return firstName;
 }
-
 ```
 
 ```js
@@ -475,35 +470,36 @@ console.log(getName<string>('tina'));
 如果是需要定义数组内的数据类型，则可以把泛型变量T当做类型的一部分使用，而不是整个类型，增加了灵活性
 
 ```JS
- function LogList<T>(arr:T[]) :T[] {
-     return arr
- }
+function LogList<T>(arr:T[]) :T[] {
+   return arr
+}
 
- LogList([1,2,3,4])
+LogList([1,2,3,4])
+LogList<number>([1,2,3,4])
+
 //报错，定义了类型为number后不能再传string类型
- LogList<number>(['1','3','4'])
- LogList<number>([1,2,3,4])
+LogList<number>(['1','3','4'])
 ```
 
 ### 泛型接口
 
 ```JS
- interface ConfigInt {
-     <T>(userName:T):T
- }
- 
+interface ConfigInt {
+   <T>(userName:T):T
+}
+
 const getName:ConfigInt = <T>(userName:T):T=>userName
 
-const username:string =  getName('Tina')
+const username:string = getName('Tina')
 ```
 
-```
- interface ConfigInt<T> {
-     (userName:T):T
- }
- const getName:ConfigInt<string> =<T>(userName:T):T=>userName
+```js
+interface ConfigInt<T> {
+   (userName:T):T
+}
+const getName:ConfigInt<string> = <T>(userName:T):T=>userName
 
-const username:string =  getName("tina")
+const username:string = getName("tina")
 ```
 
 
@@ -535,7 +531,7 @@ interface Lengthwise {
     length: number;
 }
 
-function getName<T extends Lengthwise >(arg:T):T {
+function getName<T extends Lengthwise>(arg:T):T {
     console.log(arg.length);
     return arg
 }
@@ -553,10 +549,10 @@ getName({name:"tina",length:1})
 
 ```JS
 enum Direction {
-    Up = 1,
-    Down,
-    Left,
-    Right
+  Up = 1,
+  Down,
+  Left,
+  Right
 }
 ```
 
@@ -681,6 +677,29 @@ const stu: StudentInfo = {
 }
 ```
 
+也可以使用接口继承的方式得到上面的结果
+
+```js
+interface Person {
+  name: string
+  age: number
+}
+
+interface Student extends Person {
+  school: string
+}
+
+// type StudentInfo = Person & Student
+
+let stu: Student = {
+  name: '张三',
+  age: 20,
+  school: '北大',
+}
+
+console.log(stu)
+```
+
 
 
 ### 联合类型
@@ -756,7 +775,7 @@ f(1, undefined);
 ```
 
 ```JS
-lass C {
+class C {
     a: number;
     b?: number;
 }

@@ -29,7 +29,7 @@ console.log(person._name); */
 
 // 抽象类
 abstract class Girl {
-  // sbstract 一般都紧跟着一个抽象的方法
+  // abstract 一般都紧跟着一个抽象的方法
   // 这里的any仍然不能少
   abstract skill(): any; // 这只是一个抽象的方法，里面有什么内容我们不确定，所以后面没有花括号
 }

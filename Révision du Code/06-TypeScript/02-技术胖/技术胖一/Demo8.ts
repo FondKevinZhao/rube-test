@@ -1,7 +1,7 @@
 // 初识接口1 Interface
 
 /* const screenResume = (name: string, age: number, bust: number) => {
-  // bust 胸围
+  // bust /bʌst/ 胸围
   age < 24 && bust >= 90 && console.log(name + '进入面试');
   age > 24 && bust < 90 && console.log(name + '你被淘汰');
 }
@@ -20,7 +20,7 @@ getResume('大脚', 18, 94); */
   name: string;
   age: number;
   bust: number;
-  waistline?: number; // 可选值
+  waistline?: number; // 可选值 // waistline：腰围
 }
 const girl = {
   name: '大脚',

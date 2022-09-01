@@ -1,4 +1,4 @@
-// Static Typing 静态类型，一旦定义就永远不能再修改
+// Static Typing 静态类型，一旦定义就永远不能再修改类型
 let count: number = 1;
 count = 5; // 这样可以
 // count = 'jspang'; // 这样不可以
