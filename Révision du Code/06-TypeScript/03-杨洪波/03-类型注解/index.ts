@@ -18,15 +18,15 @@
   // 把msg变成一个数组
   let msg = [10, 20, 30];
   // 智能的错误提示信息
-  console.log(showMsg(msg)); // 调用会报错
+  // console.log(showMsg(msg)); // 调用会报错
 })() */
 
 
 // type 使用：type叫作类型别名，相当于是给某种类型取了一个外号
-type List = object[]
+/* type List = object[]
 type Nubmerable = number | string
 
 interface ListModel {
   total: Nubmerable
   list: List
-}
+} */
