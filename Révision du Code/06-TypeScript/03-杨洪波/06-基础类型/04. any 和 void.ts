@@ -22,8 +22,8 @@ console.log(arr1[1].split('')); */
 
 // void类型：在函数声明的时候，小括号的后面使用:void，代表的是该函数没有任何的返回值
 // 当一个函数没有返回值的时候使用
-function showMsg(): void {
+/* function showMsg(): void {
   console.log('只要富婆把握住，连夜搬进大别墅');
 }
 showMsg();
-console.log(showMsg()); // 函数没有返回值，所以返回的结果为undefined，没毛病
+console.log(showMsg()); // 函数没有返回值，所以返回的结果为undefined，没毛病 */

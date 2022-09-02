@@ -1,6 +1,6 @@
 // 联合类型（Union Types）表示取值可以为多种类型中的一种
 // 需求1: 定义一个函数得到一个数字或字符串值的字符串形式值
-/* function getString(str:number | string):string {
+/* function getString(str: number | string): string {
   return str.toString();
 }
 console.log(getString(123));
@@ -66,14 +66,14 @@ console.log(getString('123')); */
 
 
 // 类型推断: TS会在没有明确的指定类型的时候推测出一个类型
-let txt = 100;
+/* let txt = 100;
 console.log(txt); // 鼠标放到txt上可以看到txt的类型，这就是类型推断
 
 // 下面的代码就会推断出报错
-/* let txt1 = 200;
-txt1 = 'hello';
-console.log(txt1);  */
+// let txt1 = 200;
+// txt1 = 'hello';
+// console.log(txt1);
 
 // 定义变量未赋值，那么会认为是any类型的
 let txt2;
-console.log(txt2); 
+console.log(txt2); */
