@@ -789,8 +789,8 @@ module.exports = {
    	:to="{
    		path:'/home/message/detail',
    		query:{
-   		   id:666,
-               title:'你好'
+   		  id:666,
+         title:'你好'
    		}
    	}"
    >跳转</router-link>
@@ -821,7 +821,7 @@ module.exports = {
       			component:Test,
       			children:[
       				{
-                            name:'hello' //给路由命名
+                name:'hello' //给路由命名
       					path:'welcome',
       					component:Hello,
       				}
@@ -846,7 +846,7 @@ module.exports = {
       		name:'hello',
       		query:{
       		   id:666,
-                  title:'你好'
+             title:'你好'
       		}
       	}"
       >跳转</router-link>
@@ -934,6 +934,8 @@ module.exports = {
 
 ### 8.```<router-link>```的replace属性
 
+​	`<router-link>`为声明式路由导航
+
 1. 作用：控制路由跳转时操作浏览器历史记录的模式
 2. 浏览器的历史记录有两种写入方式：分别为```push```和```replace```，```push```是追加历史记录，```replace```是替换当前记录。路由跳转时候默认为```push```
 3. 如何开启```replace```模式：```<router-link replace .......>News</router-link>```
@@ -948,18 +950,18 @@ module.exports = {
    //$router的两个API
    this.$router.push({
    	name:'xiangqing',
-   		params:{
-   			id:xxx,
-   			title:xxx
-   		}
+   	params:{
+   		id:xxx,
+   		title:xxx
+   	}
    })
    
    this.$router.replace({
    	name:'xiangqing',
-   		params:{
-   			id:xxx,
-   			title:xxx
-   		}
+   	params:{
+   		id:xxx,
+   		title:xxx
+   	}
    })
    this.$router.forward() //前进
    this.$router.back() //后退

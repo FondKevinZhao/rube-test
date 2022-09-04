@@ -24,9 +24,15 @@
 
 6. 移除了键盘事件中的用KeyCode码来代替键盘上的键名的做法，原因是因为数字语义不太好。
 
-7. v-if 和 v-for 同时存在于一个标签内，执行顺序对调了。vue2 是先执行的 v-for 再执行 v-if，vue3 是执行 v-if，再执行 v-for。
+   ```js
+   <input type="text" placeholder="按回车键提示" @keyup.13="getInfo">
+   ```
 
-8. beforDestroy 和 destroyed 改为了 beoreUnmount 和 unmounted
+   
+
+7. v-if 和 v-for 同时存在于一个标签内，执行顺序对调了。vue2 是先执行的 v-for 再执行 v-if，vue3 是先执行 v-if，再执行 v-for。
+
+8. 生命周期中的beforDestroy 和 destroyed 改为了 beforeUnmount 和 unmounted
 
 9. slot=“abc” 不生效了。要使用v-slot:abc
 
@@ -106,6 +112,25 @@
     ```
 
     [博客地址](https://blog.csdn.net/weixin_44869002/article/details/113176068)
+
+14. 移除了$children，我们可以通过ref来获取子组件实例
+
+15. vue2中默认插槽不用加上#default，vue3默认插槽需要加上#default才会生效
+
+    ```vue
+    // 父组件
+    <A>
+      <template #default> 我是默认插槽内容 </template>
+    </A>
+    
+    // 子组件
+    <div class="a">
+      <div>我是A子组件</div>
+      <slot></slot>
+    </div>
+    ```
+
+    
 
 14. 
 

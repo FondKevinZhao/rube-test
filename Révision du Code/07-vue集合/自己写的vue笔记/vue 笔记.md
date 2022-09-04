@@ -785,18 +785,109 @@
     - 数据劫持(数据劫持就是在创建响应式属性)。
     - 属性值更新的时候(由于更新响应式属性会触发 set 方法，内部会对新的属性值进行深度数据劫持)。
 
-90. **父组件给子组件传最好的方式用：**props，插槽，ref，`$parent`/`$children`。
+90. **父组件给子组件传最好的方式用：**props，插槽，`$parent`/`$children`。
     
-    父子：ref, `$parent`/`$children`
+    父子：`$parent`/`$children`
     1. $parent 可以获取父组件的实例。
-    2. $children 可以获取当前组件的所有子组件实例。
     
-    **子组件给父组件传参：**自定义事件。
+    2. $children 可以获取当前组件的所有子组件实例。(vue3中没有`$children`，如果你需要访问子组件实例，我们建议使用`ref`)
+    
+       [vue3获取ref元素](https://zhuanlan.zhihu.com/p/527995785)
+    
+    **子组件给父组件传参：**自定义事件，props，ref。
+    
+    ```vue
+    // 父组件 APP
+    <div class="app">
+    		<h1>{{msg}}，学生姓名是:{{studentName}}</h1>
+    		<!-- 通过父组件给子组件传递函数类型的props实现：子给父传递数据 -->
+    		<School :getSchoolName="getSchoolName"/>
+    		<!-- 通过父组件给子组件绑定一个自定义事件实现：子给父传递数据（第一种写法，使用@或v-on）-->
+    		<Student @atguigu="getStudentName" @demo="m1"/>
+    		<!-- 通过父组件给子组件绑定一个自定义事件实现：子给父传递数据（第二种写法，使用ref）-->
+    		<Student ref="student" @click.native="show"/>
+    </div>
+    ```
+    
+    ```vue
+    // 子组件 Student
+    <button @click="sendStudentlName">把学生名给App</button>
+    
+    sendStudentlName(){
+      // 触发Student组件实例身上的atguigu事件
+      this.$emit('atguigu',this.name,666,888,900)
+      // this.$emit('demo')
+      // this.$emit('click')
+    },
+    ```
+    
+    ```vue
+    // 子组件 School
+    <button @click="sendSchoolName">把学校名给App</button>
+    
+    sendSchoolName(){
+      this.getSchoolName(this.name)
+    }
+    ```
+    
+    下面这里是vue3中 expose / ref 父获取子得属性或方法
+    
+    expose / ref 主要用于父组件获取子组件的属性或方法。在子组件中，向外暴露出属性或方法，父组件便可以使用 ref 获取到子组件身上暴露的属性或方法。
+    
+    ```vue
+    <template>
+      <div>父组件：拿到子组件的message数据：{{ msg }}</div>
+      <button @click="callChildFn">调用子组件的方法</button>
+    
+      <hr />
+    
+      <Child ref="com" />
+    </template>
+    
+    <script setup>
+      import Child from './child.vue';
+    
+      const com = ref(null); // 通过 模板ref 绑定子组件
+    
+      const msg = ref('');
+    
+      onMounted(() => {
+        // 在加载完成后，将子组件的 message 赋值给 msg
+        msg.value = com.value.message;
+      });
+    
+      function callChildFn() {
+        console.log(com.value, '====');
+        // 调用子组件的 changeMessage 方法
+        com.value.show();
+    
+        //  重新将 子组件的message 赋值给 msg
+        msg.value = com.value.message;
+      }
+    </script>
+    
+    子组件：
+    <template>
+      <div> 子组件：</div>
+    </template>
+    <script setup>
+      const message = ref('子组件传递得信息');
+      const show = () => {
+        console.log('子组件得方法');
+      };
+      defineExpose({
+        message,
+        show,
+      });
+    </script>
+    ```
+    
+    
     
     **爷孙组件传参：**`$attrs/$listeners`，provide/inject
     
     1. $attrs 中包含了所有父作用域中所有未进行 prop 生命的属性，class 和 style 除外。
-    2. $listeners 中包含了父作用域中不含 .native 修饰器的所有 v-on 事件。
+    2. $listeners 中包含了父作用域中不含 .native 修饰器的所有 v-on 事件。(vue3中已经移除，全部交给`$attrs处理`)
     
     
     provide/inject:

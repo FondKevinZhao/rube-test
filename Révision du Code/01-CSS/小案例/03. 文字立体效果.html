@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      h1 {
+        outline: none;
+        /* contenteditable在编辑状态的时候，会带上一个编辑框。user-select隐藏编辑框 */
+        user-select: none;
+        font-size: 5em;
+        text-shadow: -1px -1px #bbb, -2px -2px #bbb, -3px -3px #bbb,
+          -4px -4px #bbb, -5px -5px #bbb, -6px -6px #bbb, -7px -7px #bbb;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- contenteditable 文字是否可编辑 -->
+    <h1 contenteditable>This is 3D text</h1>
+  </body>
+</html>
