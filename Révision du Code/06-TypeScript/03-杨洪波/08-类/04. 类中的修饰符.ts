@@ -26,7 +26,7 @@ class Person {
 
 // 实例对象
 const per = new Person('大蛇丸');
-// 在类的外部可以方位类中的属性成员
+// 在类的外部可以访问类中的属性成员
 console.log(per.name);
 per.eat(); */
 

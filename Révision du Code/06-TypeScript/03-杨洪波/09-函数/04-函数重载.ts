@@ -24,7 +24,7 @@ console.log(add('诸葛', '孔明')); */
 // 函数重载声明
 function add(x: string, y: string): string;
 function add(x: number, y: number): number;
-function add(x: string | number, y: string | number): any {
+function add(x: string | number, y: string | number): number | string | undefined {
   // return x + y; // 直接这么写会报错，因为x或y可能是字符串或者数字，到底是要拼接还是要相加，会不确定，那么就会报错
 
   // 判断

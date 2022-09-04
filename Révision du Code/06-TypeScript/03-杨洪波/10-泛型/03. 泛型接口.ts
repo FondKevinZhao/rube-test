@@ -30,8 +30,8 @@ class UserCRUD implements IBaseCRUD<User> {
   };
   // 方法根据id查询指定的用户信息对象
   getUserId(id: number): User {
-    // 这里会报错
-    // return this.data.find(user => user.id === id)
+    // 类型断言
+    return (this.data as Array<any>).find(user => user.id === id)
   };
 }
 

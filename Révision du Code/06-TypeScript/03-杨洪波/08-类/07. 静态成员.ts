@@ -40,7 +40,7 @@ class Person {
 // const person: Person = new Person();
 
 // 通过类名.静态属性的方式来访问该成员数据
-console.log(Person.name1);  // 会报错
+console.log(Person.name1); 
 // 通过类名.静态方法的方式来访问该成员数据
 Person.sayHi();
 
