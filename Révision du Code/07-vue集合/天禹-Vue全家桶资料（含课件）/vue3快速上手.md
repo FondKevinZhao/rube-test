@@ -710,8 +710,7 @@ export default {
   // name1不是响应式的
   const name1 = person.name
   // name2是响应式的
-  cosnt name2 = toRef(person, 'name')
-  
+  const name2 = toRef(person, 'name')
   
   // 数据不是响应式的(一旦改变，页面改变，原数据不改变)
   return {
@@ -730,9 +729,9 @@ export default {
     ...toRefs(person)
   }
   ```
-
   
-
+  
+  
 - 应用:   要将响应式对象中的某个属性单独提供给外部使用时。
 
 
