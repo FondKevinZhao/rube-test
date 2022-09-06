@@ -194,11 +194,11 @@ function infiniteLoop(): never {
 
 ```ts
 let num = 7;
-num = "7"; // error
+num = "7"; // 不能将类型“string”分配给类型“number”
 
 // 上面代码等价于
 let num: number = 7;
-num = "7"; // error
+num = "7"; // 不能将类型“string”分配给类型“number”
 ```
 
 如果定义的时候没有赋值，不管之后有没有赋值，都会被推断成 any 类型而完全不被类型检查
@@ -552,6 +552,13 @@ function isFish(animal: Cat | Fish) {
   }
   return false;
 }
+let obj = {
+  name: 'zs',
+  run: function () {
+    console.log('aa')
+  }
+}
+console.log(isFish(obj)); // false
 ```
 
 - 将一个父类断言为更加具体的子类
@@ -594,7 +601,7 @@ function isApiError(error: Error) {
 - declare global 扩展全局变量
 - declare module 扩展模块
 - /// <reference /> 三斜线指令
-  - 三斜线指令是包含单个XML标签的单行注释。 注释的内容会做为编译器指令使用。
+  - 三斜线指令是包含单个XML标签的单行注释。 注释的内容会作为编译器指令使用。
   - 三斜线引用告诉编译器在编译过程中要引入的额外的文件。
 
 2. 第三方声明文件

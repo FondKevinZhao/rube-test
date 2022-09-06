@@ -14,7 +14,7 @@
 ### 自己添加的内容：
 1. 组建中可以不需要一个根标签包裹了。
 
-2. 取消了全局事件总线。在*Vue3*中,从实例中完全*移除了* `$on`、`$off` 和 `$once` 方法。`$emit` 仍然包含于现有的 API 中。
+2. 取消了全局事件总线。在*Vue3*中，从实例中完全*移除了* `$on`、`$off` 和 `$once` 方法。`$emit` 仍然包含于现有的 API 中。
 
 3. 取消了项目中的生产提示 ：`Vue.config.productionTip = false`
 
@@ -22,7 +22,7 @@
 
 5. 删除了在组件上使用原生的事件时，需要加上.native的做法。
 
-6. 移除了键盘事件中的用KeyCode码来代替键盘上的键名的做法，原因是因为数字语义不太好。
+6. 移除了键盘事件中的用KeyCode码来代替键盘上的键名的做法，原因是因为数字语义不够明确。
 
    ```js
    <input type="text" placeholder="按回车键提示" @keyup.13="getInfo">
@@ -228,7 +228,7 @@ npm run dev
 
 1. 理解：Vue3.0中一个新的配置项，值为一个函数。
 2. setup是所有<strong style="color:#DD5145">Composition API（组合API）</strong><i style="color:gray;font-weight:bold">“ 表演的舞台 ”</i>。
-4. 组件中所用到的：数据、方法等等，均要配置在setup中。
+4. 组件中所用到的：数据、方法、计算函数、监视函数、生命周期钩子等等，均要配置在setup中。
 5. setup函数的两种返回值：
    1. 若返回一个对象，则对象中的属性、方法, 在模板中均可以直接使用。（重点关注！）
    2. <span style="color:#aad">若返回一个渲染函数：则可以自定义渲染内容。（了解）</span>
@@ -249,7 +249,7 @@ npm run dev
 - 备注：
   - 接收的数据可以是：基本类型、也可以是对象类型。
   - 基本类型的数据：响应式依然是靠``Object.defineProperty()``的```get```与```set```完成的。
-  - 对象类型的数据：内部 <i style="color:gray;font-weight:bold">“ 求助 ”</i> 了Vue3.0中的一个新函数—— ```reactive```函数。
+  - 对象类型的数据：内部 <i style="color:gray;font-weight:bold">“ 求助 ”</i> 了Vue3.0中的一个新函数—— ```reactive```函数(reactive是通过Proxy代理对象来实现的响应式数据)。
 
 ## 3.reactive函数
 
@@ -504,6 +504,41 @@ npm run dev
       console.log('watchEffect配置的回调执行了')
   })
   ```
+
+注意：
+
+1. 不用指明监视哪个依赖属性
+2. 每次初始化时会执行一次回调函数来自动获取依赖属性
+3. watchEffect无法获取到原值，只能得到变化后的值
+
+```js
+import {reactive, watchEffect} from 'vue'
+export default {
+    setup() { 
+          const state = reactive({ count: 0, name: 'zs' })
+
+          watchEffect(() => {
+          console.log(state.count)
+          console.log(state.name)
+          /*  初始化时打印：
+                  0
+                  zs
+
+            1秒后打印：
+                  1
+                  ls
+          */
+          })
+
+          setTimeout(() => {
+            state.count ++
+            state.name = 'ls'
+          }, 1000)
+    }
+}
+```
+
+
 
 ## 8.生命周期
 
