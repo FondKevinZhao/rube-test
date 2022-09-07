@@ -277,7 +277,7 @@
        1. 若给 html 内置标签使用 ref，则获取到的是真实 dom 节点。
        2. 若给组件标签使用 ref，则获取到的是组件实例对象。
 
-44. props 的用法：
+43. props 的用法：
 
     1. 传递 props：`<Demo :a="xxx"/>`
 
@@ -287,7 +287,7 @@
 
        第二种方式(限制类型)：
 
-       ```js
+       ```vue
        props: {
            userName:Number
        }
@@ -307,47 +307,44 @@
 
        
 
-45. 设置拦截器：
-
-    发送请求工作流程：
-
-    1. 触发请求拦截器的回调(接收参数：config，返回值：config)
-
-       设置公共的请求参数
-
-    2. 发送请求
-
-        发送请求的配置对象由请求拦截器的回调返回指定触发
-
-    3. 触发响应拦截器的回调
-
-        响应拦截器的回调(接收参数：response，返回值：response.data.data)
-
-        处理响应结果
-
-    4. 触发 then/catch 的回调
-
-        then 接收到的参数由上一步的返回值指定
-
 46. 差值语法和指令语法中不用写 this。因为插值语法和指令语法中的东西都能自动找到`vm`和`vc`上的东西。
 
-47. watch 中的深度监视：(天禹)
+45. watch 中的深度监视：(天禹)
 
     1. Vue 中的 watch 默认不监测对象内部值的改变(一层)。
     2. 配置 `deep:true` 可以监测对象内部值改变(多层)。
+
+    ```js
+    watch:{
+      isHot:{
+        // immediate:true, //初始化时让handler调用一下
+        //handler什么时候调用？当isHot发生改变时。
+        handler(newValue,oldValue){
+          console.log('isHot被修改了',newValue,oldValue)
+        }
+      },
+      //监视多级结构中某个属性的变化
+      /* 'numbers.a':{
+        handler(){
+          console.log('a被改变了')
+        }
+      } */
+      //监视多级结构中所有属性的变化
+      numbers:{
+        deep:true,
+        handler(){
+          console.log('numbers改变了')
+        }
+      }
+    }
+    ```
+
+    
 
     备注：
 
     1. Vue 自身可以监测对象内部值的改变，但 Vue 提供的 watch 默认不可以。
     2. 使用 watch 时，根据数据的具体结构，决定是否采用深度监测。
-
-48. 函数防抖：在规定时间内频繁触发，最后一次触发生效(如果在规定时间内触发了会重新计时)。
-
-    函数节流：在规定时间内，第一次触发生效(触发完开始计时)。
-
-    函数防抖和节流的作用：优化函数的性能，减少规定时间内的函数调用次数。
-
-49. 同等位置，在 vue 中同等位置事件指令优先于其他指令。而`v-for` 优先于`v-if`。
 
 #### 50-100
 
@@ -453,9 +450,7 @@
     2. 自定义事件的回调在哪，哪才能接收到数据。
     3. 适用于 子给父传递数据。
 
-58. 插槽：动态的给组件传递 HTML 结构。
-
-59. Vuex：集中式数据管理。负责各层级组件中数据的传递。
+59. 插槽：动态的给组件传递 HTML 结构。
 
 60. cookie 相对于`localStorage`的好处：每次发送请求会自动携带该 token。
 
@@ -507,17 +502,13 @@
     北京源哥：
 
     - async 函数称作异步函数，一般内部都是有异步操作的。
-
     - async 函数返回值，一定是 promise 对象，不看 return。
-
     - 返回的 promise 对象的成功和失败及结果，要看 return。
       - return 的结果如果是非 promise 对象，那么 promise 一定是成功的，成功的结果就是 return 的结果。
       - 如果 return 的结果是 promise 对象，那么要看这个 return 后面的 promise 对象是成功的还是失败的。
-      - 如果 return 的 promise 对象是成功的，那么 promise 对象就是成功的，成功的结果就是 return 的 promise 的成功结果。
-      - 如果 return 的 promise 对象是失败的，那么 promise 对象就是失败的，失败的原因就是 return 的 promise 的失败原因。
+        - 如果 return 的 promise 对象是成功的，那么 promise 对象就是成功的，成功的结果就是 return 的 promise 的成功结果。
+        - 如果 return 的 promise 对象是失败的，那么 promise 对象就是失败的，失败的原因就是 return 的 promise 的失败原因。
       - 如果没有 return 结果是抛出错误，promise 也是失败的，原因就是抛出的错误原因。
-
-68. blob 数据类型以随机存取块的形式存储任何种类的二进制数据；二进制数据通常由已保存的电子表格、程序装入模块和数字化声音模式等等组成。
 
 69. data 和 props 最大的区别是：
 
