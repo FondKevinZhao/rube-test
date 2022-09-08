@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 博客地址：https://zhuanlan.zhihu.com/p/344258167 -->
+    <script>
+        var obj1 = {
+            name: "laowang",
+            age: 18,
+            hobby: ["唱", "跳", "rap"],
+            // 一般来说，JOSN.parse(JSON.stringify(obj1))只能对基本数据类型+obj+array进行深拷贝。
+            // 不能对函数进行深拷贝，因为会忽略函数的拷贝。解决办法是进行递归操作。
+            do: function () {
+                console.log('我能做饭，也能吃饭');
+            }
+        }
+
+        //JSON对象转JSON字符串(函数不能被转换)
+        var obj1Str = JSON.stringify(obj1);
+        console.log(obj1Str) //{"name":"laowang","age":18,"hobby":["唱","跳","rap"]}
+
+        //JSON字符串转JSON对象
+        var obj2 = JSON.parse(obj1Str);
+        console.log(obj2);
+
+        // obj2中没有函数的拷贝
+        console.log(obj1, obj2);
+
+        console.log(obj1 === obj2)
+        console.log(obj1.hobby === obj2.hobby)
+    </script>
+</body>
+
+</html>
