@@ -132,7 +132,7 @@ axios.post('https://api.github.com/search/respositories?q=v&sort=stars',{请求�
 ### axios二次封装代码
 
 ```js
-//  这个文件是对axios进行二次封装
+// 这个文件是对axios进行二次封装
 // 额外的让axios发请求的时候，具有其它的功能
 // 配置基础路径和超时限制
 // 添加进度条信息  nprogress
@@ -157,27 +157,26 @@ const service = axios.create({
 // 以后如果你想对axios添加额外的功能或者是给请求头添加额外的信息
 // 必然用到axios的请求拦截器和响应拦截器
 
-//请求拦截器，每个ajax请求都要经过这个拦截器去拦截
+// 请求拦截器，每个ajax请求都要经过这个拦截器去拦截
 service.interceptors.request.use(
   // 请求拦截器当中成功的回调
   (config)=>{
     // config其实就是我们的请求报文
     // 这个请求报文，最后一定要返回去，因为还要继续往下走
-    //  在这里我们可以添加额外的功能，也可以给请求头添加需要的数据
+    // 在这里我们可以添加额外的功能，也可以给请求头添加需要的数据
     NProgress.start(); //开启进度条
 
-    //请求头内部需要添加临时标识，后期每个请求都会带上这个临时标识
+    // 请求头内部需要添加临时标识，后期每个请求都会带上这个临时标识
     let userTempId = store.state.user.userTempId
     if(userTempId){
       config.headers.userTempId = userTempId
     }
 
-    //登录成功后，需要把token添加到请求头当中，从今往后所有的请求当中都要带上这个token
+    // 登录成功后，需要把token添加到请求头当中，从今往后所有的请求当中都要带上这个token
     let token = store.state.user.token
     if(token){
       config.headers.token = token
     }
-
 
     return config
   },
@@ -186,23 +185,23 @@ service.interceptors.request.use(
   // }
 );
 
-//响应拦截器
-//返回的响应不再需要从data属性当中拿数据，而是响应就是我们要的数据
-//统一处理请求错误, 具体请求也可以选择处理或不处理
+// 响应拦截器
+// 返回的响应不再需要从data属性当中拿数据，而是响应就是我们要的数据
+// 统一处理请求错误, 具体请求也可以选择处理或不处理
 service.interceptors.response.use(
   (response) => {
-    //response其实就是我们的响应报文
-    //我们也是可以添加额外功能或者对响应报文进行处理
-    NProgress.done(); //停止进度条
-    return response.data //返回的响应不再需要从data属性当中拿数据，而是响应就是我们要的数据
+    // response其实就是我们的响应报文
+    // 我们也是可以添加额外功能或者对响应报文进行处理
+    NProgress.done(); // 停止进度条
+    return response.data // 返回的响应不再需要从data属性当中拿数据，而是响应就是我们要的数据
   },
   (error) => {
-    NProgress.done(); //停止进度条
-    //可以统一处理错误
+    NProgress.done(); // 停止进度条
+    // 可以统一处理错误
     alert('发送ajax请求失败'+error.message||'未知错误')
-    //统一处理完成之后，这个错误可以让后面继续处理
+    // 统一处理完成之后，这个错误可以让后面继续处理
     // return Promise.reject(new Error('发送ajax请求失败')) //后面想继续处理这个错误，返回失败的promise
-    //也可以不让后面继续处理这个错误，中断promise链
+    // 也可以不让后面继续处理这个错误，中断promise链
     return new Promise(() => {})  //返回的是pending状态的promise，代表中断promise链，后期也就没办法处理了
   }
 );
