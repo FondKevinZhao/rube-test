@@ -561,7 +561,7 @@ new Promise((resolve, reject) => {
 
 ## String 扩展
 
-放松对标签模板里字符串转义的限制, 遇到不合法的字符串转义会返回undefined，并且从raw上可获取原字符串。
+放松对标签模板里字符串转义的限制，遇到不合法的字符串转义会返回undefined，并且从raw上可获取原字符串。
 
 下面是一个es6 的标签模板 如果对这个语法感到陌生，请参考 **标签模板**[2]
 
@@ -862,7 +862,7 @@ console.log(JSON.stringify('\uD83D')) // "\ud83d"
 
 ## 修订 Function.prototype.toString()
 
-以前函数的toString方法来自Object.prototype.toString(),现在的 Function.prototype.toString() 方法返回一个表示当前函数源代码的字符串。以前只会返回这个函数，不包含注释、空格等。
+以前函数的toString方法来自Object.prototype.toString()，现在的 Function.prototype.toString() 方法返回一个表示当前函数源代码的字符串。以前只会返回这个函数，不包含注释、空格等。
 
 ```js
 function foo() {
