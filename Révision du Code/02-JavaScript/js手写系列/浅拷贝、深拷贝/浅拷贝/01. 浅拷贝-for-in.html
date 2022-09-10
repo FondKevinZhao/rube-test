@@ -27,14 +27,14 @@
         obj2[key] = obj1[key];
       }
 
-      console.log(obj2);
-      console.log(obj2 === obj1);
+      console.log(obj2); // {name: 'laowang', age: 18, hobby: Array(3), do: ƒ}
+      console.log(obj2 === obj1); // false
       obj2.name = "xiaowang";
-      console.log(obj1);
+      console.log(obj1); // {name: 'laowang', age: 18, hobby: Array(3), do: ƒ}
 
-      console.log(obj2.hobby === obj1.hobby);
+      console.log(obj2.hobby === obj1.hobby); // true
       obj2.hobby.push("篮球");
-      console.log(obj1.hobby);
+      console.log(obj1.hobby); // ['唱', '跳', 'rap', '篮球']
     </script>
   </body>
 </html>

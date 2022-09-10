@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+    当拷贝对象的属性值对应的都是基本类型数据，可以理解为深拷贝。
+    当拷贝对象的属性对应的值为数组或对象等引用类型时，为浅拷贝。
+   -->
+    <script>
+      /* 基本类型 */
+      let obj1 = {
+        name: 'Tim',
+        age: 12,
+        sex: 'male',
+      }
+
+      let obj2 = { ...obj1 }
+      obj2.age = 16
+
+      console.log(obj1) // {name: 'Tim', age: 12, sex: 'male'}
+      console.log(obj2) // {name: 'Tim', age: 16, sex: 'male'}
+
+      /* 引用类型 */
+      let a = {
+        info: {
+          name: 'Tim',
+          age: 12,
+          sex: 'male',
+        },
+      }
+
+      let b = { ...a }
+      b.info.age = 16
+
+      console.log(a) // {info:{name: 'Tim', age: 16, sex: 'male'}}
+      console.log(b) // {info:{name: 'Tim', age: 16, sex: 'male'}}
+    </script>
+  </body>
+</html>
