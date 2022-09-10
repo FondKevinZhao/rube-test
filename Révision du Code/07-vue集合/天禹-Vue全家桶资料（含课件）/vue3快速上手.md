@@ -12,7 +12,7 @@
 ## 2.Vue3带来了什么
 
 ### 自己添加的内容：
-1. 组建中可以不需要一个根标签包裹了。
+1. 组件中可以不需要一个根标签包裹了。
 
 2. 取消了全局事件总线。在*Vue3*中，从实例中完全*移除了* `$on`、`$off` 和 `$once` 方法。`$emit` 仍然包含于现有的 API 中。
 
@@ -34,7 +34,7 @@
 
 8. 生命周期中的beforDestroy 和 destroyed 改为了 beforeUnmount 和 unmounted
 
-9. slot=“abc” 不生效了。要使用v-slot:abc
+9. 具名插槽中的slot=“abc” 不生效了。要使用v-slot:abc
 
 10. `router-link 中的tag属性取消了。tag属性是用来渲染标签的，如：tag="span" ，那么router-link最终渲染为 span 标签。`
 
@@ -78,7 +78,7 @@
 
 13. $listeners在vue3中使用
 
-    - vue2中使用`$attrs`从父组件传递数据给子组件嵌套组件，父组件通过通过`$listeners`监听子组件的事件
+    - vue2中使用`$attrs`从父组件传递数据给子组件嵌套组件，父组件通过`$listeners`监听子组件的事件
     - vue3把把`$attrs`和`$listeners`统一合并到`$attrs`中
 
     vue2：

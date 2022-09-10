@@ -777,7 +777,12 @@
     - 数据劫持(数据劫持就是在创建响应式属性)。
     - 属性值更新的时候(由于更新响应式属性会触发 set 方法，内部会对新的属性值进行深度数据劫持)。
 
-90. **父组件给子组件传最好的方式用：**props，插槽，`$parent`/`$children`。
+90. **父组件给子组件传最好的方式用：**props，插槽，`$attrs`，`$parent`/`$children`。
+    
+    `$attrs/$listeners`：
+    
+    1. `$attrs` 中包含了所有父作用域中所有未进行 prop 生命的属性，class 和 style 除外。
+    2. `$listeners` 中包含了父作用域中不含 .native 修饰器的所有 v-on 事件。(vue3中已经移除，全部交给$attrs处理)
     
     父子：`$parent`/`$children`
     1. $parent 可以获取父组件的实例。
@@ -821,6 +826,12 @@
       this.getSchoolName(this.name)
     }
     ```
+    
+    
+    
+    [这里是vue3中的defineProps和defineEmits](https://blog.csdn.net/qq_49327308/article/details/124467691)
+    
+    
     
     下面这里是vue3中 expose / ref 父获取子得属性或方法
     
@@ -1318,7 +1329,6 @@ vue2大事件项目(视频P45)
 2. 在点击修改的时候，isEdit改为true，editId保存要修改的数据id
 3. 在点击新增按钮的时候，isEdit改为false，editId置空
 4. 在点击保存按钮时(确定按钮时)，就可以用isEdit变量来区分了
-
 
 
 
