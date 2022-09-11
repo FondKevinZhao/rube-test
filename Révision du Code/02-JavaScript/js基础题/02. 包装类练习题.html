@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* var name = 'abcdefg'
+      name += 10 // 'abcdefg10'
+
+      var type = typeof name
+      console.log('type', type) // type string
+      console.log('type.length', type.length) // type.length 6
+
+      if (type.length === 6) {
+        type.text = 'string'
+        // new String(type).text = 'string'
+        // delete new String(type).text
+      }
+      console.log(type.text) // undefined */
+
+      // 输出string
+      var name = 'abcdefg'
+      name += 10 // 'abcdefg10'
+
+      // 把这里的 typeof name 变成包装类
+      var type = new String(typeof name)
+
+      if (type.length === 6) {
+        type.text = 'string'
+        // new String(type).text = 'string'
+        // delete new String(type).text
+      }
+      console.log(type.text) // undefined
+    </script>
+  </body>
+</html>
