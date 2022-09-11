@@ -278,6 +278,7 @@ interface Person {
   name: string;
   age?: number;
 }
+
 // 可选属性的含义是该属性可以不存在, 也可以存在
 let tom: Person = {
   name: "Tom",
@@ -287,6 +288,7 @@ let jerry: Person = {
   name: "Jerry",
   age: 25,
 };
+
 // 仍然不允许添加未定义的属性
 let jack: Person = {
   name: "Jack",
