@@ -8,6 +8,7 @@
   </head>
   <body>
     <script>
+      // 1
       /* var name = 'abcdefg'
       name += 10 // 'abcdefg10'
 
@@ -22,8 +23,8 @@
       }
       console.log(type.text) // undefined */
 
-      // 输出string
-      var name = 'abcdefg'
+      // 2. 输出string
+      /* var name = 'abcdefg'
       name += 10 // 'abcdefg10'
 
       // 把这里的 typeof name 变成包装类
@@ -34,7 +35,90 @@
         // new String(type).text = 'string'
         // delete new String(type).text
       }
-      console.log(type.text) // undefined
+      console.log(type.text) // undefined */
+
+      // 3
+      /* function Car(brand, color) {
+        this.brand = 'Benz'
+        this.color = 'red'
+      }
+
+      var car = new Car('BMW', 'blue')
+      console.log(car.brand) // Benz
+      console.log(car.color) // red */
+
+      // 4
+      /* function Test(a, b, c) {
+        var d = 1
+        this.a = a
+        this.b = b
+        this.c = c
+
+        function f() {
+          d++
+          console.log(d)
+        }
+
+        this.g = f
+      }
+
+      var test1 = new Test()
+      test1.g()
+      test1.g()
+
+      // 注意：test1和test2之间是没有关系的
+      var test2 = new Test()
+      test2.g()
+      test2.g() */
+
+      // 5
+      /* var y = (z = 0)
+      console.log(y, z)
+
+      y = 1
+      console.log(y, z)
+
+      z = 2
+      console.log(y, z) */
+
+      // 6 --- 此题注意预编译的问题 --- 有两个add函数(函数重名的时候，后面的会覆盖掉前面的，所以只会执行后面的函数)
+      /* var x = 1,
+        y = (z = 0) // y = (z = 0) 就等于 y = z = 0
+      console.log(x, y, z)
+
+      function add(n) {
+        return (n = n + 1)
+      }
+
+      y = add(x)
+      console.log(y) // y的结果跟下面的函数有关，下面的函数会影响到y的结果
+
+      function add(n) {
+        return (n = n + 3)
+      }
+
+      z = add(x)
+
+      console.log(x, y, z) */
+
+      // 7
+      /* function foo1(x) {
+        console.log(arguments)
+        return x
+      }
+      foo1(1, 2, 3, 4, 5)
+
+      // foo2这种写法函数不执行，如果(1, 2, 3, 4, 5)括号内啥都不写，会报语法错误
+      // function foo2(x) {
+      //   console.log(arguments)
+      //   return x
+      // }(1, 2, 3, 4, 5);
+
+      ;(function foo3(x) {
+        console.log(arguments)
+        return x
+      })(1, 2, 3, 4, 5) */
+
     </script>
   </body>
 </html>
