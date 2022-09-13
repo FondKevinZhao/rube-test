@@ -566,6 +566,12 @@ module.exports = {
 
 ### 6.四个map方法的使用
 
+如果是映射属性数据，无论是state的数据还是getters当中的方法，都映射到computed里面。
+
+如果是映射方法，无论是mapActions还是mapMutations的方法都映射到methods里面。
+
+
+
 1. <strong>mapState方法：</strong>用于帮助我们映射```state```中的数据为计算属性
 
    ```js
@@ -853,6 +859,8 @@ module.exports = {
       ```
 
 ### 6.路由的params参数
+
+路由中，加问号可以设置 params 参数可传可不传。
 
 1. 配置路由，声明接收params参数
 

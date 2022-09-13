@@ -485,9 +485,13 @@ const addAge = () => {
 
 
 
+### 六、其他的pinia
 
+[博客地址1(好文)](https://mp.weixin.qq.com/s?__biz=MzA5MTI0ODUzNQ==&mid=2652957572&idx=1&sn=c77f7ca8550aace7714b26d6781ccca3&chksm=8bab097cbcdc806a190092a0c083f36b47f9eb9d15951f22248598f5f6e7eedf667d35d67ed0&scene=27)
 
+[博客地址2](https://zhuanlan.zhihu.com/p/533233367)
 
+[博客2的B站视频地址](https://www.bilibili.com/video/BV1rv4y1M7qo/?spm_id_from=333.788.recommend_more_video.0&vd_source=ba9278b625c8ac0175e9312cb9cfed59)
 
 
 

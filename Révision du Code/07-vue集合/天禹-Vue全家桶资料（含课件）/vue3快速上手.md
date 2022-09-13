@@ -1,17 +1,18 @@
 # Vue3快速上手
 
-<img src="https://user-images.githubusercontent.com/499550/93624428-53932780-f9ae-11ea-8d16-af949e16a09f.png" style="width:200px" />
-
+<img src="https://user-images.githubusercontent.com/499550/93624428-53932780-f9ae-11ea-8d16-af949e16a09f.png" />
 
 ## 1.Vue3简介
 
 - 2020年9月18日，Vue.js发布3.0版本，代号：One Piece（海贼王）
-- 耗时2年多、[2600+次提交](https://github.com/vuejs/vue-next/graphs/commit-activity)、[30+个RFC](https://github.com/vuejs/rfcs/tree/master/active-rfcs)、[600+次PR](https://github.com/vuejs/vue-next/pulls?q=is%3Apr+is%3Amerged+-author%3Aapp%2Fdependabot-preview+)、[99位贡献者](https://github.com/vuejs/vue-next/graphs/contributors) 
+
+- 600+次提交](https://github.com/vuejs/vue-next/graphs/commit-activity)、[30+个RFC](https://github.com/vuejs/rfcs/tree/master/active-rfcs)、[600+次PR](https://github.com/vuejs/vue-next/pulls?q=is%3Apr+is%3Amerged+-author%3Aapp%2Fdependabot-preview+)、[99位贡献者](https://github.com/vuejs/vue-next/graphs/contributors) 
 - github上的tags地址：https://github.com/vuejs/vue-next/releases/tag/v3.0.0
 
 ## 2.Vue3带来了什么
 
 ### 自己添加的内容：
+
 1. 组件中可以不需要一个根标签包裹了。
 
 2. 取消了全局事件总线。在*Vue3*中，从实例中完全*移除了* `$on`、`$off` 和 `$once` 方法。`$emit` 仍然包含于现有的 API 中。
@@ -42,7 +43,7 @@
 
     ```vue
     <script setup>
-    const boxWidth = "100px";
+    	const boxWidth = "100px";
     </script>
     
     <style lang="scss">
@@ -54,7 +55,32 @@
     </style>
     ```
 
-12. 深层样式穿透，一起拿使用`/deep/` `>>>`，现在使用
+12. 深层样式穿透，vue2中使用`/deep/(scss中的用法，vue3中不能使用，会报错)` `>>>(原生css中的用法)`，现在使用
+
+    ```vue
+    <style lang="scss" scoped>
+        .el-button::v-deep{
+             span{
+                    padding:20px;
+             }
+        }
+     
+        /deep/.el-button{
+             span{
+                    padding:20px;
+             }
+        }
+    </style>
+    
+    <style scoped>
+        >>>.el-carousel__button{
+            width:10px;
+            height:10px;
+            background:red;
+            border-radius:50%;
+          }
+    </stylet>
+    ```
 
     ```css
     ::v-deep 第三方组件类名{
@@ -76,14 +102,20 @@
     }
     ```
 
+    **总结：**
+
+    1. 操作符 >>> 可能会因为无法编译而报错，可以使用 /deep/
+    2. vue3.0 中使用 /deep/ 会报错，更推荐使用 ::v-deep
+    3. 对于使用了 css 预处理器（scss 、sass、 less）时，深度选择器 **::v-deep** 比较通用
+
 13. $listeners在vue3中使用
 
     - vue2中使用`$attrs`从父组件传递数据给子组件嵌套组件，父组件通过`$listeners`监听子组件的事件
-    - vue3把把`$attrs`和`$listeners`统一合并到`$attrs`中
+    - vue3中把`$attrs`和`$listeners`统一合并到`$attrs`中
 
     vue2：
 
-    ```js
+    ```vue
     <template>
       <label>
         <input type="text" v-bind="$attrs" v-on="$listeners" />
@@ -98,7 +130,7 @@
 
     vue3: 
 
-    ```js
+    ```vue
     <template>
       <label>
         <input type="text" v-bind="$attrs" />
@@ -132,7 +164,7 @@
 
     
 
-14. 
+16. 
 
 ### 1.性能的提升
 
@@ -200,24 +232,25 @@ npm run serve
 
 vite官网：https://vitejs.cn
 
-- 什么是vite？—— 新一代前端构建工具。
+- 什么是vite？—— 下一代前端开发与构建工具。
 - 优势如下：
   - 开发环境中，无需打包操作，可快速的冷启动。
   - 轻量快速的热重载（HMR）。
   - 真正的按需编译，不再等待整个应用编译完成。
-- 传统构建 与 vite构建对比图
-
-<img src="https://cn.vitejs.dev/assets/bundler.37740380.png" style="width:500px;height:280px;float:left" /><img src="https://cn.vitejs.dev/assets/esm.3070012d.png" style="width:480px;height:280px" />
+- 创建工程
 
 ```bash
-## 创建工程
-npm init vite-app <project-name>
-## 进入工程目录
-cd <project-name>
-## 安装依赖
-npm install
-## 运行
-npm run dev
+# npm 6.x
+npm init vite@latest my-vue-app --template vue
+
+# npm 7+, 需要额外的双横线：
+npm init vite@latest my-vue-app -- --template vue
+
+# yarn
+yarn create vite my-vue-app --template vue
+
+# pnpm
+pnpm create vite my-vue-app -- --template vue
 ```
 
 # 二、常用 Composition API
@@ -228,11 +261,11 @@ npm run dev
 
 1. 理解：Vue3.0中一个新的配置项，值为一个函数。
 2. setup是所有<strong style="color:#DD5145">Composition API（组合API）</strong><i style="color:gray;font-weight:bold">“ 表演的舞台 ”</i>。
-4. 组件中所用到的：数据、方法、计算函数、监视函数、生命周期钩子等等，均要配置在setup中。
-5. setup函数的两种返回值：
+3. 组件中所用到的：数据、方法、计算函数、监视函数、生命周期钩子等等，均要配置在setup中。
+4. setup函数的两种返回值：
    1. 若返回一个对象，则对象中的属性、方法, 在模板中均可以直接使用。（重点关注！）
    2. <span style="color:#aad">若返回一个渲染函数：则可以自定义渲染内容。（了解）</span>
-6. 注意点：
+5. 注意点：
    1. 尽量不要与Vue2.x配置混用
       - Vue2.x配置（data、methos、computed...）中<strong style="color:#DD5145">可以访问到</strong>setup中的属性、方法。
       - 但在setup中<strong style="color:#DD5145">不能访问到</strong>Vue2.x配置（data、methos、computed...）。
@@ -257,16 +290,22 @@ npm run dev
 - 语法：```const 代理对象= reactive(源对象)```接收一个对象（或数组），返回一个<strong style="color:#DD5145">代理对象（Proxy的实例对象，简称proxy对象）</strong>
 - reactive定义的响应式数据是“深层次的”。
 - 内部基于 ES6 的 Proxy 实现，通过代理对象操作源对象内部数据进行操作。
+- 注意：如果reactive中使用了基本数据类型，那么控制台会报警告。
+
+<img src="https://img-blog.csdnimg.cn/59cc9c9d773e4dd09c9a2538152e60f0.png">
+
+<img src="https://img-blog.csdnimg.cn/ba397ce2eb8a4f48b1c48fa131001324.png">
 
 ## 4.Vue3.0中的响应式原理
 
 ### vue2.x的响应式
 
 - 实现原理：
+
   - 对象类型：通过```Object.defineProperty()```对属性的读取、修改进行拦截（数据劫持）。
-  
+
   - 数组类型：通过重写更新数组的一系列方法来实现拦截。（对数组的变更方法进行了包裹）。
-  
+
     ```js
     Object.defineProperty(data, 'count', {
         get () {}, 
@@ -275,25 +314,26 @@ npm run dev
     ```
 
 - 存在问题：
+
   - 新增属性、删除属性, 界面不会更新(新增和删除不是响应式的)。(读取和修改是响应式的)
-  
+
     新增需要自己通过这种方式：
-  
+
     ```js
     this.$set(targetObj, '属性名', '属性值')
     Vue.set(targetObj, '属性名', '属性值')
     ```
-  
+
     删除需要自己通过这种方式
-  
+
     ```js
     this.$delete(targetObj, '属性名')
     ```
-  
+
     
-  
+
   - 直接通过下标修改数组, 界面不会自动更新。
-  
+
     ```vue
     // 修改数组中的第一个内容
     <template>
@@ -324,27 +364,29 @@ npm run dev
     }
     </script>
     ```
-  
+
     
 
 ### Vue3.0的响应式
 
 - 实现原理: 
+
   - 通过Proxy（代理）:  拦截对象中任意属性的变化, 包括：属性值的读写、属性的添加、属性的删除等。
-  
+
   - 通过Reflect（反射）:  对源对象的属性进行操作。
-  
+
     - **Reflect** 是一个内置的对象，它提供拦截 JavaScript 操作的方法。
-  
+
     - `Reflect`不是一个函数对象，因此它是不可构造的。
-  
+
     - `Reflect`的所有属性和方法都是静态的（就像[`Math`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math)对象）。
+
     - Reflect.getPrototypeOf和Object.getPrototypeOf的一个区别是，如果参数不是对象，Object.getPrototypeOf会将这个参数转为对象，然后再运行，而Reflect.getPrototypeOf会报错。
-  
+
     - `Reflect`是window身上的内置对象，因此你可以window.Reflect使用。如：
-  
+
       
-  
+
       ```js
       const duck = {
         name: 'Maurice',
@@ -357,14 +399,15 @@ npm run dev
       window.Reflect.has(duck, 'color'); // window可以省略：Reflect.has(duck, 'color');
       // true
       ```
-  
+
       [Reflect博客地址](https://blog.csdn.net/qq_35036255/article/details/80942572)
-  
+
   - MDN文档中描述的Proxy与Reflect：
+
     - Proxy：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy
-    
+
     - Reflect：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect
-    
+
       ```js
       new Proxy(data, {
       	// 拦截读取属性值
@@ -401,7 +444,7 @@ npm run dev
 
 - setup执行的时机
   - 在beforeCreate之前执行一次，this是undefined。
-  
+
 - setup的参数
   - props：值为对象，包含：组件外部传递过来，且组件内部声明接收了的属性。
   - context：上下文对象
@@ -449,7 +492,7 @@ npm run dev
 
   - 监视reactive定义的响应式数据时：oldValue无法正确获取、强制开启了深度监视（deep配置失效）。
   - 监视reactive定义的响应式数据中某个属性时：deep配置有效。
-  
+
   ```js
   //情况一：监视ref定义的响应式数据
   watch(sum,(newValue,oldValue)=>{
@@ -541,6 +584,26 @@ export default {
 
 
 ## 8.生命周期
+
+### 1. 什么是生命周期？
+
+生命周期是物体从诞生到死亡的过程，Vue 的生命周期就是 vue 从初始化到销毁的过程。
+
+### 2. 什么是钩子函数？
+
+1. 在生命周期的过程中，我们有很多特殊的时间段，我希望在这些特殊的时间段对 vue 做一些事情，所以出现了钩子函数。
+2. 钩子函数就是作者在设计 vue 的时候，在 vue 从初始化到销毁的这段时间内的特殊时段给我们一些定义函数的权利。
+3. 如果咱们定义了，就会执行，不定义就不会执行。
+
+### 3. 我们在项目中什么时候会用？
+
+我们在页面初始化时需要获取数据，这个时候就可以在生命周期里面调用。
+
+### 4. 常用的生命周期方法
+
+` created()/mounted(): `发送 ajax 请求, 启动定时器，创建自定义事件，信息发布与订阅等异步任务。
+
+` beforeDestory():` 做收尾工作, 如: 清除定时器、解绑自定义事件，解绑消息订阅与发布等。
 
 <div style="border:1px solid black;width:800px;float:left;margin-right:20px;"><strong>vue2.x的生命周期</strong><img src="https://img-blog.csdnimg.cn/915b9f85e4264142a3e1935135c10204.png" alt="lifecycle_2" style="zoom:50%;width:2500px" /></div><div style="border:1px solid black;width:800px;float:left"><strong>vue3.0的生命周期</strong><img src="https://cn.vuejs.org/assets/lifecycle.16e4c08e.png" alt="lifecycle_3" style="zoom:33%;width:2500px" /></div><br>
 
@@ -729,9 +792,9 @@ export default {
     ...toRefs(person)
   }
   ```
+
   
-  
-  
+
 - 应用:   要将响应式对象中的某个属性单独提供给外部使用时。
 
 
@@ -796,13 +859,114 @@ export default {
 ## 3.toRaw 与 markRaw
 
 - toRaw：
+
   - 作用：将一个由```reactive```生成的<strong style="color:orange">响应式对象</strong>转为<strong style="color:orange">普通对象</strong>。**不能处理ref生成的响应式数据。**
   - 使用场景：用于读取响应式对象对应的普通对象，对这个普通对象的所有操作，不会引起页面更新。
+
+  ```vue
+  <template>
+    <h2>姓名：{{person.name}}</h2>
+    <h2>年龄：{{person.age}}</h2>
+    <h2>薪酬：{{person.job.salary}}K</h2>
+    <button @click="person.age++">增长年龄</button>&nbsp;
+    <button @click="person.job.salary++">涨薪</button>&nbsp;
+    <button @click="showRawPerson">点我显示原始person</button>
+  </template>
+  
+  <script>
+  import {reactive, toRaw} from "vue";
+  export default {
+    name:"Demo",
+    setup(){
+      let person = reactive({
+        name:"张三",
+        age:25,
+        job:{
+          salary:30
+        }
+      })
+  
+      function showRawPerson(){
+        console.log("person=",person);
+        let p = toRaw(person);
+        console.log("raw person = ",p);
+      }
+      
+      return {
+        person,
+        showRawPerson
+      }
+    }
+  }
+  </script>
+  ```
+
+  
+
+  ![toRaw](https://img-blog.csdnimg.cn/d8d49af9907a45bcb65f5a24d13f02e2.gif#pic_center)
+
+  
+
 - markRaw：
+
   - 作用：标记一个对象，使其永远不会再成为响应式对象。
   - 应用场景:
     1. 有些值不应被设置为响应式的，例如复杂的第三方类库等。
     2. 当渲染具有不可变数据源的大列表时，跳过响应式转换可以提高性能。
+
+  ```vue
+  <template>
+    <h2>姓名：{{person.name}}</h2>
+    <h2>年龄：{{person.age}}</h2>
+    <div v-if="person.otherInfo" style="background:skyblue;margin-bottom:10px">
+      <h4>岗位：{{person.otherInfo.position}}</h4>
+      <h4>薪酬：{{person.otherInfo.salary}}K</h4>
+      <button @click="changePosition">调整岗位</button>&nbsp;
+      <button @click="changeSalary">增加薪酬</button>
+    </div>
+    <button @click="addOtherInfo">增加其他信息</button>
+  </template>
+  
+  <script>
+  import {reactive,markRaw} from "vue";
+  export default {
+    name:"Demo",
+    setup(){
+      let person = reactive({
+        name:"张三",
+        age:25
+      })
+  
+      function addOtherInfo(){
+        // 这里使用了MarkRaw
+        person.otherInfo = markRaw({
+          position:"前端工程师",
+          salary:30
+        })
+      }
+  
+      function changePosition(){
+        person.otherInfo.position = "后端工程师";
+      }
+  
+      function changeSalary(){
+        person.otherInfo.salary++;
+      }
+  
+      return {
+        person,
+        addOtherInfo,
+        changePosition,
+        changeSalary
+      }
+    }
+  }
+  </script>
+  ```
+
+  
+
+  ![MarkRaw](https://img-blog.csdnimg.cn/3075a2cd61d64a858c465b14a9655f82.gif#pic_center)
 
 ## 4.customRef
 
@@ -947,9 +1111,11 @@ export default {
 
 
 
+
 <div style="width:600px;">
     <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e5ac7e20d1784887a826f6360768a368~tplv-k3u1fbpfcp-watermark.image" style="width:600px; height: 500px" /> 
 </div>
+
 
 
 
@@ -961,9 +1127,11 @@ export default {
     <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bc0be8211fc54b6c941c036791ba4efe~tplv-k3u1fbpfcp-watermark.image""/>
 </div>
 
+
 <div style="width:600px;height:340px;overflow:hidden;float:left">
     <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6cc55165c0e34069a75fe36f8712eb80~tplv-k3u1fbpfcp-watermark.image"/>
 </div>
+
 
 
 
@@ -1031,7 +1199,7 @@ export default {
   - 使用```Suspense```包裹组件，并配置好```default``` 与 ```fallback```
 
     `v-slot:default` 和 `v-slot:fallback` 这两个名字不能换
-    
+
     ```vue
     <template>
     	<div class="app">
@@ -1053,6 +1221,7 @@ export default {
 ## 1.全局API的转移
 
 - Vue 2.x 有许多全局 API 和配置。
+
   - 例如：注册全局组件、注册全局指令等。
 
     ```js
@@ -1083,7 +1252,6 @@ export default {
     | Vue.mixin                 | app.mixin                                   |
     | Vue.use                   | app.use                                     |
     | Vue.prototype             | app.config.globalProperties                 |
-  
 
 ## 2.其他改变
 

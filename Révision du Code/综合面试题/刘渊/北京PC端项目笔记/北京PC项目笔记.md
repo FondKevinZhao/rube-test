@@ -1087,6 +1087,8 @@ async clearToken({commit}) {
 
 ### async  和 await：是使用同步代码实现异步效果。
 
+async 和 await 的作用非常的小，只能影响到当前函数内部。(辉鸿)
+
 promise 前面都可以加 await 来等待，加了 await，那么离 await 最近的函数就要加 async。
 
 async 函数代表这是一个异步函数，async 函数返回的是 promise。
