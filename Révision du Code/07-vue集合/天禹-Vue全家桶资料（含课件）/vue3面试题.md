@@ -2,7 +2,7 @@
 
 1、响应式系统提升
 
-- vue2在初始化的时候，对data中的每个属性使用defineProperty调用getter和setter使之变为响应式对象。如果属性值为对象，还会递归调用defineProperty使之变为响应式对象。
+- vue2在初始化的时候，对data中的每个属性使用defineProperty调用getter和setter使对象变为响应式对象。如果属性值为对象，还会递归调用defineProperty使这个对象变为响应式对象。
 - vue3使用proxy对象重写响应式。proxy的性能本来比defineProperty好，proxy可以拦截属性的访问、赋值、删除等操作，不需要初始化的时候遍历所有属性，另外有多层属性嵌套的话，只有访问某个属性的时候，才会递归处理下一级的属性。
 
 >优势：
@@ -10,20 +10,158 @@
 >可以监听删除的属性 ；
 >可以监听数组的索引和 length 属性；
 
-2、编译优化
+2、vue2 和vue3中的变化
 
-- 优化编译和重写虚拟dom，让首次渲染和更新dom性能有更大的提升
-  vue2 通过标记静态根节点，优化 diff 算法
-  vue3 标记和提升所有静态根节点，diff 的时候只比较动态节点内容
-- Fragments, 模板里面不用创建唯一根节点，可以直接放同级标签和文本内容
-- 静态提升：当使用 hoistStatic 时,所有静态的节点都被提升到 render 方法之外。只会在应用启动的时候被创建一次,之后使用只需要应用提取的静态节点，随着每次的渲染被不停的复用。
-- patch flag, 跳过静态节点，直接对比动态节点
-- 缓存事件处理函数
+1. 组件中可以不需要有一个根标签包裹了。Fragments，模板里面不用创建唯一根节点，可以直接放同级标签和文本内容。
 
-3、 源码体积的优化
+2. 取消了全局事件总线。在*Vue3*中，从实例中完全*移除了* `$on`、`$off` 和 `$once` 方法。`$emit` 仍然包含于现有的 API 中。
 
-- vue3移除了一些不常用的api，例如：inline-template、filter等
-- 使用tree-shaking：通过摇树优化核心库体积，减少不必要的代码量
+3. 取消了项目中的生产提示 ：`Vue.config.productionTip = false`
+
+4. 移除了过滤器，官网的说法是，过滤器有学习成本，可以使用方法或者计算属性来代替。
+
+5. 删除了在组件上使用原生的事件时，需要加上.native的做法。
+
+6. 移除了键盘事件中的用KeyCode码来代替键盘上的键名的做法，原因是因为数字语义不够明确。
+
+   ```js
+   <input type="text" placeholder="按回车键提示" @keyup.13="getInfo">
+   ```
+
+   
+
+7. v-if 和 v-for 同时存在于一个标签内，执行顺序对调了。vue2 是先执行的 v-for 再执行 v-if，vue3 是先执行 v-if，再执行 v-for。
+
+8. 生命周期中的beforDestroy 和 destroyed 改为了 beforeUnmount 和 unmounted
+
+9. 具名插槽中的slot=“abc” 不生效了。要使用v-slot:abc
+
+10. `router-link 中的tag属性取消了。tag属性是用来渲染标签的，如：tag="span" ，那么router-link最终渲染为 span 标签。`
+
+11. css属性的值，可以使用v-bind写成一个变量
+
+    ```vue
+    <script setup>
+    	const boxWidth = "100px";
+    </script>
+    
+    <style lang="scss">
+    .box {
+      width: v-bind(boxWidth);
+      height: 100px;
+      background-color: red;
+    }
+    </style>
+    ```
+
+12. 深层样式穿透，vue2中使用`/deep/(scss中的用法，vue3中不能使用，会报错)` `>>>(原生css中的用法)`，现在使用
+
+    ```vue
+    <style lang="scss" scoped>
+        .el-button::v-deep{
+             span{
+                    padding:20px;
+             }
+        }
+     
+        /deep/.el-button{
+             span{
+                    padding:20px;
+             }
+        }
+    </style>
+    
+    <style scoped>
+        >>>.el-carousel__button{
+            width:10px;
+            height:10px;
+            background:red;
+            border-radius:50%;
+          }
+    </stylet>
+    ```
+
+    ```css
+    ::v-deep 第三方组件类名{
+          样式
+    }
+    ::v-deep .el-form-item {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      color: #454545;
+    }
+    
+    或者使用
+    :deep(.el-form-item) {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      color: #454545;
+    }
+    ```
+
+    **总结：**
+
+    1. 操作符 >>> 可能会因为无法编译而报错，可以使用 /deep/
+    2. vue3.0 中使用 /deep/ 会报错，更推荐使用 ::v-deep
+    3. 对于使用了 css 预处理器（scss 、sass、 less）时，深度选择器 **::v-deep** 比较通用
+
+13. $listeners在vue3中使用
+
+    - vue2中使用`$attrs`从父组件传递数据给子组件嵌套组件，父组件通过`$listeners`监听子组件的事件
+    - vue3中把`$attrs`和`$listeners`统一合并到`$attrs`中
+
+    vue2：
+
+    ```vue
+    <template>
+      <label>
+        <input type="text" v-bind="$attrs" v-on="$listeners" />
+      </label>
+    </template>
+    <script>
+      export default {
+        inheritAttrs: false
+      }
+    </script>
+    ```
+
+    vue3: 
+
+    ```vue
+    <template>
+      <label>
+        <input type="text" v-bind="$attrs" />
+      </label>
+    </template>
+    <script>
+    export default {
+      inheritAttrs: false
+    }
+    </script>
+    ```
+
+    [博客地址](https://blog.csdn.net/weixin_44869002/article/details/113176068)
+
+14. 移除了$children，我们可以通过ref来获取子组件实例
+
+15. vue2中默认插槽不用加上#default，vue3默认插槽需要加上#default才会生效
+
+    ```vue
+    // 父组件
+    <A>
+      <template #default> 我是默认插槽内容 </template>
+    </A>
+    
+    // 子组件
+    <div class="a">
+      <div>我是A子组件</div>
+      <slot></slot>
+    </div>
+    ```
+
+    
 
 ## 2. Vue 3.0 所采用的 Composition Api 与 Vue 2.x使用的Options Api 有什么区别？
 

@@ -149,7 +149,7 @@
    // 此处假设有个按钮 --- 修改有效
    const btn = () => {
        store.$patch(state=>{
-           name.value = "李四"
+         name.value = "李四"
        	age.value = 3
        })
    }
@@ -186,15 +186,15 @@ export const useStore = defineStore('storeId', {
 ```vue
 <template>
 	<div>
-        {{ changeNum }}
-    </div>
+    {{ changeNum }}
+  </div>
 </template>
 <script>
 import { useStore } from '../store'
 let store = useStore()
 
 import { storeToRefs } from 'pinia' 
-    // 把getters中的changeNum解构出来
+// 把getters中的changeNum解构出来
 let { name, num, changeNum } = storeToRefs(store)   
 // 此处假设有个重置按钮
 const btn = () => {
@@ -207,7 +207,7 @@ const btn = () => {
 
 #### Pinia的使用之actions
 
-actions里面可以加同步方法和异步异步方法
+actions里面可以加同步方法和异步方法
 
 根目录store/index.js中写入
 
@@ -215,7 +215,7 @@ actions里面可以加同步方法和异步异步方法
 import { defineStore } form 'pinia'
 export const useStore = defineStore('storeId', {
     // 注意：state为一个箭头函数，返回一个对象
-    state: ()=>{
+    state: () => {
         return {
             counter: 0,
             name: '张三',
@@ -240,12 +240,13 @@ export const useStore = defineStore('storeId', {
 ```vue
 <template>
 	<div>
-        {{ changeNum }} - {{num}}
-    </div>
+      {{ changeNum }} - {{num}}
+  </div>
 	<button @click="add">
-        按钮
-    </button>
+      按钮
+  </button>
 </template>
+
 <script>
 import { useStore } from '../store'
 let store = useStore()
@@ -322,12 +323,13 @@ export const shop = defineStore({
 ```vue
 <template>
 	<div>
-        <h1> A组件 </h1>
-        姓名：{{ nickName }}
-        年龄：{{ age }}
-        <button @click="addAge">增加年龄</button>
-    </div>
+    <h1> A组件 </h1>
+    姓名：{{ nickName }}
+    年龄：{{ age }}
+    <button @click="addAge">增加年龄</button>
+  </div>
 </template>
+
 <script setup>
 import { storeToRefs } from 'pinia'
 // 暴露出来的名字叫user，那么引入也要叫user，这样就能准确的找到模块
@@ -345,7 +347,6 @@ const addAge = () => {
 const addAge = () => {
     userStore.changeAge(2)
 }
-
 </script> 
 ```
 
@@ -354,14 +355,15 @@ const addAge = () => {
 ```vue
 <template>
 	<div>
-        <h1> A组件 </h1>
-        姓名：{{ nickName }}
-        年龄：{{ age }}
-        <button @click="addAge">增加年龄</button>
-        <br>
-        shop模块：{{ shopList }}
-    </div>
+    <h1> A组件 </h1>
+    姓名：{{ nickName }}
+    年龄：{{ age }}
+    <button @click="addAge">增加年龄</button>
+    <br>
+    shop模块：{{ shopList }}
+  </div>
 </template>
+
 <script setup>
 import { storeToRefs } from 'pinia'
 // 暴露出来的名字叫user，那么引入也要叫user，这样就能准确的找到模块
@@ -379,11 +381,8 @@ let { shopList } = storeToRefs(shopStore)
 const addAge = () => {
     age.value += 2
 }
-
 </script> 
 ```
-
-
 
 
 
@@ -487,11 +486,9 @@ const addAge = () => {
 
 ### 六、其他的pinia
 
-[博客地址1(好文)](https://mp.weixin.qq.com/s?__biz=MzA5MTI0ODUzNQ==&mid=2652957572&idx=1&sn=c77f7ca8550aace7714b26d6781ccca3&chksm=8bab097cbcdc806a190092a0c083f36b47f9eb9d15951f22248598f5f6e7eedf667d35d67ed0&scene=27)
+[博客地址](https://zhuanlan.zhihu.com/p/533233367)
 
-[博客地址2](https://zhuanlan.zhihu.com/p/533233367)
-
-[博客2的B站视频地址](https://www.bilibili.com/video/BV1rv4y1M7qo/?spm_id_from=333.788.recommend_more_video.0&vd_source=ba9278b625c8ac0175e9312cb9cfed59)
+[博客的B站视频地址](https://www.bilibili.com/video/BV1rv4y1M7qo/?spm_id_from=333.788.recommend_more_video.0&vd_source=ba9278b625c8ac0175e9312cb9cfed59)
 
 
 

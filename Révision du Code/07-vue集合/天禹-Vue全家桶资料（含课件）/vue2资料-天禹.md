@@ -860,7 +860,7 @@ module.exports = {
 
 ### 6.路由的params参数
 
-路由中，加问号可以设置 params 参数可传可不传。
+路由中，加问号可以设置 params 参数可传可不传：`path: '/user/:page?/:id?'`。
 
 1. 配置路由，声明接收params参数
 
@@ -899,7 +899,7 @@ module.exports = {
    		name:'xiangqing',
    		params:{
    		   id:666,
-               title:'你好'
+          title:'你好'
    		}
    	}"
    >跳转</router-link>
