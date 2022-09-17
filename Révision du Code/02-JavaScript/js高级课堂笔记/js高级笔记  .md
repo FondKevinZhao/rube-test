@@ -514,8 +514,6 @@ btn1.onclick = () = {
 
 
 
-
-
 ## slice, substr 和 substring 的区别
 
 首先，他们都接收两个参数，slice和substring接收的是起始位置和结束位置(不包括结束位置)，而substr接收的则是起始位置和所要返回的字符串长度。
@@ -663,10 +661,6 @@ btn1.onclick = () = {
 
 执行完一个宏任务，先检查是否有微任务要执行。
 
-
-
-
-
 ## 什么是埋点？
 
 埋点：是网站分析的一种常用的数据采集方法。如：统计客户点击某个按钮的次数。
@@ -675,6 +669,437 @@ btn1.onclick = () = {
 
 - indexOf()返回的是数值，而includes()返回的是布尔值
 - indexOf() 不能判断NaN，返回为-1 ，includes()则可以判断
+
+
+
+## 高效学习三部曲(适用于任何行业)：找准知识体系，刻意练习，及时反馈。
+
+## 图片底部空白问题
+
+产生的原因：图片默认的`vertical-align:baseline`(基线)。
+
+解决：
+
+1. 最简单粗暴也是最有效的方法：`img{display:block;}`。
+2. 给图片添加 `vertical-align: middle | top | bottom` 等。（推荐使用）
+
+[博客链接](https://blog.csdn.net/qq_15034541/article/details/108522224?spm=1001.2014.3001.5506)
+
+
+
+
+## 元素的显示与隐藏：
+
+1. display : none / block; 不占位置。
+
+2. visibility : hidden / visible ; 占位置。
+
+3. overflow : hidden ; 溢出隐藏。
+
+
+
+## 浏览器输入 URL 按下 enter 发生了什么
+
+1. 输入 URL 并按下 enter。
+2. DNS 解析 URL 对应的 IP。
+3. 浏览器查找当前 URL 是否存在缓存，并比较缓存是否过期。
+4. 根据 IP 建立 TCP连接(三次握手)。
+5. HTTP 发送请求。
+6. 服务器处理请求，浏览器接收 HTTP 响应。
+7. 渲染页面，构建 DOM 树。
+8. 关闭 TCP 连接(四次挥手)。
+
+
+
+## 比较
+
+1. 比较
+
+  ```js
+[10] == 10; // true
+[10] === 10; // false // 全等不支持类型转换
+  ```
+
+  数据类型比较：
+
+  == 数据类型不一样
+
+    1. 对象 == 字符串	`对象.toString()`变为字符串。(对象如果变成数字是先 `对象.toString()` 然后 `Number(放刚转成的字符串)`)
+    2. null == undefined 相等。但是和其他值比较就不再相等了。
+    3. NaN == NaN 不相等。
+    4. 剩下的都是转换为数字。如：`"1"==true`// true
+
+
+
+## 对象里面的属性是否可以为数字？
+
+对象里面的属性是可以为数字的，用中括号来取就可以了：
+
+```js
+var obj = {100: 99}; 
+console.log(obj[100]) // 99
+```
+
+## 对象的属性名不能是一个对象
+
+对象的属性名不能是一个对象(遇到对象属性名，会默认转换为字符串)
+
+```js
+obj = {}
+arr = [12, 23]
+obj[arr] = 'xiaozhu'
+console.log(obj) // { '12,23': 'xiaozhu' }
+```
+
+`普通对象.toStirng` 调取的是`Object.prototype `上的方法(这个方法是用来检测数据类型的)：
+
+```js
+obj = {}
+console.log(obj.toString()) // "[object Object]"
+```
+
+## Map 结构
+
+不过 es6 中的 map 支持属性名是任意类型，包括对象，数组等。
+
+- JavaScript 的对象（Object），本质上是键值对的集合（Hash 结构），但是传统上只能用字符串当作键。这给它的使用带来了很大的限制。
+- 为了解决这个问题，ES6 提供了 Map 数据结构。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。也就是说，Object 结构提供了“字符串—值”的对应，Map 结构提供了“值—值”的对应，是一种更完善的 Hash 结构实现。如果你需要“键值对”的数据结构，Map 比 Object 更合适。
+
+```js
+// 为什么会有Map? 因为对象属性名称必须是字符串，如果是其他类型则不行
+let p1 = { name: "lily" };
+let obj1 = {
+    id: 1,
+    [p1]: "good"
+}
+console.log(obj1)
+
+// Map也是新增的数据结构  类似于对象
+let mp1 = new Map([
+    ["a", 1],
+    ["b", 2],
+])
+console.log(mp1)
+
+
+let p2 = { name: "lily" };
+let mp2 = new Map([
+    ["a", 1],
+    [p2, 2],
+])
+console.log(mp2)
+```
+
+## new 做了什么？
+
+构造函数中的 new，是 js 中内置的。
+
+new 做了什么？
+
+   ​        1. 创建了一个对象
+
+   ​        2. 调用构造函数，并把构造函数的 this 指向了这个对象，这个对象就是当前实例
+
+   ​        3. 对象的隐式原型指向了当前函数的显式原型（构成原型链）
+
+   ​		 4. 判断构造函数的返回值，如果是基本类型，则正常返回实例化对象，如果是对象类型，则返回当前的对象 。
+
+   ```js
+function _new(Fn, ...arg) {
+    let obj = {};
+    obj.__proto__ = Fn.prototype;
+    Fn.call(obj, ...arg);
+    return obj;
+}
+let sanmao = _new(Dog, '三毛');
+   ```
+
+   ```js
+注意：
+let obj = {};
+obj.__proto__ = Fn.prototype;
+可以改写为：
+let obj = Object.create(Fn.prototype);
+   ```
+
+## == 比较
+
+== 进行比较的时候，如果左右两边数据类型不一样，则先转换为相同的数据类型，然后再进行比较，**双等(==)最终得到的是一个布尔值**
+
+1. {} == {} 两个对象进行比较，比较的是堆内存的地址
+
+2. null == undefined 相等的 / null === undefined 不相等
+
+3. NaN == NaN 不相等 NaN 和谁都不相等 
+
+4. [12] == "12" 对象和字符串比较，是把对象 toString() 转换为字符串后，再进行比较
+
+5. 剩余所有情况在进行比较的时候，都是转换为数字(前提是数据类型不一样)：
+
+   - 对象转数字：先转换为字符串，然后在转换为数字。
+   - 字符串转数字：只要出现一个非数字字符，结果就是 NaN。
+   - 布尔转数字：true 为 1，false 为 0。
+   - null 转数字：0。
+   - undefined 转数字：NaN。
+
+   ```js
+   [] == false
+   var a = Number([].toString()) == false 
+   // [].toString()是空字符串， 空数组转成数字为 0。
+   console.log(a); // true
+   
+   [12] == true
+   var a = Number([12].toString()) == true
+   console.log(a); // false
+   ```
+
+   
+
+## 变量计算-类型转换
+
+下面三种情况容易发生类型转换：
+
+1. 字符串拼接。
+
+   如：`const b = 100 + "10"; const c = true + "10";`
+
+2. ==
+
+   如：`100 == "100"; // true `
+
+3. if 语句和逻辑运算
+
+   ```js
+   truly 变量：!!a === true 的变量
+   falsely 变量：!!a === false 的变量
+   以下是 falsely 变量。除此之外都是 truly 变量
+   !!0 === false
+   !!NaN === false
+   !!'' === false
+   !!null === false
+   !!undefined == false
+   !!false === false
+   ```
+
+   ```js
+   // truly 变量
+   const a = true;
+   if (a) {
+       // ...
+   }
+   const b = 100
+   if (b) {
+       // ...
+   }
+   ```
+
+   ```js
+   // falsely 变量
+   const c = ''
+   if (c) {
+       // ...
+   }
+   const d = null
+   if (d) {
+       // ...
+   }
+   let e 
+   if (e) {
+       // ...
+   }
+   ```
+
+   ```js
+   // 逻辑判断
+   console.log(10 && 0); // 0
+   console.log('' || 'abc'); // 'abc'
+   ```
+
+   
+
+## form 表单怎么阻止重复提交？
+
+**会引起表单重复提交的情况：**f5 刷新页面，点击浏览器后退，重复点击提交按钮。
+
+**前台：**
+
+1. 提交后按钮设置为灰色，或者添加蒙版。
+2. PRG 模式：表单提交后，redirect 到一个倒计时页面，或者信息提示页面，等有成功信息返回后，再跳转回之前页面。
+3. js 中设置标记为判断：
+
+```vue
+<script>
+  var isCommitted = false; // 表单是否已经提交标识，默认为 false
+	function doSubmit() {
+        if(isCommitted == false) {
+            isCommitted = true; // 提交表单后，将表单是否已经提交标识设置为 true 
+            return true; // 返回 true 让表单正常提交
+        }else {
+            return false; // 返回 false 那么表单将不提交
+        }
+    }
+</script>
+```
+
+**后台：**
+
+1. session 方式，当表单页面被请求时，生成一个特殊的字符标志串，存在 session 中，同时放在表单的隐藏域里。接受处理表单数据时，检查标识字符串是否存在，如果存在，且表单中和 session 中相等，那么提交表单，并立即从 session 中删除它。再次请求过来，如果发现表单提交里没有有效的标志串，这说明表单已经被提交过了，属于重复提交。
+2. spring mvc 防止重复提交。
+
+**数据库：**数据库中做唯一性约束。
+
+## 懒加载大量数据的时候加载不出来的情况怎么优化？
+
+1. 图片资源的压缩。
+2. 监听滚动条事件，当滚动条到底时，增加显示数据个数。
+3. 可以使用虚拟列表，`Object.freeze` 冻结对象，`Object.preventExtentsion` 阻止对象扩展来阻止 vue 给每个对象加上 get, set，但是缺点是不能响应了。
+4. icon 资源使用雪碧图。
+5. 开启 gzip 压缩("命令行执行：`npm i compression-webpack-plugin -D`")。
+
+## js 的垃圾回收机制。
+
+js 的垃圾回收机制就是为了防止内存泄漏的，内存泄漏的含义就是当已经不需要某块内存时这块内存还存在着，垃圾回收机制就是间歇的不定期的寻找到不再使用的变量，并释放掉它们所指向的内存。所以这里又涉及到变量的生命周期，当一个变量的生命周期结束之后它所指向的内存就应该被释放。
+
+JS 有两种变量，全局变量和在函数中产生的局部变量。局部变量的生命周期在函数执行过后就结束了，此时便可将它引用的内存释放（即垃圾回收），但全局变量生命周期会持续到浏览器关闭页面。所以当我们过多的使用全局变量的时候也会导致内存泄漏的问题。
+
+## 说说什么情况会造成内存泄露？
+
+**js 中：**
+
+1. 全局变量：JavaScript可以处理没有声明的变量：一个未声明的变量的引用在全局对象中创建了一个新变量。在浏览器的环境中，全局对象是 window。
+2. 闭包：匿名函数可以访问父级作用域的变量。闭包会造成对象引用的生命周期脱离当前函数的上下文，如果闭包使用不当，可以导致环形引用（circular reference），类似于死锁，只能避免，无法发生之后解决，即使有垃圾回收也还是会内存泄露。
+3. 被遗忘的定时器：使用完`setInterval/setTimeout`之后通常忘记清理。
+4. dom 清空或删除时，事件未清除导致的内存泄露。
+
+**vue 中：**
+
+如果在 created/mounted 中做了以下事情，记得在 beforeDestroy 中关闭：
+
+1. 绑定了 DOM 对象中的事件。
+2. 第三方库初始化。
+3. 如果组件中使用了定时器。
+4. 组件中绑定了自定义事件。
+5. 组件中使用了消息订阅与发布。`PubSub.unsubscribe(pubId)`
+
+## TAPD跟禅道：工作中的 bug 处理。
+
+[TAPD](https://www.tapd.cn/)跟[禅道](https://www.zentao.net/)
+
+tapd是腾讯公司的一个产品研发平台，全名叫做腾讯敏捷产品研发平台。最初只是在内部的人员才有资格接触到，并且这个平台已经存在有12年之久，正式对公众开放是在2017年。
+
+禅道是第一款国产的开源项目管理软件，她的核心管理思想基于敏捷方法scrum，内置了产品管理和项目管理，同时又根据国内研发现状补充了测试管理、计划管理、发布管理、文档管理、事务管理等功能，在一个软件中就可以将软件研发中的需求、任务、bug、用例、计划、发布等要素有序的跟踪管理起来，完整地覆盖了项目管理的核心流程。
+
+
+## 关于axios
+
+1. 什么是 axios？
+
+   官方介绍：Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
+
+2. 使用 Fetch 发送请求：
+
+   [Fetch API](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API) 提供了一个 JavaScript 接口，用于访问和操纵 HTTP 管道的一些具体部分，例如请求和响应。
+
+   **注意：**Fetch 是 js 原生的，es6 以后出来的，自带 promise，不需要下载第三方包，直接用即可。
+
+   **缺点：**有兼容性问题，IE 全部不兼容。目前没有广泛使用。
+
+3. Axios 取消请求：
+
+   1. 如果要取消请求的话，我们可以通过调用 [XMLHttpRequest](https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest) 对象上的 `abort` 方法来取消请求：
+
+      ```js
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://developer.mozilla.org/", true);
+      xhr.send();
+      setTimeout(() => xhr.abort(), 300);
+      ```
+
+      
+
+   2. 而对于 Axios 来说，我们可以通过 Axios 内部提供的 `CancelToken` 来取消请求：
+
+      ```js
+      const CancelToken = axios.CancelToken;
+      const source = CancelToken.source();
+      
+      axios.post('/user/12345', {
+        name: 'semlinker'
+      }, {
+        cancelToken: source.token
+      })
+      
+      source.cancel('Operation canceled by the user.'); // 取消请求，参数是可选的
+      ```
+
+      
+
+   3. 此外，你也可以通过调用 `CancelToken` 的构造函数来创建 `CancelToken`，具体如下所示：
+
+      ```js
+      const CancelToken = axios.CancelToken;
+      let cancel;
+      
+      axios.get('/user/12345', {
+        cancelToken: new CancelToken(function executor(c) {
+          cancel = c;
+        })
+      });
+      
+      cancel(); // 取消请求
+      ```
+
+      
+
+4. Axios 如何取消请求？
+
+   当请求方式、请求 URL 地址和请求参数都一样时，我们就可以认为请求是一样的。因此在每次发起请求时，我们就可以根据当前请求的请求方式、请求 URL 地址和请求参数来生成一个唯一的 key，同时为每个请求创建一个专属的 CancelToken，然后把 key 和 cancel 函数以键值对的形式保存到 Map 对象中，使用 Map 的好处是可以快速的判断是否有重复的请求：
+
+   ```js
+   import qs from 'qs'
+   
+   const pendingRequest = new Map();
+   // GET -> params；POST -> data
+   const requestKey = [method, url, qs.stringify(params), qs.stringify(data)].join('&'); 
+   const cancelToken = new CancelToken(function executor(cancel) {
+     if(!pendingRequest.has(requestKey)){
+       pendingRequest.set(requestKey, cancel);
+     }
+   })
+   ```
+
+   当出现重复请求的时候，我们就可以使用 cancel 函数来取消前面已经发出的请求，在取消请求之后，我们还需要把取消的请求从 `pendingRequest` 中移除。现在我们已经知道如何取消请求和如何判断重复请求，下面我们来介绍如何取消重复请求。
+
+
+## JSON对象的方法：
+
+1. `JSON.stringify(obj/arr);`
+
+   js 对象(数组) 转换为 json 对象(数组)(字符串类型)
+
+2. `JSON.parse(json); `
+
+   json 对象(数组)(字符串类型) 转换为 js 对象(数组)
+
+## yarn 基本指令
+
+yarn init：初始化一个项目。
+
+yarn add + 包名：安装一个依赖包。
+
+yarn update + 包名：升级依赖包。
+
+yarn update + 包名@version：升级指定版本的依赖包。
+
+yarn remove + 包名：移除依赖包。
+
+yarn install：安装全部依赖包。
+
+
+
+
+
+
 
 
 
@@ -706,7 +1131,11 @@ attribute：操作属性为非布尔值的属性。
 
 ### 11. 所有的字符串的方法都是返回一个新的字符串。
 
-### 
+### 12. this += n 也就是 this = this + n;  这样会报错的，this 不能像变量一样赋值的。
+
+### 13. 如 `n = Number(n) && (isNaN(n) ? 0 : n);` n = Number(n) 赋值这个操作，永远都为 true。
+
+
 
 
 

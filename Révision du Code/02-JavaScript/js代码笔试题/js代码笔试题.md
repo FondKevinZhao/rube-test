@@ -44,7 +44,34 @@ console.log(obj); // { '2': 1, '3': 2, length: 4, push: [Function: push] }
 
 [视频详解(ctrl+左击)](https://www.bilibili.com/video/BV1Mf4y1r7xX?p=31&spm_id_from=pageDriver)
 
-4. 
+4. 输出下面代码运行结果：
+
+```js
+// example 1
+var a = {}, b = '123', c = 123;
+a[b] = 'b';
+a[c] = 'c';
+console.log(a[b]); // c
+// 因为: a['123'] == a[123]
+
+// example 2
+var a ={}, b = Symbol('123'), c = Symbol('123');
+a[b] = 'b';
+a[c] = 'c';
+console.log(a[b]); // b
+// Symbol是ES6中新增的数据类型 typeof Symbol('123') === "symbol"
+// 它创建出来的值是唯一值：Symbol('123') === Symbol('123') // false
+
+// example 3
+var a ={}, b = {key: '123'}, c = {key:'456'};
+a[b] = 'b';
+a[c] = 'c';
+console.log(a[b]); // c
+```
+
+
+
+5. 
 
 
 
@@ -412,20 +439,31 @@ if (a == 1 && a == 2 && a == 3) {
 ## 数组合并
 
 ```js
-// 方法一：
-let ary1 = ['a1','a2','a3'];
-let ary2 = ['a','b'];
-let ary3 = ary1.concat(ary2);
-console.log(ary3)
+// 方法一：concat()
+let arr1 = ['a1', 'a2', 'a3']
+let arr2 = ['a', 'b']
+let arr3 = arr1.concat(arr2)
+console.log(arr3) // ['a1', 'a2', 'a3', 'a', 'b']
 
-// 方法二：
+// 方法二：[...arr1, ...arr2]
 let arr1 = [1, 2, 3]
 let arr2 = [4, 5, 6]
 let arr3 = [...arr1, ...arr2]
-console.log('arr3', arr3)
+console.log('arr3', arr3) // [1, 2, 3, 4, 5, 6]
 
-// 方法三：
+// 方法三：for-in
+let arr1 = [1, 2, 3]
+let arr2 = [4, 5, 6]
+for (let i in arr2) {
+  arr1.push(arr2[i])
+}
+console.log(arr1) // [1, 2, 3, 4, 5, 6]
 
+// 方法四：push(…arr)
+let arr1 = [1, 2, 3]
+let arr2 = [4, 5, 6]
+arr1.push(...arr2)
+console.log(arr1) // [1, 2, 3, 4, 5, 6]
 ```
 
 ```js
@@ -443,6 +481,648 @@ arr = arr.sort((a,b) =>a.localeCompare(b)).map(item => {
 });
 console.log(arr); // 返回：['a1', 'a2', 'a', 'b1', 'b2', 'b', 'c1', 'c2', 'c']
 // 这种方法弊端：如果 'b1','b2' 在 'c1','c2' 的后面，那么会对数组的顺序产生影响
+```
+
+
+
+## 利用柯里化函数实现
+
+(函数柯里化：预先处理的思想(利用闭包的机制)。)实现：
+
+请实现一个 add 函数，满足以下功能：
+
+ add(1); // 1
+
+ add(1)(2); // 3
+
+ add(1)(2)(3); // 6
+
+ add(1)(2)(3)(4); // 10
+
+ add(1)(2, 3); // 6
+
+ add(1, 2)(3); // 6
+
+ add(1, 2, 3); // 6
+
+```js
+function currying(fn, length) {
+  length = length || fn.length;
+  return function (...args) {
+    if (args.length >= length) {
+      return fn(...args);
+    }
+    return currying(fn.bind(null, ...args), length - args.length);
+  };
+}
+function add(n1, n2, n3) {
+  return n1 + n2 + n3;
+}
+add = currying(add, 3);
+console.log(add(1)(2)(3)); 
+```
+
+
+
+## 旋转数组
+
+ 给定一个数组，将数组中的元素向右移动 K 个位置，其中 K 是非负数
+
+ 输入：[1, 2, 3, 4, 5, 6, 7] 和 K = 3 (数组中所有的数往后移动三位，从1开始。从5开始索引不够3位，那么就把移不了的整体全部提前)
+
+ 输入：[5, 6, 7, 1, 2, 3, 4]
+
+ 解释：
+
+ 向右旋转 1 步：[7, 1, 2, 3, 4, 5, 6]
+
+ 向右旋转 2 步：[6, 7, 1, 2, 3, 4, 5]
+
+ 向右旋转 3 步：[5, 6, 7, 1, 2, 3, 4]
+
+
+
+ 输入：[-1, -100, 3, 99] 和 k = 2
+
+ 输入：[3, 99, -1, -100]
+
+ 解释：
+
+ 向右旋转 1 步：[99, -1, -100, 3]
+
+ 向右旋转 2 步：[3, 99, -1, -100]
+
+```js
+// 方法一：
+function rotate(k) {
+  // 参数处理
+  if (k < 0 || k === 0 || k === this.length) return this; // this表示原始数值
+  if (k > this.length) k = k % this.length;
+  // 旋转数组
+  // slice支持负数作为索引，如果-k是3，那么久截取数组的最后3位
+  return this.slice(-k).concat(this.slice(0, this.length-k));
+}
+Array.prototype.rotate = rotate;
+
+let arr = [1, 2, 3, 4, 5, 6, 7];
+console.log(arr.rotate(3));
+```
+
+```js
+// 方法二：
+function rotate(k) {
+  // 参数处理
+  if (k < 0 || k === 0 || k === this.length) return this; // this表示原始数值
+  if (k > this.length) k = k % this.length;
+  // 旋转数组
+  return [...this.splice(this.length - k), ...this];
+}
+Array.prototype.rotate = rotate;
+
+let arr = [1, 2, 3, 4, 5, 6, 7];
+console.log(arr.rotate(3));
+```
+
+```js
+// 方法三：
+function rotate(k) {
+  // 参数处理
+  if (k < 0 || k === 0 || k === this.length) return this; // this表示原始数值
+  if (k > this.length) k = k % this.length;
+  // 旋转数组
+  for(let i = 0; i < k; i ++) {
+    this.unshift(this.pop());
+  }
+  return this;
+}
+Array.prototype.rotate = rotate;
+
+let arr = [1, 2, 3, 4, 5, 6, 7];
+console.log(arr.rotate(3));
+```
+
+```js
+// 方法四：
+function rotate(k) {
+  // 参数处理
+  if (k < 0 || k === 0 || k === this.length) return this; // this表示原始数值
+  if (k > this.length) k = k % this.length;
+  // 旋转数组
+  new Array(k).fill('').forEach(() => this.unshift(this.pop()));
+  return this;
+}
+Array.prototype.rotate = rotate;
+
+let arr = [1, 2, 3, 4, 5, 6, 7];
+console.log(arr.rotate(3));
+```
+
+
+
+## 给定两个数组，写一个方法计算它们的“交差并补”
+
+```js
+var a = [1, 2, 3, 4, 5]
+var b = [2, 4, 6, 8, 10]
+ 
+var sa = new Set(a);
+var sb = new Set(b);
+ 
+// 交集
+let intersect = a.filter(x => sb.has(x));
+ 
+// 差集
+let minus = a.filter(x => !sb.has(x));
+ 
+// 补集
+let complement  = [...a.filter(x => !sb.has(x)), ...b.filter(x => !sa.has(x))];
+ 
+// 并集
+let unionSet = Array.from(new Set([...a, ...b]));
+ 
+console.log("a与b的交集：", intersect);  // a与b的交集：[2, 4]
+console.log("a与b的差集：", minus);      // a与b的差集：[1, 3, 5]
+console.log("a与b的补集：", complement); // a与b的补集：[1, 3, 5, 6, 8, 10]
+console.log("a与b的并集：", unionSet);   // a与b的并集：[1, 2, 3, 4, 5, 6, 8, 10]
+```
+
+
+
+## 给定两个数组，写一个方法计算它们的交集
+
+```js
+// 方法一：
+let nums1 = [12, 23, 34, 45, 34, 25, 46, 35];
+let nums2 = [10, 20, 23, 34];
+
+let arr = [];
+for (let i = 0; i < nums1.length; i++) {
+  let item1 = nums1[i];
+  for (let k = 0; k < nums2.length; k++) {
+    let item2 = nums2[k];
+    if (item1 === item2) {
+      arr.push(item1);
+      break;
+    }
+  }
+}
+let arr1 = Array.from(new Set(arr)); // 数组去重
+console.log(arr); // [ 23, 34, 34 ]
+console.log(arr1); // [ 23, 34 ]
+```
+
+```js
+// 方法二：
+let nums1 = [12, 23, 34, 45, 34, 25, 46, 35];
+let nums2 = [10, 20, 23, 34];
+
+let arr = [];
+nums1.forEach(item=>{
+  nums2.includes(item) ? arr.push(item) : null;
+})
+// 可以简写为下面的一行代码
+// nums1.forEach(item=>nums2.includes(item) ? arr.push(item) : null);
+console.log(arr); // [ 23, 34, 34 ]
+```
+
+
+
+## 原型题
+
+
+
+```js
+function Foo() {
+  Foo.a = function () {
+    console.log(1);
+  }
+  this.a = function () { // this 表示 obj
+    console.log(2);
+  }
+}
+// 把Foo当做类，在原型上设置实例公有的属性方法 =》实例.a();
+Foo.prototype.a = function () {
+  console.log(3);
+}
+// 把 Foo当做普通对象，设置成私有的属性方法 =》Foo.a();
+Foo.a = function () {
+  console.log(4); 
+}
+Foo.a(); // 4
+let obj = new Foo(); // obj 可以调取原型上方法
+obj.a(); // 2 私有属性中有 a
+Foo.a(); // 1
+```
+
+
+
+## 在输入框中如何判断输入的是一个正确的网址
+
+在输入框中如何判断输入的是一个正确的网址，例如：用户输入一个字符串，验证是否符合 URL 网址的格式。
+
+```js
+// 1. 协议:// http/https/ftp
+// 2. 域名：
+      // www.baidu.com
+      // baidu.com
+      // kbs.sports.qq.com
+      // kbs.sports.qq.com.cn
+//  端口号
+// 3. 请求路径
+      // /
+      // /stu/index.html
+      // /stu/
+// 4. 问号传参(查询字符串)
+      // ?xxx=xxx&xxx=xxx
+// 5. 哈希值
+      // #xxx
+let str = "http://www.baidu.com/index.html?1x=1&from=wx#video";
+
+let reg = /^(?:(http|https|hft):\/\/)?(([\w-]+\.)+[a-z0-9]+)((\/[^/]*)+)?(\?[^#])?(#.+)?$/i; // ?表示出现0-1次，可能出现可能不出现 +加号表示1到多次
+console.log(reg.test(str))
+
+```
+
+
+
+## 实现一个字符串匹配算法
+
+实现一个字符串匹配算法，从字符串 S 中，查找是否存在字符串 T，若存在返回所在位置，不存在返回-1！(如果不能基于 indexOf/includes 等内置的方法，你会如何处理？)
+
+```js
+(function () {
+  /* 
+    循环原始字符串中的每一项，让每一项从当前位置向后截取T.length个字符，然后和T进行比较，如果不一样，继续循环; 如果不一样返回当前索引即可(循环结束);
+  */
+  function myIndexOf(T) {
+    // This是 字符串S
+    let lenT = T.length,
+      lenS = this.length, // this 是 S
+      res = -1;
+    for (let i = 0; i <= lenS - lenT; i++) {
+      if(this.substr(i, lenT) === T) {
+        res = i;
+        break;
+      }
+    }
+    return res;
+  }
+  String.prototype.myIndexOf = myIndexOf;
+})();
+
+let S = "xiaozhupeiqi",
+  T = "pei";
+console.log(S.myIndexOf(T)); // 7
+```
+
+```js
+(function () {
+  /* 正则处理 */
+  function myIndexOf(T) {
+    // This是 字符串S
+    let reg = new RegExp(T),
+      res = reg.exec(this);
+    return res === null? -1 : res.index;
+  }
+  String.prototype.myIndexOf = myIndexOf;
+})();
+
+let S = "xiaozhupeiqi",
+  T = "pei";
+console.log(S.myIndexOf(T)); // 7
+```
+
+
+
+## 如何把一个字符串的大小写取反
+
+如何把一个字符串的大小写取反(大写变小写，小写变大写)，例如：`"AbC"` 变成 `"aBc"`。
+
+```js
+let str = "AbcdEFg六六六！haha";
+// replace 如果第一项是正则的话，它会去跟字符串进行匹配
+str = str.replace(/[a-zA-Z]/g,content => {
+    // content 是每一次正则匹配的结果
+    // 验证是否为大写字母：第一种方法：把字母转换为大写后看和之前的是否一样，如果一样，之前的也是大写的。
+    // 方法一：content.toUpperCase() === content;
+    return content.toUpperCase() === content ? content.toLowerCase() : content.toUpperCase();
+    
+});
+console.log(str); // aBCDefG六六六！HAHA
+```
+
+```js
+let str = "AbcdEFg六六六！haha";
+// replace 如果第一项是正则的话，它会去跟字符串进行匹配
+str = str.replace(/[a-zA-Z]/g,content => {
+    // content 是每一次正则匹配的结果第二种方法：在ASCII中找到大写字母的取值范围进行判断(65-90)。
+    // 方法二：content.charCodeAt() >= 65 && content.charCodeAt() <= 90
+    return content.charCodeAt() >= 65 && content.charCodeAt() <= 90 ? content.toLowerCase() : content.toUpperCase(); 
+    
+});
+console.log(str); // aBCDefG六六六！HAHA
+```
+
+
+
+## 实现(5).add(3).minus(2)，5+3-2 使其输出结果为：6
+
+实现`(5).add(3).minus(2)`，5+3-2 使其输出结果为：6
+
+5用括号包起来的原因：因为变量不能是数字开头。
+
+```js
+arr.push();
+arr 是 Array 的实例，可以调用 Array.prototype 上的方法，push就是其中一个。
+```
+
+```js
+~function(){
+    // 每一个方法执行完，都要返回Number这个类的实例，这样才可以继续调取Number类原型中方法(链式写法)
+    function check(n) {
+        n=Number(n);
+        return isNaN(n)? 0 : n;
+    }
+    
+    function add(n) {
+        n = check(n);
+        return this + n;
+    }
+    
+    function minus(n) {
+        n = check(n);
+        return this - n;
+    }
+    
+    // 方法1：
+    Number.prototype.add = add;
+    Number.prototype.minus = minus;
+    /* ["add","minus"].forEach(item=>{
+        Number.prototype[item] = eval(item);
+    });*/
+}();
+console.log((5).add(3).minus(2));
+```
+
+```js
+~function(){
+    // 每一个方法执行完，都要返回Number这个类的实例，这样才可以继续调取Number类原型中方法(链式写法)
+    function check(n) {
+        n=Number(n);
+        return isNaN(n)? 0 : n;
+    }
+    
+    function add(n) {
+        n = check(n);
+        return this + n;
+    }
+    
+    function minus(n) {
+        n = check(n);
+        return this - n;
+    }
+    
+    // 方法2：
+    ["add","minus"].forEach(item=>{
+        Number.prototype[item] = eval(item);
+    });
+}();
+console.log((5).add(3).minus(2));
+```
+
+
+
+## 斐波拉契数列
+
+请实现一个 `fibonacci[ˌfɪbəˈnɑːtʃi] ` 函数，要求试下你一下的功能：
+
+1. 斐波那契数列为：`[1, 1, 2, 3, 5, 8, 13, 21,...];`
+
+2. `fibonacci(0) ->(返回) 1` 传入的 0 是索引
+
+3. `fibonacci(4) ->(返回) 5` 传入的 4 是索引
+
+   ```js
+   function fb(n) {
+   	if (n === 1 || n === 2) {
+       return 1;
+   	}
+     return fb(n - 1) + fb(n - 2);
+   }
+   console.log(fb(3));
+   console.log(fb(6));
+   ```
+
+   ```js
+   function fibonacci(n) {
+     // 如果索引小于等于1，那就等于1
+     if (n <= 1) return 1;
+   
+     let arr = [1, 1];
+     // i 存储的是我即将要创建多少个
+     let i = n + 1 - 2;
+     while (i > 0) {
+       let a = arr[arr.length-2],
+           b = arr[arr.length-1];
+       arr.push(a+b);
+       i--;
+     }
+     return arr[arr.length-1];
+   }
+   
+   console.log(fibonacci(5));
+   ```
+
+   ```js
+   // 这种方式比较难
+   function fibonacci(count) {
+       // curr 是当前项，next 是下一项
+     function fn(count, curr = 1, next = 1) {
+       if (count ==0) {
+         return curr;
+       } else {
+         return fn(count -1, next, curr + next);
+       }
+     };
+     return fn (count);
+   }
+   console.log(fibonacci(5));
+   ```
+
+   
+
+## 数组扁平化的N种实现方案
+
+```js
+// 5层let arr = [  [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+// 使用 ES6中提供的 Array.prototype.flat 处理
+arr = arr.flat(Infinity);
+console.log(arr);
+// 结果：[1,  2,  2, 3,  4,  5,  5, 6,  7,  8, 9, 11, 12, 12, 13, 14, 10]
+
+注意：
+	1. arr = arr.flat(); 括号中写数字，表示扁平化几层。如：
+	2. arr = arr.flat(2); 表示扁平化两层。
+	3. arr = arr.flat(200); 表示扁平化200层，如果数组只有5层，它也是可以实现。
+```
+
+```js
+ // 5层
+ let arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+ 
+ // 循环验证是否为数组
+ // 基于数组的some方法进行判断检测，验证数组中的某一项有没有符合函数中提供的规则的
+ while (arr.some((item) => Array.isArray(item))) {
+   arr = [].concat(...arr);
+ }
+ console.log(arr);
+```
+
+
+
+```js
+// 5层let arr = [  [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+// 用toString 把所有数组转成字符串 1,2,2,3,4,5,5,6,7,8,9,11,12,12,13,14,10
+// 再用split用逗号分隔成数组, 这时候，数组里面的数字都是字符串类型的
+// 用map方法再把数组里面的字符串变成数字
+arr = arr.toString().split(",").map(item=>parseFloat(item)); 
+console.log(arr);
+```
+
+ 
+
+```js
+// 5层
+let arr = [
+  [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10
+];
+// JSON + 正则 (不推荐时候，f)
+arr = JSON.stringify(arr).replace(/(\[|\])/g,'').split(',').map(item=>parseFloat(item));
+
+console.log(arr);
+```
+
+
+
+## 数组排序
+
+### 冒泡排序
+
+```js
+let arr = [12, 23, 12, 15, 23, 25, 14, 12];
+for (var i = 1; i < arr.length; i++) {
+    for (var j = 0; j < arr.length - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+            var tmp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = tmp;
+        }
+    }
+}
+console.log(arr);
+```
+
+```js
+let arr = [2, 23, 12, 15, 23, 25, 14, 12]
+
+function bubble(arr) {
+  // 外层循环i 控制比较的轮数
+  for (let i = 0; i < arr.length; i++) {
+    // 里层循环控制每一轮比较的次数
+    for (let j = 0; j < arr.length - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        // es6 交换两个变量
+        [arr[j], arr[j+1]] = [arr[j + 1], arr[j]] 
+      }
+    }
+  }
+  return arr
+}
+console.log(bubble(arr))
+```
+
+
+
+### 插入排序
+
+```js
+var a = [4,3,9,2,6,1,7,2]
+function insetSort(arr) {
+  var index = 0
+  for (let i = 1; i < arr.length; i++) {
+    index = i
+    for (let j = i - 1; j >= 0; j--) {
+      if (arr[j] > arr[i]) {
+        index = j
+      }
+    }
+    arr.splice(index, 0, arr[i]) // 插入元素的位置
+    arr.splice(i + 1, 1) // 从小到大排序，且i大于等于index，插入的元素原本在的位置后移一位
+  }
+}
+insetSort(a)
+console.log(a); // [1, 2, 2, 3, 4, 6, 7, 9]
+```
+
+```js
+var ary = [4,3,9,2,6,1,7,2]
+function insert(ary) {
+  // 1. 准备一个新数组，用来存储抓到手里的牌，开始先抓一张牌进来
+  let handle=[];
+  handle.push(ary[0]);
+
+  // 2. 猜第二项开始依次抓牌，一直到把台面上的牌抓光
+  for (let i = 1; i < ary.length; i++) {
+    // A是新抓的牌
+    let A = ary[i];
+    // 和HANDLE手里的牌依次比较(从后向前比)
+    for (let j = handle.length-1; j >= 0; j--) {
+      // 每一次要比较的手里的牌
+      let B = handle[j];
+      // 如果当前新牌A比要比较的牌B大了，把A放到B的后面
+      if(A>B) {
+        handle.splice(j+1,0,A);
+        break;
+      }
+      // 已经比到第一项，我们把新牌放到手中最前面即可
+      if(j===0) {
+        handle.unshift(A);
+      }
+    }
+  }
+  return handle;
+}
+ary = insert(ary);
+console.log(ary); // [1, 2, 2, 3, 4, 6, 7, 9]
+```
+
+
+
+### 快速排序
+
+```js
+var ary = [4,3,9,2,6,1,7,2]
+function quick(ary) {
+  // 4. 结束递归(当ARY小于等于一项，则不用处理)
+  if (ary.length<=1) {
+    return ary;
+  }
+  // 1. 找到数组中的中间项，在原有的数组中把它移除
+  let middleIndex = Math.floor(ary.length/2);
+  let middleValue = ary.splice(middleIndex,1)[0];
+  // 2. 准备左右两个数组，循环剩下数组中的每一项，比当前项小的放到左边数组中，反之放到右边数组中
+  let aryLeft=[];
+      aryRight=[];
+  for(let i = 0; i < ary.length; i++) {
+    let item = ary[i];
+    item<middleValue?aryLeft.push(item):aryRight.push(item);
+  }
+  // 3. 递归方式让左右两边的数组持续这样处理，一直到左右两边都排好序位置(最后让左边+中间+右边拼接成为最后的结果)
+  return quick(aryLeft).concat(middleValue,quick(aryRight));
+}
+
+ary = quick(ary);
+console.log(ary);
 ```
 
 
