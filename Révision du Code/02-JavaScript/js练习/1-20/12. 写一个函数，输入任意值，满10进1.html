@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 写一个函数，输入任意值，输出格式为 `xx:xx:xx`, 满 60 往前进一，不足10往前面添0。
+
+      function formatTime(time) {
+        let h = 0;
+        let m = 0;
+        let s = 0;
+
+        m = Math.floor(time / 60);
+        s = Math.floor(time / 60);
+        h = Math.floor(m / 60)
+
+        if (m < 10) m = "0" + m;
+        if (h < 10) h = "0" + h;
+        if (s < 10) s = "0" + s;
+
+        return h + ":" + m + ":" + s
+      }
+
+      console.log(formatTime(1000)); // 00:16:16
+    </script>
+  </body>
+</html>

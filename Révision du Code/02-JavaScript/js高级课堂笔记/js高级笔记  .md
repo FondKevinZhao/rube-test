@@ -1,1464 +1,712 @@
-#### 第一题
-1. **数据的特点**：
+## 数据的特点
+1. 可传递。`var a = 3; var b = a;`
+2. 可运算。`var a = 3; var b = a + 2;`
 
-   1. 可传递。`var a = 3; var b = a;`
-   2. 可运算。`var a = 3; var b = a + 2;`
-   
-2. 问题：`var a = xxx;`，a 内存中到底保存的是什么？
-   1. xxx是基本数据，保存的就是这个数据。
-   2. xxx是对象，保存的是对象的地址值。
-   3. xxx是一个变量，保存的xxx的内存内容(可能是基本数据，也可能是地址值)。
-   
-3. 关于引用变量的赋值问题：
+## 问题：`var a = xxx;`，a 内存中到底保存的是什么？
 
-   - 两个或多个引用变量指向同一个对象，通过一个变量修改对象内部数据，其他所有变量看到的是修改之后的数据。
-   - 两个或多个引用变量指向同一个对象，让其中一个引用变量指向另一个对象，另一个引用变量依然指向前一个对象。
+1. xxx是基本数据，保存的就是这个数据。
+2. xxx是对象，保存的是对象的地址值。
+3. xxx是一个变量，保存的xxx的内存内容(可能是基本数据，也可能是地址值)。
 
-   ```js
-   var obj1 = {name: 'Tom'};
-   var obj2 = obj1;
-   obj1.name = 'Jack';
-   console.log(obj2.name); // 'Jack'
-   ```
+## 关于引用变量的赋值问题
 
-   ```js
-   var obj1 = {name: 'Tom'};
-   var obj2 = obj1;
-   obj2.age = 12;
-   console.log(obj1.age); // 12
-   function fn(obj) {
-       obj.name = 'A';
-   }
-   fn(obj1);
-   console.log(obj2.name); // 'A'
-   ```
+- 两个或多个引用变量指向同一个对象，通过一个变量修改对象内部数据，其他所有变量看到的是修改之后的数据。
+- 两个或多个引用变量指向同一个对象，让其中一个引用变量指向另一个对象，另一个引用变量依然指向前一个对象。
 
-   ```js
-   var a = {age: 12};
-   var b = a;
-   a = {name: 'Bob', age: 13};
-   console.log(b.age, a.name, a.age); // 12 'Bob' 13
-   ```
+```js
+var obj1 = {name: 'Tom'};
+var obj2 = obj1;
+obj1.name = 'Jack';
+console.log(obj2.name); // 'Jack'
+```
 
-   ```js
-   var a = {age: 12};
-   var b = a;
-   a = {name: 'Bob', age: 13};
-   b.age = 14;
-   console.log(b.age, a.name, a.age); // 14 'Bob' 13
-   function fn2 (obj) {
-       obj = {age: 15}; // 注意：这里是obj 等于一个新对象，而不是obj.age，这个一个对象会成为垃圾对象。
-   }
-   fn2(a);
-   console.log(a.age); // 13
-   ```
+```js
+var obj1 = {name: 'Tom'};
+var obj2 = obj1;
+obj2.age = 12;
+console.log(obj1.age); // 12
+function fn(obj) {
+    obj.name = 'A';
+}
+fn(obj1);
+console.log(obj2.name); // 'A'
+```
 
-   
+```js
+var a = {age: 12};
+var b = a;
+a = {name: 'Bob', age: 13};
+console.log(b.age, a.name, a.age); // 12 'Bob' 13
+```
 
-4. 问题：在 js 调用函数时传递变量参数时，是值传递还是引用传递？
+```js
+var a = {age: 12};
+var b = a;
+a = {name: 'Bob', age: 13};
+b.age = 14;
+console.log(b.age, a.name, a.age); // 14 'Bob' 13
+function fn2 (obj) {
+    obj = {age: 15}; // 注意：这里是obj 等于一个新对象，而不是obj.age，这个一个对象会成为垃圾对象。
+}
+fn2(a);
+console.log(a.age); // 13
+```
 
-   理解一：都是值(基本值/地址值)传递。
 
-   理解二：可能是值传递，也可能是引用传递(地址值)。
 
-   ```js	
-   var a = 3;
-   function fn(a) {
-       a = a + 1;
-   };
-   fn(a);
-   console.log(a); // 3
-   ```
+## 问题：在 js 调用函数时传递变量参数时，是值传递还是引用传递？
 
-5. 问题：js引擎如何管理内存？
+理解一：都是值(基本值/地址值)传递。
 
-   1. 内存生命周期：
-      - 分配小内存空间，得到它的使用权。
-      - 存储数据，可以反复进行操作。
-      - 释放当前的小内存空间。
-   2. 释放内存：
-      - 局部变量：函数执行完自动释放。
-      - 对象：称为垃圾对象→垃圾回收机制回收。
+理解二：可能是值传递，也可能是引用传递(地址值)。
 
-6. 什么是对象？
+```js	
+var a = 3;
+function fn(a) {
+    a = a + 1;
+};
+fn(a);
+console.log(a); // 3
+```
+
+## 问题：js引擎如何管理内存？
+
+1. 内存生命周期：
+   - 分配小内存空间，得到它的使用权。
+   - 存储数据，可以反复进行操作。
+   - 释放当前的小内存空间。
+2. 释放内存：
+   - 局部变量：函数执行完自动释放。
+   - 对象：称为垃圾对象→垃圾回收机制回收。
+
+1. 什么是对象？
 
    1. 多个数据的封装体。
    2. 用来保存多个数据的容器。
    3. 一个对象代表现实世界中的一个事物。
 
-7. 为什么要用对象？
+## 为什么要用对象？
 
-   统一管理多个数据。
+统一管理多个数据。
 
-8. 对象的组成：
+## 对象的组成：
 
-   1. 属性：属性名(本质上都是字符串)和属性值(任意类型)。
-   2. 方法：一个特别的属性(属性值是函数)。
+1. 属性：属性名(本质上都是字符串)和属性值(任意类型)。
+2. 方法：一个特别的属性(属性值是函数)。
+
+## 什么是函数？
+
+1. 实现特定功能的 n 条语句的封装体。
+2. 只有函数是可以执行的，其他类型的数据不能执行。
+
+## 为什么要使用函数？
+
+1. 提高代码复用。
+2. 便于阅读交流。
+
+## 如何调用(执行)函数？
+
+1. test()：直接调用。
+2. obj.test()：通过对象调用。
+3. new test()：new 调用。
+4. test.call/apply(obj)：**临时** 让 test 成为 obj 的方法进行调用。
+
+```js
+var obj = {};
+function test2 () {
+    this.xxx = 'baidu';
+};
+test2.call(obj);
+console.log(o);
+```
+
+
+
+## 代码风格：是否加分号
+
+是否加分号是编码风格问题，没有应不应该，只有自己喜欢不喜欢。
+
+在下面2中情况下不加分号会有问题：
+
+1. 小括号开头的前一条语句。
+
+   ```js
+   var a = 3
+   ;(function () {
+       
+   })
+   // 不加分号报错：var a = 3(function () {})
+   ```
+
    
-9. 什么是函数？
 
-   1. 实现特定功能的 n 条语句的封装体。
-   2. 只有函数是可以执行的，其他类型的数据不能执行。
+2. 中方括号开头的前一条语句。
 
-10. 为什么要使用函数？
-
-    1. 提高代码复用。
-    2. 便于阅读交流。
-
-11. 如何调用(执行)函数？
-
-    1. test()：直接调用。
-    2. obj.test()：通过对象调用。
-    3. new test()：new 调用。
-    4. test.call/apply(obj)：**临时** 让 test 成为 obj 的方法进行调用。
-
-    ```js
-    var obj = {};
-    function test2 () {
-        this.xxx = 'baidu';
-    };
-    test2.call(obj);
-    console.log(o);
-    ```
-
-    
-
-12. 是否加分号是编码风格问题，没有应不应该，只有自己喜欢不喜欢。
-
-    在下面2中情况下不加分号会有问题：
-
-    1. 小括号开头的前一条语句。
-
-       ```js
-       var a = 3
-       ;(function () {
-           
-       })
-       // 不加分号报错：var a = 3(function () {})
-       ```
-
+   ```js
+   var b = 4
+   ;[1, 3].forEach(function () {
        
+   })
+   // 报错的理解：var b = 4[1, 3].forEach(function () {})
+   ```
 
-    2. 中方括号开头的前一条语句。
+   解决办法：在行首加分号
 
-       ```js
-       var b = 4
-       ;[1, 3].forEach(function () {
-           
-       })
-       // 报错的理解：var b = 4[1, 3].forEach(function () {})
-       ```
+1. 读取对象的属性值时：会自动到原型链中查找。
 
-       解决办法：在行首加分号
+   设置对象的属性值时：不会查找原型链，如果当前对象中没有此属性，直接添加此属性并设置其值。
 
-13. 读取对象的属性值时：会自动到原型链中查找。
+   方法一般定义在原型中，属性一般通过构造函数定义在对象本身上。
 
-    设置对象的属性值时：不会查找原型链，如果当前对象中没有此属性，直接添加此属性并设置其值。
+   ```js
+   function Fn () {
+       
+   }
+   Fn.prototype.a = 'xxx';
+   var fn1 = new Fn();
+   console.log(fn1.a, fn1);
+   
+   var fn2 = new Fn();
+   fn2.a = 'yyy';
+   console.log(fn1.a, fn2.a, fn2);
+   ```
 
-    ```js
-    function Fn () {
-        
-    }
-    Fn.prototype.a = 'xxx';
-    var fn1 = new Fn();
-    console.log(fn1.a, fn1);
-    
-    var fn2 = new Fn();
-    fn2.a = 'yyy';
-    console.log(fn1.a, fn2.a, fn2);
-    ```
+   
 
-    
+2. 原型链测试题1：
 
-14. 方法一般定义在原型中，属性一般通过构造函数定义在对象本身上。
+   ![无标题](js高级课堂笔记  .assets/无标题.png)
 
-15. 原型链测试题1：
-
-    ![无标题](js高级课堂笔记  .assets/无标题.png)
-
-    ```js
-      function A () {
-        
-      }
-      A.prototype.n = 1;
-      var b = new A();
-      A.prototype = {
-        n: 2,
-        m: 3
-      };
-      var c = new A();
-      console.log(b.n, b.m, c.n, c.m)
-    
-    
-    
-    
-    
-    // 1 undefined 2 3
-    ```
-
-    
-
-    原型链测试题2：
-
-    ```js
-      var F = function () {
-         Object.prototype.a = function () {
-             console.log('a()')
-         }
-         Function.prototype.b = function(){
-             console.log('b()')
-    	}
-      }
-      var f = new F()
-      f.a()
-      f.b()
-      F.a()
-      F.b()
-    ```
-
-16. 递归面试题：
-
-    ```js
-    console.log('gb:' + i);
-    var i = 1;
-    foo(1);
-    function foo(i) {
-        if (i == 4) {
-            return;
-        }
-        console.log('fb:' + i);
-        foo(i + 1);
-        console.log('fe:' + i);
-    }
-    console.log('ge:' + i);
-    ```
-
-17. ```js
-    function a () {};
-    var a;
-    console.log(typeof a);
-    ```
-
-18. ```js
-    if (!(b in window)) {
-        var b = 1;
-    }
-    console.log(b);
-    ```
-
-19. ```js
-    var c = 1;
-    function c(c) {
-        console.log(c);
-    };
-    c(2);
-    // 解析
-    /*
-    	function c(c) {
-    		console.log(c);
-    	};
-    	var c;
-    	c = 1;
-    	c(2); // 报错，c i
-    */
-    ```
-
-20. 隔离变量：不同作用域下同名变量不会被冲突。
-
-21. 所有的字符串的方法都是返回一个新的字符串。
-
-22. 注意：三元运算符中不能写 return。
-
-23. 作用域和执行上下文的区别：
-
-    作用域是静态的，只要函数定义好了就一直存在，且不会再改变。
-
-    执行上下文是动态的，调用函数时创建，函数调用结束时会自动释放。
-
-24. 作用域面试题：
-
-    1. 
-
-    ```js
-    var x = 10;
-    function fn() {
-        console.log(x);
-    }
-    function show(f) {
-        var x = 20;
-        f();
-    }
-    show(fn);
-    ```
-
-    2. 
-
-    ```js
-    var fn = function( {
-        console.log(fn)
-    })
-    fn()
-    
-    var obj = {
-        fn2: function () {
-            console.log(fn2)
-        }
-    }
-    obj.fn2()
-    ```
-
-    
-
-25. 函数执行完后，函数内部声明的局部变量是否还存在？
-
-    一般是不存在，存在于闭包中的变量才可能存在。
-
-26. 在函数外部能直接访问函数内部的局部变量吗？
-
-    不能，但我们可以通过闭包让外部操作它。
-
-27. 面试题：
-
-    一：没闭包：
-
-    ```js
-    var name = 'The Window';
-    var object = {
-        name: 'My Object',
-        getNameFunc: function () {
-            return function() {
-                return this.name;
-            }
-        }
-    }
-    alert(object.getNameFunc()());
-    ```
-
-    二：有闭包：
-
-    ```js
-    var name2 = 'The window';
-    var objcet2 = {
-        name2: 'My Object',
-        getNameFunc: function () {
-            var that = this;
-            return function () {
-                return that.name2;
-            }
-        }
-    }
-    alert(object2.getNameFunc()());
-    ```
-
-    
-
-28. 内存溢出与内存泄露
-
-    内存溢出：
-
-    1. 一种程序运行出现的错误。
-    2. 当程序运行需要的内存超过了剩余的内存时，就会抛出内存溢出的错误。
-
-    内存泄露：
-
-    1. 占用的内存没有及时释放。
-    2. 内存泄露积累多了就容易导致内存溢出。
-    3. 常见的内存泄露：
-       - 意外的全局变量。
-       - 没有及时清理的计时器或回调函数。
-       - 闭包
-
-29. 闭包使用场景：
-
-    1. 删除某一条数据，通过 ID 或 index 去删除的时候，会使用到闭包。
-    2. 发送 Ajax 请求成功或失败的回调。
-    3. setTimeout 的延时回调。
-
-30. 节流的使用场景：
-
-    1. 滚动加载更多。
-    2. 搜索框搜索的联想功能。
-    3. 高频点击。
-    4. 表单重复提交。
-
-31. 防抖的使用场景：
-
-    1. 搜索框搜索输入，并在输入完以后自动搜索。
-    2. 手机号，邮箱验证输入检测。
-    3. 窗口大小 resize 变化后，再重新渲染。
-
-32. 浏览器内核：支撑浏览器运行的最核心的程序。
-
-33. `JSON.stringify(jsObj/jsArr)` // 传 js 对象或 js 数组。js 对象/数组→转 JSON 的字符串。
-
-    `JSON.parse(jsonString)` // 传 JSON 字符串。是 JSON 字符串→转 js 对象/数组。
-
-34. property：操作属性为布尔值的属性。
-
-    attribute：操作属性为非布尔值的属性。
-
-35. Ajax 技术可以：
-
-    1. 点击地图某个地方，会放大，使用的是局部刷新。
-    2. 输入文本框内容后，失去焦点，会自动检测是否正确。
-
-36. es6 中的字符串新方法：(可以用来代替判断，做时间不够补零)
-
-    `String.prototype.padStart(maxlength, fillString="");` 或 `String.prototype.padEnd(maxLength, fillString="");`
-
-    第一个参数表示填充的长度，第二个参数表示用什么东西来填充。
-
-37. `try{}catch{}` 所对应的error：
-
-    Error.name 的六种值对应的信息：
-
-    1. EvalError：`eval()` 的使用与定义不一致。
-    2. RangeError：数值越界。
-    3. ReferenceError：非法或不能识别的引用数值(如：变量未声明就使用; 函数未声明就调用)。
-    4. SyntaxError：发生语法解析错误。
-    5. TypeError：操作数类型错误(如：数组方法操作对象)。
-    6. URIError：`URI`处理函数使用不当。
-
-38. with 可以改变作用域链(改作用域链，系统内部会消耗大量的性能，使程序变慢，不建议使用)，它可以让它里面的代码在作用域链的最顶端，变成 with 括号里的那个对象。
-
-    ```js
-     var obj = {
-         name: 'obj'
+   ```js
+     function A () {
+       
      }
-     var name = 'window';
-     function test() {
-         var name = 'scope';
-         with(obj) {
-             console.log(name);
-         }
-    }
-    ```
-    
-    注意：with 在严格模式中是不能使用的。而`arguments.callee`也不能在严格模式中使用。
-    
-39. `var a = 123; eval('console.log(a)')`：
-
-    1. eval 能把字符串当成 js 代码执行。
-    2. eval 能改变作用域，eval 还拥有自己独立的作用域，尽量少用。
-
-40. 所有对象都是实例对象。都是 new 某个东西产生的。
-
-41. react 中使用 `<button></button>`
-
-    如果你指定了 button 的 type 属性，要么不指定，要么指定 submit，不要指定为`type = ‘button’`。
-
-42. 定时器：
-
-    ```js
-    var time = 1000;
-    setInterval(function () {
-        console.log('a');
-    }, time); // 这里的time表示每隔1秒执行一次。
-    
-    time = 2000;
-    // 注意：再次给定时器中的 time 赋值，time 是不会改变的，还是按照原来的1秒执行一次。
-    // setInterval 是 window 上的方法，也可以写成 window.setInterval
-    ```
-
-    
-
-43. 脚本化 CSS: 脚本化 css 即控制 css，通过 dom 操作来控制 css。dom 不能直接操作 css，但是可以间接操作。
-
-44. 原型链：查找变量的过程。由多级父对象，逐级继承，形成的链式结果。
-
-45. `console.log(0 == -0); // true`
-
-46. `Object.is(val1, val2)` 判断2个数据是否完全相等。
-
-    如：`console.log(Object.is(0, -0)); // false`
-
-    `console.log(Object.is(NaN, NaN)); // true`
-
-    > 注意：这个 `Object.is(val1, val2)` 的底层是用字符串的形式来判断的。
-    >
-    > 在字符串中：`console.log("NaN" == "NaN"); // true`
-
-47. `Object.assign(target, source1, source2..)` 将源对象的属性复制到目标对象上。
-
-    ```js
-    let obj = {};
-    let obj1 = {username: "anverson", age: 42};
-    Object.assign(obj, obj1)
-    console.log(obj); // {username: "anverson", age: 42};
-    
-        
-    let obj = {};
-    let obj1 = {username: "anverson", age: 42};
-    let obj2 = {sex: 'man'}
-    Object.assign(obj, obj1, obj2)
-    console.log(obj); // {username: "anverson", age: 42, sex: "man"}
-    ```
-
-    
-
-48. 面试题：通过 1 和 0 获取 0，-0，Infinity，-Infinity，NaN
-
-    ```js
-    var num1 = 0 / 1; // 0
-    var num2 = 0 / -1; // -0
-    var num3 = 1 / 0; // Infinity
-    var num4 = -1 / 0; // -Infinity
-    var num5 = 0 / 0; // NaN
-    console.log(num1, num2, num3, num4, num5);
-    ```
-
-    
-
-49. 对象拓展 is
-
-    全等判断有两个问题：
-
-    1. 0 和 -0 在进行全等判断的时候，得到的是 true。
-    2. NaN 和 NaN 在进行全等判断的时候，得到的是 false。
-
-    ```js
-    console.log(0 === -0); // true
-    console.log(NaN === NaN); // false
-    ```
-
-    
-
-    对象拓展 is 方法：
-
-    1. 0 和 -0 在进行全等判断的时候，得到的是 false。
-    2. NaN 和 NaN 在进行全等判断的时候，得到的是 true。
-
-    ```js
-    console.log(Object.is(0, -0)); // false
-    console.log(Object.is(NaN,  NaN)); // true
-    ```
-
-    > 除此之外，is 方法 和 === 是一样的。
-
-50. 创建数组的四种方式：
-
-    1. 字面量 `[]`
-    2. 构造函数 `new Array()`
-    3. 工厂方法 `Array();`
-    4. `Array.of()`
-
-51. for 循环用于遍历数组
-
-    for in 循环用于遍历对象
-
-    for of  循环遍历实现了迭代器接口的对象(不能直接遍历对象)
-
-    迭代器接口对象一旦遍历完成，就无法再遍历了。
-
-    > for in 循环遍历数组的时候，会改变索引值类型。
-
-#### 第五十题
-
-50. 解构赋值，解构出来的数据会创建全局变量，因此工作中，常常配合模块化开发去使用(这时相当于局部变量了)。
-
-    数组依赖的是索引，对象依赖的是属性名。
-
-    解构语法不会影响原来的数组。
-
-51. 代理(proxy)：就是通过一个对象来保护另一个对象。
-
-53. 无论客户关闭了浏览器还是电脑，只要还在 `maxAge`秒之前，登录网站时该 Cookie 仍然有效。
-
-54. 枚举、迭代、遍历。
-
-55. alert 弹出来的结果都会进行内部 toString 转换，输出为字符串。
-
-56. 代码题：
-
-    ```js
-    console.log([1, 2] + [1, 2]); // “1,21,2”
-    ```
-
-    
-
-57. 怎样优化网页性能？
-
-    1. 尽量减少 HTTP 请求次数
-    2. 减少 DNS 查找次数
-    3. 资源合并与压缩
-    4. CSS Sprites
-    5. 小图标使用字体图标或者base64
-    6. 将外部脚本置底
-    7. 缓存
-
-58. 自己实现性能测试(只供参考，不能作为参考标准)：
-
-    1. 任何的代码性能测试都是和测试的环境有关系的，例如CUP、内存、GPU等电脑当前性能不会有相同的情况。
-
-    2. 不同浏览器也会导致性能上的不同。
-
-    3. ```js
-       测试A所用的时间
-       // console.time 可以测试出一段程序执行的时间
-       console.time('A'); // 括号里不写东西，控制台上什么也不会出现
-       for (let i = 0; i < 10000; i++) {
-           
-       }
-       console.timeEnd('A'); // 打印开始的A到结束的A所用的时间
-       ```
-
-    4. `console.profile()` 在火狐浏览器中安装`FireBug`，可以更精准的获取到程序每一个步骤所消耗的时间。
-
-59. 编写一条正则，用来验证此规则：一个 6~16位的字符串，必须同时包含有大小写字母和数字。(一般用于密码)
-
-     ```js
-      let reg = /^(?![a-zA-Z]+$)(?![a-z0-9]+$)(?![A-Z0-9]+$)[a-zA-Z0-9]{6,10}$/;
-     console.log(reg.test('aaabbb')); // false
-     console.log(reg.test('111aaa')); // false
-     console.log(reg.test('111AAA')); // false
-     console.log(reg.test('111aaaBBB')); // true
-     ```
-
-    
-
-60. 1-10为必须包含数字、字母、下划线。必须以下划线开头。
-
-    ```js
-    let reg = ^/(?=_)\w{1,10}$/;
-    console.log(reg.test('_aaabbb2_')); // true
-    console.log(reg.test('111aaa')); // false
-    console.log(reg.test('_3')); // true
-    ```
-
-    
-
-61. 实现一个`$attr(name, value)`遍历
-
-    属性为 name
-
-    值为 value 的元素集合
-
-    例如下面示例：
-
-    `let ary = $attr('class','box');` // 获取页面汇总给所有 class 为 box 的元素。
-
-    ```js
-    function $attr(property, value) {
-        // 获取当前页面中所有的标签
-        let elements = document.getElementsByTagName('*'),
-            arr = [];
-        // 循环elements中的每一项
-        // [].forEach.call(elements,item => {}); // 方法一：借用数组原型上的forEach方法遍历
-        elements = Array.from(elements); // 把非数组转化为数组
-        elements.forEach(item=>{
-            // 存储的是当前元素property对应的属性值
-            let itemValue=item.getAtribute(property);
-            if(itemValue===value) {
-                // 获取的值和传递进来的值校验成功：当前就是我们想要的
-                arr.push(item);
-            }
-        });
-        
-        return arr;
-    };
-    console.log($attr('class','box'));
-    ```
-
-    
-
-62. 英文字母汉字组成的字符串，用正则给英文单词前后加空格
-
-    ```js
-    let str = "no作no死，你能你can，不能no哔哔！",
-        reg = /\b[a-z]+\b/ig;
-    // value 就是str里的内容和当前正则匹配到的结果
-    str = str.replace(reg, value => {
-        return " " + value + " ";
-    }).trim();
-    // trim()去掉开头和结尾的空格
-    console.log(str); //no 作 no 死，你能你 can ，不能 no 哔哔！
-    // String.prototype.trim()/.trimLeft()/.trimRight() 去除前后，去除左边，去除右边的空格
-    ```
-
-    
-
-63. 写一个函数，输入任意值，输出格式为 `xx:xx:xx`, 满 60 往前进一，不足10往前面添0。
-
-    ```js
-    function formatTime(time) {
-      let h = 0;
-      let m = 0;
-      let s = 0;
-    
-      m = Math.floor(time / 60);
-      s = Math.floor(time / 60);
-      h = Math.floor(m / 60)
-    
-      if (m < 10) m = "0" + m;
-      if (h < 10) h = "0" + h;
-      if (s < 10) s = "0" + s;
-    
-      return h + ":" + m + ":" + s
-    }
-    
-    console.log(formatTime(1000)); // 00:16:16
-    ```
-
-    
-
-64. promise 和 async/await 的区别
-
-    1. promise 是 ES6，async/await 是 ES8。
-    2. async/await 相对于 promise 来讲，写法更加优雅。
-    3. reject 状态：
-       - promise 错误可以通过 catch 来捕捉，建议尾部捕捉错误。
-       - async/await 既可以通过 .then 也可以用 try-catch 来捕捉。
-
-65. 异步函数返回的结果也是一个成功的 promise对象。
-
-66. axios 为什么要二次封装？
-
-    api 统一管理，不管接口有多少，所有的接口都可以非常清晰，容易维护。
-
-    通常我们的项目会越做越大，页面也会越来越多，如果页面非常的少，直接用 axios 也没有什么大的影响，那页面组件多了起来，上百个接口呢, 这个时候后端改了接口，多加了一个参数什么的呢？那就只有找到那个页面，进去修改。整个过程很繁琐不易于项目的维护和迭代。
-
-    [博客地址](https://zhuanlan.zhihu.com/p/87985178)
-
-67. axios 二次封装：加入一些内容：
-    1. 在发请求的时候额外多加一个进度条在页面的上方。
-    2. 配置基础路径和超时限制。
-    3. 返回的响应不需要在 data 属性当中拿数据，而是响应的就是我们要的数据。
-    4. 统一处理请求错误，具体请求也可以选择处理或不处理。
-
-    在发请求的时候额外多加一个进度条在页面的上方：以后如果你需要对 axios 添加额外的功能或者是请求头添加额外的信息，必要会用到 axios 的请求拦截器和响应拦截器。
-
-69. 如何改变 this 指向：
-
-    - 使用 ES6 的箭头函数。
-
-      箭头函数没有 this，所以也不能用 call()、apply()、bind() 方法改变 this 的指向。
-
-      需要通过查找作用域链来确定 this 的值，如果箭头函数被非箭头函数包含，this 绑定的就是最近一层非箭头函数的 this。
-
-    - 在函数内部使用 _this = this。
-
-      先将调用这个函数的对象保存在变量 _this 中，然后在函数中都使用这个 _this
-
-    - 使用 call、apply、bind。
-
-    - new 实例化一个对象。
-
-      用 new 调用函数，改变指向 new 的实例对象。
-
-70. Promise 的缺点是什么：
-
-    1. promise 一旦新建就会立即执行，无法中途取消。
-    2. 当处于 pending 状态时，无法得知当前处于哪一个状态，是刚刚开始还是刚刚结束。
-    3. 如果不设置回调函数，promise 内部的错误就无法反映到外部。
-    4. promise 封装 ajax 时，由于 promise 是异步任务，发送请求的三步会被延后到整个脚本同步代码执行完，并且将响应回调函数延迟到现有队列的最后，如果大量使用会大大降低了请求效率。
-
-71. localStorage 的使用场景：
-
-    1. 缓存一般信息，如搜索页的出发城市，达到城市，非实时定位的信息。
-    2. 缓存城市列表数据，这个数据往往比较大。
-    3. 每条缓存信息需要可跟踪，比如服务器通知城市数据更新，这个时候在最近一次访问的时候要自动设置过期。
-    4. **localStorage 常用于长期登录+判断用户是否已经登录。**
-
-72. sessionStorage 的使用场景：
-
-    1. 游客/敏感账号一次性登录的。
-
-73. cookie 一般要配合 session一起使用，session 的使用场景：
-
-    1. 商城中的购物车。
-    2. 保存用户登录信息。
-    3. 将某些数据放入 session 中，供同一用户的不同页面使用。
-    4. 方式在用户非法登录。
-
-72. 请求体参数有两种编码形式：content-type
-
-    1. urlencoded
-
-       概念：
-
-       - **urlencoded** 格式，又叫 **form** 格式、**x-www-form-urlencoded** 格式。
-       - 它是一种**表单格式**。
-
-       组成格式：
-
-       - **键值对**组成
-       - 键和值之间用 **=** ：name=poloyy
-       - 多个键值对之间用 **&** ：name=poloyy&age=19
-
-       实际例子：
-
-       浏览器百度搜索：`baidu.com/s?ie=UTF-8&wd=baidu`
-
-    2. JSON：这个 JSON 太厉害了，看详解。
-
-       ```js
-       {
-         "name" :"polo",
-         "age":35,
-         "smoke":false
-       }
-       ```
-       
-       
-       
-       [详解链接](https://www.cnblogs.com/poloyy/p/13138536.html)
-
-75. xhr 和 fetch 都是 window 身上的方法，Ajax 请求只在浏览器端发送，服务器端不行(服务器端，没页面，也没有 window)。服务器端可以发 HTTP 请求。而 axios 可以满足浏览器端和服务器端都可以发送 Ajax 请求。
-
-76. jQuery 在发送请求的时候，如果成功再发送第二次，会有回调地狱。因为它是完全靠回调函数跟你沟通的，是纯回调的形式。
-
-    用 axios 就不会有这个问题，因为使用了 promise，可以用.then 或者 async + await 的写法，捕获错误就可以使用 try catch 把可能出错的代码放到 try 里面。这就完全避免了回调地狱。
-
-77. axios 完整版：
-
-    ```js
-    btn1.onclick = () = {
-        axios({
-            method: 'GET',
-            url: 'http://localhost:3000/get_persons',
-        }).then(
-        	response => console.log(response.data),
-            error => console.log(error)
-        )
-    }
-    ```
-
-    axios 精简版：
-
-    ```js
-    btn1.onclick = () = {
-        axios.get('http://localhost:3000/get_persons').then(
-        	response => console.log(response.data),
-            error => console.log(error)
-        )
-    }
-    ```
-
-    
-
-78. 坑：用 jQuery 发 Ajax 请求：get 和 post 携带的参数都是放在 data 数据中。`data: {id: 1}`
-
-    用 axios 发送 Ajax 请求：get 携带的参数放在 params 中，携带的其实是 query 参数。`params: {id: 1}`。是真的坑。
-
-    用 axios 发送 Ajax 请求：post 携带的参数放在 data 中，携带其实是 params 参数。`data: {name:'zs',age:18}`。默认以 JSON 的形式携带过去的(会接收不到数据)，并不是 urlencoded 方式，jQuery 默认是 urlencoded 方式。解决：
-
-    1. 服务器中加上 `app.use(express.json())`，就可以解决，需要后端配合。
-    2.  在 axios 配置中加上：`headers:{'Content-Type':"application/x-www-form-urlencoded"}`并且 data 中的数据需要这样写：`data:'name=zs&age=18`。
-    3. 在 React/Vue 脚手架中的写法：`headers:{'Content-Type':"application/x-www-form-urlencoded"}`并且 data 中的数据需要这样写：`data:{name:'zs',age:18}`。
-
-79. slice, substr 和 substring 的区别：
-
-    [解析地址](https://www.cnblogs.com/dannyxie/p/5643860.html)
-
-80. 请求拦截器：在请求还没有发出去之前：
-
-    1. 把请求拦截住。
-    2. 根据具体业务逻辑，决定是否放行。
-
-    定义：在真正发请求前执行的一个回调函数。
-
-    作用：
-
-    1. 对请求的配置做一些处理：data、header，界面 loading 提示。
-
-       界面 loading 提示：在发请求的时候，我可以在请求拦截器里面加载一个页面，一直加载中，然后等着数据回来的时候，要经过响应拦截器，在响应拦截器中把 loading 取消掉。这样就可以展示一个比较好的 loading 效果。这样做有个比较大的优势就是，我只要写了一个请求拦截器和一个响应拦截器，在我这个项目里面，只要我敢发请求，以后都走这个请求拦截器和这个响应拦截器，所有请求都加上了 **loading** 或者 **进度条** 的效果。
-
-    2. 对请求进行检查，根据具体的条件决定是否真正发送请求。
-
-    多个请求拦截器(`axios.interceptors.request.use()`)：后指定的拦截器先工作，先指定的拦截器后工作。实际工作中，一般只会配置一个请求拦截器。
-
-81. 多个响应拦截器(`axios.interceptors.response.use()`)：先指定的拦截器先工作，后指定的拦截器后工作。
-
-    定义：得到响应之后执行的一个回调函数。
-
-    作用：
-
-    1. 若请求成功，对成功的数据进行处理。
-    2. 若请求失败，对失败进行进一步操作。
-
-81. 防抖、节流原理及实现。
-
-    **防抖(debounce)：**
-
-    定义：在规定时间内最后一次会触发--只执行一次。
-
-    思路：
-
-    1. 触发事件时，用 setTimeout 定时器来延迟触发。
-    2. 每次点击清除并重置定时器。
-    3. 使用闭包来存储定时器。
-
-    代码：
-
-    ```js
-    // 防抖
-    const debounce = (fn, time) => {
-      let timeout = null
-      return function() {
-          clearTimeout(timeout)
-          timeout = setTimeout(() => {
-              fn.apply(this, arguments)
-          }, time);
-      }
-    }
-    ```
-
-    
-
-    **节流(throttle)：**
-
-    定义：在规定时间内第一次就会触发--至少执行一次，降低执行频率。
-
-    思路：
-
-    1. 设置一个变量，限制为 true 才能进入函数，进入后变为 false。
-    2. 设置 setTimeout 定时器在规定事件后才能进入执行函数再次触发。
-    3. 使用闭包存储变量。
-
-    代码：
-
-    ```js
-    const throttle = (fn, time) => {
-    let flag = true;
-    return function () {
-      if (!flag) return;
-      flag = false;
-      fn.apply(this, arguments);
-      setTimeout(() => {
-        flag = true;
-      }, time);
+     A.prototype.n = 1;
+     var b = new A();
+     A.prototype = {
+       n: 2,
+       m: 3
      };
-    };
-    ```
+     var c = new A();
+     console.log(b.n, b.m, c.n, c.m)
+   
+   
+   
+   
+   
+   // 1 undefined 2 3
+   ```
 
-    [博客地址](https://blog.csdn.net/hhhhhhhssss/article/details/118711112)
+   
 
-84. **总结 this 指向(熊键)**
+   原型链测试题2：
 
-    1. 什么是 this？
-       - 一个关键字，是一个引用变量。
-       - 函数中可以出现 this (全局的 this 指向 window)。
-       - this 指向其所在函数的调用者，如果没有调用者则指向 window。
-       - this 的指向是在调用函数的时候确定的。
+   ```js
+     var F = function () {
+        Object.prototype.a = function () {
+            console.log('a()')
+        }
+        Function.prototype.b = function(){
+            console.log('b()')
+   	}
+     }
+     var f = new F()
+     f.a()
+     f.b()
+     F.a()
+     F.b()
+   ```
 
-    2. this 指向(其实就是看函数的调用方式)。
-    3. this 默认绑定 (函数默认调用)。
-    4. 定时器的 this 指向 window。
-    5. 箭头函数的 this：箭头函数没有自己的 this，箭头函数内部的 this 并不是调用时候指向的对象，而是定义函数时所在函数的 this 指向。
-    6. this 指向调用函数的上下文 (函数是上下文调用的)。
-    7. 注意隐式丢失现象(通过一个上下文对象拿到了一个函数，但是没有调用，而是赋值给了其他人)。
-    8. this 指向实例化对象 (函数实例化调用)。
-    9. 强制绑定：this 指向 call、apply、bind 修改的对象(函数是call、apply、bind调用的)。
+   
 
-85. **2. 谈一谈闭包(熊键)**
 
-    什么是闭包：
+## 什么叫隔离变量？
 
-    1. 函数嵌套函数，闭包就是内部嵌套的函数。
+隔离变量：不同作用域下同名变量不会被冲突。
 
-    2. 闭包就是包含被引用变量的 closure 对象，在嵌套的内部函数中。
+## 作用域和执行上下文的区别
 
-    产生闭包的情况：
+作用域是静态的，只要函数定义好了就一直存在，且不会再改变。
 
-    1. 函数嵌套。
+执行上下文是动态的，调用函数时创建，函数调用结束时会自动释放。
 
-    2. 内部函数引用外部函数的变量。
 
-    3. 调动外部函数。
 
-    闭包的作用：
+## 函数执行完后，函数内部声明的局部变量是否还存在？
 
-    1. 延长了局部变量的生命周期。
+一般是不存在，存在于闭包中的变量才可能存在。
 
-    2. 可以在外部操作局部变量。
+## 在函数外部能直接访问函数内部的局部变量吗？
 
-    闭包的缺点：
+不能，但我们可以通过闭包让外部操作它。
 
-    1. 函数的局部变量占用内存时间过长，容易造成内存泄露。
 
-    2. 解决：
-       1. 减少使用闭包。
-       2. 及时释放闭包。
 
-    
+## 内存溢出与内存泄露
 
-    **3. 谈一谈跨域(熊健)**
+内存溢出：
 
-    同源：协议名、域名、端口号一致。
+1. 一种程序运行出现的错误。
+2. 当程序运行需要的内存超过了剩余的内存时，就会抛出内存溢出的错误。
 
-    跨域：给不同源的地址发送 Ajax 请求。
+内存泄露：
 
-    **解决跨域问题：**
+1. 占用的内存没有及时释放。
+2. 内存泄露积累多了就容易导致内存溢出。
+3. 常见的内存泄露：
+   - 意外的全局变量。
+   - 没有及时清理的计时器或回调函数。
+   - 闭包
 
-    1. **jsonp 原理:** 就是利用 script 标签发送请求不受同源策略的限制，去给服务器发送请求，发送时要将一个定义好的函数名通过 callback=函数名的形式，上传给服务器。服务器会响应函数的调用。具体要响应给浏览器的数据，就是函数调用时的实参。浏览器拿到函数调用的字符串之后，会将这个字符串，放到对应的 script 里面去执行，执行时会自动将引号去掉。直接变成了一段 js 代码。而这段 js 代码就是函数调用。所以这时会去全局查找对应的函数。找到了之后就执行这个函数，响应的数据，就直接赋值给形参了。在这个函数体中，就可以操作这个数据了。
+## 闭包使用场景：
 
-         **jsonp 的注意点：**
+1. 删除某一条数据，通过 ID 或 index 去删除的时候，会使用到闭包。
+2. 发送 Ajax 请求成功或失败的回调。
+3. setTimeout 的延时回调。
 
-       1. jsonp 只能发送 get 请求。
+## 节流的使用场景：
 
-       2. jsonp 没有兼容性问题。
+1. 滚动加载更多。
+2. 搜索框搜索的联想功能。
+3. 高频点击。
+4. 表单重复提交。
 
-       3. 要想实现跨域，需要后台配合。
+## 防抖的使用场景：
 
-          后端配合：用 jquery 随机生成字符串，后台将数据作为**参数**包裹在这个随机字符串函数里作为参数传递到前台。
+1. 搜索框搜索输入，并在输入完以后自动搜索。
+2. 手机号，邮箱验证输入检测。
+3. 窗口大小 resize 变化后，再重新渲染。
 
-    
 
-    2. **cors(跨域资源共享)：** IE10 以上的浏览器才能使用。在真正发送 ajax 请求之前，浏览器会检查是否同源，如果不同源，会自动先给指定的服务器预请求一下，询问是否支持 cors，如果服务器响应支持，浏览器才会让我们写的 ajax 请求发送出去，响应的时候就不再拦截了，如果服务器不支持 cors。浏览器就不会将我们的 ajax 发送出去。
 
-         **cors 的注意点：**
 
-       1. IE10+ 才支持(有兼容性问题)。
 
-       2. 可以使用 get/post 请求。
 
-       3. 依然需要后台配合。
 
-          后端配合：跨域资源共享(CORS, Cross-Origin Resource Sharing)，本质是设置响应头，使得浏览器允许跨域请求。
 
-84. **谈谈 js 异步代码执行机制(熊键)**
 
-    1. 同步代码和异步代码如何执行？
-       1. JS 引擎从上到下依次执行所有代码。
-       2. 遇到同步代码，依次执行。
-       3. 遇到异步代码，异步函数是会被同步调用，只是其中的异步任务和回调函数会交给浏览器相关模块负责处理。
-       4. 此时 JS 引擎会继续执行后面代码。
+## try{}catch(error){} 所对应的error
 
-    比如：定时器函数会被同步调用，里面计时任务和回调函数会交给浏览器定时器管理模块去处理，
+Error.name 的六种值对应的信息：
 
-    当浏览器定时器管理模块记录时间到点了，会将回调函数添加回调队列中，等待执行。
+1. EvalError：`eval()` 的使用与定义不一致。
+2. RangeError：数值越界。
+3. ReferenceError：非法或不能识别的引用数值(如：变量未声明就使用; 函数未声明就调用)。
+4. SyntaxError：发生语法解析错误。
+5. TypeError：操作数类型错误(如：数组方法操作对象)。
+6. URIError：`URI`处理函数使用不当。
 
-    等 JS 引擎执行完全局所有代码，才会开启事件轮询，轮询回调队列，执行其中异步回调函数，默认按照顺序依次执行，先进先出。
+## 对象拓展 Object.is()
 
-    
+全等判断有两个问题：
 
-    2. 异步代码具体谁先执行，谁后执行？
-       1. 宏任务(执行优先级低)：setTimeout、setInterval、DOM 事件回调、Ajax 请求、setImmediate（NODEJS）
-       2. 微任务(执行优先级高)：promise.then/catch/finally、queueMicrotask、requestAnimationFrame
+1. 0 和 -0 在进行全等判断的时候，得到的是 true。
+2. NaN 和 NaN 在进行全等判断的时候，得到的是 false。
 
-    将整个 script 当做一个宏任务执行。
+```js
+console.log(0 === -0); // true
+console.log(NaN === NaN); // false
+```
 
-    执行完一个宏任务，先检查是否有微任务要执行。
 
-    需要所有微任务都执行完，再检查是否有宏任务要执行。
 
-    执行完一个宏任务，先检查是否有微任务要执行。
+对象拓展 is 方法：
 
-90. **改变原数组的方法：**
+1. 0 和 -0 在进行全等判断的时候，得到的是 false。
+2. NaN 和 NaN 在进行全等判断的时候，得到的是 true。
 
-      shift：将第一个元素删除并且返回删除元素，空即为 undefined。
+```js
+console.log(Object.is(0, -0)); // false
+console.log(Object.is(NaN,  NaN)); // true
+```
 
-      unshift：向数组开头添加元素，并返回新的长度。
+> 除此之外，is 方法 和 === 是一样的。
 
-      pop：删除最后一个并返回删除的元素。
+## 创建数组的四种方式
 
-      push：向数组末尾添加元素，并返回新的长度。
+1. 字面量 `[]`
+2. 构造函数 `new Array()`
+3. 工厂方法 `Array();`
+4. `Array.of()`
 
-      reverse：颠倒数组顺序。
+## for 循环用于遍历数组
 
-      sort：对数组排序。
+for in 循环用于遍历对象的key
 
-      splice： splice(start,length,item) 删，增，替换数组元素，返回被删除数组，无删除则不返回。
+for of  循环遍历实现了迭代器接口的对象(不能直接遍历对象)
 
-    
+迭代器接口对象一旦遍历完成，就无法再遍历了。
 
-    **不改变原数组的方法：**
 
-      join：将数组中所有元素以参数作为分隔符放入一个字符。
 
-      slice： slice(start,end)，返回选定元素。
+## 解构赋值
 
-      reduce ： 累加器。
+解构赋值，解构出来的数据会创建全局变量，因此工作中，常常配合模块化开发去使用(这时相当于局部变量了)。
 
-      map , filter , forEach , some , every , 等不改变原数组。
+数组依赖的是索引，对象依赖的是属性名。
 
-      concat: 数组中新增元素，创建一个新副本。
+解构语法不会影响原来的数组。
 
-91. **继承几种方法？**
+## 怎样优化网页性能？
 
-    原型链继承：
+1. 尽量减少 HTTP 请求次数
+2. 减少 DNS 查找次数
+3. 资源合并与压缩
+4. CSS Sprites
+5. 小图标使用字体图标或者base64
+6. 将外部脚本置底
+7. 缓存
 
-    构造继承：复制父类的实例属性给子类。
+## 自己实现性能测试(只供参考，不能作为参考标准)
 
-    实例继承：为父类实例添加新特性，作为子类实例返回。
+1. 任何的代码性能测试都是和测试的环境有关系的，例如CUP、内存、GPU等电脑当前性能不会有相同的情况。
 
-    组合继承：通过调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类的原型，实现函数复用。
+2. 不同浏览器也会导致性能上的不同。
 
-    [博客地址](https://www.cnblogs.com/humin/p/4556820.html)
-
-87. 埋点：是网站分析的一种常用的数据采集方法。如：统计客户点击某个按钮的次数。
-
-88. reduce 使用：
-
-    功能：统计数组当中的符合条件的结果(数字或者其他类型)
-
-    参数：回调函数(参数：prev(上一次统计的结果) item index arr) 	统计的初始值
-
-    返回值：返回统计后的结果
-
-    ```js
-    let arr = [1, 2, 3];
-    let newArr = arr.reduce((prev, item, index, arr)=> {
-        // 这个方法也是暗含遍历，会拿数组的每一项执行回调函数
-        // 第一次执行回调的时候，prev 的值就是你给的初始值
-        // 第一次执行完回调函数后，会返回 prev 值，返回给了第二次执行时候的初始值
-        return i
-    }, 0)
-    console.log(newArr); // 6
-    ```
-
-    
-
-89. (刘渊哥)只要`todos`数据发生变化，就把变化后的数据存储到 localStorage 当中
-
-     localStorage 是前端本地存储的方案，是一个小型的数据库，存储到 localStorage 当中的东西，都会自动转化为字符串
-
-    localStorage 当中有 4 个 API：
-
-    - `localStorage.setItem('键', 值)` // 给 localStorage 存储数据
-    - `localStorage.getItem('键')` // 获取 localStorage 当中某个键的数据
-    - `localStorage.removeItem('键')` // 删除 localStorage 当中某个数据
-    - `localStorage.clearItem()` // 清空 localStorage 当中所有的数据
-
-    > 里面的“键”，通常都大写，如：`localStorage.setItem('TODOS_KEY', newVal)` 注意：这里的值不能直接存对象数据类型的值，否则会存入的 '[object Object]'。因为对象数据全部都会私自转基本，数据就不对了。
-    >
-    > 如果有对象，我们可以这样写：`localStorage.setItem('TODOS_KEY', JSON.stringify(newVal))`
-
-    
-
-90. (刘渊哥)隐式类型转换：
-
-    啥时候出现？计算、比较、全部转基本
-
-    判等的时候：判等如果都是对象，判地址。如果有一个不是对象类型，那转基本。
-
-    1. 数组转基本：去掉中括号，中间留下什么，就带引号。
-
-       ```js
-       console.log([1, 2, 3] + 100); // '1, 2, 3100'
-       ```
-
+3. ```js
+   测试A所用的时间
+   // console.time 可以测试出一段程序执行的时间
+   console.time('A'); // 括号里不写东西，控制台上什么也不会出现
+   for (let i = 0; i < 10000; i++) {
        
+   }
+   console.timeEnd('A'); // 打印开始的A到结束的A所用的时间
+   ```
 
-    2. 对象转基本：固定的 '[object Object]'。
+4. `console.profile()` 在火狐浏览器中安装`FireBug`，可以更精准的获取到程序每一个步骤所消耗的时间。
 
-       ```js
-       console.log({name:'zs'} + 100); // '[object Object]100'
-       ```
+## 一个 6~16位的字符串，必须同时包含有大小写字母和数字。
 
-       
+编写一条正则，用来验证此规则：一个 6~16位的字符串，必须同时包含有大小写字母和数字。(一般用于密码)
 
-    3. 函数转基本：固定的 函数整体加字符串。
+```js
+ // 问号(?): 0次或1次
+ let reg = /^(?![a-zA-Z]+$)(?![a-z0-9]+$)(?![A-Z0-9]+$)[a-zA-Z0-9]{6,10}$/;
+ console.log(reg.test('aaabbb')); // false
+ console.log(reg.test('111aaa')); // false
+ console.log(reg.test('111AAA')); // false
+ console.log(reg.test('111aaaBBB')); // true
+```
 
-       ```js
-       function fn() {
-           console.log(111);
-       }
-       
-       console.log(fn + 100); // 'function fn() {console.log(111)}100'
-       ```
 
-       
 
-91. (刘渊)map 方法：
+## 1-10为必须包含数字、字母、下划线。必须以下划线开头。
 
-    功能：加工数组。根据已有的数组，创建新的数组，新数组当中的每一项，和老数组当中的每一项对应有关系，没对应的没关系。
+```js
+let reg = ^/(?=_)\w{1,10}$/;
+console.log(reg.test('_aaabbb2_')); // true
+console.log(reg.test('111aaa')); // false
+console.log(reg.test('_3')); // true
+```
 
-    参数：回调函数(item，index，array)。
 
-    这个回调函数的作用：forEach、map、filter、some、every、reduce 暗含遍历，每个数组项都会执行这个回调函数，返回的是一个新的项，放在新数组当中。
 
-    返回值：把每一项都返回的新项组成的新数组返回。
 
-    ```js
-    this.users = response.data.items.map(item => ({
-        username: item.login,
-        userurl: item.url,
-        userimg: item.avatar_url
-    }))
-    // 其实这个 item 不止这三项，但是我映射的只有三项
-    ```
 
-    
+## 如何改变 this 指向
 
-91. 会改变原数组的方法：
+- 使用 ES6 的箭头函数。
 
-    1. shift()
+  箭头函数没有 this，所以也不能用 call()、apply()、bind() 方法改变 this 的指向。
 
-    2. unshift()
+  需要通过查找作用域链来确定 this 的值，如果箭头函数被非箭头函数包含，this 绑定的就是最近一层非箭头函数的 this。
 
-    3. push()
+- 在函数内部使用 _this = this。
 
-    4. pop()
+  先将调用这个函数的对象保存在变量 _this 中，然后在函数中都使用这个 _this
 
-    5. reverse()
+- 使用 call、apply、bind。
 
-    6. sort()
+- new 实例化一个对象。
 
-    7. splice
+  用 new 调用函数，改变指向 new 的实例对象。
 
-    8. arr.fill(target, start, end)
+## Promise 的缺点是什么
 
-       - target -- 待填充的元素
-       - start -- 开始填充的位置-索引
-       - end -- 终止填充的位置-索引（不包括该位置)
+1. promise 一旦新建就会立即执行，无法中途取消。
+2. 当处于 pending 状态时，无法得知当前处于哪一个状态，是刚刚开始还是刚刚结束。
+3. 如果不设置回调函数，promise 内部的错误就无法反映到外部。
+4. promise 封装 ajax 时，由于 promise 是异步任务，发送请求的三步会被延后到整个脚本同步代码执行完，并且将响应回调函数延迟到现有队列的最后，如果大量使用会大大降低了请求效率。
 
-       ```js
-       let arr = [1,2,3,4,5];
-       let arr3 = arr.fill(5,1,3)
-       console.log(arr3)
-       ```
+## localStorage 的使用场景
 
-       
+1. 缓存一般信息，如搜索页的出发城市，达到城市，非实时定位的信息。
+2. 缓存城市列表数据，这个数据往往比较大。
+3. 每条缓存信息需要可跟踪，比如服务器通知城市数据更新，这个时候在最近一次访问的时候要自动设置过期。
+4. **localStorage 常用于长期登录+判断用户是否已经登录。**
 
-92. 与indexOf()的区别：
 
-    - indexOf()返回的是数值，而includes()返回的是布尔值
-    - indexOf() 不能判断NaN，返回为-1 ，includes()则可以判断
 
-93. 
+## cookie的使用场景
 
+cookie 一般要配合 session一起使用，session 的使用场景：
 
+1. 商城中的购物车。
+2. 保存用户登录信息。
+3. 将某些数据放入 session 中，供同一用户的不同页面使用。
+4. 方式在用户非法登录。
 
+## 请求体参数有两种编码形式：content-type
 
+1. urlencoded
 
+   概念：
 
+   - **urlencoded** 格式，又叫 **form** 格式、**x-www-form-urlencoded** 格式。
+   - 它是一种**表单格式**。
 
+   组成格式：
 
+   - **键值对**组成
+   - 键和值之间用 **=** ：name=poloyy
+   - 多个键值对之间用 **&** ：name=poloyy&age=19
 
+   实际例子：
 
+   浏览器百度搜索：`baidu.com/s?ie=UTF-8&wd=baidu`
 
+2. JSON：这个 JSON 太厉害了，看详解。
 
+   ```js
+   {
+     "name" :"polo",
+     "age":35,
+     "smoke":false
+   }
+   ```
+   
+   
+   
+   [详解链接](https://www.cnblogs.com/poloyy/p/13138536.html)
 
+## xhr 和 fetch的区别
 
+xhr 和 fetch 都是 window 身上的方法，Ajax 请求只在浏览器端发送，服务器端不行(服务器端，没页面，也没有 window)。服务器端可以发 HTTP 请求。而 axios 可以满足浏览器端和服务器端都可以发送 Ajax 请求。
 
+[fetch发送网络请求](https://blog.csdn.net/qq_40850839/article/details/111060407)
 
+## axios发送请求
 
+axios 完整版：
 
+```js
+btn1.onclick = () = {
+    axios({
+        method: 'GET',
+        url: 'http://localhost:3000/get_persons',
+    }).then(
+    	response => console.log(response.data),
+        error => console.log(error)
+    )
+}
+```
 
+axios 精简版：
 
+```js
+btn1.onclick = () = {
+    axios.get('http://localhost:3000/get_persons').then(
+    	response => console.log(response.data),
+        error => console.log(error)
+    )
+}
+```
 
 
 
 
 
+## slice, substr 和 substring 的区别
 
+首先，他们都接收两个参数，slice和substring接收的是起始位置和结束位置(不包括结束位置)，而substr接收的则是起始位置和所要返回的字符串长度。
 
+[解析地址](https://www.cnblogs.com/dannyxie/p/5643860.html)
 
+## 请求拦截器和响应拦截器
 
+请求拦截器：在请求还没有发出去之前：
 
+1. 把请求拦截住。
+2. 根据具体业务逻辑，决定是否放行。
 
+定义：在真正发请求前执行的一个回调函数。
 
+作用：
 
+1. 对请求的配置做一些处理：data、header，界面 loading 提示。
 
+   界面 loading 提示：在发请求的时候，我可以在请求拦截器里面加载一个页面，一直加载中，然后等着数据回来的时候，要经过响应拦截器，在响应拦截器中把 loading 取消掉。这样就可以展示一个比较好的 loading 效果。这样做有个比较大的优势就是，我只要写了一个请求拦截器和一个响应拦截器，在我这个项目里面，只要我敢发请求，以后都走这个请求拦截器和这个响应拦截器，所有请求都加上了 **loading** 或者 **进度条** 的效果。
 
+2. 对请求进行检查，根据具体的条件决定是否真正发送请求。
 
+多个请求拦截器(`axios.interceptors.request.use()`)：后指定的拦截器先工作，先指定的拦截器后工作。实际工作中，一般只会配置一个请求拦截器。
 
+多个响应拦截器(`axios.interceptors.response.use()`)：先指定的拦截器先工作，后指定的拦截器后工作。
 
+定义：得到响应之后执行的一个回调函数。
 
+作用：
 
+1. 若请求成功，对成功的数据进行处理。
+2. 若请求失败，对失败进行进一步操作。
 
 
 
+## 总结 this 指向(熊键)
 
+1. 什么是 this？
+   - 一个关键字，是一个引用变量。
+   - 函数中可以出现 this (全局的 this 指向 window)。
+   - this 指向其所在函数的调用者，如果没有调用者则指向 window。
+   - this 的指向是在调用函数的时候确定的。
 
+2. this 指向(其实就是看函数的调用方式)。
+3. this 默认绑定 (函数默认调用)。
+4. 定时器的 this 指向 window。
+5. 箭头函数的 this：箭头函数没有自己的 this，箭头函数内部的 this 并不是调用时候指向的对象，而是定义函数时所在函数的 this 指向。
+6. this 指向调用函数的上下文 (函数是上下文调用的)。
+7. 注意隐式丢失现象(通过一个上下文对象拿到了一个函数，但是没有调用，而是赋值给了其他人)。
+8. this 指向实例化对象 (函数实例化调用)。
+9. 强制绑定：this 指向 call、apply、bind 修改的对象(函数是call、apply、bind调用的)。
 
+## 谈一谈闭包(熊键)
 
+什么是闭包：
 
+1. 函数嵌套函数，闭包就是内部嵌套的函数。
 
+2. 闭包就是包含被引用变量的 closure 对象，在嵌套的内部函数中。
 
+产生闭包的情况：
 
+1. 函数嵌套。
 
+2. 内部函数引用外部函数的变量。
 
+3. 调动外部函数。
 
+闭包的作用：
 
+1. 延长了局部变量的生命周期。
 
+2. 可以在外部操作局部变量。
 
+闭包的缺点：
 
+1. 函数的局部变量占用内存时间过长，容易造成内存泄露。
 
+2. 解决：
+   1. 减少使用闭包。
+   2. 及时释放闭包。
 
 
 
+## 谈一谈跨域(熊健)
 
+同源：协议名、域名、端口号一致。
 
+跨域：给不同源的地址发送 Ajax 请求。
 
+**解决跨域问题：**
 
+1. **jsonp 原理:** 就是利用 script 标签发送请求不受同源策略的限制，去给服务器发送请求，发送时要将一个定义好的函数名通过 callback=函数名的形式，上传给服务器。服务器会响应函数的调用。具体要响应给浏览器的数据，就是函数调用时的实参。浏览器拿到函数调用的字符串之后，会将这个字符串，放到对应的 script 里面去执行，执行时会自动将引号去掉。直接变成了一段 js 代码。而这段 js 代码就是函数调用。所以这时会去全局查找对应的函数。找到了之后就执行这个函数，响应的数据，就直接赋值给形参了。在这个函数体中，就可以操作这个数据了。
 
+     **jsonp 的注意点：**
 
+   1. jsonp 只能发送 get 请求。
 
+   2. jsonp 没有兼容性问题。
 
+   3. 要想实现跨域，需要后台配合。
 
+      后端配合：用 jquery 随机生成字符串，后台将数据作为**参数**包裹在这个随机字符串函数里作为参数传递到前台。
 
 
 
+2. **cors(跨域资源共享)：** IE10 以上的浏览器才能使用。在真正发送 ajax 请求之前，浏览器会检查是否同源，如果不同源，会自动先给指定的服务器预请求一下，询问是否支持 cors，如果服务器响应支持，浏览器才会让我们写的 ajax 请求发送出去，响应的时候就不再拦截了，如果服务器不支持 cors。浏览器就不会将我们的 ajax 发送出去。
 
+     **cors 的注意点：**
 
+   1. IE10+ 才支持(有兼容性问题)。
 
+   2. 可以使用 get/post 请求。
 
+   3. 依然需要后台配合。
 
+      后端配合：跨域资源共享(CORS, Cross-Origin Resource Sharing)，本质是设置响应头，使得浏览器允许跨域请求。
 
+## 谈谈 js 异步代码执行机制(熊键)
 
+1. 同步代码和异步代码如何执行？
+   1. JS 引擎从上到下依次执行所有代码。
+   2. 遇到同步代码，依次执行。
+   3. 遇到异步代码，异步函数是会被同步调用，只是其中的异步任务和回调函数会交给浏览器相关模块负责处理。
+   4. 此时 JS 引擎会继续执行后面代码。
 
+比如：定时器函数会被同步调用，里面计时任务和回调函数会交给浏览器定时器管理模块去处理，
 
+当浏览器定时器管理模块记录时间到点了，会将回调函数添加回调队列中，等待执行。
 
+等 JS 引擎执行完全局所有代码，才会开启事件轮询，轮询回调队列，执行其中异步回调函数，默认按照顺序依次执行，先进先出。
 
 
 
+2. 异步代码具体谁先执行，谁后执行？
+   1. 宏任务(执行优先级低)：setTimeout、setInterval、DOM 事件回调、Ajax 请求、setImmediate（NODEJS）
+   2. 微任务(执行优先级高)：promise.then/catch/finally、queueMicrotask、requestAnimationFrame
 
+将整个 script 当做一个宏任务执行。
 
+执行完一个宏任务，先检查是否有微任务要执行。
 
+需要所有微任务都执行完，再检查是否有宏任务要执行。
 
+执行完一个宏任务，先检查是否有微任务要执行。
 
 
 
 
 
+## 什么是埋点？
 
+埋点：是网站分析的一种常用的数据采集方法。如：统计客户点击某个按钮的次数。
 
+## includes与indexOf()的区别
 
+- indexOf()返回的是数值，而includes()返回的是布尔值
+- indexOf() 不能判断NaN，返回为-1 ，includes()则可以判断
 
 
 
+## 其他
 
+### 1. 原型链：查找变量的过程。由多级父对象，逐级继承，形成的链式结果。
 
+### 2. alert 弹出来的结果都会进行内部 toString 转换，输出为字符串。
 
+### 3. 枚举、迭代、遍历。
 
+### 4. 无论客户关闭了浏览器还是电脑，只要还在 `maxAge`秒之前，登录网站时该 Cookie 仍然有效。
 
+### 5. 代理(proxy)：就是通过一个对象来操作另一个对象。
 
+### 6. 所有对象都是实例对象。都是 new 某个东西产生的。
 
+### 7. react 中使用 `<button></button>`如果你指定了 button 的 type 属性，要么不指定，要么指定 submit，不要指定为`type = ‘button’`。
 
+###  8.  property 和 attribute
 
+property：操作属性为布尔值的属性。
 
+attribute：操作属性为非布尔值的属性。
 
+### 9. 浏览器内核：支撑浏览器运行的最核心的程序。
 
+### 10. 注意：三元运算符中不能写 return。
 
+### 11. 所有的字符串的方法都是返回一个新的字符串。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### 
 
 
 

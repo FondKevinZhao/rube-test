@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 英文字母汉字组成的字符串，用正则给英文单词前后加空格
+
+      let str = 'no作no死，你能你can，不能no哔哔！',
+        reg = /\b[a-z]+\b/gi
+      // value 就是str里的内容和当前正则匹配到的结果
+      str = str
+        .replace(reg, (value) => {
+          return ' ' + value + ' '
+        })
+        .trim()
+      // trim()去掉开头和结尾的空格
+      console.log(str) //no 作 no 死，你能你 can ，不能 no 哔哔！
+      // String.prototype.trim()/.trimLeft()/.trimRight() 去除前后，去除左边，去除右边的空格
+    </script>
+  </body>
+</html>

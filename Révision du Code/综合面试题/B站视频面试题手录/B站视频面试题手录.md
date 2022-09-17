@@ -1,4 +1,4 @@
-# HTML/CSS
+## HTML/CSS
 
 1. 高效学习三部曲(适用于任何行业)：找准知识体系，刻意练习，及时反馈。
 
@@ -57,17 +57,18 @@
 
 8. UI 设计师会把图纸放到 摹客或蓝湖里面，前端人员只要登录账号就可以拉图纸，进行开发了。
 
-9. 元素的显示与隐藏：
 
-    1. display : none / block; 不占位置。
+## 元素的显示与隐藏：
 
-    2. visibility : hidden / visible ; 占位置。
+1. display : none / block; 不占位置。
 
-    3. overflow : hidden ; 溢出隐藏。
+2. visibility : hidden / visible ; 占位置。
+
+3. overflow : hidden ; 溢出隐藏。
 
 
 
-#### 浏览器输入 URL 按下 enter 发生了什么
+## 浏览器输入 URL 按下 enter 发生了什么
 
 1. 输入 URL 并按下 enter。
 2. DNS 解析 URL 对应的 IP。
@@ -80,7 +81,7 @@
 
 
 
-# JavaScript
+## JavaScript
 
 1. W3C 标准包括：W3C 是 World Wide Web Consortium（万维网联盟）的缩写。标准不是某一个标准，而是一系列标准的集合，包含三部分的标准：结构标准、表现标准和动作标准。
 
@@ -855,133 +856,6 @@ new 做了什么？
 
    
 
-## 数组合并
-
-```js
-// 方法一
-let ary1 = ['a1','a2','a3'];
-let ary2 = ['a','b'];
-let ary3 = ary1.concat(ary2);
-console.log(ary3)
-
-// 方法二：
-let arr1 = [1, 2, 3]
-let arr2 = [4, 5, 6]
-let arr3 = [...arr1, ...arr2]
-console.log('arr3', arr3)
-```
-
-```js
-// 需求：
-// 1. 合并数组
-// 2. a 到 a2的后面，b 到 b2 的后面, 一次类推
-let ary1 = ['a1','a2','b1','b2', 'c1','c2'];
-let ary2 = ['a','b','c'];
-ary2 = ary2.map(item => item + 'Z'); // 这个Z只要大于2就行
-// console.log(ary2) // [ 'aZ', 'bZ', 'cZ' ]
-let arr = ary1.concat(ary2);
-// console.log(arr); // ['a1', 'a2', 'b1','b2', 'c1', 'c2','aZ', 'bZ', 'cZ']
-arr = arr.sort((a,b) =>a.localeCompare(b)).map(item => {
-  return item.replace('Z','')
-});
-console.log(arr); // 返回：['a1', 'a2', 'a', 'b1', 'b2', 'b', 'c1', 'c2', 'c']
-// 这种方法弊端：如果 'b1','b2' 在 'c1','c2' 的后面，那么会对数组的顺序产生影响
-```
-
-
-
-## 闭包题
-
-```js
-for (var i = 0; i < 10; i++) {
-  setTimeout(() => {
-    console.log(i); // 10,10,10,10,10,10,10,10,10,10
-  }, 1000);
-}
-// 定时器执行时异步的，每一轮循环设置定时器，无需等定时器触发执行，继续下一轮循环(定时器触发的时候，循环已经结束了)
-```
-
-```js
-// 通过块级作用域
-for (let i = 0; i < 10; i++) {
-  setTimeout(() => {
-    console.log(i); // 0 1 2 3 4 5 6 7 8 9
-  }, 1000);
-} 
-// let是块级作用域，每一次循环都会把当前循环的变量值i,存入块级作用域中
-// 当定时器执行的时候，所使用的 i，就是所处作用域中的 i。
-```
-
-```js
-// 通过 IIFE 自执行函数形成闭包
-for (var i = 0; i < 10; i++) {
-  (function (i) {
-    setTimeout(() => {
-      console.log(i); // 0 1 2 3 4 5 6 7 8 9
-    }, 1000);
-  })(i);
-}
-```
-
-```js
-// 箭头函数闭包写法：
-for (var i = 0; i < 10; i++) {
-  setTimeout(((i) => {
-    return () => {
-      console.log(i); // 0 1 2 3 4 5 6 7 8 9
-    }
-  })(i), 1000);
-}
-
-// 可以简写为：
-for (var i = 0; i < 10; i++) {
-  setTimeout((i => () => console.log(i))(i),1000); 
-}
-// 0 1 2 3 4 5 6 7 8 9
-```
-
-
-
-```js
-// 匿名函数
-// 1. 本应匿名的函数如果设置了函数名，在外面还是无法调用，但是在当前函数里面是可以使用的
-// 2. 而且类似于创建常量一样，这个名字存储的值，不能被再修改。(非严格模式下，不会报错，但是不会有任何的效果，在严格模式下直接报错，我们可以把AAA理解为是用 const 创建出来的)
-
-let fn = function AAA() {
-  console.log(AAA);
-};
-console.log(fn())
-```
-
-## 变量作用域
-
-```js
-var b = 10;
-(function b() {
-  b = 20; // 这个名字存储的值，不能被再修改。
-  console.log(b); // 函数
-})();
-console.log(b); // 10 
-```
-
-```js
-var a = 10;
-(function b(b) {
-  b = 20;
-  console.log(b); // 20 改为形参
-})(a);
-console.log(a); // 10 
-```
-
-```js
-var b = 10;
-(function b() {
-  var b = 20;
-  console.log(b); // 20 // 声明 b (前面加var)
-})();
-console.log(b); // 10 
-```
-
 
 
 ## == 比较
@@ -1017,116 +891,7 @@ console.log(b); // 10
    
    
 
-## a 在什么情况下，能让下面的条件成立？
-
-```js
-// a 在什么情况下，能让下面的条件成立
-// 方法一：
-var a = {
-  n: 0,
-  toString: function () {
-    return ++this.n;
-  }
-};
-if (a == 1 && a == 2 && a == 3) {
-  console.log(1); // 1
-}
-```
-
-```js
-// a 在什么情况下，能让下面的条件成立
-// 方法二：
-var a = [1, 2, 3];
-a.toString = a.shift;
-if (a == 1 && a == 2 && a == 3) {
-  console.log(1); // 1
-}
-```
-
-## 其他
-
-31. ```js
-    let obj = {
-      2: 3,
-      3: 4,
-      length: 2,
-      push: Array.prototype.push
-    }
-    obj.push(1);
-    obj.push(2);
-    console.log(obj); // { '2': 1, '3': 2, length: 4, push: [Function: push] }
-    ```
-
-    [视频详解(ctrl+左击)](https://www.bilibili.com/video/BV1Mf4y1r7xX?p=31&spm_id_from=pageDriver)
-
-32. 某公司 1 到 12 月份的销售额存在一个对象里面
-
-    如下：
-
-    ```js
-    {
-     1: 122,
-     2: 123,
-     5: 888
-    },
-    ```
-
-    
-
-    请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]
-
-    ```js
-    // 方法一：
-    let obj = {
-      1: 222,
-      2: 123,
-      5: 888
-    };
-    
-    // 创建一个新数组，用null填充，循环这个新数组
-    let arr = new Array(12).fill(null).map((item, index) => {
-      // 数组的索引是从0开始，1-12月是从1开始的，所以要index+1
-      // index+1，能找到返回相对应的值，找不到用null代替
-      return obj[index + 1] || null;
-    });
-    console.log(arr); // [222,  123,  null,null, 888,  null,null, null, null,null, null, null]
-    ```
-
-    ```js
-    // 方法二：
-    let obj = {
-      1: 222,
-      2: 123,
-      5: 888
-    };
-    
-    // 因为数组的索引从零开始，0是undefined，不符合要求，所以多出来一位数组
-    obj.length = 13;
-    // slice 从索引1开始截取，0为可以去掉不要
-    let arr = Array.from(obj).slice(1).map(item => {
-      return typeof item === 'undefined' ? null : item;
-    });
-    console.log(arr); // [222,  123,  null,null, 888,  null,null, null, null,null, null, null]
-    ```
-
-    ```js
-    // 方法三：
-    let obj = {
-      1: 222,
-      2: 123,
-      5: 888
-    };
-    // Object.keys(obj); 获取obj中所有的属性名，以数组方式返回
-    let arr = new Array(12).fill(null);
-    Object.keys(obj).forEach(item => {
-      arr[item - 1] = obj[item];
-    });
-    console.log(arr);
-    ```
-
-    
-
-### 变量计算-类型转换
+## 变量计算-类型转换
 
 下面三种情况容易发生类型转换：
 
@@ -1188,7 +953,7 @@ if (a == 1 && a == 2 && a == 3) {
 
    
 
-### form 表单怎么阻止重复提交？
+## form 表单怎么阻止重复提交？
 
 **会引起表单重复提交的情况：**f5 刷新页面，点击浏览器后退，重复点击提交按钮。
 
@@ -1219,68 +984,55 @@ if (a == 1 && a == 2 && a == 3) {
 
 **数据库：**数据库中做唯一性约束。
 
-31. 懒加载大量数据的时候加载不出来的情况怎么优化？
+## 懒加载大量数据的时候加载不出来的情况怎么优化？
 
-    1. 图片资源的压缩。
-    2. 监听滚动条事件，当滚动条到底时，增加显示数据个数。
-    3. 可以使用虚拟列表，`Object.freeze` 冻结对象，`Object.preventExtentsion` 阻止对象扩展来阻止 vue 给每个对象加上 get, set，但是缺点是不能响应了。
-    4. icon 资源使用雪碧图。
-    5. 开启 gzip 压缩("命令行执行：`npm i compression-webpack-plugin -D`")。
+1. 图片资源的压缩。
+2. 监听滚动条事件，当滚动条到底时，增加显示数据个数。
+3. 可以使用虚拟列表，`Object.freeze` 冻结对象，`Object.preventExtentsion` 阻止对象扩展来阻止 vue 给每个对象加上 get, set，但是缺点是不能响应了。
+4. icon 资源使用雪碧图。
+5. 开启 gzip 压缩("命令行执行：`npm i compression-webpack-plugin -D`")。
 
-32. js 的垃圾回收机制。
+## js 的垃圾回收机制。
 
-    js 的垃圾回收机制就是为了防止内存泄漏的，内存泄漏的含义就是当已经不需要某块内存时这块内存还存在着，垃圾回收机制就是间歇的不定期的寻找到不再使用的变量，并释放掉它们所指向的内存。所以这里又涉及到变量的生命周期，当一个变量的生命周期结束之后它所指向的内存就应该被释放。
+js 的垃圾回收机制就是为了防止内存泄漏的，内存泄漏的含义就是当已经不需要某块内存时这块内存还存在着，垃圾回收机制就是间歇的不定期的寻找到不再使用的变量，并释放掉它们所指向的内存。所以这里又涉及到变量的生命周期，当一个变量的生命周期结束之后它所指向的内存就应该被释放。
 
-    JS 有两种变量，全局变量和在函数中产生的局部变量。局部变量的生命周期在函数执行过后就结束了，此时便可将它引用的内存释放（即垃圾回收），但全局变量生命周期会持续到浏览器关闭页面。所以当我们过多的使用全局变量的时候也会导致内存泄漏的问题。
+JS 有两种变量，全局变量和在函数中产生的局部变量。局部变量的生命周期在函数执行过后就结束了，此时便可将它引用的内存释放（即垃圾回收），但全局变量生命周期会持续到浏览器关闭页面。所以当我们过多的使用全局变量的时候也会导致内存泄漏的问题。
 
-33. 说说什么情况会造成内存泄露？
+## 说说什么情况会造成内存泄露？
 
-    **js 中：**
+**js 中：**
 
-    1. 全局变量：JavaScript可以处理没有声明的变量：一个未声明的变量的引用在全局对象中创建了一个新变量。在浏览器的环境中，全局对象是 window。
-    2. 闭包：匿名函数可以访问父级作用域的变量。闭包会造成对象引用的生命周期脱离当前函数的上下文，如果闭包使用不当，可以导致环形引用（circular reference），类似于死锁，只能避免，无法发生之后解决，即使有垃圾回收也还是会内存泄露。
-    3. 被遗忘的定时器：使用完`setInterval/setTimeout`之后通常忘记清理。
-    4. dom 清空或删除时，事件未清除导致的内存泄露。
+1. 全局变量：JavaScript可以处理没有声明的变量：一个未声明的变量的引用在全局对象中创建了一个新变量。在浏览器的环境中，全局对象是 window。
+2. 闭包：匿名函数可以访问父级作用域的变量。闭包会造成对象引用的生命周期脱离当前函数的上下文，如果闭包使用不当，可以导致环形引用（circular reference），类似于死锁，只能避免，无法发生之后解决，即使有垃圾回收也还是会内存泄露。
+3. 被遗忘的定时器：使用完`setInterval/setTimeout`之后通常忘记清理。
+4. dom 清空或删除时，事件未清除导致的内存泄露。
 
-    **vue 中：**
+**vue 中：**
 
-    如果在 created/mounted 中做了以下事情，记得在 beforeDestroy 中关闭：
+如果在 created/mounted 中做了以下事情，记得在 beforeDestroy 中关闭：
 
-    1. 绑定了 DOM 对象中的事件。
-    2. 第三方库初始化。
-    3. 如果组件中使用了定时器。
-    4. 组件中绑定了自定义事件。
-    6. 组件中使用了消息订阅与发布。`PubSub.unsubscribe(pubId)`
+1. 绑定了 DOM 对象中的事件。
+2. 第三方库初始化。
+3. 如果组件中使用了定时器。
+4. 组件中绑定了自定义事件。
+6. 组件中使用了消息订阅与发布。`PubSub.unsubscribe(pubId)`
 
-34. [TAPD](https://www.tapd.cn/)跟[禅道](https://www.zentao.net/)：工作中的 bug 处理。
+## TAPD跟禅道：工作中的 bug 处理。
 
-    tapd是腾讯公司的一个产品研发平台，全名叫做腾讯敏捷产品研发平台。最初只是在内部的人员才有资格接触到，并且这个平台已经存在有12年之久，正式对公众开放是在2017年。
+[TAPD](https://www.tapd.cn/)跟[禅道](https://www.zentao.net/)
 
-    禅道是第一款国产的开源项目管理软件，她的核心管理思想基于敏捷方法scrum，内置了产品管理和项目管理，同时又根据国内研发现状补充了测试管理、计划管理、发布管理、文档管理、事务管理等功能，在一个软件中就可以将软件研发中的需求、任务、bug、用例、计划、发布等要素有序的跟踪管理起来，完整地覆盖了项目管理的核心流程。
+tapd是腾讯公司的一个产品研发平台，全名叫做腾讯敏捷产品研发平台。最初只是在内部的人员才有资格接触到，并且这个平台已经存在有12年之久，正式对公众开放是在2017年。
 
-35. map 的使用：
+禅道是第一款国产的开源项目管理软件，她的核心管理思想基于敏捷方法scrum，内置了产品管理和项目管理，同时又根据国内研发现状补充了测试管理、计划管理、发布管理、文档管理、事务管理等功能，在一个软件中就可以将软件研发中的需求、任务、bug、用例、计划、发布等要素有序的跟踪管理起来，完整地覆盖了项目管理的核心流程。
 
-    ```js
-    var numbers = [4, 9, 16, 25];
-    
-    function myFunction() {
-        x = document.getElementById("demo")
-        x.innerHTML = numbers.map(Math.sqrt);
-    } // 2,3,4,5
-    ```
 
-    map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
 
-    map() 方法按照原始数组元素顺序依次处理元素。
 
-    **注意：** map() 不会对空数组进行检测。
-
-36. 
 
 ---
 
 
-# Node.js
+## 关于axios
 
 1. 什么是 axios？
 
@@ -1360,31 +1112,30 @@ if (a == 1 && a == 2 && a == 3) {
 
    当出现重复请求的时候，我们就可以使用 cancel 函数来取消前面已经发出的请求，在取消请求之后，我们还需要把取消的请求从 `pendingRequest` 中移除。现在我们已经知道如何取消请求和如何判断重复请求，下面我们来介绍如何取消重复请求。
 
-7. JSON对象的方法：
 
-   1. `JSON.stringify(obj/arr);`
+## JSON对象的方法：
 
-      js 对象(数组) 转换为 json 对象(数组)(字符串类型)
+1. `JSON.stringify(obj/arr);`
 
-   2. `JSON.parse(json); `
+   js 对象(数组) 转换为 json 对象(数组)(字符串类型)
 
-      json 对象(数组)(字符串类型) 转换为 js 对象(数组)
+2. `JSON.parse(json); `
 
-8. yarn 基本指令
+   json 对象(数组)(字符串类型) 转换为 js 对象(数组)
 
-   yarn init：初始化一个项目。
+## yarn 基本指令
 
-   yarn add + 包名：安装一个依赖包。
+yarn init：初始化一个项目。
 
-   yarn update + 包名：升级依赖包。
+yarn add + 包名：安装一个依赖包。
 
-   yarn update + 包名@version：升级指定版本的依赖包。
+yarn update + 包名：升级依赖包。
 
-   yarn remove + 包名：移除依赖包。
+yarn update + 包名@version：升级指定版本的依赖包。
 
-   yarn install：安装全部依赖包。
+yarn remove + 包名：移除依赖包。
 
-9. 
+yarn install：安装全部依赖包。
 
 
 

@@ -1,4 +1,4 @@
-### splice 方法
+## splice 方法
 
 - 参数只有两个：代表删除：第一个起始位置，第二个表示删几个。
 
@@ -33,13 +33,13 @@
 
   
 
-### 在 vue 当中一开始 data 中的属性数据都是响应式的
+## 在 vue 当中一开始 data 中的属性数据都是响应式的
 
 数组的数据：说的每个数组当中元素整体
 
 对象的数据：说的对象的属性
 
-### 在 vue 中处理响应式数据对于数组和对象是不一样的
+## 在 vue 中处理响应式数据对于数组和对象是不一样的
 
 1. 因为 vue 一开始就为 data 当中所有的属性通过 Object.defineProperty 添加了 get 和 set。
 
@@ -54,7 +54,7 @@
 - 对象是通过 Object.defineProperty 添加了 get 和 set。
 - 数组是重写数组的方法：push、pop、shift、unshift、reverse、sort、splice。
 
-### 禁用系统滚动条
+## 禁用系统滚动条
 
 ```css
 html,body {
@@ -65,7 +65,7 @@ html,body {
 
 
 
-### 自定义指令(和定义过滤器很像)
+## 自定义指令(和定义过滤器很像)
 
 定义全局指令：`Vue.directive('指令名字', 回调函数);`
 
@@ -73,7 +73,7 @@ html,body {
 
 注意：指令的名称必须是全小写，不能大写。而且在定义指令名称的时候，不用写 v-。
 
-### 自定义插件
+## 自定义插件
 
 插件的作用：定义插件对象，为 Vue 和 Vue 的实例添加一些额外功能。
 
@@ -95,7 +95,7 @@ html,body {
 
 
 
-### 自定义组件(非单文件组件)
+## 自定义组件(非单文件组件)
 
 定义全局组件：
 
@@ -120,7 +120,7 @@ html,body {
 2. 样式没法单独写。
 3. 没法使用模块化解析 ES6 语法。
 
-### 模块：一个 js 文件
+## 模块：一个 js 文件
 
 什么是模块化？
 
@@ -128,11 +128,11 @@ html,body {
 
 - 我这个项目是很多个 js 文件组成的。
 
-### 组件：由 html/css/js 组成的代码片段。
+## 组件：由 html/css/js 组成的代码片段。
 
 组件化比模块化的范围要大。
 
-### 脚手架的安装和目录结构
+## 脚手架的安装和目录结构
 
 一、之前自己搭建环境、配置 webpack 只是一些基本的功能
 
@@ -153,7 +153,7 @@ html,body {
 3. 查看 vue 脚手架版本：vue --version 或 vue -V
 4. 删除 vue 脚手架的指令(只是演示，下载好了就行，不需要删除)：npm uninstall -g @vue/cli
 
-### eslint 的禁用
+## eslint 的禁用
 
 eslint 的配置的错误级别
 
@@ -191,7 +191,7 @@ eslint 的配置的错误级别
 
    
 
-### webpack 配置
+## webpack 配置
 
 - 脚手架 2：配置是暴露的，我们可以直接在里面修改配置。
 - 脚手架 3：配置是隐藏的，我们需要通过脚手架扩展的 vue.config.js 来配置。
@@ -203,11 +203,11 @@ vue.config.js(相当于一个小的 webpack 配置文件) 在构建项目的时�
 - 脚手架 2: npm run dev
 - 脚手架3: npm run serve
 
-### 如何知道某个组件有没有用到某个数据？
+## 如何知道某个组件有没有用到某个数据？
 
 就看当前组件有没有对那个数据进行：增、删、改、查
 
-### map方法
+## map方法
 
 功能：加工数组。根据已有的数组，创建新的数组，新数组当中的每一项和老数组当中每一项对应有关系。
 
@@ -217,20 +217,29 @@ vue.config.js(相当于一个小的 webpack 配置文件) 在构建项目的时�
 
 **注意：some/every/reduce/map/filter/forEach这些方法都暗含了遍历**
 
+```js
+this.users = response.data.items.map(item => ({
+    username: item.login,
+    userurl: item.url,
+    userimg: item.avatar_url
+}))
+// 其实这个 item 不止这三项，但是我映射的只有三项
+```
 
 
-### 请求方式：
+
+## 请求方式
 
 1. 普通的http请求就是get和post。
 2. Ajax请求一般情况下包含四种：get post put delete
 
-### 前后端分离
+## 前后端分离
 
 分离前：前端只负责搭网页，然后后面的逻辑和接口都是由后端来做。
 
 分离后：前端做前端的(搭页面、做交互(请求获取数据，展示渲染))，后端做后端的(数据库的存储操作，接口的书写，服务器的部署)。就是把后端的一些东西剥离出来给前端工程师，其实是减轻了后端人员的工作量。
 
-### restful API 接口规范
+## restful API 接口规范
 
 restful API 接口规范：是现在目前最流行的书写后端接口的一个规范
 
@@ -248,12 +257,80 @@ restful API 接口规范：是现在目前最流行的书写后端接口的一�
 
 
 
+## 隐式类型转换
+
+(刘渊哥)隐式类型转换：
+
+啥时候出现？计算、比较、全部转基本
+
+判等的时候：判等如果都是对象，判地址。如果有一个不是对象类型，那转基本。
+
+1. 数组转基本：去掉中括号，中间留下什么，就带引号。
+
+   ```js
+   console.log([1, 2, 3] + 100); // '1, 2, 3100'
+   ```
+
+   
+
+2. 对象转基本：固定的 '[object Object]'。
+
+   ```js
+   console.log({name:'zs'} + 100); // '[object Object]100'
+   ```
+
+   
+
+3. 函数转基本：固定的 函数整体加字符串。
+
+   ```js
+   function fn() {
+       console.log(111);
+   }
+   
+   console.log(fn + 100); // 'function fn() {console.log(111)}100'
+   ```
 
 
 
 
+## 什么是localStorage？
+
+(刘渊哥)只要`todos`数据发生变化，就把变化后的数据存储到 localStorage 当中
+
+ localStorage 是前端本地存储的方案，是一个小型的数据库，存储到 localStorage 当中的东西，都会自动转化为字符串
+
+localStorage 当中有 4 个 API：
+
+- `localStorage.setItem('键', 值)` // 给 localStorage 存储数据
+- `localStorage.getItem('键')` // 获取 localStorage 当中某个键的数据
+- `localStorage.removeItem('键')` // 删除 localStorage 当中某个数据
+- `localStorage.clearItem()` // 清空 localStorage 当中所有的数据
+
+> 里面的“键”，通常都大写，如：`localStorage.setItem('TODOS_KEY', newVal)` 注意：这里的值不能直接存对象数据类型的值，否则会存入的 '[object Object]'。因为对象数据全部都会私自转基本，数据就不对了。
+>
+> 如果有对象，我们可以这样写：`localStorage.setItem('TODOS_KEY', JSON.stringify(newVal))`
 
 
+
+## reduce的使用
+
+功能：统计数组当中的符合条件的结果(数字或者其他类型)
+
+参数：回调函数(参数：prev(上一次统计的结果) item index arr) 	统计的初始值
+
+返回值：返回统计后的结果
+
+```js
+let arr = [1, 2, 3];
+let newArr = arr.reduce((prev, item, index, arr)=> {
+    // 这个方法也是暗含遍历，会拿数组的每一项执行回调函数
+    // 第一次执行回调的时候，prev 的值就是你给的初始值
+    // 第一次执行完回调函数后，会返回 prev 值，返回给了第二次执行时候的初始值
+    return i
+}, 0)
+console.log(newArr); // 6
+```
 
 
 
