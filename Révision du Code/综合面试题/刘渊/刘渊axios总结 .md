@@ -64,9 +64,9 @@ axios 是根据 xhr 和 promise 封装而来的一个 http 库(插件)
 
      ```js
      axios({
-         // 配置对象
-         url:'https://api.github.com/search/respositories?q=v&sort=stars',
-         method:"get"
+       // 配置对象
+       url:'https://api.github.com/search/respositories?q=v&sort=stars',
+       method:"get"
      })
      ```
 
@@ -76,13 +76,13 @@ axios 是根据 xhr 和 promise 封装而来的一个 http 库(插件)
 
      ```js
      axios({
-         // 配置对象
-         url:'https://api.github.com/search/respositories,
-         method:"get",
-         params: {
-             q: 'v',
-             sort: 'stars'
-         }
+       // 配置对象
+       url:'https://api.github.com/search/respositories,
+       method:"get",
+       params: {
+         q: 'v',
+         sort: 'stars'
+       }
      })
      ```
 
@@ -110,9 +110,9 @@ axios 是根据 xhr 和 promise 封装而来的一个 http 库(插件)
 ```js
 // 函数写法
 axios({
-    // 配置对象
-    url:'https://api.github.com/search/respositories?q=v&sort=stars',
-    method:"get"
+  // 配置对象
+  url:'https://api.github.com/search/respositories?q=v&sort=stars',
+  method:"get"
 })
 ```
 
@@ -205,7 +205,6 @@ service.interceptors.response.use(
     return new Promise(() => {})  // 返回的是pending状态的promise，代表中断promise链，后期也就没办法处理了
   }
 );
-
 
 export default service  // 把封装好的axios实例，暴露出去，后面去用
 ```

@@ -28,17 +28,14 @@
   </head>
   <body>
     <script>
-     
       new Promise((resolve, reject) => {
         // 异步代码
         resolve(参数) // 成功
         reject(参数) // 失败
-      })
-        .then(
+      }).then(
           (data) => {},
           (err) => {}
-        )
-        .then(
+        ).then(
           (data) => {},
           (err) => {}
         )

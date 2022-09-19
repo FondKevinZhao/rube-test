@@ -1,4 +1,4 @@
-### 路由
+## 路由
 
 1. 路由组件和非路由组件的区别：
 
@@ -102,7 +102,7 @@
    6. 使用(跳转路由的两种方式)：声明式路由导航和编程式路由导航
 
       - 使用 router-link 和 router-view
-      - push 和 replace 和 router-view
+      - 使用 push 和 replace 和 router-view
 
       两种模式都需要写 router-view
 
@@ -139,9 +139,9 @@
    ```js
    // 组件中
    methods: {
-       toSearch() {
-           this.$router.push('/search/' + this.keyword)
-       }
+     toSearch() {
+       this.$router.push('/search/' + this.keyword)
+     }
    }
    ```
 
@@ -242,10 +242,10 @@ export default new VueRouter({
 ```js
 // 组件中
 this.$router.push({
-    path: '/search',
-    query: {
-        keyword1:this.keyword.toUpperCase()
-    }
+  path: '/search',
+  query: {
+    keyword1:this.keyword.toUpperCase()
+  }
 })
 ```
 
@@ -269,10 +269,10 @@ export default new VueRouter({
 ```js
 // 组件中
 this.$router.push({
-    name: 'search', // 路由的名称
-    params: {
-        keyword: this.keyword
-    }
+  name: 'search', // 路由的名称
+  params: {
+      keyword: this.keyword
+  }
 })
 ```
 
@@ -352,7 +352,7 @@ this.$router.push({
 
    
 
-### eslint 错误级别禁用：
+## eslint 错误级别禁用：
 
 原因：默认项目当中是安装了 eslint 语法检查工具，而且默认这个检查的严格级别很高。
 
@@ -409,12 +409,15 @@ lintOnSave: false,
    ```
 
 
-### HTTP 请求：
+
+## HTTP 请求
 
 1. 普通的 http 请求。如：get(点击a标签跳转页面，在地址栏输入网址按回车等)、post(form 表单)。页面会刷新。
 2. Ajax 请求。如：get、post、put、delete。一般都是异步发送的，页面不刷新，局部刷新。
 
-### 配置代理
+
+
+## 配置代理
 
 浏览器上才有同源策略这个说法，服务器上是没有的。
 
@@ -442,33 +445,25 @@ lintOnSave: false,
    }
    ```
 
-   
+   changeOrigin 为false时，请求头中host仍然是浏览器发送过来的host; 如果设置成true：发送请求头中host会设置成target的值。
 
 2. 查看路径的时候一定要选择  All 或者 Fetch/XHR，不然看不到返回的数据：
 
    ![image-20211107194301737](北京PC项目笔记.assets/image-20211107194301737.png)
 
-### vuex 中的modules 原理：
+
+
+## vuex 中的modules 原理
 
 ![image-20211107211810620](北京PC项目笔记.assets/image-20211107211810620.png)
 
-1. axios 一旦被调用，返回的是 promise。
 
-2. 从 vuex 当中把数据捞到 vue 组件中使用：
+
+1. 从 vuex 当中把数据捞到 vue 组件中使用：
 
    - 以后只要是从 vuex 拿的是数据，都在 computed 当中拿，拿的就是 state 和 getters 当中的东西。
 
    - 以后只要是从 vuex 拿的是方法(mutations 和 actions 当中的东西)，都在 methods 当中去拿，一般用的很少。
-
-3. 整体引入 lodash：`import _ from 'lodash'`
-
-   按需引入 lodash 中的 throttle：`import throttle from 'lodash/throttle'`
-
-   ` var throttled = _.throttle(renewToken, 300000, { 'trailing': false });`
-
-   `{ 'trailing': false }`的作用：是否在结束延迟之后调用。默认是 true。(trailing 常用)
-
-   `{ 'leading': false }`的作用：是否在结束延迟之前调用。默认是 false。(leading 一般不用)
 
 4. 事件控制 2、3 级分类的显示和隐藏：
 
@@ -486,21 +481,37 @@ lintOnSave: false,
 
    6. 移出不能再 item 身上去加，因为最后 item 和 h2 移出他们整体会把 2 级分类隐藏，所以需要用 div 把 item 和 h2 包裹，给 div 添加。
 
-7. 把所有的 a 标签换成 router-link 会卡，因为组件标签太多了，导致内存当中组件对象太多，容易造成鼠标移动到列表中的时候，一卡一卡的。(来自于111集 - 20: 00 - 点击分裂跳转到搜索页面，携带 query 参数 )
+3. 把所有的 a 标签换成 router-link 会卡，因为组件标签太多了，导致内存当中组件对象太多，容易造成鼠标移动到列表中的时候，一卡一卡的。(来自于111集 - 20: 00 - 点击分裂跳转到搜索页面，携带 query 参数 )
 
    解决办法：
 
    1. 把 **声明式导航 router-link **改为 **编程式导航 `$router.push({})`**。
    2. 把声明式导航改为编程式导航，click 事件在点击之后，是需要调用函数的，同样每个 a 标签都添加了点击事件，那么内容中就会定义很多个函数，内存占用也是比较大的，效率虽然比声明式导航强，但是还是不够好。再用事件委托来把函数定义在父元素上来解决。
 
-8. 事件委派在哪两种场合使用？
 
-   - 一个爹有很多儿子，每个儿子身上都绑定了同样的事件，而且事件的回调处理效果都差不多。
-   - 一个爹有很多儿子，一部分儿子已经渲染在页面了，旁边有一个按钮，点击一下按钮添加一个儿子。
 
-### 事件委派(事件委托)：
+## lodash的使用
+
+整体引入 lodash：`import _ from 'lodash'`
+
+按需引入 lodash 中的 throttle：`import throttle from 'lodash/throttle'`
+
+` var throttled = _.throttle(renewToken, 300000, { 'trailing': false });`
+
+`{ 'trailing': false }`的作用：是否在结束延迟之后调用。默认是 true。(trailing 常用)
+
+`{ 'leading': false }`的作用：是否在结束延迟之前调用。默认是 false。(leading 一般不用)
+
+
+
+## 事件委派(事件委托)：
 
 事件委派(事件委托)在共同的父级/祖辈元素身上添加事件监听。
+
+事件委派在哪两种场合使用？
+
+- 一个爹有很多儿子，每个儿子身上都绑定了同样的事件，而且事件的回调处理效果都差不多。
+- 一个爹有很多儿子，一部分儿子已经渲染在页面了，旁边有一个按钮，点击一下按钮添加一个儿子。
 
 问题：怎么知道点击的是不是 a 标签？  
 
@@ -510,7 +521,7 @@ lintOnSave: false,
 
 这三个问题可以使用自定义属性`data-`来解决。如：
 
-```js
+```html
 <a href="javascript:;" :data-category1Id="c1.categoryId" :data-categoryName="c1.categoryName"> {{c1.categoryName}}
 </a>
 
@@ -521,7 +532,9 @@ lintOnSave: false,
 </a>
 ```
 
-### 原生event和$event
+
+
+## 原生event和$event
 
 1. js 原生中的 event 是什么？
 
@@ -578,7 +591,7 @@ lintOnSave: false,
 
 5. **一般情况下 router-link 太多，不推荐用 声明式导航，而是用编程式导航 + 事件委托。**
 
-### mock 数据(P122)：
+## mock 数据(P122)
 
  作用：模拟数据 和 拦截 Ajax 请求。
 
@@ -624,7 +637,7 @@ mock 会拦截我们的 Ajax 请求，不会真正去发送请求。(发送请�
     
     5. [mockjs不错的博客](https://www.bbsmax.com/A/A2dm6D8Aze/)
 
-### Swiper 轮播图的使用
+## Swiper 轮播图的使用
 
 [官网地址](https://www.swiper.com.cn/usage/index.html) 
 
@@ -662,13 +675,13 @@ updated：无论页面是最近一次更新的，还是第一次更新的，还�
 
 nextTick：它只会在最近的一次执行(只执行一次)。
 
-### 查看数据的时候应该怎么查看
+## 查看数据的时候应该怎么查看
 
 1. 看组件里有没有数据。
 2. 接着看 vuex 里面有没有数据。
 3. 然后看 network 请求状态。
 
-### vuex 中的 dispatch 只能传递一个参数
+## vuex 中的 dispatch 只能传递一个参数
 
 vuex 中的 dispatch 只能传递一个参数，如果有多个参数需要传递，请写成一个对象：
 
@@ -680,7 +693,7 @@ vuex 中的 dispatch 只能传递一个参数，如果有多个参数需要传�
 
 所以，我们拿到复杂的数据之后，会把这个数据先做计算，计算出来我们要直接使用的数据，简化数据操作。
 
-### 根据鼠标的位置求蒙版的位置
+## 根据鼠标的位置求蒙版的位置
 
 选择鼠标位置(3种)：
 
@@ -688,7 +701,7 @@ vuex 中的 dispatch 只能传递一个参数，如果有多个参数需要传�
 2. event.pageX：相对页面左上角。如果有滚动条，且滚动条滚动了，那么相对页面的左上角就看不见了。
 3. event.offsetX：相对元素本身左上角。求蒙版位置，这个比较方便。
 
-### 如何在vue中获取dom元素
+## 如何在vue中获取dom元素
 
 在 vue 当中只有一种方式可以获取到 dom 元素，就是 ref。如：
 
@@ -706,28 +719,34 @@ export default {
 </script>
 ```
 
-### 输入框的 blur 事件 和 change 事件
+
+
+## 输入框的 blur 事件 和 change 事件
 
 blur 事件：blur 是失去焦点事件，只要添加了它，失去焦点就会触发这个事件，但是不好，因为它不会去判断这次输入的数据和之前存在的数据是不是一样再触发。
 
 change 事件：change 事件内部包含了失去焦点事件，当用户失去焦点的时候，也会选择性触发 change 事件，触发这个事件的前提是当前这个数据，必须和之前的数据不一样，才能触发，否则不触发。
 
-### 详情页产品 点击 加入购物车 进入 购物车页面 逻辑(很重要)
+
+
+## 详情页产品 点击 加入购物车 进入 购物车页面 逻辑(很重要)
 
 - 之前我们的跳转，几乎都是点击就直接跳转了，因为我们在跳转之前不需要发请求，比如，从 home 页面 去 search 页面。从 search 页面 去 详情页面，跳转的时候不需要发请求，而是跳转过去后发请求，拿数据。
 - 而添加购物车不一样，当我们点击添加购物车的时候，我们得需要先发请求给后台，后台需要把这个购物车信息存储数据库，请求成功之后，会返回给我们信息，我们根据这个信息再去跳转。否则，有可能后台添加购物车失败，我们已经跳转到下个页面了，就会出问题。
 
-### localStorage 获取不到数据返回的是 null
+### 
 
-### 购物车页面中的 全选和去掉某一个商品
+## 购物车页面中的 全选和去掉某一个商品
 
-购物车页面中的 全选和去掉某一个商品 或者 数量 的改变都是先发请求给服务器，服务器那边先修改了之后，再返回给页面。要做到前后台对应。
+购物车页面中的 **全选和去掉某一个商品 或者 数量 的改变都是先发请求给服务器**，服务器那边先修改了之后，再返回给页面。要做到前后台对应。
 
 跟钱相关的事儿，一般都是要交给服务器保管的。
 
 ![image-20210831001919421](北京PC项目笔记.assets/image-20210831001919421.png)
 
-### promise.all() 复习
+
+
+## promise.all() 复习
 
 - 功能：批量处理 promise 对象。
 
@@ -741,13 +760,17 @@ change 事件：change 事件内部包含了失去焦点事件，当用户失去
 
   新的 promise 对象失败的结果：是参数 promise 对象数组当中第一个失败的 promise 对象失败的原因。
 
-### css 里面@ 符前面加 ~ 波浪线
+
+
+## css 里面@ 符前面加 ~ 波浪线
 
 css 里面也可以用一开始定义的那个 @ 符，但是需要在 @ 符前面加 ~ 波浪线。
 
 ![image-20210901005022166](北京PC项目笔记.assets/image-20210901005022166.png)
 
-### 注册页面
+
+
+## 注册页面
 
 注册：
 
@@ -761,7 +784,9 @@ css 里面也可以用一开始定义的那个 @ 符，但是需要在 @ 符前�
 
    `this.$router.push('/login')`
 
-### 登录页面
+
+
+## 登录页面
 
 登录：
 
@@ -774,7 +799,7 @@ css 里面也可以用一开始定义的那个 @ 符，但是需要在 @ 符前�
 4. token 获取到以后，需要存储到 localStorage 当中，因为 token 在一定时间内(过期时间内)也不是随意更改的。
 
    ```vue
-    localStorage.setItem('TOKEN_KEY', result.data.token)
+   localStorage.setItem('TOKEN_KEY', result.data.token)
    ```
 
    
@@ -785,7 +810,7 @@ css 里面也可以用一开始定义的那个 @ 符，但是需要在 @ 符前�
    // api 中的 Ajax.js 中：
    let token = store.state.user.token
    if(token) {
-       config.headers.token = token
+     config.headers.token = token
    }
    ```
 
@@ -793,7 +818,7 @@ css 里面也可以用一开始定义的那个 @ 符，但是需要在 @ 符前�
 
 
 
-### 自动登录
+## 自动登录
 
 自动登录：
 
@@ -805,7 +830,7 @@ css 里面也可以用一开始定义的那个 @ 符，但是需要在 @ 符前�
 
 当 token 过期的时候，也得需要把 localStorage 的 token 也清除。
 
-```
+```js
 // 当 token 过期，需要把过去的 token 清除
 // 不但要清除 state 的，也要清除 localStorage 的。
 async clearToken({commit}) {
@@ -815,7 +840,8 @@ async clearToken({commit}) {
 ```
 
 
-### 组件的通信方式(传参方式)
+
+## 组件的通信方式(传参方式)
 
 29. 组件通信 props **(父子之间)**：
 
@@ -883,174 +909,179 @@ async clearToken({commit}) {
 
     注意：有了全局事件总线，PubSub(消息订阅与发布) 几乎不用，因为在 vue 当中，本身就有全局事件总线，而且它们的作用几乎是一样的，如果用 PubSub(第三方包) 那么体积肯定会变大。
 
-31. vuex 的使用
+### vuex 的使用
 
-    5个核心概念：
+5个核心概念：
 
-    1. state：代表初始化数据。是一个包含n个属性(不是方法)的对象。
+1. state：代表初始化数据。是一个包含n个属性(不是方法)的对象。
 
-    2. mutations：代表直接修改数据的数据。是一个包含n个直接修改状态数据的方法和对象(用来让action的行为调用)。在index.js中的第一个参数是state，第二个参数如果有，可以写在state的后面，第二个参数是actions方法中触发mutations的方法时传过来的。
+2. mutations：代表直接修改state的数据。是一个包含n个直接修改状态数据的方法和对象(用来让action的行为调用)。在index.js中的第一个参数是state，第二个参数如果有，可以写在state的后面，第二个参数是actions方法中触发mutations的方法时传过来的。
 
-    3. actions：代表用户行为数据。是一个包含n个用户行为回调方法的对象，(用来映射组件用户的行为回调函数)。在index.js中actions中的方法的第一个参数必然是context，也可以解构成{commit}，就算不用也要占位，第二个参数才是你dispatch的时候传递过来的参数。
+3. actions：代表用户行为数据。是一个包含n个用户行为回调方法的对象，(用来映射组件用户的行为回调函数)。在index.js中actions中的方法的第一个参数必然是context，也可以解构成{commit}，就算不用也要占位，第二个参数才是你dispatch的时候传递过来的参数。
 
-       dispatch 在触发的时候本质就是在调用actions当中的方法，可以传递参数，但是只能传递一个，如果要传递多个，请把多个参数封装成对象再传。
+   dispatch 在触发的时候本质就是在调用actions当中的方法，可以传递参数，但是只能传递一个，如果要传递多个，请把多个参数封装成对象再传。
 
-    4. getters：代表计算属性数据。是一个包含n个计算属性的方法和对象。
+4. getters：代表计算属性数据。是一个包含n个计算属性的方法和对象。
 
-    5. modules：模块化管理数据
+5. modules：模块化管理数据
 
-    **注意：**
+**注意：**
 
-    1. 项目大用 Vuex，我们去公司项目一般都很大，会用到。
-    2. 项目小，使用 Vuex 反而会降低效率，因为 Vuex 是需要占用打包体积的。
+1. 项目大用 Vuex，我们去公司项目一般都很大，会用到。
+2. 项目小，使用 Vuex 反而会降低效率，因为 Vuex 是需要占用打包体积的。
 
-    Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式 + 库**。
+Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式 + 库**。
 
-    1. 状态管理是什么：
+1. 状态管理是什么：
 
-       - Vuex是一个专门为Vue.js应用程序开发的状态管理模式，是一个vue官方的插件。
+   - Vuex是一个专门为Vue.js应用程序开发的状态管理模式，是一个vue官方的插件。
 
-       - 它采用集中式存储管理应用的所有组件的状态(数据)，并以相应的规则保证状态以一种可预测的方式发生变化。
-       - 我们也可以认为它也是一种组件间通信的方式，并且适用于任意组件。
+   - 它采用集中式存储管理应用的所有组件的状态(数据)，并以相应的规则保证状态以一种可预测的方式发生变化。
+   - 我们也可以认为它也是一种组件间通信的方式，并且适用于任意组件。
 
-    2. 理解：对vue应用中多个组件的共享状态进行集中式的管理(读/写)。
+2. 理解：对vue应用中多个组件的共享状态进行集中式的管理(读/写)。
 
-    3. 为什么要有这个Vuex(问题)：
+3. 为什么要有这个Vuex(问题)：
 
-       - 多个视图依赖于同一状态。
-       - 来自不同视图的行为需要变更同一状态。
-       - 以前的解决办法：
-         - 1. 将数据以及操作数据的行为都定义在父元素上。
-         - 2. 将数据以及操作数据的行为传递给需要的各个子组件(有可能需要多级传递)。
-       - Vuex就是用来解决这个问题的。
+   - 多个视图依赖于同一状态。
 
-    4. 什么时候用：
+   - 来自不同视图的行为需要变更同一状态。
 
-       - Vuex可以帮助我们管理共享状态，并附带了更多的概念和框架。这需要对短期和长期效益进行权衡。
-       - 也就是说应用简单(组件比较少)就不需要使用(虽然可以用，但是没必要)，如果应用复杂，使用就会带来很大的便捷。
+   - 以前的解决办法：
 
-    5. Vuex的核心：把所有的共享状态数据拿出来放在Vuex中进行集中式管理
+     1. 将数据以及操作数据的行为都定义在父元素上。
 
-       1. 安装Vuex。
+     2. 将数据以及操作数据的行为传递给需要的各个子组件(有可能需要多级传递)。
 
-          ```js
-          npm i vuex -S
-          ```
+   - Vuex就是用来解决这个问题的。
 
-       2. 引入Vuex并声明使用。
+4. 什么时候用：
 
-          ```js
-          import Vue from 'vue';
-          import Vuex from 'vuex';
-          Vue.use(Vuex);
-          ```
+   - Vuex可以帮助我们管理共享状态，并附带了更多的概念和框架。这需要对短期和长期效益进行权衡。
+   - 也就是说应用简单(组件比较少)就不需要使用(虽然可以用，但是没必要)，如果应用复杂，使用就会带来很大的便捷。
 
-       3. 向外暴露一个store的实例化对象。
+5. Vuex的核心：把所有的共享状态数据拿出来放在Vuex中进行集中式管理
 
-          ```js
-          export default new Vuex.Store({
-            // 包含了6个核心概念，现在咱们讲4个
-          })
-          ```
+   1. 安装Vuex。
 
-       4. 将暴露出去的store实例化对象引入到Vue的配置对象当中(main.js中配置)使用。
+      ```js
+      npm i vuex -S
+      ```
 
-          ```js
-          import Vue from 'vue';
-          import App from '@/App';
-          import store from '@/store';
-          
-          Vue.config.productionTip = false;
-          new Vue({
-            store, // 将store对象在配置对象当中配置使用，每个组件对象当中都可以通过this.$store获取到我们的这个对象
-            el: '#app',
-            render: h => h(App)
-          })
-          ```
+   2. 引入Vuex并声明使用。
 
-          
+      ```js
+      import Vue from 'vue';
+      import Vuex from 'vuex';
+      Vue.use(Vuex);
+      ```
 
-       5. 书写store对象当中包含的4个核心概念
+   3. 向外暴露一个store的实例化对象。
 
-    6. 优化：
+      ```js
+      export default new Vuex.Store({
+        // 包含了6个核心概念，现在咱们讲4个
+      })
+      ```
 
-       1. 如果用户在操作的时候就是很简单的数据更改，那么可以不用分发给actions，直接提交给mutations去更改。
-       
-       2. 页面上如果数据不想写的太长，可以利用getters，去计算出来，然后在组件computed当中获取计算的这个数据。
-       
-       3. mapActions等。
-       
-       4. mapActions 的使用：这个函数允许传递一个数组，当回调函数名字和actions当中方法名字一样的时候，才能传数组。
-       
-          第一步引入：
-       
-          ```js
-          import { mapActions } from 'vuex'; // 在要操作的组件中引入
-          ```
-       
-          第二步书写：
-       
-          ```js
-          ...mapActions(['increment', 'decrement', 'inrementIfOdd', 'inrementAsync'])
-          ```
-       
-          这个mapActions调用之后返回的是一个对象，这个对象如下：
-       
-          ```js
-          {
-            increment() {
-            // this.count++;
-            // dispatch 和 emit 很像，都是触发，分发的意思。这个dispatch是分发触发actions当中对应的方法
-              this.$store.dispatch("increment");
-            },
-            decrement() {
-              // this.count--;
-              this.$store.dispatch('decrement');
-            },
-            inrementIfOdd() {
-              // if (this.count % 2 != 0) {
-              //   this.count++;
-              // }
-              this.$store.dispatch('inrementIfOdd');
-            },
-            inrementAsync() {
-              /* setTimeout(() => {
-                this.count++;
-              }, 1000); */
-              this.$store.dispatch('inrementAsync');
-            },
-          }
-          ```
-       
-       5. 如果是映射方法，无论是mapActions还是mapMutations的方法都映射到methods里面。如果是映射属性数据，无论是state的数据还是getters当中的方法，都映射到computed里面。
+   4. 将暴露出去的store实例化对象引入到Vue的配置对象当中(main.js中配置)使用。
 
-    ### 消息订阅和发布
+      ```js
+      import Vue from 'vue';
+      import App from '@/App';
+      import store from '@/store';
+      
+      Vue.config.productionTip = false;
+      new Vue({
+        store, // 将store对象在配置对象当中配置使用，每个组件对象当中都可以通过this.$store获取到我们的这个对象
+        el: '#app',
+        render: h => h(App)
+      })
+      ```
 
-    消息订阅和发布**(所有场合)**：PubSubJS插件
+      
 
-    插件地址：https://github.com/mroderick/PubSubJS
+   5. 书写store对象当中包含的4个核心概念
 
-    步骤：
+6. 优化：
 
-    1. 安装：`npm install pubsub-js`;
+   1. 如果用户在操作的时候就是很简单的数据更改，那么可以不用分发给actions，直接提交给mutations去更改。
+   
+   2. 页面上如果数据不想写的太长，可以利用getters，去计算出来，然后在组件computed当中获取计算的这个数据。
+   
+   3. mapActions等。
+   
+   4. mapActions 的使用：这个函数允许传递一个数组，当回调函数名字和actions当中方法名字一样的时候，才能传数组。
+   
+      第一步引入：
+   
+      ```js
+      import { mapActions } from 'vuex'; // 在要操作的组件中引入
+      ```
+   
+      第二步书写：
+   
+      ```js
+      ...mapActions(['increment', 'decrement', 'inrementIfOdd', 'inrementAsync'])
+      ```
+   
+      这个mapActions调用之后返回的是一个对象，这个对象如下：
+   
+      ```js
+      {
+        increment() {
+        // this.count++;
+        // dispatch 和 emit 很像，都是触发，分发的意思。这个dispatch是分发触发actions当中对应的方法
+          this.$store.dispatch("increment");
+        },
+        decrement() {
+          // this.count--;
+          this.$store.dispatch('decrement');
+        },
+        inrementIfOdd() {
+          // if (this.count % 2 != 0) {
+          //   this.count++;
+          // }
+          this.$store.dispatch('inrementIfOdd');
+        },
+        inrementAsync() {
+          /* setTimeout(() => {
+            this.count++;
+          }, 1000); */
+          this.$store.dispatch('inrementAsync');
+        },
+      }
+      ```
+   
+   5. 如果是映射方法，无论是mapActions还是mapMutations的方法都映射到methods里面。如果是映射属性数据，无论是state的数据还是getters当中的方法，都映射到computed里面。
 
-    2. 引入：`import PubSub from 'pubsub-js'`;
+### 消息订阅和发布
 
-    3. 关键词：
+消息订阅和发布**(所有场合)**：PubSubJS插件
 
-       ```js
-       PubSub.subscribe('MY TOPIC', mySubscriber); // 订阅
-       PubSub.publish('MY TOPIC', 'hello world!'); // 发布
-       PubSub.unsubscribe(token); // 取消订阅
-       ```
+插件地址：https://github.com/mroderick/PubSubJS
 
-       
+步骤：
 
-    关键词：
+1. 安装：`npm install pubsub-js`;
 
-    代码类似于全局时间总线，但是在 vue 当中存在了全局事件总线，所有这个东西几乎不用。
+2. 引入：`import PubSub from 'pubsub-js'`;
 
-    PubSub-js 要用这个包来实现消息订阅与发布，这个包使用起来会增加体积。
+3. 关键词：
+
+   ```js
+   PubSub.subscribe('MY TOPIC', mySubscriber); // 订阅
+   PubSub.publish('MY TOPIC', 'hello world!'); // 发布
+   PubSub.unsubscribe(token); // 取消订阅
+   ```
+
+   
+
+关键词：
+
+代码类似于全局时间总线，但是在 vue 当中存在了全局事件总线，所有这个东西几乎不用。
+
+PubSub-js 要用这个包来实现消息订阅与发布，这个包使用起来会增加体积。
 
 ### 自定义事件
 
@@ -1085,7 +1116,7 @@ async clearToken({commit}) {
 
   
 
-### async  和 await：是使用同步代码实现异步效果。
+## async  和 await：是使用同步代码实现异步效果。
 
 async 和 await 的作用非常的小，只能影响到当前函数内部。(辉鸿)
 
@@ -1161,7 +1192,7 @@ async getSearchAjax(keyword) {
 
 
 
-### 三点运算符
+## 三点运算符
 
 三点运算符，就是扩展运算符
 
@@ -1244,7 +1275,7 @@ console.log({ ...obj }); { name: 'zly', age: 33 } // 其实还是内容是一样
 
 
 
-### 正向代理和反向代理
+## 正向代理和反向代理
 
 **正向代理是偏向客户端。**用户很明确的知道数据来源(数据目的地网站)
 
@@ -1270,7 +1301,7 @@ console.log({ ...obj }); { name: 'zly', age: 33 } // 其实还是内容是一样
 
 
 
-### v-model深入
+## v-model深入
 
 [我的demo地址](https://github.com/FondKevinZhao/vue2-v-model-advanced)
 
@@ -1305,7 +1336,7 @@ data() {
 
 v-model 在表单类元素上用得比较多。
 
-v-model其实是可以在组件标签上使用(渊哥视频P230)。
+v-model 其实是可以在组件标签上使用(渊哥视频P230)。
 
 父组件：
 
@@ -1351,7 +1382,7 @@ sync和v-model的区别：
 
 
 
-### css当中使用@
+## css当中使用@
 
 在css当中使用`@符号`，前面必须要加`~波浪线`
 
@@ -1363,7 +1394,9 @@ sync和v-model的区别：
 }
 ```
 
-### 根据登录的token获取用户信息
+
+
+## 根据登录的token获取用户信息
 
 根据登录的token获取用户信息(token校验，也可以去判定token是不是过期)，先把token放到请求头中，然后发送请求获取用户信息。
 
@@ -1584,7 +1617,7 @@ import {obj} from './xx.js'
 
 
 
-### 自动登录
+## 自动登录
 
 自动登录其实就是把用户的token，给存储一下子
 
@@ -1594,7 +1627,9 @@ import {obj} from './xx.js'
 
 当token过期的时候，也得需要把localStorage当中的token也清除。
 
-### 退出登录
+
+
+## 退出登录
 
 ```js
 async logout() {
@@ -1639,7 +1674,9 @@ RESET_USER(state) {
 }
 ```
 
-### 临时标识userTempId和登录标识token
+
+
+## 临时标识userTempId和登录标识token
 
 userTempId: 未登录状态下的用户身份识别标识
 
@@ -1651,7 +1688,10 @@ token: 登录状态下的用户身份识别标识
 
 
 
+## 其他
 
 
 
+### 1. axios 一旦被调用，返回的是 promise。
 
+### 2. localStorage 获取不到数据返回的是 null

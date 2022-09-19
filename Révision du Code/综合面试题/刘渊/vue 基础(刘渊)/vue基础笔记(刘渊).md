@@ -58,8 +58,8 @@
 
 ```css
 html,body {
-    height: 100%;
-    overflow: hidden;
+  height: 100%;
+  overflow: hidden;
 }
 ```
 
@@ -251,7 +251,7 @@ restful API 接口规范：是现在目前最流行的书写后端接口的一�
 
 ​     post：调用后端人员写的添加的资源接口
 
-​     put: 调用后端人员写的修改的资源接口
+​     put：调用后端人员写的修改的资源接口
 
 ​     delete：调用后端人员写的删除的资源接口
 
