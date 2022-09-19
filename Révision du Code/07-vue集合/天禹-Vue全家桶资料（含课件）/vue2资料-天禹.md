@@ -56,9 +56,9 @@
         ```js
         props:{
         	name:{
-        	type:String, //类型
-        	required:true, //必要性
-        	default:'老王' //默认值
+            type:String, //类型
+            required:true, //必要性
+            default:'老王' //默认值
         	}
         }
         ```
@@ -189,11 +189,13 @@
         <Demo ref="demo"/>
         ......
         mounted(){
-           this.$refs.xxx.$on('atguigu',this.test)
+           this.$refs.xxx.$on('atguigu',this.test) // this.test 是methods中的一个方法
         }
         ```
 
     3. 若想让自定义事件只能触发一次，可以使用```once```修饰符，或```$once```方法。
+
+        `this.$refs.xxx.$once('atguigu',this.test)`
 
 4. 触发自定义事件：```this.$emit('atguigu',数据)```		
 
@@ -273,7 +275,7 @@
 
 1. 作用：在插入、更新或移除 DOM元素时，在合适的时候给元素添加样式类名。
 
-2. 图示：<img src="https://img04.sogoucdn.com/app/a/100520146/5990c1dff7dc7a8fb3b34b4462bd0105" style="width:60%" />
+2. 图示：<img src="https://img-blog.csdnimg.cn/img_convert/c2bc479def01ceaa207ec2f3c1ad8b4c.png#pic_center" style="width:60%" />
 
 3. 写法：
 
@@ -361,39 +363,41 @@ module.exports = {
 
       ```vue
       父组件中：
-              <Category>
-                 <div>html结构1</div>
-              </Category>
+      <Category>
+        <div>html结构1</div>
+      </Category>
+      
       子组件中：
-              <template>
-                  <div>
-                     <!-- 定义插槽 -->
-                     <slot>插槽默认内容...</slot>
-                  </div>
-              </template>
+      <template>
+        <div>
+           <!-- 定义插槽 -->
+           <slot>插槽默认内容...</slot>
+        </div>
+      </template>
       ```
-
+   
    2. 具名插槽：
-
+   
       ```vue
       父组件中：
-              <Category>
-                  <template slot="center">
-                    <div>html结构1</div>
-                  </template>
+      <Category>
+        <template slot="center">
+          <div>html结构1</div>
+        </template>
       
-                  <template v-slot:footer>
-                     <div>html结构2</div>
-                  </template>
-              </Category>
+        <template v-slot:footer>
+           <div>html结构2</div>
+        </template>
+      </Category>
+      
       子组件中：
-              <template>
-                  <div>
-                     <!-- 定义插槽 -->
-                     <slot name="center">插槽默认内容...</slot>
-                     <slot name="footer">插槽默认内容...</slot>
-                  </div>
-              </template>
+      <template>
+        <div>
+           <!-- 定义插槽 -->
+           <slot name="center">插槽默认内容...</slot>
+           <slot name="footer">插槽默认内容...</slot>
+        </div>
+      </template>
       ```
 
    3. 作用域插槽：
@@ -401,43 +405,44 @@ module.exports = {
       1. 理解：<span style="color:red">数据在组件的自身，但根据数据生成的结构需要组件的使用者来决定。</span>（games数据在Category组件中，但使用数据所遍历出来的结构由App组件决定）
 
       2. 具体编码：
-
+   
          ```vue
          父组件中：
-         		<Category>
-         			<template scope="scopeData">
-         				<!-- 生成的是ul列表 -->
-         				<ul>
-         					<li v-for="g in scopeData.games" :key="g">{{g}}</li>
-         				</ul>
-         			</template>
-         		</Category>
+         <Category>
+           <template scope="scopeData">
+             <!-- 生成的是ul列表 -->
+             <ul>
+               <li v-for="g in scopeData.games" :key="g">{{g}}</li>
+             </ul>
+           </template>
+         </Category>
          
-         		<Category>
-         			<template slot-scope="scopeData">
-         				<!-- 生成的是h4标题 -->
-         				<h4 v-for="g in scopeData.games" :key="g">{{g}}</h4>
-         			</template>
-         		</Category>
+         <Category>
+           <template slot-scope="scopeData">
+             <!-- 生成的是h4标题 -->
+             <h4 v-for="g in scopeData.games" :key="g">{{g}}</h4>
+           </template>
+         </Category>
+         
          子组件中：
-                 <template>
-                     <div>
-                         <slot :games="games"></slot>
-                     </div>
-                 </template>
-         		
-                 <script>
-                     export default {
-                         name:'Category',
-                         props:['title'],
-                         //数据在子组件自身
-                         data() {
-                             return {
-                                 games:['红色警戒','穿越火线','劲舞团','超级玛丽']
-                             }
-                         },
-                     }
-                 </script>
+         <template>
+           <div>
+               <slot :games="games"></slot>
+           </div>
+         </template>
+         
+         <script>
+           export default {
+               name:'Category',
+               props:['title'],
+               //数据在子组件自身
+               data() {
+                   return {
+                       games:['红色警戒','穿越火线','劲舞团','超级玛丽']
+                   }
+               },
+           }
+         </script>
          ```
 
 ## Vuex
@@ -744,7 +749,7 @@ module.exports = {
 
 ### 2.几个注意点
 
-1. 路由组件通常存放在```pages```文件夹，一般组件通常存放在```components```文件夹。
+1. 路由组件通常存放在```pages/views```文件夹，一般组件通常存放在```components```文件夹。
 2. 通过切换，“隐藏”了的路由组件，默认是被销毁掉的，需要的时候再去挂载。
 3. 每个组件都有自己的```$route```属性，里面存储着自己的路由信息。
 4. 整个应用只有一个router，可以通过组件的```$router```属性获取到。
@@ -982,11 +987,30 @@ module.exports = {
 
 2. 具体编码：
 
+   vue2中的写法
+   
    ```vue
    <keep-alive include="News"> 
        <router-view></router-view>
    </keep-alive>
    ```
+   
+   
+   
+   vue3中的写法
+   
+   ```vue
+   <!-- vue3.0配置 Component是固定写法-->
+   <template>
+   	<router-view v-slot="{ Component }">
+   	  <keep-alive">
+   	    <component :is="Component"/>
+   	  </keep-alive>
+   	</router-view>
+   </template>
+   ```
+   
+   
 
 ### 11.两个新的生命周期钩子
 

@@ -46,15 +46,15 @@
    import { defineStore } form 'pinia'
    export const useStore = defineStore('storeId', {
        // 注意：state为一个箭头函数，返回一个对象
-       state: ()=>{
-           return {
-               counter: 0,
-               name: '张三',
-               num: 1
-           }
+       state: () => {
+         return {
+             counter: 0,
+             name: '张三',
+             num: 1
+         }
        },
        getters:{},
-   	actions:{}
+   	  actions:{}
    }),
          
    // 这里的export也可以这样去写：注意，这个storeId不管是哪种写法，是不能重复的
@@ -68,7 +68,7 @@
            }
        },
        getters:{},
-   	actions:{}
+   	  actions:{}
    }),
    ```
 
@@ -148,10 +148,10 @@
    let { name, num } = storeToRefs(store)   
    // 此处假设有个按钮 --- 修改有效
    const btn = () => {
-       store.$patch(state=>{
-         name.value = "李四"
-       	age.value = 3
-       })
+     store.$patch(state => {
+       name.value = "李四"
+       age.value = 3
+     })
    }
    </script>
    ```
@@ -166,18 +166,18 @@ import { defineStore } form 'pinia'
 export const useStore = defineStore('storeId', {
     // 注意：state为一个箭头函数，返回一个对象
     state: ()=>{
-        return {
-            counter: 0,
-            name: '张三',
-            num: 1
-        }
+      return {
+        counter: 0,
+        name: '张三',
+        num: 1
+      }
     },
     getters:{
-        changeNum() {
-            return this.num + 100
-        }
+      changeNum() {
+        return this.num + 100
+      }
     },
-	actions:{}
+	  actions:{}
 }),
 ```
 
@@ -190,15 +190,16 @@ export const useStore = defineStore('storeId', {
   </div>
 </template>
 <script>
+  
 import { useStore } from '../store'
 let store = useStore()
 
 import { storeToRefs } from 'pinia' 
 // 把getters中的changeNum解构出来
-let { name, num, changeNum } = storeToRefs(store)   
+let { name, num, changeNum } = storeToRefs(store)
 // 此处假设有个重置按钮
 const btn = () => {
-    store.$reset()
+  store.$reset()
 }
 </script>
 ```
@@ -214,24 +215,24 @@ actions里面可以加同步方法和异步方法
 ```js
 import { defineStore } form 'pinia'
 export const useStore = defineStore('storeId', {
-    // 注意：state为一个箭头函数，返回一个对象
-    state: () => {
-        return {
-            counter: 0,
-            name: '张三',
-            num: 1
-        }
-    },
-    getters:{
-        changeNum() {
-            return this.num + 100
-        }
-    },
-	actions:{
-        upNum(val) {
-            this.num += val
-        }
+  // 注意：state为一个箭头函数，返回一个对象
+  state: () => {
+    return {
+      counter: 0,
+      name: '张三',
+      num: 1
     }
+  },
+  getters:{
+    changeNum() {
+      return this.num + 100
+    }
+  },
+  actions:{
+    upNum(val) {
+      this.num += val
+    }
+  }
 }),
 ```
 
@@ -256,7 +257,7 @@ import { storeToRefs } from 'pinia'
 let { name, num, changeNum } = storeToRefs(store)   
 
 const add = () => {
-    store.upNum(2)
+  store.upNum(2)
 }
 </script>
 ```
@@ -427,23 +428,23 @@ const addAge = () => {
    ```js
    import { defineStore } from 'pinia'
    export const user = defineStore({
-       id: 'user',
-       state: () => {
-           return {
-               nickName: '张三用户',
-               age: 18
-           }
-       },
-       actions: {
-           changeAge(val) {
-               this.age += val
-           }
-       },
-       
-       // 开启数据缓存
-       persist: {
-           enabled: true
+     id: 'user',
+     state: () => {
+       return {
+           nickName: '张三用户',
+           age: 18
        }
+     },
+     actions: {
+       changeAge(val) {
+           this.age += val
+       }
+     },
+   
+     // 开启数据缓存
+     persist: {
+       enabled: true
+     }
    })
    ```
 
@@ -454,29 +455,29 @@ const addAge = () => {
    ```js
    import { defineStore } from 'pinia'
    export const user = defineStore({
-       id: 'user',
-       state: () => {
-           return {
-               nickName: '张三用户',
-               age: 18
-           }
-       },
-       actions: {
-           changeAge(val) {
-               this.age += val
-           }
-       },
-       
-       // 开启数据缓存 --- localStorage
-       // 数据默认存在sessionStorage里，并且会以store的id作为key
-       persist: {
-           enabled: true,
-           strategies: [{
-               key: 'my_user',
-               storage: localStorage,
-               paths: ['age'] // 如果不写paths，默认当前模块全部做持久化存储，如果写了，表示数组内的state做持久化存储。大白话：这个模块只有age做持久化存储
-           }]
+     id: 'user',
+     state: () => {
+       return {
+         nickName: '张三用户',
+         age: 18
        }
+     },
+     actions: {
+       changeAge(val) {
+         this.age += val
+       }
+     },
+   
+     // 开启数据缓存 --- localStorage
+     // 数据默认存在sessionStorage里，并且会以store的id作为key
+     persist: {
+       enabled: true,
+       strategies: [{
+           key: 'my_user',
+           storage: localStorage,
+           paths: ['age'] // 如果不写paths，默认当前模块全部做持久化存储，如果写了，表示数组内的state做持久化存储。大白话：这个模块只有age做持久化存储
+       }]
+     }
    })
    ```
 

@@ -13,7 +13,7 @@
 
 ### 自己添加的内容：
 
-1. 组件中可以不需要有一个根标签包裹了。Fragments，模板里面不用创建唯一根节点，可以直接放同级标签和文本内容。
+1. 组件中可以不需要有一个根标签包裹了。组件可以没有根标签, 内部会将多个标签包含在一个Fragment虚拟元素中，可以直接放同级标签和文本内容。
 
 2. 取消了全局事件总线。在*Vue3*中，从实例中完全*移除了* `$on`、`$off` 和 `$once` 方法。`$emit` 仍然包含于现有的 API 中。
 
@@ -147,7 +147,7 @@
 
 14. 移除了$children，我们可以通过ref来获取子组件实例
 
-15. vue2中默认插槽不用加上#default，vue3默认插槽需要加上#default才会生效
+15. vue2中默认插槽在使用到template的时候不用加上#default，vue3默认插槽需要加上#default才会生效
 
     ```vue
     // 父组件
@@ -411,17 +411,17 @@ pnpm create vite my-vue-app -- --template vue
       ```js
       new Proxy(data, {
       	// 拦截读取属性值
-          get (target, prop) {
-          	return Reflect.get(target, prop)
-          },
-          // 拦截设置属性值或添加新属性
-          set (target, prop, value) {
-          	return Reflect.set(target, prop, value)
-          },
-          // 拦截删除属性
-          deleteProperty (target, prop) {
-          	return Reflect.deleteProperty(target, prop)
-          }
+        get (target, prop) {
+          return Reflect.get(target, prop)
+        },
+        // 拦截设置属性值或添加新属性
+        set (target, prop, value) {
+          return Reflect.set(target, prop, value)
+        },
+        // 拦截删除属性
+        deleteProperty (target, prop) {
+          return Reflect.deleteProperty(target, prop)
+        }
       })
       
       proxy.name = 'tom'   
@@ -467,20 +467,21 @@ pnpm create vite my-vue-app -- --template vue
   setup(){
       ...
   	//计算属性——简写
-      let fullName = computed(()=>{
-          return person.firstName + '-' + person.lastName
-      })
-      //计算属性——完整
-      let fullName = computed({
-          get(){
-              return person.firstName + '-' + person.lastName
-          },
-          set(value){
-              const nameArr = value.split('-')
-              person.firstName = nameArr[0]
-              person.lastName = nameArr[1]
-          }
-      })
+    let fullName = computed(()=>{
+        return person.firstName + '-' + person.lastName
+    })
+    
+    //计算属性——完整
+    let fullName = computed({
+        get(){
+            return person.firstName + '-' + person.lastName
+        },
+        set(value){
+            const nameArr = value.split('-')
+            person.firstName = nameArr[0]
+            person.lastName = nameArr[1]
+        }
+    })
   }
   ```
 
@@ -557,27 +558,27 @@ pnpm create vite my-vue-app -- --template vue
 ```js
 import {reactive, watchEffect} from 'vue'
 export default {
-    setup() { 
-          const state = reactive({ count: 0, name: 'zs' })
+  setup() { 
+    const state = reactive({ count: 0, name: 'zs' })
 
-          watchEffect(() => {
-          console.log(state.count)
-          console.log(state.name)
-          /*  初始化时打印：
-                  0
-                  zs
+    watchEffect(() => {
+    console.log(state.count)
+    console.log(state.name)
+    /*  初始化时打印：
+            0
+            zs
 
-            1秒后打印：
-                  1
-                  ls
-          */
-          })
+      1秒后打印：
+            1
+            ls
+    */
+    })
 
-          setTimeout(() => {
-            state.count ++
-            state.name = 'ls'
-          }, 1000)
-    }
+    setTimeout(() => {
+      state.count ++
+      state.name = 'ls'
+    }, 1000)
+  }
 }
 ```
 
@@ -752,8 +753,6 @@ export default {
 - 类似于vue2.x中的mixin。
 
 - 自定义hook的优势: 复用代码, 让setup中的逻辑更清楚易懂。
-
-
 
 ## 10.toRef
 
@@ -1021,7 +1020,7 @@ export default {
 
 <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.pianshen.com%2Fimages%2F991%2F41a47ab54bc7a3e9df63259138d74717.png&refer=http%3A%2F%2Fwww.pianshen.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663534150&t=0e9cb0a33a026ba516be702f0ad90ebe" style="width:300px" />
 
-- 作用：实现<strong style="color:#DD5145">祖与后代组件间</strong>通信
+- 作用：实现<strong style="color:#DD5145">祖辈与后代组件间</strong>通信
 
 - 套路：父组件有一个 `provide` 选项来提供数据，后代组件有一个 `inject` 选项来开始使用这些数据
 

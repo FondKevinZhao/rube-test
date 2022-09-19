@@ -1,167 +1,13 @@
-## 1. Vue 3.0 性能提升主要是通过哪几方面体现的？
+## 1.  聊聊Vue3(陈辉鸿)
 
-1、响应式系统提升
-
-- vue2在初始化的时候，对data中的每个属性使用defineProperty调用getter和setter使对象变为响应式对象。如果属性值为对象，还会递归调用defineProperty使这个对象变为响应式对象。
-- vue3使用proxy对象重写响应式。proxy的性能本来比defineProperty好，proxy可以拦截属性的访问、赋值、删除等操作，不需要初始化的时候遍历所有属性，另外有多层属性嵌套的话，只有访问某个属性的时候，才会递归处理下一级的属性。
-
->优势：
->可以监听动态新增的属性；
->可以监听删除的属性 ；
->可以监听数组的索引和 length 属性；
-
-2、vue2 和vue3中的变化
-
-1. 组件中可以不需要有一个根标签包裹了。Fragments，模板里面不用创建唯一根节点，可以直接放同级标签和文本内容。
-
-2. 取消了全局事件总线。在*Vue3*中，从实例中完全*移除了* `$on`、`$off` 和 `$once` 方法。`$emit` 仍然包含于现有的 API 中。
-
-3. 取消了项目中的生产提示 ：`Vue.config.productionTip = false`
-
-4. 移除了过滤器，官网的说法是，过滤器有学习成本，可以使用方法或者计算属性来代替。
-
-5. 删除了在组件上使用原生的事件时，需要加上.native的做法。
-
-6. 移除了键盘事件中的用KeyCode码来代替键盘上的键名的做法，原因是因为数字语义不够明确。
-
-   ```js
-   <input type="text" placeholder="按回车键提示" @keyup.13="getInfo">
-   ```
-
-   
-
-7. v-if 和 v-for 同时存在于一个标签内，执行顺序对调了。vue2 是先执行的 v-for 再执行 v-if，vue3 是先执行 v-if，再执行 v-for。
-
-8. 生命周期中的beforDestroy 和 destroyed 改为了 beforeUnmount 和 unmounted
-
-9. 具名插槽中的slot=“abc” 不生效了。要使用v-slot:abc
-
-10. `router-link 中的tag属性取消了。tag属性是用来渲染标签的，如：tag="span" ，那么router-link最终渲染为 span 标签。`
-
-11. css属性的值，可以使用v-bind写成一个变量
-
-    ```vue
-    <script setup>
-    	const boxWidth = "100px";
-    </script>
-    
-    <style lang="scss">
-    .box {
-      width: v-bind(boxWidth);
-      height: 100px;
-      background-color: red;
-    }
-    </style>
-    ```
-
-12. 深层样式穿透，vue2中使用`/deep/(scss中的用法，vue3中不能使用，会报错)` `>>>(原生css中的用法)`，现在使用
-
-    ```vue
-    <style lang="scss" scoped>
-        .el-button::v-deep{
-             span{
-                    padding:20px;
-             }
-        }
-     
-        /deep/.el-button{
-             span{
-                    padding:20px;
-             }
-        }
-    </style>
-    
-    <style scoped>
-        >>>.el-carousel__button{
-            width:10px;
-            height:10px;
-            background:red;
-            border-radius:50%;
-          }
-    </stylet>
-    ```
-
-    ```css
-    ::v-deep 第三方组件类名{
-          样式
-    }
-    ::v-deep .el-form-item {
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-      color: #454545;
-    }
-    
-    或者使用
-    :deep(.el-form-item) {
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-      color: #454545;
-    }
-    ```
-
-    **总结：**
-
-    1. 操作符 >>> 可能会因为无法编译而报错，可以使用 /deep/
-    2. vue3.0 中使用 /deep/ 会报错，更推荐使用 ::v-deep
-    3. 对于使用了 css 预处理器（scss 、sass、 less）时，深度选择器 **::v-deep** 比较通用
-
-13. $listeners在vue3中使用
-
-    - vue2中使用`$attrs`从父组件传递数据给子组件嵌套组件，父组件通过`$listeners`监听子组件的事件
-    - vue3中把`$attrs`和`$listeners`统一合并到`$attrs`中
-
-    vue2：
-
-    ```vue
-    <template>
-      <label>
-        <input type="text" v-bind="$attrs" v-on="$listeners" />
-      </label>
-    </template>
-    <script>
-      export default {
-        inheritAttrs: false
-      }
-    </script>
-    ```
-
-    vue3: 
-
-    ```vue
-    <template>
-      <label>
-        <input type="text" v-bind="$attrs" />
-      </label>
-    </template>
-    <script>
-    export default {
-      inheritAttrs: false
-    }
-    </script>
-    ```
-
-    [博客地址](https://blog.csdn.net/weixin_44869002/article/details/113176068)
-
-14. 移除了$children，我们可以通过ref来获取子组件实例
-
-15. vue2中默认插槽不用加上#default，vue3默认插槽需要加上#default才会生效
-
-    ```vue
-    // 父组件
-    <A>
-      <template #default> 我是默认插槽内容 </template>
-    </A>
-    
-    // 子组件
-    <div class="a">
-      <div>我是A子组件</div>
-      <slot></slot>
-    </div>
-    ```
-
-    
+- 今年9月份发布的正式版
+- Vue3支持vue2的大多数特性
+- 设计了一套强大的组合API来替代option API: 可读性和可复用性更好
+- 更好的支持Typescript
+- 使用Proxy代替defineProperty实现数据响应式: 效率更高, 功能更强大
+- 重写虚拟DOM的实现和Tree-Shaking: 更小更快
+- 新的组件: Fragment / Teleport / Suspense
+- 设计了一个新的脚手架工具vite: 开发启动快了很多
 
 ## 2. Vue 3.0 所采用的 Composition Api 与 Vue 2.x使用的Options Api 有什么区别？
 
@@ -183,8 +29,6 @@ composition Api
 ## 4. Vite是什么
 
 首先，vite为什么叫做vite，vite实际上是法语中`快`的意思，所以顾名思义，这个工具给我们带来的就是更快的开发体验，它实际上是一个面向现代浏览器，**基于ECMA标准的ES module实现的一个更轻更快的web应用开发工具**。
-
-之所以是面向现代浏览器，而不顾之前的浏览器，是因为vite本身是一个web应用开发者工具，而对于开发者来说，一般都是使用比较先进的浏览器来进行开发，所以我们可以直接使用一些现代浏览器支持的特性，而不考虑去兼容一些老的浏览器。
 
 而现代浏览器支持的特性中，在vite中最为重要的一个，就是ES module。由于vite是面向现代浏览器的，所以它利用浏览器去解析imports，在服务器端按需编译返回，跳过打包过程。同时支持Vue文件和HMR（热更新），针对生产环境可以使用rollup打包。
 
@@ -260,6 +104,44 @@ HMR 全称 Hot Module Replacement，中文语境通常翻译为`模块热更新`
 history: createWebHashHistory()/createWebHistory(), 
 ```
 
+main.js中
+
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+
+createApp(App).use(router).mount('#app')
+```
+
+
+
+vue3中创建vueRouter
+
+```js
+import { createRouter, createWebHashHistory } from "vue-router";
+
+import HelloWord from '../components/HelloWorld.vue'
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: [
+    {
+      path: "/",
+      component:HelloWord
+    },
+    {
+      path:"/about",
+      component:() => import("../components/About.vue")
+    }
+  ],
+});
+
+export default router
+```
+
+
+
 vue3组件中使用route或router
 
 ```js
@@ -284,9 +166,9 @@ router.push("./路径")
 import { createStore } from 'vuex';
 export default createStore({
 	state: {name: 123 },
-	mutations:{    getname(state,newVal){this.state.name=newVal;}  }, 
+	mutations:{ getname(state,newVal){this.state.name=newVal;} }, 
 	// 同步方法：(只有mutations才能改state的值)
-	actions:{   getnameAsync(){ ... }     },  // 异步方法
+	actions:{ getnameAsync(){ ... } },  // 异步方法
 	getter:{},  // 相当于计算属性
 	modules: {}  // 将vuex分块
 })
@@ -301,6 +183,8 @@ import store from '@/store'
 createApp(App).use(store).mount('#app')
 ```
 
+
+
 在使用时：
 
 ```js
@@ -313,7 +197,7 @@ console.log(store.state.count);
 
 ## 9. 什么是composition API(组合式API)
 
-写在setup函数中的 ref、reactive、计算属性、监视、生命周期等在setup函数中写的API，统称为组合式API。组合式API的体现在自定义hook函数中体现的淋漓尽致。
+写在setup函数中的 ref、reactive、计算属性、监视、生命周期等在setup函数中写的API，统称为组合式API。组合式API的体现在自定义hook函数中体现得淋漓尽致。
 
 ## 10. 自定义hook函数和mixins的区别是什么呢？
 
@@ -321,9 +205,9 @@ console.log(store.state.count);
 
 - 使用Vue3的组合API封装的可复用的功能函数
 - 自定义hook的作用类似于vue2中的mixin技术
-- 自定义Hook的优势: 很清楚复用功能代码的来源, 更清楚易懂
+- 自定义Hook的优势：很清楚复用功能代码的来源，更清楚易懂
 
-<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a4382929ac814c2f815d82d65b32ab3e~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp">
+<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a4382929ac814c2f815d82d65b32ab3e~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp"    >
 
 [博客地址](https://juejin.cn/post/6949785721502695461)
 
@@ -352,6 +236,8 @@ console.log(store.state.count);
 
 - 中大型项目都不推荐用EventBus，建议用vuex做状态管理，方便日后维护。
 - 小型项目，涉及到多处跨组件通信的情况，可以考虑使用。
+
+[Vue2全局事件总线](https://blog.csdn.net/u010356768/article/details/124076307)
 
 [Vue3学习之全局事件总线mitt](https://blog.csdn.net/m0_50789696/article/details/125168752)
 
@@ -469,18 +355,7 @@ input 案例
 
 
 
-## 13.  聊聊Vue3(陈辉鸿)
-
-- 今年9月份发布的正式版
-- Vue3支持vue2的大多数特性
-- 设计了一套强大的组合API来替代option API: 可读性和可复用性更好
-- 更好的支持Typescript
-- 使用Proxy代替defineProperty实现数据响应式: 效率更高, 功能更强大
-- 重写虚拟DOM的实现和Tree-Shaking: 更小更快
-- 新的组件: Fragment / Teleport / Suspense
-- 设计了一个新的脚手架工具vite: 开发启动快了很多
-
-## 14. vue3 tree-shaking
+## 13. vue3 tree-shaking
 
 **是什么？**
 

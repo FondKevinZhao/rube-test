@@ -164,6 +164,8 @@ MVC 和 MVVM 的区别：这两个的原理是一样的，不过，MVVM 中的 V
 
 > 通过控制层把数据渲染到视图当中。
 
+
+
 ### 为什么要使用MVVM？
 
 **使用 MVC 的时候，前端开发会遇到：**
@@ -617,11 +619,13 @@ vue 中的普通函数 this 都是指向实例对象，生命周期函数也是�
 
 ## Vue组件间通信方式
 
-**父组件给子组件传最好的方式用：**props，插槽，`$attrs`，`$parent`/`$children`。
+### 1. 父组件给子组件传参最好的方式用：
+
+props，插槽，`$attrs`，`$parent`/`$children`。
 
 `$attrs/$listeners`：
 
-1. `$attrs` 中包含了所有父作用域中所有未进行 prop 生命的属性，class 和 style 除外。
+1. `$attrs` 中包含了所有父作用域中所有未进行 prop 声明的属性，class 和 style 除外。
 2. `$listeners` 中包含了父作用域中不含 .native 修饰器的所有 v-on 事件。(vue3中已经移除，全部交给$attrs处理)
 
 父子：`$parent`/`$children`
@@ -630,8 +634,12 @@ vue 中的普通函数 this 都是指向实例对象，生命周期函数也是�
 2. $children 可以获取当前组件的所有子组件实例。(vue3中没有`$children`，如果你需要访问子组件实例，我们建议使用`ref`)
 
    [vue3获取ref元素](https://zhuanlan.zhihu.com/p/527995785)
+   
+   
 
-**子组件给父组件传参：**自定义事件，props，ref。
+### 2. 子组件给父组件传参：
+
+自定义事件，props，ref。
 
 自定义数据传参三条原则：
 
@@ -679,7 +687,7 @@ sendSchoolName(){
 
 
 
-下面这里是vue3中 expose / ref 父获取子得属性或方法
+下面这里是vue3中 expose / ref 父获取子的属性或方法
 
 expose / ref 主要用于父组件获取子组件的属性或方法。在子组件中，向外暴露出属性或方法，父组件便可以使用 ref 获取到子组件身上暴露的属性或方法。
 
@@ -733,7 +741,9 @@ expose / ref 主要用于父组件获取子组件的属性或方法。在子组�
 
 
 
-**爷孙组件传参：**`$attrs/$listeners`，provide/inject
+### 3. 爷孙组件传参：
+
+`$attrs/$listeners`，provide/inject
 
 1. $attrs 中包含了所有父作用域中所有未进行 prop 生命的属性，class 和 style 除外。
 2. $listeners 中包含了父作用域中不含 .native 修饰器的所有 v-on 事件。(vue3中已经移除，全部交给`$attrs处理`)
@@ -744,7 +754,57 @@ provide/inject:
 2. 一般业务数据不推荐使用，数据来源不清晰。
 3. 适用于自己封装的组件，因为可以明确的知道数据来源。
 
-**任意组件间传参：** localStorage、sessionStorage、全局事件总线、消息订阅与发布、vuex、pinia。
+```html
+// 祖辈组件
+<template>
+  <div id="nav">
+    <h3>{{title}}</h3>
+    <button @click="setTitle">同时改变title</button>
+  </div>
+</template>
+<script>
+	import { ref, provide } from 'vue'
+	export default {
+		setup() {
+			let title = ref('这个要传的值')
+			provide('title', title); // provide的第一个为名称，第二个值为所需要传的参数
+			let setTitle = () => {
+				title.value = '点击后，title会变成这个'; // 点击后都会有响应式哦！
+			}
+			return {
+				title,
+				setTitle
+			}
+		}
+	}
+</script>
+```
+
+
+
+```html
+// 后代组件
+<template>
+  <div class="hello">
+    <h4>{{title}}父组件点击之后这个title也会跟着变化哦</h4>
+  </div>
+</template>
+<script>
+	import { inject } from 'vue'
+	export default {
+		let title = inject('title'); // inject的参数为provide过来的名称
+		return {
+			title
+		}
+	}
+</script>
+```
+
+
+
+### 4. 任意组件间传参： 
+
+localStorage、sessionStorage、全局事件总线、消息订阅与发布、vuex、pinia。
 
 
 
@@ -795,9 +855,9 @@ Vue 中怎么将后台的数据展示到视图层的，其中都用了哪些方�
 
 ## vue 的特点：
 
-​	jQuery 是通过 DOM 来控制数据，而 Vue 是通过数据来控制状态，通过控制数据来控制渲染。
-​	vue 是渐进式框架，可以使用 npm 来安装 vue 项目中需要的组件库。
-​	uniapp 与微信小程序的语法跟 vue 很接近，会 vue 框架，其他平台更容易上手。
+jQuery 是通过 DOM 来控制数据，而 Vue 是通过数据来控制状态，通过控制数据来控制渲染。
+vue 是渐进式框架，可以使用 npm 来安装 vue 项目中需要的组件库。
+uniapp 与微信小程序的语法跟 vue 很接近，会 vue 框架，其他平台更容易上手。
 
 ## form 表单怎么阻止重复提交？
 
@@ -959,7 +1019,7 @@ vue 交互的时候：数据在哪里，操作数据的方法就要在哪里。
 
 注意：如果组件内不支持这个原生事件名字。
 
-解决：@事件名.native=‘methods里方法名’ 
+解决：@事件名.native="methods里方法名"
 
 
 
@@ -1021,11 +1081,15 @@ echarts内部用的是命名导出 export const 变量名 多个
 
 token的目的是减轻服务器压力，减少数据库请求。因为后端需要知道你上传的数据是哪一个用户的内容，主要是用于用户校验的。
 
+
+
 ## Vue启动项目如何区分启动的是开发环境、测试环境、生产环境
 
 创建 .env结尾的环境变量文件，增加后缀来区分特有的环境模式。以development模式为例：文件名未 **.env.development**
 
 [博客地址](https://blog.csdn.net/xiaopihair123/article/details/123382057)
+
+
 
 ## 如果用同一个按钮，如何做状态区分？(黑马-老李)
 
@@ -1055,5 +1119,4 @@ vue2大事件项目(视频P45)
 ### 7. 可以添加修饰符的三条指令：v-bind、v-on、v-model。
 
 ### 8. 配置对象：属性名固定的对象。
-
 
