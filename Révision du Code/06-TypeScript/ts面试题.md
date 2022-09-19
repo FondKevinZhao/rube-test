@@ -1,4 +1,4 @@
-2012年10月，微软发布了首个公开版本的TypeScript，2013年6月19日，在经历了一个预览版之后微软正式发布了正式版TypeScript。
+百度百科：2012年10月，微软发布了首个公开版本的TypeScript，2013年6月19日，在经历了一个预览版之后微软正式发布了正式版TypeScript。
 
 #### 1. const 和readonly区别？
 
@@ -23,7 +23,6 @@ enum Color {
 var sisterAn = Color.Red
 // 会被编译成 JavaScript 中的 var sisterAn = Color.Red
 // 即在运行执行时，它将会查找变量 Color 和 Color.Red
-复制代码
 ```
 
 我们再看下 常量枚举 会被编译成什么：
@@ -42,11 +41,11 @@ var sisterAn = Color.Red
 
 由此可见，使用 常量枚举 会有更好的性能。
 
-#### 3. type（类别名的） 和 interface （接口）的区别？
+#### 3. type（类型别名） 和 interface （接口）的区别？
 
 1. 类型别名可以为任何类型引入名称。例如基本类型，联合类型等
 2. 类型别名重名时编译器会抛出错误，接口重名时会产生合并
-3. 类型别名不支持继承
+3. 类型别名不支持继承(extends)
 4. 类型别名无法被实现(implements)，而接口可以被派生类实现
 
 #### 4. TypeScript中any类型的作用是什么？
@@ -59,7 +58,7 @@ var sisterAn = Color.Red
 
 #### 5. TypeScript中unknown，never和viod有什么区别？
 
-1. unknown类型和any类型类似。与any类型不同的是unknown类型可以接受任意类型赋值，但是unknown类型赋值给其他类型前，必须被断言
+1. unknown类型和any类型类似。与any类型不同的是unknown类型可以接受任意类型赋值，**但是unknown类型赋值给其他类型前，必须被断言**
 
 2. never，never表示永远不存在的类型。比如一个函数总是抛出错误，而没有返回值。或者一个函数内部有死循环，永远不会有返回值。函数的返回值就是never类型。
 
@@ -109,13 +108,11 @@ var sisterAn = Color.Red
 
   
 
-
-
 #### 7. 枚举和 object 的区别
 
 1. 枚举可以通过枚举的名称，获取枚举的值。也可以通过枚举的值获取枚举的名称。
 
-2. object只能通过key获取value
+2. object只能通过key获取value。
 
 3. 数字枚举在不指定初始值的情况下，枚举值会从0开始递增。
 
