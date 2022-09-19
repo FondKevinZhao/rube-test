@@ -8,6 +8,28 @@
 
 区别是 `>>>` 只作用于 CSS，在 Less/Sass 中无法识别，所以用 deep 代替，在 Vue3.0之前用 `/deep/`，Vue3.0之后用 `::v-deep`
 
+```css
+::v-deep 第三方组件类名{
+      样式
+}
+::v-deep .el-form-item {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  color: #454545;
+}
+
+或者使用
+:deep(.el-form-item) {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  color: #454545;
+}
+```
+
+
+
 ## position
 
 有些人还只知道4个属性~
@@ -22,7 +44,7 @@
 
 - `visibility:hidden`：隐藏元素，会继续在文档流中占位，所以触发重绘，隐藏后不能触发点击事件
 - `display:none`：隐藏元素，会从页面中删除掉，所以会触发重排和重绘
-- `opacity:0`：透明，会继续在文档流中占位，所以触发重绘。由是是作用于元素自身，所以子元素会继承，全部变透明，透明后可以触发点击事件
+- `opacity:0`：透明，会继续在文档流中占位，所以触发重绘。它是作用于元素自身，所以子元素会继承，全部变透明，透明后可以触发点击事件
 - `rgba(0,0,0,0)`：透明，会继续在文档流中占位，所以触发重绘。由于只作用于颜色或背景色，所以子元素不会继承，透明后可以触发点击事件
 
 另外 `transition` 过渡不支持 `display:none`，其他三个是支持的
@@ -66,7 +88,7 @@ BFC渲染规则或特性：
 怎么创建BFC或触发BFC：
 
 - html 就是一个 BFC
-- float值不为none,也就是说设置了浮动即可
+- float值不为none，也就是说设置了浮动即可
 - position的值为absolute或者fixed
 - display值为table和flex相关的几个属性
 - overflow为auto或hidden
@@ -111,10 +133,10 @@ BFC使用场景：
 
 ## 盒模型
 
-- **标准模式**：元素的width/height = `content + border + padding`
-- **怪异模式**：元素的width/height = `content`(包含border和padding)
+- **标准盒模型**：元素的width/height = `content + border + padding`
+- **怪异(IE)盒模型**：元素的width/height = `content`(包含border和padding)
 
-通过CSS的 `box-sizing` 属性切换模式，`content-box`就是标准模式，`border-box`就是怪异模式
+通过CSS的 `box-sizing` 属性切换模式，`content-box`就是标准盒模型，`border-box`就是怪异盒模型
 
 ## 标签之间空白间隙如何解决
 
@@ -165,7 +187,7 @@ BFC使用场景：
 
 通过`rel`属性进行`预加载`，如
 
-```
+```html
 <link rel="dns-prefetch" href="//xx.baidu.com">
 ```
 
@@ -182,23 +204,29 @@ rel有几个属性：
 
 可是首次渲染可能并不依赖这些js文件，这就延长了页面渲染的时间，所以为了减少这些时间损耗，可以通过script标签三个属性来实现：
 
-- `async`：立即请求文件，但不阻塞渲染引擎，而是文件加载完毕后再阻塞渲染引擎并执行js先
-- `defer`：立即请求文件，但不阻塞渲染引擎，等解析完HTML再执行js
+- `async`：一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染。
+- `defer`：defer要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行。
 - `H5`标准的`type="module"`：让浏览器按照ES6标准将文件当模板解析，默认阻塞效果和defer一样，也可以配合async在请求完成后立即执行
+- defer是“渲染完再执行”，async是“下载完就执行”。
 
 ## href和src的区别
 
-href是`引用`，src是`引入`
+胡哥答案：
 
-href: 如：`<a href=""></a>` `<link rel="stylesheet" href="index.css">`
+**请求资源类型不同**
 
-- href引入的CSS会阻塞页面渲染，CSS加载完成才会进行渲染，所以渲染出来就是带样式的
-- 不会阻塞js加载，但是会阻塞js的执行，因为js执行可能会操作DOM，所以CSS加载完之前执行js是可能会有问题的
+1. href是Hypertext Reference的缩写，表示超文本引用。用来建立当前元素和文档之间的链接。常用的有：link、a。`<link href="reset.css" rel=”stylesheet“/>`
+2. src是source的缩写，在请求src资源时会将其指向的资源下载并应用到文档中，常用的有script、img、iframe。
 
-src: 如：`<script src="index.js"></script>` `<img src="beauty.png" alt="">`
+**作用结果不同**
 
-- src引入的js会阻塞页面的渲染(没有defer和async的情况下)，因为js很可能操作DOM修改文档结构
-- 多个脚本时不会不阻塞后续资源的加载，但是会阻塞后续js逻辑的执行，按顺序执行
+1. href 用于文档和资源之间确立联系。
+2. src 用于替换当前内容。
+
+**浏览器解析方式不同**
+
+1. 用href，浏览器会识别该文档为css文件，就会并行下载资源并且不会停止对当前文档的处理。
+2. 用src，会暂停其他资源的下载和处理，知道将该资源加载、编译、执行完毕，将所指向资源应用到当前内容。这也是为什么建议把js脚本放在底部而不是头部的原因。
 
 ## SEO 和语义化
 
@@ -228,136 +256,25 @@ src: 如：`<script src="index.js"></script>` `<img src="beauty.png" alt="">`
 
 当然它的缺点是刷新和跳转是`不可取消`的，如果需要动态刷新或者手动取消的，还是推荐定时器
 
-## 水平垂直居中
 
-### 固定宽高
 
-**absolute + 负margin**
 
-```css
-.content {
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   margin-top: -50px; /* 这里的 50px 为宽高的一半 */
-   margin-left: -50px;
-}
-```
 
-**absolute + margin auto**
 
-```css
-.content {
-   position: absolute;
-   top: 0;
-   left: 0;
-   right: 0;
-   bottom: 0;
-   margin: auto;
-}
-```
 
-### 不固定宽高
 
-**position+ translate**
 
-```css
-.content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-```
 
-**vertical-align + 伪元素**
 
-```css
-.box {
-  width: 300px;
-  height: 300px;
-  text-align: center;
-}
-.box:after {
-  content: '';
-  height: 100%;
-  display: inline-block;
-  vertical-align: middle;
-}
-...
-<div class="box">
-   <span class="content">这碗又大又圆，这面又长又宽</span>
-</div>
-```
 
-**flex**
 
-```css
-.box {
-  width: 300px;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-...
-<div class="box">
-   <div class="content">这碗又大又圆，这面又长又宽</div>
-</div>
-```
 
-**grid**
 
-```css
-.box {
-  width: 300px;
-  height: 300px;
-  display: grid;
-}
-.content {
-  justify-self: center;
-  align-items: center;
-}
-...
-<div class="box">
-   <div class="content">这碗又大又圆，这面又长又宽</div>
-</div>
-```
 
-**table-cell**
 
-```css
-.box {
-  width: 300px;
-  height: 300px;
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
-}
-...
-<div class="box">
-   <span class="content">这碗又大又圆，这面又长又宽</span>
-</div>
-```
 
-**writing-mode**
 
-```css
-.box {
-  width: 300px;
-  height: 300px;
-  writing-mode: vertical-lr;
-  text-align: center;
-}
-.content {
-  writing-mode: horizontal-tb;
-  display: inline-block;
-  width: 100%;
-}
-...
-<div class="box">
-   <div class="content">
-       <span>这碗又大又圆，这面又长又宽</span>
-   </div>
-</div>
-```
+
+
+
+
