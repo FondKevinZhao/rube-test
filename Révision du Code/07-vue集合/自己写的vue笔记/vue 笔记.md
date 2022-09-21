@@ -1102,6 +1102,199 @@ vue2大事件项目(视频P45)
 
 
 
+## vue-quill-editor富文本校验
+
+### 原因
+
+quill-editor富文本编辑器，它不是el提供的表单标签
+
+el-input等输入框在blur事件时进行校验
+
+下拉菜单、单选框、复选框等是在change事件时进行校验
+
+quill-editor 这两个事件都没有，所以你输入内容也不会自动走校验
+
+
+
+### 解决
+
+#### 1. 自己来给quill-editor绑定blur或者change事件
+
+<img src="vue 笔记.assets/image-20220921042230250.png" alt="image-20220921042230250"/>
+
+#### 2. 绑定change事件
+
+![image-20220921042327034](vue 笔记.assets/image-20220921042327034.png)
+
+
+
+#### 3. el表单事件中的validate是对整个表单进行校验，validateField是对部分表单字段进行校验
+
+这个validateField里的content是rules中的校验规则
+
+<img src="vue 笔记.assets/image-20220921042934645.png" width="100%">
+
+
+
+[视频地址](https://www.bilibili.com/video/BV1iL4y1w7aK/?p=62&spm_id_from=pageDriver&vd_source=ba9278b625c8ac0175e9312cb9cfed59)
+
+
+
+## axios请求体参数上传文件/图片
+
+Body参数(multipart/form-data)
+
+```js
+export const uploadArticleAPI = () => {
+  return request({
+    url: 'my/article/add',
+    method: 'POST',
+    data: {} // {} 普通对象
+  })
+}
+```
+
+axios内的data如果传的是一个普通对象，axios会把它转成JSON字符串再请求体里交给后台
+
+这个接口文档要求请求体里是一个FormData类型(表单数据对象)携带文件给后台
+
+```js
+export const uploadArticleAPI = (fd) => {
+  return request({
+    url: 'my/article/add',
+    method: 'POST',
+    data: fd // 参数要的是表单对象，不能写普通对象，axios内部会判断，如果是表单对象，传递的请求体会设置Content-Type: multipart/form-data与后端对应
+  })
+}
+```
+
+准备一个表单数据对象的容器，FormData类是HTML5新出的专门为了装文件内容和其他的参数的一个容器
+
+<img src="vue 笔记.assets/image-20220921051754590.png" alt="image-20220921051754590" width="100%" height="700px" />
+
+
+
+# 图片转base64
+
+
+
+```html
+<body>
+    <input type="file" id="iptFile" />
+</body>
+<script>
+  iptImg = document.getElementById("iptFile");
+  iptImg.onchange = function () {
+    var imgMsg = document.getElementById("iptFile").files[0]; // 获取传入的图片信息
+    var render = new FileReader(); // 实例化FileReader
+    render.readAsDataURL(imgMsg ); // 转化base64
+    // console.log(render.result); 此时访问不到result，得到的结果是null
+     render.onload = function () {
+      console.log(render.result); // 转化结果
+    };
+  };
+</script>
+```
+
+
+
+## 图片预览格式和发给后台的图片格式
+
+### 前端
+
+前提：通过input[type=file]让用户选择文件，通过事件对象.target.files拿到用户选择的“文件对象”
+
+预览：img标签的src属性的值有两种情况(base64的字符串/图片的链接地址)
+
+1. 给src属性赋予base64字符串(图片数据转base64字符串)，特点一data:image/png;base，开头。
+
+   文件转成图片base64字符串：使用 new FileReader()
+
+2. 文件转成图片链接的地址：URL.createObjURL(文件)
+
+   注意：它的地址只能在前端使用
+
+需求：把用户选择的文件发给后台保存在服务器上(有两种情况)，具体用哪种，需要看后端是如何要求的。
+
+1. 文件转成图片的base64字符串，传递给后台
+2. 用new FormData()表单的数据直接装文件本身，直接传递给后台
+
+
+
+## 后端返回图片链接地址的经验
+
+为何后端返回的图片地址是半截的？
+
+原因：因为服务器的域名很可能会来回变化，所以数据库里的地址只要相对路径
+
+要求：前端请求此图片的时候，后端告诉你图片文件真身所在的服务器域名，前端自己拼接前缀
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Vue其他
 
 ### 1. vue 实例对象上自身的属性或方法都是`$`符号开头，除了数据代理的属性(data, methods, computed)。
