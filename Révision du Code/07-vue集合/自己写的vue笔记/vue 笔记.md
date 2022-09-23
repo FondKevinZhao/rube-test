@@ -1174,7 +1174,7 @@ export const uploadArticleAPI = (fd) => {
 
 
 
-# 图片转base64
+## 图片转base64
 
 
 
@@ -1312,4 +1312,35 @@ export const uploadArticleAPI = (fd) => {
 ### 7. 可以添加修饰符的三条指令：v-bind、v-on、v-model。
 
 ### 8. 配置对象：属性名固定的对象。
+
+### 9. 使用axios的好处
+
+1. axios内部，会把参数对象转成json字符串格式发给后台
+2. axios内部，会自动携带请求参数(headers)里content-type: 'application/json' 帮你添加好
+
+### 10. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
