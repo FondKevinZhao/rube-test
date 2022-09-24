@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1. 使用具有全局标志g的正则表达式
+      var str = 'dogdogdog'
+      var str2 = str.replace(/dog/g, 'cat')
+      console.log(str2) // catcatcat
+
+      // 2. 使用另一种具有全局标志g的正则表达式
+      var str = 'dogdogdog'
+      // 这里g表示执行全局匹配，m表示执行多次匹配。没有m也是可以的。
+      var str2 = str.replace(new RegExp('dog', 'gm'), 'cat')
+      console.log(str2) // catcatcat
+
+      // 3. 给string对象添加原型方法replaceAll()
+      String.prototype.replaceAll = function (s1, s2) {
+        return this.replace(new RegExp(s1, 'gm'), s2)
+      }
+      // 这样就可以像使用replace方法一样使用replaceAll方法：
+      var str = 'dogdogdog'
+      var str2 = str.replaceAll('dog', 'cat')
+      console.log(str2) // catcatcat
+
+      // 4. 使用先split，再join的方法
+      var str = 'dogdogdog'
+      var str2 = str.split('dog').join('cat')
+      console.log(str2) // catcatcat
+    </script>
+  </body>
+</html>
