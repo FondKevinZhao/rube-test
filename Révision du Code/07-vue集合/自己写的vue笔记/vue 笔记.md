@@ -1,5 +1,46 @@
 # vue
 
+## Vue基础
+
+### 1. vue 实例对象上自身的属性或方法都是`$`符号开头，除了数据代理的属性(data, methods, computed)。
+
+### 2. 下拉列表绑定 `v-model`给`select`绑定，`option` 中放`value` 值。
+
+### 3. 表单数据的收集只有一种做法：v-model。
+
+### 4. 元素属性动态改变内容用冒号`：`，元素文本动态改变内容用双括号`{{}}`。
+
+### 5. 指令：带有`v-`前缀的特殊属性。
+
+### 6. 可以简写的三条指令：v-bind(简写为 : )、v-on(简写为 @)、v-slot(简写为 #)。
+
+### 7. 可以添加修饰符的三条指令：v-bind、v-on、v-model。
+
+### 8. 配置对象：属性名固定的对象。
+
+### 9. 使用axios的好处
+
+1. axios内部，会把参数对象转成json字符串格式发给后台
+2. axios内部，会自动携带请求参数(headers)里content-type: 'application/json' 帮你添加好
+
+### 10. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## computed、watch 的区别
 
 1. computed：是计算属性，依赖其他属性计算值，并且 computed 的值有缓存，只有当计算值变化才会返回内容，不可异步。(有返回值)
@@ -1140,7 +1181,7 @@ quill-editor 这两个事件都没有，所以你输入内容也不会自动走�
 
 
 
-## axios请求体参数上传文件/图片
+## axios请求体参数上传文件/图片(黑马-老李)
 
 Body参数(multipart/form-data)
 
@@ -1156,7 +1197,29 @@ export const uploadArticleAPI = () => {
 
 axios内的data如果传的是一个普通对象，axios会把它转成JSON字符串再请求体里交给后台
 
-这个接口文档要求请求体里是一个FormData类型(表单数据对象)携带文件给后台
+这个接口文档要求请求体里是一个FormData类型(表单数据对象)携带文件给后台。
+
+Content-Type: multipart/form-data，如果你的请求体直接是FormData表单对象，你也不用自己添加Content-Type，axios发现数据请求体是表单对象，它也不会转换成json字符串，也不会带Content-Type: application/json，而是交给浏览器，浏览器发现请求体是formData会自己携带Content-Type。
+
+上面的内容简单总结：
+
+1. Content-Type: application/json; axios携带的，前提：data请求体是对象 -》json字符串 -》发给后台。
+
+2. Content-Type: multipart/form-data; 浏览器携带的，前提：data请求体必须是FormData类型对象。
+
+   ```js
+   export const updateUserPhotoAPI = (fd) => {
+     url: '/v1_0/user/photo',
+     method: 'PATCH',
+     data: fd, // fd是外面传进来的new FormData() 表单对象
+   }
+   ```
+
+   
+
+axios中，data请求体参数，如果值为null是不会忽略这个参数的，也会把参数名和值携带给后台(只有params遇到null才会忽略)
+
+Content-Type 只会对请求头的参数产生影响。如果是query参数(查询字符串)或者params参数(路径拼接)是没有影响的。
 
 ```js
 export const uploadArticleAPI = (fd) => {
@@ -1231,23 +1294,81 @@ export const uploadArticleAPI = (fd) => {
 
 
 
+## 路由跳转在watch之前执行
 
+因为watch执行是异步的。
 
+路由跳转在watch之前执行，所以我们要让路由跳转，用一个定时器包裹，让跳转最后执行
 
+```js
+moveFn(theKw) {
+  setTimeout(()=>{
+    this.$router.push({
+      path: `/search_result/${theKw}`
+    })
+  })
+}
+```
 
+[视频地址黑马头条84](https://www.bilibili.com/video/BV1D3411L7PP/?p=84&spm_id_from=pageDriver&vd_source=ba9278b625c8ac0175e9312cb9cfed59)
 
 
 
+## 解决图片403防盗链的问题
 
+在vue的index.html中写上
 
+`<meta name="referrer" content="no-referrer"`
 
+原因是我们在发送请求的时候，axios会自动给我们加上referer请求头。如：`Referer: https://www.baidu.com/`
 
 
 
+## 判断有值才传给后台，无值参数名不携带
 
+当接口中有些参数是非必传的时候，解决是否要携带此参数的问题：
 
+Body 请求体参数
 
+| 名称     | 类型   | 是否必须 | 默认值 | 备注                    | 其他信息 |
+| -------- | ------ | -------- | ------ | ----------------------- | -------- |
+| name     | string | 非必须   |        | 昵称                    |          |
+| gender   | string | 非必须   |        | 性别，0-男，1-女        |          |
+| birthday | string | 非必须   |        | 生日，格式 '2018-12-20' |          |
+| intro    | string | 非必须   |        | 个人介绍                |          |
 
+```js
+export const updateUserProfileAPI = (dataObj) => {
+  // 判断, 有值才带参数名给后台, 无值参数名不携带
+  // 写法1: 解构赋值, 4个判断, 往空对象上添加有值的加上去(以前做过)
+  // 写法2: 外面想传几对象key+value, 就直接传入交给后台
+  // 写法3: 上面写法不够语义化, 我看不出obj里有什么
+  const obj = {
+    name: '',
+    gender: 0,
+    birthday: '',
+    intro: ''
+  }
+  for (const prop in obj) { // 遍历参数对象里每个key
+    if (dataObj[prop] === undefined) { // 用key去外面传入的参数对象匹配, 如果没有找到(证明外面没传这个参数)
+      delete obj[prop] // 从obj身上移除这对属性和值
+    } else {
+      obj[prop] = dataObj[prop] // 如果使用了, 就从外面对象取出对应key值, 保存到obj上
+    }
+  }
+  return request({
+    url: '/v1_0/user/profile',
+    method: 'PATCH', // 局部更新->PUT(全都更新)
+    data: obj
+    // { // data不会忽略值为null的那对key+value, params遇到null值会忽略不携带此对参数和值给后台
+    //   name, // 昵称
+    //   gender, // 性别0:男, 1:女
+    //   birthday, // 生日(要求格式: 年-月-日 字符串)
+    //   intro // 个人介绍
+    // }
+  })
+}
+```
 
 
 
@@ -1295,30 +1416,145 @@ export const uploadArticleAPI = (fd) => {
 
 
 
-## Vue其他
 
-### 1. vue 实例对象上自身的属性或方法都是`$`符号开头，除了数据代理的属性(data, methods, computed)。
 
-### 2. 下拉列表绑定 `v-model`给`select`绑定，`option` 中放`value` 值。
 
-### 3. 表单数据的收集只有一种做法：v-model。
 
-### 4. 元素属性动态改变内容用冒号`：`，元素文本动态改变内容用双括号`{{}}`。
 
-### 5. 指令：带有`v-`前缀的特殊属性。
 
-### 6. 可以简写的三条指令：v-bind(简写为 : )、v-on(简写为 @)、v-slot(简写为 #)。
 
-### 7. 可以添加修饰符的三条指令：v-bind、v-on、v-model。
 
-### 8. 配置对象：属性名固定的对象。
 
-### 9. 使用axios的好处
 
-1. axios内部，会把参数对象转成json字符串格式发给后台
-2. axios内部，会自动携带请求参数(headers)里content-type: 'application/json' 帮你添加好
 
-### 10. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

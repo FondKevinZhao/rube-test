@@ -1,4 +1,67 @@
+## 基础
+
+### 1. 原型链：查找变量的过程。由多级父对象，逐级继承，形成的链式结果。
+
+### 2. alert 弹出来的结果都会进行内部 toString 转换，输出为字符串。
+
+### 3. 枚举、迭代、遍历。
+
+### 4. 无论客户关闭了浏览器还是电脑，只要还在 `maxAge`秒之前，登录网站时该 Cookie 仍然有效。
+
+### 5. 代理(proxy)：就是通过一个对象来操作另一个对象。
+
+### 6. 所有对象都是实例对象。都是 new 某个东西产生的。
+
+### 7. react 中使用 `<button></button>`如果你指定了 button 的 type 属性，要么不指定，要么指定 submit，不要指定为`type = ‘button’`。
+
+###  8.  property 和 attribute
+
+property：操作属性为布尔值的属性。
+
+attribute：操作属性为非布尔值的属性。
+
+### 9. 浏览器内核：支撑浏览器运行的最核心的程序。
+
+### 10. 注意：三元运算符中不能写 return。
+
+### 11. 所有的字符串的方法都是返回一个新的字符串。
+
+### 12. this += n 也就是 this = this + n;  这样会报错的，this 不能像变量一样赋值的。
+
+### 13. 如 `n = Number(n) && (isNaN(n) ? 0 : n);` n = Number(n) 赋值这个操作，永远都为 true。
+
+### 14. 原生DOM.nodeName 可以拿到标签名字(注意：标签名字是大写的字符串)
+
+```html
+<div style="color:red;" id="dv">good</div>
+<script>
+  let dv = document.getElementById('dv').nodeName
+  console.log(dv)
+</script>
+```
+
+
+
+### 15. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 数据的特点
+
 1. 可传递。`var a = 3; var b = a;`
 2. 可运算。`var a = 3; var b = a + 2;`
 
@@ -1097,45 +1160,7 @@ yarn install：安装全部依赖包。
 
 
 
-
-
-
-
-
-
-## 其他
-
-### 1. 原型链：查找变量的过程。由多级父对象，逐级继承，形成的链式结果。
-
-### 2. alert 弹出来的结果都会进行内部 toString 转换，输出为字符串。
-
-### 3. 枚举、迭代、遍历。
-
-### 4. 无论客户关闭了浏览器还是电脑，只要还在 `maxAge`秒之前，登录网站时该 Cookie 仍然有效。
-
-### 5. 代理(proxy)：就是通过一个对象来操作另一个对象。
-
-### 6. 所有对象都是实例对象。都是 new 某个东西产生的。
-
-### 7. react 中使用 `<button></button>`如果你指定了 button 的 type 属性，要么不指定，要么指定 submit，不要指定为`type = ‘button’`。
-
-###  8.  property 和 attribute
-
-property：操作属性为布尔值的属性。
-
-attribute：操作属性为非布尔值的属性。
-
-### 9. 浏览器内核：支撑浏览器运行的最核心的程序。
-
-### 10. 注意：三元运算符中不能写 return。
-
-### 11. 所有的字符串的方法都是返回一个新的字符串。
-
-### 12. this += n 也就是 this = this + n;  这样会报错的，this 不能像变量一样赋值的。
-
-### 13. 如 `n = Number(n) && (isNaN(n) ? 0 : n);` n = Number(n) 赋值这个操作，永远都为 true。
-
-### 14. ?. 可选链操作符
+## ?. 可选链操作符
 
 `getToken()?.length > 0`
 
@@ -1154,6 +1179,172 @@ let arr = res && res.data && res.data.list
 // 可选链的写法
 let arr = res?.data?.list
 ```
+
+
+
+## 在正则中使用变量
+
+在正则中如果你想使用变量，作为正则的匹配条件，那么就不能用语法糖简化写法了。如：`/target/gi`
+
+```js
+let target = 'java'
+originStr = 'javajavaJAVAjavaJAVA'
+let reg = new RegExp(target, 'gi') // g 全局，i 忽略大小写
+function changeTargetColor (originStr, target) {
+  // return originStr.replace(reg, `<span style='color:red;'>${target}</span>`)
+  // 上面的是有问题的，因为替换后的值不能用target，例如：输入框里的值是 java，如果匹配到的有大写的JAVA, 它也会被变成小写，因为忽略大小写匹配到的java和JAVA，被replace统一替换成小写了
+  
+  return originStr.replace(reg, (match, p1) => { // match 是命中的源字符(未被修改的字符)， p1指命中的字符下标
+    return `<span style='color:red;'>${match}</span>`
+  })
+}
+```
+
+
+
+## window.scrollTo(option) 
+
+scrollTo()方法滚动文档到指定的坐标位置。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div style="height:1000px"></div>
+    <script>
+      // scrollTo()方法滚动文档到指定的坐标位置。
+      window.scrollTo({
+        top: 100,
+        left: 0,
+        behavior: 'smooth',
+      })
+    </script>
+  </body>
+</html>
+```
+
+<img src="https://s3.bmp.ovh/imgs/2022/09/25/c76cf507b04c00c7.png">
+
+### 扩展1：window.scrollY
+
+window.scrollY 是一个属性，不是方法。
+
+该scrollY只读属性返回文档在垂直方向**已滚动的像素值**。
+
+该scrollY属性是[pageYOffset](https://www.nhooo.com/jsref/window_pageyoffset.html)属性的别名。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div style="height: 1000px;"></div>
+    <script>
+      var y = window.scrollY
+      console.log(y)
+    </script>
+  </body>
+</html>
+```
+
+
+
+![image-20220925081555851](js高级课堂笔记  .assets/image-20220925081555851.png)
+
+### 扩展2： scrollIntoView(option)
+
+```js
+document.querySelector('.like-box').scrollIntoView({
+  
+})
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
