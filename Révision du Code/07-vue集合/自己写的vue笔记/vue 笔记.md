@@ -23,7 +23,17 @@
 1. axios内部，会把参数对象转成json字符串格式发给后台
 2. axios内部，会自动携带请求参数(headers)里content-type: 'application/json' 帮你添加好
 
-### 10. 
+### 10. 既引入也同时向外按需导出
+
+既引入也同时向外按需导出，导出所有引入过来的方法
+
+```js
+export * from './ArticleDetail.js'
+```
+
+
+
+### 11. 
 
 
 
@@ -1372,11 +1382,52 @@ export const updateUserProfileAPI = (dataObj) => {
 
 
 
+## token过期时，移除token信息并跳转到login页面
+
+在响应拦截器中操作：
+
+```js
+// 添加响应拦截器
+// 本质: 就是一个函数
+axios.interceptors.response.use(function (response) {
+  // http响应状态码为2xx, 3xx就进入这里
+  // 对响应数据做点什么
+  return response
+}, async function (error) {
+  // http响应状态码4xx, 5xx报错进入这里
+  // 对响应错误做点什么
+  console.dir(error)
+  // console.log(this) // undefined
+  // 只有401才代表身份过期, 才需要跳转登录
+  if (error.response.status === 401) {
+    // 不能使用this.$router (因为this不是vue组件对象无法调用$router)
+    // 解决: this.$router为了拿到router路由对象, 所以直接去上面引入@/router下router对象
+    // Notify({ type: 'warning', message: '身份已过期' })
+
+    removeToken() // 先清除token, 才能让路由守卫判断失效, 放行我去登录页
+    // router.currentRoute 相当于 在vue文件内this.$route -> 当前路由对象信息
+    // fullPath, 路由对象里完整路由路径#后面的一切
+    router.replace('/login')
+  }
+
+  return Promise.reject(error)
+})
+```
 
 
 
+## vue2路由缓存keep-alive
 
+注意：
 
+1. exclude里面写的是组件的name名字，不是路由里面的name。
+2. 多个组件需要使用exclude时，用逗号隔开，逗号后面不能有空格。
+
+```vue
+<keep-alive exclude="Search,SearchResult,Detail,UserEdit">
+	<router-view></router-view>
+</keep-alive>
+```
 
 
 
