@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+    黑马视频地址：https://www.bilibili.com/video/BV1D3411L7PP/?p=168&spm_id_from=pageDriver&vd_source=ba9278b625c8ac0175e9312cb9cfed59
+   -->
+    <script>
+      // 大数字问题
+      // 模拟后端返回的JSON字符串响应数据
+      // 注意：这里谈的id是数字，如果是字符串就没有这个大数字的问题
+      const str =
+        '[{"id": 1302900300041101987}, {"id": 1205340366642205763}, {"id": 7689021398237123422}]'
+      const arr = JSON.parse(str)
+      console.log(arr) // 返回结果跟后端传过来的不一样 [{id: 1302900300041102000}, {id: 1205340366642205700}, {id: 7689021398237124000}]
+
+      /* 
+        问题：
+          - 问题1：转成数组类型，发现数字精度丢失(后4位不准确)
+          - 问题2：如果把丢失精度的文章id传给后台，后台是找不到对应的文章的
+
+        原因：
+          - 原因1：后端的id生成的算法，和前端不同，产生19位的数字
+          - 原因2：js有效的安全数字是有范围的(可通过Number.MAX_SAFE_INTEGER查看) console.log(Number.MAX_SAFE_INTEGER) // 9007199254740991
+
+        解决：
+          json-bigint第三方包。这个包的内部会把数字JSON字符串拆分，把数字分成对象的形式/字符串的形式
+
+          const jsonBig = require('json-bigint') // 这里也可以用import引入
+          console.log(jsonBig.parse(str)) // 返回值是 BigNumber自定义类的对象
+          自定义类对象地址：https://s3.bmp.ovh/imgs/2022/09/27/281305c057f959f1.png
+          获取数据：
+          const theArr = jsonBig.parse(str)
+          const obj = theArr[0]
+          console.log(obj.id.toString())
+      */
+    </script>
+  </body>
+</html>
