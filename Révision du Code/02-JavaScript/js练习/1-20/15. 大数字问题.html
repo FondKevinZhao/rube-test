@@ -31,13 +31,20 @@
         解决：
           json-bigint第三方包。这个包的内部会把数字JSON字符串拆分，把数字分成对象的形式/字符串的形式
 
+          获取数据：
+          方法一：
           const jsonBig = require('json-bigint') // 这里也可以用import引入
           console.log(jsonBig.parse(str)) // 返回值是 BigNumber自定义类的对象
-          自定义类对象地址：https://s3.bmp.ovh/imgs/2022/09/27/281305c057f959f1.png
-          获取数据：
+          自定义类对象返回值地址：https://s3.bmp.ovh/imgs/2022/09/27/281305c057f959f1.png
+          
           const theArr = jsonBig.parse(str)
           const obj = theArr[0]
           console.log(obj.id.toString())
+
+          方法二：
+          // ({storeAsString: true}) 表示转换是以字符串存储
+          const jsonBig = require('json-bigint')({storeAsString: true})
+          console.log(jsonBig.parse(str))
       */
     </script>
   </body>
