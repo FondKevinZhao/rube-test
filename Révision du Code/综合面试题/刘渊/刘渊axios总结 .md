@@ -161,7 +161,13 @@ const service = axios.create({
 service.interceptors.request.use(
   // 请求拦截器当中成功的回调
   (config) => {
-    // config其实就是我们的请求报文
+    // config其实就是我们的请求报文，这里的config.url 是基础路径+地址栏的路径。如：http://www.baidu.com/login。如果console.log(config.url)得到的结果是login，所以可以使用这个关键词来判断是否是登录页面。
+    /*
+    	if(config.url !== 'login') {
+    		const AUTH_TOKEN = localStorage.getItem('token')
+    		config.headers['Authorization'] =  AUTH_TOKEN
+    	}
+    */
     // 这个请求报文，最后一定要返回去，因为还要继续往下走
     // 在这里我们可以添加额外的功能，也可以给请求头添加需要的数据
     NProgress.start(); // 开启进度条

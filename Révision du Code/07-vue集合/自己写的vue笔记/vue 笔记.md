@@ -4,7 +4,7 @@
 
 ### 1. vue 实例对象上自身的属性或方法都是`$`符号开头，除了数据代理的属性(data, methods, computed)。
 
-### 2. 下拉列表绑定 `v-model`给`select`绑定，`option` 中放`value` 值。
+### 2. 配置对象：属性名固定的对象。
 
 ### 3. 表单数据的收集只有一种做法：v-model。
 
@@ -16,14 +16,12 @@
 
 ### 7. 可以添加修饰符的三条指令：v-bind、v-on、v-model。
 
-### 8. 配置对象：属性名固定的对象。
-
-### 9. 使用axios的好处
+### 8. 使用axios的好处
 
 1. axios内部，会把参数对象转成json字符串格式发给后台
 2. axios内部，会自动携带请求参数(headers)里content-type: 'application/json' 帮你添加好
 
-### 10. 既引入也同时向外按需导出
+### 9. 既引入也同时向外按需导出
 
 既引入也同时向外按需导出，导出所有引入过来的方法
 
@@ -33,7 +31,7 @@ export * from './ArticleDetail.js'
 
 
 
-### 11. 
+### 10. 
 
 
 
@@ -420,6 +418,66 @@ cookie 相对于`localStorage`的好处：每次发送请求会自动携带该 t
 1. 静态页面
 2. 请求数据、渲染显示
 3. 交互
+
+
+
+## 下拉列表绑定 `v-model`给`select`绑定，`option` 中放`value` 值
+
+如果select绑定的数据的值和option的value一样，就会显示该option的label值。真正发给后台的是value值，一般是id。
+
+```js
+点击按钮弹出对话框，对话框中包含select框
+async showSetUserRoleDialog(user) {
+  // 获取所有角色
+  const res1 = await this.$http.get(`roles`)
+  this.roles = res1.data.data
+  
+  this.currUserId = user.id
+  
+  // 获取当前用户的角色id 叫 rid
+  const res = await this.$http.get(`users/${user.id}`)
+  this.currRoleId = res.data.data.rid // 一上来把用户已经有的id赋值给this.currRoleId，这个可以根据用户选择下拉框的值，会动态改变
+  this.dialogFormVisibleRole = ture // 关闭对话框
+}
+```
+
+
+
+```vue
+这里调用了两个接口，
+一个接口是得到当前的currRoleId，赋值给data中的currRoleId
+还要一个接口是得到当前的所有roles数组，通过遍历可以在下拉框中显示，当选中的item.id和currRoleId一样时，会显示在el-select框中
+// currRoleId 定义在data中的变量，一上来为空字符串
+<el-select v-model="currRoleId">
+  // roles 是一个数组
+	<el-option :label="item.roleName" :value="item.id" v-for="(item, i) in roles" :key="i">
+  </el-option>
+</el-select>
+```
+
+
+
+roles数组：
+
+![roles](vue 笔记.assets/roles.png)
+
+
+
+点击对话框dialog的确定按钮，发送请求，把v-model的值(this.currRoleId)传过去
+
+```js
+data 中再声明一个变量叫currUserId ，再打开对话框时给该属性赋值
+
+async setRole() {
+  await this.$http.put(`users/${this.currUserId}/role`, {
+    rid: this.currRoleId
+  })
+  // 关闭对话框
+  this.dialogFormVisibleRole = ture
+}
+```
+
+
 
 
 
@@ -1416,6 +1474,8 @@ axios.interceptors.response.use(function (response) {
 
 
 
+
+
 ## vue2路由缓存keep-alive
 
 注意：
@@ -1431,7 +1491,71 @@ axios.interceptors.response.use(function (response) {
 
 
 
+## 打包后的跨域问题(黑马老李)
 
+### 情况1：
+
+后端开启了cors，也就是后端的响应头中有`acess-control-allow-origin: *`
+
+开发环境，生产打包环境(以后的部署)，都可以直接访问接口，无需考虑跨域问题。
+
+隐患：后端接口暴露了，任何人找到都可以直接请求(有风险)
+
+解决：需要登录(页面登录，才能有token，否则即使有接口也不能进去) + token调用接口
+
+### 情况2：
+
+后端不开启cors(网易云音乐/网易新闻/以后我公司后台接口)
+
+开发环境方法一：webpack开发服务器做代理转发(yarn serve)
+
+开发环境方法二：node+express在本地搭建一个服务器，代理转发
+
+生产环境(yarn build)：打包dist文件，和webpack开发服务器环境没有任何关系，没有人给你转发了。
+
+解决方案方法一：把你自己搭建的nodejs+webpack在本地搭建的代理服务器和dist一起部署到一个云服务器上，前端请求你自己的nodejs+express服务器地址，让这个服务器再去请求真正的后台服务器接口。(有一个包叫作http-server的包，可以快速的做代理转发。)
+
+解决方案方法二：dist和你公司的后台接口服务，直接放在一个云服务器上(避免跨域访问)。
+
+我们在开发时和上线时是有两套环境的。开发时用开发环境和路径。上线时用上线的环境和路径。
+
+nodejs打包时执行main.js代码时，node内全局内置变量process(这个是固定的)
+
+在main.js中`console.log(process)`打印这个process可以看到：
+
+![image-20220927062157502](vue 笔记.assets/image-20220927062157502.png)
+
+在服务器的根目录下，可以新建变量配置文件(文件名也是固定的)，脚手架环境webpack内置配好的。
+
+环境变量文件中，定义变量名NODE_ENV(固定的)，BASE_URL(也是固定的)。自定义变量名要以VUE_APP_开头(这是规定)。
+
+main.js中`console.log(process.node)`得到：
+
+![image-20220927063053763](vue 笔记.assets/image-20220927063053763.png)
+
+1. .env.development
+
+   ```js
+   NODE_ENV = development
+   // 自定义一个
+   VUE_APP_NUM = dev
+   ```
+
+   
+
+2. .env.production
+
+   ```js
+   NODE_ENV = production
+   // 自定义一个
+   VUE_APP_NUM = pro
+   ```
+
+yarn serve 启动项目，.env.development内变量会挂载到process.env属性上
+
+yarn build 打包项目，.env.production内变量挂载到process.evn属性上
+
+[视频地址移动端178](https://www.bilibili.com/video/BV1D3411L7PP/?p=178&spm_id_from=pageDriver&vd_source=ba9278b625c8ac0175e9312cb9cfed59)
 
 
 
