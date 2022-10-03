@@ -48,7 +48,6 @@ export * from './ArticleDetail.js'
 
 
 
-
 ## computed、watch 的区别
 
 1. computed：是计算属性，依赖其他属性计算值，并且 computed 的值有缓存，只有当计算值变化才会返回内容，不可异步。(有返回值)
