@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+      选择的图片文件，要给到img标签上做纯前端的预览
+      设置img标签的src值
+        1. 只能是图片的“链接地址”(外链http://开头，或者图片文件相对路径)
+        2. 图片的base64字符串
+
+      解决方案一：
+        - 文件 -》内存base64临时地址(这个地址只能在js内存里不能发给后台)
+        - 语法：URL.createObjectURL(文件)
+        - 返回值：内存临时地址
+      
+      解决方案二：
+        - 文件 -》内存base64字符串(这个地址可以发给后台)
+        - 语法：
+          // 1. 创建FileReader对象
+          const fr = new FileReader()
+          // 2. 调用readAsDataURL 函数，读取文件内容
+          fr.readAsDataURL(files)
+          // 3. 监听 fr 的 onload 事件
+          fr.onload = (e) => {
+            // 4. 通过e.target.result 获取到读取的结果，值是字符串(base64 格式的字符串)
+            console.log(e.target.result)
+            img.src = e.target.result
+          }
+
+     -->
+    <input type="file" id="ipt" />
+    <br />
+    <br />
+    <img src="" alt="" id="images" width="300" />
+    <script>
+      // 解决方案一：
+      // let ipt = document.getElementById('ipt')
+      // let img = document.getElementById('images')
+      // ipt.onchange = function (e) {
+      //   // console.log(e.target.files[0]) // 得到上传图片的内容
+      //   const files = e.target.files[0]
+      //   const imgUrl = URL.createObjectURL(files)
+      //   console.log(imgUrl) // 获取到当前上传的图片的base64格式，可以作为展示
+      //   // 把这个base64给到img展示
+      //   img.src = imgUrl
+      // }
+    </script>
+
+    <script>
+      // 解决方案二：
+      let ipt = document.getElementById('ipt')
+      let img = document.getElementById('images')
+      ipt.onchange = function (e) {
+        // console.log(e.target.files[0]) // 得到上传图片的内容
+        const files = e.target.files[0]
+
+        // 1. 创建FileReader对象
+        const fr = new FileReader() // FileReader 是H5新出的方法
+        // 2. 调用readAsDataURL 函数，读取文件内容
+        fr.readAsDataURL(files)
+        // 3. 监听 fr 的 onload 事件
+        fr.onload = (e) => {
+          // 4. 通过e.target.result 获取到读取的结果，值是字符串(base64 格式的字符串)
+          console.log(e.target.result)
+          img.src = e.target.result
+        }
+      }
+    </script>
+  </body>
+</html>

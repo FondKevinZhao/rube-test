@@ -31,7 +31,11 @@ export * from './ArticleDetail.js'
 
 
 
-### 10. 
+### 10. 浏览器第一次打开页面的时候，会触发一次全局前置路由守卫函数
+
+所以，当用户未登录，或未有权限的情况下输入正确的地址，是可以通过全局前置路由守卫进行拦截的。通过判断token来拦截。
+
+### 11. 
 
 
 
@@ -1351,6 +1355,10 @@ export const uploadArticleAPI = (fd) => {
 
 
 
+[有个很好的原生js博客](https://www.jb51.net/article/239736.htm)
+
+
+
 ## 后端返回图片链接地址的经验
 
 为何后端返回的图片地址是半截的？
@@ -1576,7 +1584,8 @@ yarn build 打包项目，.env.production内变量挂载到process.evn属性上
    // router文件夹下的index.js
    router.beforeEach((to, from, next) => {
      const token = store.state.token
-     if(token) {
+     // !store.state.userInfo.username 意思是：当username存在的情况下是不会执行if里面的代码
+     if(token && !store.state.userInfo.username) {
        // 只有在有token的情况下才会去发请求获取用户信息
        store.dispatch('getUserInfoActions')
      }
@@ -1586,11 +1595,17 @@ yarn build 打包项目，.env.production内变量挂载到process.evn属性上
 
    
 
+## echarts的引入
 
 
 
+import * as echarts from 'echarts'
 
+echarts内部用的是命名导出：export const 变量名 多个
 
+正常情况下应该是要加花括号引入：import { 方法名，变量名，… } from 'echarts'
+
+如果是需要把echarts中的方法全部引入并命名为echarts，就可以：import * as echarts from 'echarts'
 
 
 
