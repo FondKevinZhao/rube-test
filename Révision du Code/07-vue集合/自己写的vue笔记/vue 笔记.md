@@ -1560,9 +1560,31 @@ yarn build 打包项目，.env.production内变量挂载到process.evn属性上
 
 
 
+## 退出登录后，重新登录
 
+退出登录后，再重新登录，只走相关组件代码(异步dom切换，不会导致所有代码重新执行，APP.vue不走)
 
+效果不对：你换个账号它得重新请求用户数据才行
 
+解决：
+
+1. 可以在登录页面请求，登录成功后，再发请求去拿到用户信息
+
+2. 可以在全局前置路由守卫中请求，写(路由跳转的时候，判断 + 获取)
+
+   ```js
+   // router文件夹下的index.js
+   router.beforeEach((to, from, next) => {
+     const token = store.state.token
+     if(token) {
+       // 只有在有token的情况下才会去发请求获取用户信息
+       store.dispatch('getUserInfoActions')
+     }
+     next()
+   })
+   ```
+
+   
 
 
 
