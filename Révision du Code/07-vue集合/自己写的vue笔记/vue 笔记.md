@@ -1344,7 +1344,7 @@ export const uploadArticleAPI = (fd) => {
 
    文件转成图片base64字符串：使用 new FileReader()
 
-2. 文件转成图片链接的地址：URL.createObjURL(文件)
+2. 文件转成图片链接的地址：URL.createObjectURL(文件)
 
    注意：它的地址只能在前端使用
 
