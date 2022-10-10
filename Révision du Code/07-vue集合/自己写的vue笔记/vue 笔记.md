@@ -1609,6 +1609,22 @@ echarts内部用的是命名导出：export const 变量名 多个
 
 
 
+## 打包总结
+
+1. publicPath：影响的是打包（webpack开发服务器/dist）的时候index.htm1引入其他资源的前缀地址
+   情况1：开发环境，值：/
+   情况2：生产环境，值："./"（才能确保dist/index.htm1相对路径下访问）
+
+2. dist瘦身：影响dist的体积，其他第三方包用cdn地址引入到index.htm1中保证运行
+   情况1：开发环境
+   （1）：externa1s无值（不排除第三方包）
+   （2）：index.htm1里不引入cdn地址
+   情况2：生产环境
+   （1）：externals有值（排除第三方包）
+   （2）：index.htm1引入cdn地址
+
+
+
 
 
 
