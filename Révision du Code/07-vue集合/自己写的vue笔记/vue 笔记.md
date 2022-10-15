@@ -1627,9 +1627,223 @@ echarts内部用的是命名导出：export const 变量名 多个
 
 
 
+## scss的基本使用(黑马老李)
+
+和less类似，sass也是一种CSS的预编译语言
+
+它提供了变量、嵌套、混合、函数等功能，并且完全兼容CSS语法
+
+详见[Scss官方文档](https://www.sass.hk/guide/)
+
+### scss和sass的区别
+
+1. sass和scss其实是一样的cSS预处理语言，scss是sass3引入新的语法，其后缀名是分别为.sass和.Scss两种
+2. sass版本3.0之前的后缀名为.sass，而版本3.0之后的后缀名.scss
+
+### scss-基本语法
+
+#### 变量
+
+1. 定义变量
+
+   ```scss
+   $highlight-color: #f90;
+   $basic-border: 1px solid black;
+   ```
+
+   
+
+2. 使用变量
+
+   ```scss
+   #app {
+     background-color: $highlight-color;
+     border: $basic-border;
+   }
+   ```
+
+   
+
+3. 在初始化的项目中， **`styles/variables.scss`**这个文件中就是我们本次项目用到的所有 scss 变量
+
+   
+
+   ​				  <img src="vue 笔记.assets/011-scss变量.png" style="zoom:90%;" />
 
 
 
+#### 嵌套语法
+
+转换之前：
+
+```scss
+// scss语法
+$highlight-color: #f90;
+$basic-border: 1px solid black;
+
+#app{
+  background-color:  $highlight-color;
+  border:$basic-border;
+
+  .container{
+    font-size:30px;
+  }
+}
+```
+
+转换之后：
+
+```css
+#app {
+  background-color: #f90;
+  border: 1px solid black;
+}
+
+#app .container {
+  font-size: 30px;
+}
+```
+
+
+
+#### &父选择器
+
+假如你想针对某个特定子元素 进行设置
+
+```scss
+$highlight-color: #f90;
+$basic-border: 1px solid black;
+
+#app {
+  background-color:  $highlight-color;
+  border:$basic-border;
+
+  .container {
+    font-size:30px;
+  }
+
+  a {
+    color:blue;
+
+    &:hover {
+      color: red;
+    }
+  }
+}
+```
+
+
+
+#### 模块
+
+多个 .scss文件可以相互引用
+
+引入.scss可以得到里面的变量直接用
+
+
+
+1. 格式
+
+   ```scss
+   @import './xxxx.scss';
+   ```
+
+   
+
+2. 例如
+
+   ```scss
+   // base.scss 
+   
+   $base-color: green;
+   ```
+
+   ```scss
+   @import './base.scss';
+   
+   $highlight-color: #f90;
+   $basic-border: 1px solid black;
+   
+   #app {
+     background-color:  $base-color;
+     border:$base-border;
+   
+     .container {
+       font-size:30px;
+     }
+   
+     a {
+       color:blue;
+   
+       &:hover {
+         color: red;
+       }
+     }
+   }
+   ```
+
+   
+
+### 小结 
+
+1. scss 的语法非常多，我们最常使用的有哪些?
+
+   <details>
+   <summary>答案</summary>
+   <ul>
+   <li>定义变量</li>
+   <li>嵌套使用</li>
+   <li>使用&选择器</li>
+   <li>抽取变量, 进行复用, @import引入</li>
+   </ul>
+   </details>
+
+
+
+## 模板讲解-scss(黑马老李)
+
+### 目标
+
+了解 scss 文件的作用
+
+### 讲解
+
+#### scss 文件组织方式
+
+vue-admin-template  项目使用了[scss ](https://www.sass.hk/)作为 css 的扩展语言，Scss 文件主要放置在**`styles`**目录下，其中 `index.scss` 文件在入口文件 main.js 文件中已经导入
+
+```js
+import '@/styles/index.scss' // global css
+```
+
+因为我们主要来看一下 index.scss 文件，会发现这个文件将其他文件都已经使用 @import 方法进行了导入
+
+```js
+@import './variables.scss';
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-ui.scss';
+@import './sidebar.scss';
+
+// 其他代码略
+```
+
+各个文件的具体作用，看下图
+
+​									<img src="vue 笔记.assets/012-styles样式.png" style="zoom: 90%;" />
+
+
+
+### 小结
+
+1. index.scss的文件有什么作用?
+
+   <details>
+   <summary>答案</summary>
+   <ul>
+   <li>负责把其他的scss文件, 集中导入, 然后在main.js集中注入</li>
+   </ul>
+   </details>
 
 
 
