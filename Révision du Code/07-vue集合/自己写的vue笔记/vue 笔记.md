@@ -14,6 +14,10 @@
 
 ### 6. 可以简写的三条指令：v-bind(简写为 : )、v-on(简写为 @)、v-slot(简写为 #)。
 
+​		`v-slot: = #`
+
+​		如：`v-slot:default="{row}" = #default="{row}"`
+
 ### 7. 可以添加修饰符的三条指令：v-bind、v-on、v-model。
 
 ### 8. 使用axios的好处
