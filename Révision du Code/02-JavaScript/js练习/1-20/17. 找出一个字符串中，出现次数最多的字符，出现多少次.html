@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 方法一：
+      /* let str = 'aaaabbcccddddd'
+            str = str.split('')
+            console.log(str)
+            var newStr = {}
+            // 数组去重 和计算出现的次数
+            str.forEach(function (item) {
+              if (newStr[item]) {
+                newStr[item]++
+              } else {
+                newStr[item] = 1
+              }
+            })
+            var max = 0
+            var strkey = null
+            for (var key in newStr) {
+              if (newStr[key] > max) {
+                max = newStr[key]
+                strkey = key
+              }
+            }
+            console.log('最多的字符是' + strkey)
+            console.log('出现的次数是' + max) */
+
+      // 方法二：
+      let str = 'abcdaaaaaaaa'
+      // 我们可以先定义一个对象来统计一下出现最多的字符以及次数
+
+      let obj = {}
+
+      //  利用for循环我们可以将str的每个字符都拿到
+      for (let i = 0; i < str.length; i++) {
+        // 此处用到了 in 这个关键字 它的用法就是 查看前者是否在后者中存在
+        if (str[i] in obj) {
+          obj[str[i]]++
+        } else {
+          obj[str[i]] = 1
+        }
+      }
+
+      // 那么我们打印一下这个obj是啥
+      console.log(obj) // {a: 9, b: 1, c: 1, d: 1}
+
+      // 这里我们需要用到一个变量MAX来跟该对象里的值比较
+      let MAX = 0
+      let MAX_Obj = {}
+
+      for (let key in obj) {
+        if (obj[key] > MAX) {
+          MAX = obj[key]
+          MAX_Obj = {
+            value: key,
+            count: MAX
+          }
+        }
+      }
+      console.log(MAX_Obj) // 出现最多的为a 出现次数为 9
+    </script>
+  </body>
+</html>
