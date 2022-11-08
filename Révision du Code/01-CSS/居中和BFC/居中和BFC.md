@@ -1,4 +1,4 @@
-#### BFC
+## BFC
 
 `block formatting context`，块级格式化上下文，是web页面的可视化CSS渲染出的一部分。__形成了BFC就形成了一个独立的区域，区域里面的子元素不会影响到外面的元素。__
 
@@ -50,6 +50,10 @@
      </html>
      ```
 
+     ![image-20221108170330693](居中和BFC.assets/image-20221108170330693.png)
+
+     
+
    * 解决父子之间的margin合并问题
 
      ```html
@@ -84,6 +88,10 @@
      
      </html>
      ```
+     
+     ![image-20221108170407149](居中和BFC.assets/image-20221108170407149.png)
+     
+     
 
 2. 解决兄弟之间的float和margin。
 
@@ -122,10 +130,14 @@
      </body>
      </html>
      ```
-
-  
-
-   * 解决float时块元素重叠，行内元素不重叠。
+     
+     ![image-20221108170559165](居中和BFC.assets/image-20221108170559165.png)
+     
+     
+     
+     
+     
+   * 解决float时，块元素重叠，行内元素不重叠。
    
      ```html
      <!DOCTYPE html>
@@ -147,18 +159,28 @@
      
      <body>
          <div id="f">
-             <img src="./lipeiqian.jpg" />
+             <img width="50" src="https://img2.baidu.com/it/u=1644941556,604602934&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1668013200&t=332576fecb8c6d5917a9a39f8a70ebaf" />
              <div>123456789</div>
          </div>
      </body>
      </html>
      ```
+   
+     ![image-20221108171218257](居中和BFC.assets/image-20221108171218257.png)
+
+  
+
+
+
+
+
+
 
 
 
 ​     
 
-#### [水平、垂直居中的总结](https://blog.csdn.net/weixin_47021982/article/details/110244922)
+## [水平、垂直居中的总结](https://blog.csdn.net/weixin_47021982/article/details/110244922)
 
 1. 内联元素水平居中
 
@@ -482,7 +504,7 @@
       </html>
       ```
 
-#### 总结
+## 总结
 
 > - 儿子浮动，父亲塌陷，父亲也浮动，高度正常。
 
