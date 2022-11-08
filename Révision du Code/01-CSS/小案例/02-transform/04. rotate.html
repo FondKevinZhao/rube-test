@@ -10,7 +10,7 @@
         width: 300px;
         height: 300px;
         border: 1px solid red;
-        /* overflow: hidden; */
+        overflow: hidden;
         margin: 100px auto;
       }
 
@@ -19,27 +19,18 @@
         position: relative;
         left: 50px;
         top: 140px;
-        width: 0px;
+        width: 200px;
         height: 10px;
         background-color: pink;
-        transform: rotate(-90deg);
-        transform-origin: left top;
-        transition: all 0.3s linear;
+        transition: all 0.5s linear;
       }
 
-      .wrap:hover > .rotate {
-        width: 200px;
+      .wrap:hover .rotate {
+        transform: rotate(45deg);
       }
     </style>
   </head>
   <body>
-    <!-- 
-      tranform-origin 
-        transform-origin: x, y
-        注意后面的参数 x 和 y 用空格隔开
-        x y 默认旋转的中心点是元素的中心(50% 50%)，等价于(center center)
-        还可以给 x y 设置方位名词(top、bottom、left、right、center)
-     -->
     <h3>旋转</h3>
     <div class="wrap">
       <div class="rotate"></div>
