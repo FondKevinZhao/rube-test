@@ -114,7 +114,7 @@ BFC使用场景：
 - 给父级设置 `overflow: hidden`
 - 给父级设置高度
 - 父级也设置成浮动
-- 浮动元素下添加空标签 `div` 并设置 CSS 样式:`{ clear: both;height:0;overflow:hidden }`
+- 浮动元素下添加空标签 `div` 并设置 CSS 样式:`{ clear:both; height:0; overflow:hidden }`
 - 使用伪类，如下
 
 ```css
@@ -171,15 +171,22 @@ BFC使用场景：
 通过媒体查询可以为不同大小尺寸的设备使用不同的 CSS，达到自适应的目的。可以通过 html 或者 CSS 设置
 
 ```css
-<meta name=’viewport’ content=”width=device-width, initial-scale=1. maximum-scale=1,user-scalable=no”>
+<meta name=’viewport’ content=”width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no”>
 <link ref="stylesheet" type="text/css" href="xxx.css" media="only screen and(max-device-width: 480px)">
 @media only screen and(max-device-width:480px){ ... }
 ```
 
 ## link 和 @import
 
-- `link`：是html引入方式；最大限度支持并行下载；优先级高于 @import；可以通过 ref="alternate stylesheet" 指定候选样式
-- `@import`：是CSS引入方式，必须写在样式之前；可以嵌套，但过多嵌套会导致串行下载，出现文档样式暂失效；老浏览器不支持
+- `link`：是html引入方式；最大限度支持并行下载；优先级高于 @import；可以通过 ref="alternate stylesheet" 指定候选样式。
+
+  格式：`<link rel="stylesheet" type="text/css" href="theme.css" />`
+
+  
+
+- `@import`：是CSS引入方式，必须写在样式之前；可以嵌套，但过多嵌套会导致串行下载，出现文档样式暂失效；老浏览器不支持。
+
+  格式：`@import url(/style.css);或@import “/style.css”;`
 
 ## 如何利用标签提升渲染速度
 
@@ -255,19 +262,6 @@ rel有几个属性：
 比如实现 PPT 自动播放功能或者自动返回首页，或者做大屏幕监控的时候用这样的方法来自动刷新，是不是很简单呢
 
 当然它的缺点是刷新和跳转是`不可取消`的，如果需要动态刷新或者手动取消的，还是推荐定时器
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>10_ComponentLife</title>
+  </head>
+  <body>
+    <div id="example"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      /*
+  需求: 自定义组件
+    1. 让指定的文本做显示/隐藏的动画
+    2. 切换时间为2S
+    3. 点击按钮从界面中移除组件界面
+   */
+
+      /*
+        组件生命周期
+          1. 旧
+            初始化挂载阶段
+              特点：所有的生命周期函数默认只会触发一次
+
+              constructor  
+                过去：初始化state，初始化ref容器等操作
+                现在以上操作可以简写了
+                现在：没啥用了
+              componentWillMount
+                现在标记为UNSAFE_
+                问题：可能会触发多次
+              **render**
+                返回组件要渲染的虚拟DOM对象
+              **componentDidMount** 组件挂载完毕
+                4个生命周期函数中，只有这个操作DOM
+                发送请求、绑定事件、设置定时器等一次性任务
+
+            更新阶段
+              父组件渲染，导致子组件更新
+                UNSAFE_componentWillReceiveProps
+                **shouldComponentUpdate**
+                  做组件性能优化，减少组件重新渲染的次数
+                  返回值true，就会重新渲染
+                  返回值false，就不会重新渲染
+                    看state和props有没有变化
+
+                UNSAFE_componentWillUpdate
+                **render**
+                componentDidUpdate
+
+              组件this.setState
+                **shouldComponentUpdate**
+                UNSAFE_componentWillUpdate
+                **render**
+                componentDidUpdate
+
+              组件this.forceUpdate
+                UNSAFE_componentWillUpdate
+                render
+                componentDidUpdate
+
+            卸载阶段
+              **componentWillUnmount**
+                做一些收尾工作：清除定时器、解绑事件等
+
+                React组件卸载时，会把React组件相关的东西全部清除
+                  state\props\ref\onClick事件都会自动清除
+          2. 新
+      
+      */
+
+      class LifeCircle extends React.Component {
+        constructor() {
+          super();
+          console.log("constructor");
+        }
+
+        UNSAFE_componentWillMount() {
+          console.log("componentWillMount");
+        }
+
+        componentDidMount() {
+          console.log("componentDidMount");
+        }
+
+        UNSAFE_componentWillReceiveProps() {
+          console.log("componentWillReceiveProps");
+        }
+
+        shouldComponentUpdate() {
+          console.log("shouldComponentUpdate");
+          return false;
+        }
+
+        UNSAFE_componentWillUpdate() {
+          console.log("componentWillUpdate");
+        }
+
+        componentDidUpdate() {
+          console.log("componentDidUpdate");
+        }
+
+        handleClick = () => {
+          // this.setState({});
+          // this.forceUpdate(() => {});
+
+          ReactDOM.unmountComponentAtNode(document.getElementById("example"));
+        };
+
+        componentWillUnmount() {
+          console.log("componentWillUnmount");
+        }
+
+        render() {
+          console.log("render");
+
+          return (
+            <div>
+              <h1 onClick={this.handleClick}>LifeCircle</h1>
+              <Child />
+            </div>
+          );
+        }
+      }
+
+      class Child extends React.Component {
+        UNSAFE_componentWillReceiveProps() {
+          console.log("Child componentWillReceiveProps");
+        }
+
+        shouldComponentUpdate() {
+          console.log("Child shouldComponentUpdate");
+          return true;
+        }
+
+        UNSAFE_componentWillUpdate() {
+          console.log("Child componentWillUpdate");
+        }
+
+        componentDidUpdate() {
+          console.log("Child componentDidUpdate");
+        }
+
+        render() {
+          console.log("Child render");
+          return <h1>Child</h1>;
+        }
+      }
+
+      ReactDOM.render(<LifeCircle />, document.getElementById("example"));
+    </script>
+  </body>
+</html>

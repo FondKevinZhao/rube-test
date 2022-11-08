@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>05_components_composing</title>
+  </head>
+  <body>
+    <div id="example"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      /*
+        开发流程：
+          1. 拆分组件：按照用户界面的功能或变化来拆分组件
+            App
+            AddTodo
+            TodoList
+          2. 实现静态组件
+          3. 实现动态组件
+            - 要不要定义state？要
+              看用户界面有没有变化
+            - 设计state：state定义数据名叫什么，值的类型是什么？
+              state = {
+                todoList: ['吃饭', '睡觉']
+              }
+            - state定义在哪个组件？
+              如果只有一个组件使用，就定义在这个组件中
+              如果有多个组件使用，就定义在多个组件公共的父组件中
+            - 功能：
+              先完成数据展示
+              在完成添加、修改、删除等功能
+
+            - 子组件修改父组件的state数据
+              - 父组件定义更新state数据的方法
+              - 将方法以props方式传递给子组件
+              - 子组件调用方法从而更新父组件state数据    
+      */
+
+      class App extends React.Component {
+        state = {
+          todoList: ["吃饭~", "睡觉~", "敲代码~"],
+        };
+
+        addTodo = (todo) => {
+          // 想要更新用户界面，必须调用setState方法
+          const { todoList } = this.state;
+          // 在React中，不建议（允许）直接修改数据
+          // todoList.unshift(todo);
+          this.setState({
+            todoList: [todo, ...todoList],
+          });
+        };
+
+        render() {
+          console.log("App render");
+          const { todoList } = this.state;
+
+          return (
+            <div>
+              <h1>TodoList</h1>
+              <AddTodo length={todoList.length} addTodo={this.addTodo} />
+              {/* 通过props方式给TodoList传递数据 */}
+              <TodoList todoList={todoList} />
+            </div>
+          );
+        }
+      }
+
+      // 受控组件
+      class AddTodo extends React.Component {
+        static propTypes = {
+          length: PropTypes.number.isRequired,
+          addTodo: PropTypes.func.isRequired,
+        };
+
+        state = {
+          todo: "",
+        };
+
+        setTodo = (event) => {
+          const todo = event.target.value.trim();
+          this.setState({
+            todo,
+          });
+        };
+
+        add = () => {
+          const { todo } = this.state;
+          if (!todo) {
+            alert("请输入待办事项！");
+            return;
+          }
+          // 调用父组件的方法，从而更新父组件数据
+          this.props.addTodo(todo);
+          // 清空todo
+          this.setState({
+            todo: "",
+          });
+        };
+
+        render() {
+          console.log("AddTodo render");
+
+          const { length } = this.props;
+          const { todo } = this.state;
+
+          return (
+            <div>
+              <input type="text" onChange={this.setTodo} value={todo} />
+              <button onClick={this.add}>Add #{length}</button>
+            </div>
+          );
+        }
+      }
+
+      class TodoList extends React.Component {
+        static propTypes = {
+          todoList: PropTypes.array.isRequired,
+        };
+
+        render() {
+          console.log("TodoList render");
+
+          // 读取props
+          const { todoList } = this.props;
+          return (
+            <ul>
+              {todoList.map((todo, index) => {
+                // 遍历每项元素需要添加一个key属性
+                return <li key={index}>{todo}</li>;
+              })}
+            </ul>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById("example"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>09_form</title>
+  </head>
+  <body>
+    <div id="example"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+      /*
+      需求: 自定义包含表单的组件
+        1. 界面如下所示
+        2. 输入用户名密码后, 点击登陆提示输入信息
+        3. 不提交表单
+      */
+
+      // class Form extends React.Component {
+      //   usernameRef = React.createRef();
+      //   passwordRef = React.createRef();
+
+      //   // 原则上能不直接操作DOM，就不直接操作
+      //   // 能不用ref就不用
+      //   handleSubmit = (event) => {
+      //     // 阻止表单提交
+      //     // 阻止默认行为
+      //     event.preventDefault();
+      //     const username = this.usernameRef.current.value.trim();
+      //     const password = this.passwordRef.current.value.trim();
+
+      //     console.log(`用户名: ${username}  密码: ${password}`);
+      //   };
+
+      //   render() {
+      //     return (
+      //       <form onSubmit={this.handleSubmit}>
+      //         用户名:
+      //         <input
+      //           type="text"
+      //           placeholder="请输入用户名"
+      //           ref={this.usernameRef}
+      //         />
+      //         密码:
+      //         <input
+      //           type="password"
+      //           placeholder="请输入密码"
+      //           ref={this.passwordRef}
+      //         />
+      //         <button>登录</button>
+      //       </form>
+      //     );
+      //   }
+      // }
+
+      // 非受控组件: 通过ref的方式来自动收集表单数据的组件
+      // 受控组件: 通过state和onChange事件的方式来自动收集表单数据的组件
+      class Form extends React.Component {
+        state = {
+          username: "",
+          password: "",
+        };
+
+        // 原则上能不直接操作DOM，就不直接操作
+        // 能不用ref就不用
+        handleSubmit = (event) => {
+          // 阻止表单提交
+          // 阻止默认行为
+          event.preventDefault();
+
+          const { username, password } = this.state;
+          console.log(`用户名: ${username}  密码: ${password}`);
+        };
+
+        handleUsername = (event) => {
+          // 获取用户输入的值
+          const username = event.target.value.trim();
+          // 更新username
+          this.setState({
+            username,
+          });
+        };
+
+        handlePassword = (event) => {
+          // 获取用户输入的值
+          const password = event.target.value.trim();
+          // 更新username
+          this.setState({
+            password,
+          });
+        };
+
+        // 封装可复用的函数
+        // 高阶函数：执行函数返回值也是一个函数
+        // key --> username password
+        handleChange = (key) => {
+          // 返回值函数才是change事件的回调函数
+          return (event) => {
+            this.setState({
+              [key]: event.target.value.trim(),
+            });
+          };
+        };
+
+        render() {
+          return (
+            <form onSubmit={this.handleSubmit}>
+              用户名:
+              {/* change事件：当input的值发生变化时触发 */}
+              <input
+                type="text"
+                placeholder="请输入用户名"
+                // change事件绑定的 this.handleChange("username") 调用的返回值
+                onChange={this.handleChange("username")}
+              />
+              密码:
+              <input
+                type="password"
+                placeholder="请输入密码"
+                onChange={this.handleChange("password")}
+              />
+              <button>登录</button>
+            </form>
+          );
+        }
+      }
+
+      ReactDOM.render(<Form />, document.getElementById("example"));
+    </script>
+  </body>
+</html>
