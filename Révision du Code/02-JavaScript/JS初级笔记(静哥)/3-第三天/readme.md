@@ -13,7 +13,7 @@ console.log(-Number.MAX_VALUE); // -1.7976931348623157e+308
 
 #### 逻辑运算符
 
-比较运算符只能比较两个值，但是有时候我们需要多个条件那这个时候就需要逻辑运算符将他们链接起来。
+比较运算符只能比较两个值，但是有时候我们需要多个条件那这个时候就需要逻辑运算符将他们连接起来。
 
 用人的话来理解。
 
@@ -75,15 +75,14 @@ console.log(-Number.MAX_VALUE); // -1.7976931348623157e+308
   x = x || 1;
   
   console.log(x); // 1
-  console.log(x); // true 
   
   转Boolean
   // 空字符串转为false，其他都是true。
   // null 和 undefined 转化为 false
   ```
-
   
-
+  
+  
 * `!`，取反，将指定的布尔值取反的结果。（true、false，取反的话）最终结果就是布尔值。
 
   * 该操作符可以使用ECMAScript中的任何值。如果变量的值不是布尔值，逻辑非操作符将会将它的值转换为布尔值（`Boolean()`）。
@@ -93,7 +92,9 @@ console.log(-Number.MAX_VALUE); // -1.7976931348623157e+308
     ```js
     var a = 1;
     console.log(Boolean(a)); // true
+    console.log(!a); // false
     console.log(!!a); // true
+    console.log(!!!a); // false
     ```
 
 
@@ -325,28 +326,31 @@ __如果拿不准就加括号。__
   * 程序中有if、else必须执行其中一个括号内的代码。
 
   ```js
-  /* // 相亲：年龄：23~26之间 ， 有钱。
+  // 相亲：年龄：23~26之间 ， 有钱。
+  // 1
   var age = 35;
   var money = true; // 长的还挺漂亮。
   
   if (age >= 23 && age <= 26 && money) {
   	console.log('我感觉咱们可以试试！');
   }
-  console.log('想想都觉的美！'); */
+  console.log('想想都觉的美！');
   
-  /*  var age = 35;
+  // 2
+  var age = 35;
   var money = true; // 长的还挺漂亮。
   console.log(money && age);
   if (money && age) { // if (35) 
-       console.log('我感觉咱们可以试试！');
-  } */
+    console.log('我感觉咱们可以试试！');
+  } 
   
-  /* var age = 35;
-  var money = true;//长的还挺漂亮。
+  // 3
+  var age = 35;
+  var money = true; // 长的还挺漂亮。
   if (age >= 23 && age <= 26 && money) console.log('我感觉咱们可以试试！');
-  console.log('想想都觉的美！'); */
+  console.log('想想都觉的美！'); 
   ```
-  
+
   
 
 * 多向分支结构
@@ -361,7 +365,7 @@ __如果拿不准就加括号。__
   } else if (条件表达式2){
       代码块2
   } else if (条件表达式n) {
-             代码块n
+      代码块n
   } else {
       都不成立时执行的代码，可选的。
   }
@@ -376,7 +380,7 @@ __如果拿不准就加括号。__
   * if...else if 我们通常用来判断某个范围条件。但是也可以用来判断某个具体的值。
 
   ```js
-  //year % 4 == 0 && year % 100 != 0 || year % 400 == 0
+  // year % 4 == 0 && year % 100 != 0 || year % 400 == 0
   /* var year = 2021;
   if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
       console.log('今年是闰年');
@@ -520,21 +524,21 @@ __如果拿不准就加括号。__
      var score = -1;
      
      switch (true) {
-         case score <= 100 && score >= 90:
-             console.log('A');
-             break;
-         case score < 90 && score >= 75:
-             console.log('B');
-             break;
-         case score < 75 && score >= 60:
-             console.log('C');
-             break;
-         case score < 60 && score >= 0:
-             console.log('退学吧！');
-             break;
-         default:
-             console.log('未知范围！');
-             break;
+       case score <= 100 && score >= 90:
+         console.log('A');
+         break;
+       case score < 90 && score >= 75:
+         console.log('B');
+         break;
+       case score < 75 && score >= 60:
+         console.log('C');
+         break;
+       case score < 60 && score >= 0:
+         console.log('退学吧！');
+         break;
+       default:
+         console.log('未知范围！');
+         break;
      }
      ```
      
@@ -745,7 +749,7 @@ while (i <= 3) { // 1<=3 true // 3<=3 true // 5<=3 false
 ```
 
 ```js
-// 3. 求 1 ~ 100的和。  (100 +1 ) * 50
+// 3. 求 1 ~ 100 的和。  (100 + 1) * 50
 
 var sum = 0;
 var i = 1;

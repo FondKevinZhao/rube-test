@@ -102,12 +102,12 @@
       ```js
       var a = 0;
       function test(){
-          var a = 1;
-          function test1(){
-              console.log(a);
-          }
-          test1();
-      console.log('test');
+        var a = 1;
+        function test1(){
+          console.log(a);
+        }
+        test1();
+        console.log('test');
       }
       test();
       ```
@@ -176,9 +176,9 @@
 
   >function abc(arr){
   >
-  >​        *arr[0] = 'hehe';*
+  >​        arr[0] = 'hehe';
   >
-  >​        *console.log(arr);*
+  >​        console.log(arr);
   >
   >}
   >
@@ -289,13 +289,13 @@ foo = function (){
 }
 ```
 
-   如下代码：
+​	
+
+​	如下代码：
 
    ```js
    var a = 1;
-   
    var a = 2;
-   
    console.log(a);
    ```
 

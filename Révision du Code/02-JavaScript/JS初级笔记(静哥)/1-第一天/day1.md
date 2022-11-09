@@ -94,7 +94,8 @@ JavaScript 是弱类型的、解释型的、脚本语言
 - 注释符
 
   ```html
-  // 单行注释符 ctrl + / /* 块状注释符，多行注释符 */ alt + shift + a
+  // 单行注释符 ctrl + / 
+  /* 块状注释符，多行注释符 */ alt + shift + a
   ```
 
   作用：
@@ -322,6 +323,32 @@ JavaScript 是弱类型的、解释型的、脚本语言
     console.log(b);
     ```
 
+  - 方法三：使用ES6的语法
+  
+    ```js
+    var a = 10;
+    var b = 20;
+    
+    var [b, a] = [a, b]
+    console.log(a)
+    console.log(b)
+    ```
+    
+  - 方法四：使用其他语言的做法
+  
+    ```js
+    var a = 10;
+    var b = 20;
+    
+    a = a ^ b
+    b = a ^ b
+    a = a ^ b
+    console.log(a)
+    console.log(b)
+    ```
+    
+    
+    
     > - 如果运行时 console 里报红，表示程序中断，下面代码不再执行。
     >
     > - 用关键字作为变量名，console 会报错。

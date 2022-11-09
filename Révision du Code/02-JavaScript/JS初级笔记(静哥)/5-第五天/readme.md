@@ -12,7 +12,7 @@
   
   /*  colors[3] = 'pink';
   colors[4] = 'yellow'; */
-  colors[colors.length] = 'pink'; // 数组的length属性等于下一个元素下标的值。 [red,blue,green,pink]
+  colors[colors.length] = 'pink'; // 数组的length属性等于下一个元素下标的值。 [’red‘,’blue‘,’green‘,’pink‘]
   colors[colors.length] = 'yellow';
   console.log(colors);
   ```
@@ -91,13 +91,13 @@
   // 需求：用学过的代码在数组的最刚开始处插入一个元素。
   
   for (var i = colors.length ; i >= 0 ;i--) { //i=3 3>=0 true//2>=0 true//1>=0 true//0>=0 true
-      /*
-      colors[3] = colors[2];//colors[3] = green
-      colors[2] = colors[1];//colors[2] = blue
-      colors[1] = colors[0];//colors[1] = red
-      colors[0] = colors[-1];//colors[0] = undefined
-      */
-      colors[i] = colors[i-1];
+    /*
+    	colors[3] = colors[2];//colors[3] = green
+    	colors[2] = colors[1];//colors[2] = blue
+    	colors[1] = colors[0];//colors[1] = red
+    	colors[0] = colors[-1];//colors[0] = undefined
+    */
+    colors[i] = colors[i-1];
   }
   colors[0] = 'pink';
   console.log(colors);
@@ -108,21 +108,25 @@
 - 在数组中任意位置添加元素。
 
   ```js
-  var colors = ['red', 'blue', 'yellow','green']; 
+  var colors = ['red', 'blue', 'yellow', 'green']
   
-  for (i = colors.length ; i >= 0 ; i--) { //4>=0 true //3>=0 true //2>=0 true
-      if (i == 2) { //4==2 false //3==2 false //2==2 true
-          break; // 跳出循环。
-      }
-      /*
-          colors[4] = colors[3];
-          colors[3] = colors[2];
-      */
-      colors[i] = colors[i-1];
+  for (i = colors.length; i >= 0; i--) {//4>=0 true //3>=0 true //2>=0 true
+    
+    if (i == 2) {
+      //4==2 false //3==2 false //2==2 true
+      break // 跳出循环。
+    }
+    
+    /*
+      colors[4] = colors[3];
+      colors[3] = colors[2];
+    */
+    
+    colors[i] = colors[i - 1]
   }
-  colors[2] = 'yellowgreen';
+  colors[2] = 'yellowgreen'
   
-  console.log(colors);
+  console.log(colors)
   ```
 
 
@@ -317,16 +321,16 @@
 
     ```js
     var colors = ['red', 'blue', 'green']; 
-            // 需求：用学过的代码在数组的最刚开始处插入一个元素。
+    // 需求：用学过的代码在数组的最刚开始处插入一个元素。
     
-    for (var i = colors.length ; i >= 0 ;i--) { //i=3 3>=0 true //2>=0 true //1>=0 true //0>=0 true
-        /*
+    for (var i = colors.length; i >= 0; i--) { //i=3 3>=0 true //2>=0 true //1>=0 true //0>=0 true
+      /*
         colors[3] = colors[2];//colors[3] = green
         colors[2] = colors[1];//colors[2] = blue
         colors[1] = colors[0];//colors[1] = red
         colors[0] = colors[-1];//colors[0] = undefined
-        */
-        colors[i] = colors[i-1];
+      */
+      colors[i] = colors[i-1];
     }
     colors[0] = 'pink';
     console.log(colors);
@@ -381,9 +385,9 @@
   var colors = ['red', 'blue', 'yellow']; 
   // 这里写1的原因是不让他导致出现-1的下标出现。
   for (var i = 1; i < colors.length; i++) { //1<3 true //2<3 true //3<3 false
-      // colors[0] = colors[1]
-      // colors[1] = colors[2]
-      colors[i-1] = colors[i];
+    // colors[0] = colors[1]
+    // colors[1] = colors[2]
+    colors[i-1] = colors[i];
   }
   colors.length--;
   console.log(colors);
@@ -392,14 +396,15 @@
 * 删除指定下的
   
   ```js
-      var colors = ['red', 'blue', 'green','yellow']; 
-      // 要删除下标为1的。
-      for (var i = 3;i < colors.length ;i++) {//3<4 true//4<4 false
-      
-          colors[i-1] = colors[i];//colors[2] = colors[3]
-      }
-      colors.length--;
-      console.log(colors);
+  var colors = ['red', 'blue', 'green','yellow']; 
+  // 要删除下标为1的。
+  for (var i = 3;i < colors.length ;i++) {//3<4 true//4<4 false
+  
+      colors[i-1] = colors[i]; //colors[2] = colors[3]
+    
+  }
+  colors.length--;
+  console.log(colors);
   ```
   
 #### 多维数组
@@ -433,33 +438,50 @@ var performeres = [
 ```
 
 ```js
-  // 遍历表格
-  var performeres = [
-      // 编号,演员姓名,饰演角色,性格
-      [1, '孙红雷', '何辅堂', '为人正直不阿，欺强怜弱，善于机变。'],
-      [2, '巍子', '魏正先', '鹰视狼顾，心狠手黑。'],
-      [3, '陈数', '程立雪', '气质如兰，观之可亲，思想卓荦，才华压众。'],
-      [4, '郭珍霓', '刘二泉', '动不便，但若论手段心机，十个健全人也不是她的对手。'],
-      [5, '陈祉希', '朱彩灵', '刀马旦出身，水般柔美，火样性格。含威不露，顾盼神飞。']
-  ];
-  document.write('<table border="1" width="800"><tr><td>编号</td><td>演员姓名</td><td>饰演角色</td><td>性格</td></tr>');
-  for (var i = 0; i < performeres.length; i++){ //0 //1
-      document.write('<tr>');
-      /* console.log(performeres[i]); */
-      document.write('<td>'+performeres[i][0]+'</td>');
-      document.write('<td>'+performeres[i][1]+'</td>');
-      document.write('<td>'+performeres[i][2]+'</td>');
-      document.write('<td>'+performeres[i][3]+'</td>');
-      document.write('</tr>');
-  }
-  document.write('</table>');
+// 遍历表格
+var performeres = [
+  // 编号,演员姓名,饰演角色,性格
+  [1, '孙红雷', '何辅堂', '为人正直不阿，欺强怜弱，善于机变。'],
+  [2, '巍子', '魏正先', '鹰视狼顾，心狠手黑。'],
+  [3, '陈数', '程立雪', '气质如兰，观之可亲，思想卓荦，才华压众。'],
+  [
+    4,
+    '郭珍霓',
+    '刘二泉',
+    '动不便，但若论手段心机，十个健全人也不是她的对手。'
+  ],
+  [
+    5,
+    '陈祉希',
+    '朱彩灵',
+    '刀马旦出身，水般柔美，火样性格。含威不露，顾盼神飞。'
+  ]
+]
+document.write(
+  '<table border="1" width="800"><tr><td>编号</td><td>演员姓名</td><td>饰演角色</td><td>性格</td></tr>'
+)
+
+for (var i = 0; i < performeres.length; i++) {
+  //0 //1
+  document.write('<tr>')
+
+  /* console.log(performeres[i]); */
+  document.write('<td>' + performeres[i][0] + '</td>')
+  document.write('<td>' + performeres[i][1] + '</td>')
+  document.write('<td>' + performeres[i][2] + '</td>')
+  document.write('<td>' + performeres[i][3] + '</td>')
+
+  document.write('</tr>')
+}
+
+document.write('</table>')
 ```
 
   
 
 案例：冒泡排序：冒泡排序  今天晚上自己先预习。
 
-#### 函数
+### 函数
 
 #### 什么是函数
 
@@ -477,6 +499,8 @@ var performeres = [
 2. 封装代码，让函数内部的代码对外部不可见。
 3. 把整个项目模块化。
 
+
+
 #### 函数的种类
 
 * 系统函数，系统已经定义好的一些函数，有很多，我们也学了不少。
@@ -486,6 +510,8 @@ var performeres = [
 * 自定义函数，如果系统函数不能满足我们的需求那么我们就自己写。
 
 如果系统函数能够实现你的需求，你自己又写了一个，你用谁的。一定要用系统的。
+
+
 
 #### 函数自定义和调用
 
@@ -500,15 +526,15 @@ var performeres = [
 
 ```js
 function printTable() {
-    document.write('<table border="1" width="800">');
-    for (var i = 0; i < 5; i++) {
-        document.write('<tr>');
-        for (var j = 1; j <= 5; j++) {
-            document.write('<td>&nbsp;</td>');
-        }
-        document.write('</tr>');
+  document.write('<table border="1" width="800">');
+  for (var i = 0; i < 5; i++) {
+    document.write('<tr>');
+    for (var j = 1; j <= 5; j++) {
+        document.write('<td>&nbsp;</td>');
     }
-    document.write('</table>');
+    document.write('</tr>');
+  }
+  document.write('</table>');
 }
 printTable(); // 调用函数
 ```
@@ -521,6 +547,8 @@ printTable(); // 调用函数
 2. 函数名定义的规则要遵守变量命名规则。
 3. 这种函数声明方式声明的函数，它的名字可以重复（可以和系统的重复也可以和自定义的重复），一旦发生重复后面的覆盖前面的。（函数声明有3种方式）
 4. 这种方式声明的函数调用可以放在函数声明之前也可以放在声明之后。
+
+
 
 #### 其他声明方式
 
@@ -549,6 +577,8 @@ printTable(); // 调用函数
   ```
 
   * 开发中不会使用这种方法声明函数，因为这种方法将会导致代码解释两次（1次是将ECMAScript中的代码解释，第2次将会把传入的代码的字符串再次转换为合法的JavaScript代码。）
+
+
 
 #### 函数的其他注意点
 

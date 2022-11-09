@@ -197,22 +197,24 @@
   > 2. 构造函数模式
   > 3. 原型模式
   
+  
+  
   #### 工厂模式声明对象
   
   ```js
   var p1 = {
-      name:'张三',
-      age:18,
-      say:function(){
-          console.log('haha');
-      }
+    name:'张三',
+    age:18,
+    say:function(){
+        console.log('haha');
+    }
   };
   
   var p2 = {
-  name:'李四',
-  age:19,
+    name:'李四',
+    age:19,
     say:function(){
-        console.log('heihei');
+      console.log('heihei');
     }
   };
   ```
@@ -228,13 +230,15 @@
   如何检测呢：`instanceof 操作符。`
   
   ```js
+  // 狗的一个对象。
   var dog = {
       name: '大黄',
       cate: '泰迪',
       color: '棕色',
       sex: '公'
-  }; // 狗的一个对象。
+  };
   
+  // 人的一个对象。 
   var person = {
       name: '沛华',
       sex: '女',
@@ -243,7 +247,7 @@
       say: function () {
           console.log('我错了，下回我改！');
       }
-  }; // 人的一个对象。 
+  };
   
   console.log(dog instanceof Array); // dog这个对象是Array类型的吗？ // false
   console.log(person instanceof Object); // person这个对象是Object类型的吗？ // true
@@ -464,14 +468,18 @@ Array、Object 这些函数是系统自带的。
   
   console.log(Test.prototype == t.__proto__);
   console.log(t.__proto__ == t1.__proto__);
+  
+  注意：在js中是不能连等的。其实它们是相等的，但是不能使用这种两连等的方式
+  console.log(5 === 5 === 5) // false
+  console.log(t.__proto__ === t1.__proto__ === Test.prototype) // false
   ```
 
   ![image-20210118150622447](readme_img/image-20210118150622447.png)
 
   在查找属性的时候，如果实例对象本身没有这个属性时，就去实例对象中的`__proto__`所对应的这个对象中寻找是否有该属性，如果有就使用。
-
+  
   ![image-20210118151325875](readme_img/image-20210118151325875.png)
-
+  
   ```js
   function Person(name,sex){
        this.name = name;
@@ -494,16 +502,18 @@ Array、Object 这些函数是系统自带的。
   
 
   ![image-20210118152405342](readme_img/image-20210118152405342.png)
-
+  
   上面这种方式将会导致每个对象都拥有一个独立的 say 方法，将会导致空间浪费。可以使用如下代码改进：
-
+  
   ```js
   function Person(name,sex){
       this.name = name;
       this.sex = sex;
-      /* this.say = function(){
-                      console.log('!!!!');
-                  }; */
+      /* 
+        this.say = function(){
+            console.log('!!!!');
+        }; 
+      */
   }
   Person.prototype.say = function(){
       console.log('!!!');
@@ -514,9 +524,9 @@ Array、Object 这些函数是系统自带的。
   
   console.log(p1.say == p2.say);
   ```
-
+  
   ![image-20210118155742633](readme_img/image-20210118155742633.png)
-
+  
   上面的代码经过改进之后去找 say 方法，本身的对象（不管是 p1 对象还是 p2 对象）中没有将会去本身对象的`__proto__`所对应的对象中去找。因为他们两个对象(p1和 p2)的`__proto__`都指向了同一个地址所以找到的 say 方法是同一个。
 
 原型分为：显式原型和隐式原型：
@@ -572,7 +582,7 @@ __原型链：用来描述通过隐式原型对象查找属性的过程。__
   一个对象中有些属性是不可以遍历出来的，可以理解为一般的时候用不到的属性。
 
   ```js
-  var res = Object.getOwnPropertyDescriptor(arr,'length');
+  var res = Object.getOwnPropertyDescriptor(arr,'length'); // Descriptor 描述符
   console.log(res); 
   ```
 

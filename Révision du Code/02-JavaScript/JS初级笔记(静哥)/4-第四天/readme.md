@@ -174,7 +174,7 @@ do {
 
 // 罚   刘杰  做俯卧撑。   ~ 死
 
-// 做到第五个的时候，他说：静哥真英俊！   然后我心软了就说行了别做了。
+// 做到第五个的时候，他说：静哥真英俊！然后我心软了就说行了别做了。
 
 /* var count = 1; */
 
@@ -259,38 +259,38 @@ do{
   * 作用2：跳出循环（本层循环），break之后代码不执行了。
   
     ```js
-    /* // 江鉴哲 犯错了。
-            var count = 1;
-            while (true) { // 一直做
-                console.log(count); // 1 // 2 // 3
-                console.log('动作1'); // 动作1 // 动作1 // 动作1
-                console.log('动作2'); // 动作2 // 动作2 // 动作2
-                if (count === 3) {//1===3 false//2===3 false//3===3 true
-                    break; // break; 中断循环。
-                }
-                console.log('动作3'); // 动作3 // 动作3
+    // 江鉴哲 犯错了。
+    var count = 1;
+    while (true) { // 一直做
+        console.log(count); // 1 // 2 // 3
+        console.log('动作1'); // 动作1 // 动作1 // 动作1
+        console.log('动作2'); // 动作2 // 动作2 // 动作2
+        if (count === 3) {//1===3 false//2===3 false//3===3 true
+            break; // break; 中断循环。
+        }
+        console.log('动作3'); // 动作3 // 动作3
     
-                count++; // 2 // 3
-                console.log('沛华真是个小机灵鬼');
+        count++; // 2 // 3
+        console.log('沛华真是个小机灵鬼');
+    }
+    // console.log(count); // 3
     
-            }
-            // console.log(count); // 3 */
     
-            // 1~5上课 4表现不错，周四没有作业。
-            for (var i = 1; i <= 5; i ++) {//1 1<=5 true//2 2<=5 true//3 3<=5 true//4 4<=5 true//5<=5 true//6<=5 false
-                if (i === 4) {//1===4 false//2===4 false//3===4 false//4===4 true//5===4 false
-                    console.log('今天表现不错，皇恩浩荡！没有作业'); //输出
-                    continue;
-                }
-                console.log('今天是' + i + ':我要写作业');//输出1//输出2//输出3//输出5
-            }
+    // 1~5上课 4表现不错，周四没有作业。
+    for (var i = 1; i <= 5; i ++) {//1 1<=5 true//2 2<=5 true//3 3<=5 true//4 4<=5 true//5<=5 true//6<=5 false
+        if (i === 4) {//1===4 false//2===4 false//3===4 false//4===4 true//5===4 false
+            console.log('今天表现不错，皇恩浩荡！没有作业'); //输出
+            continue;
+        }
+        console.log('今天是' + i + ':我要写作业');//输出1//输出2//输出3//输出5
+    }
     ```
   
 * `continue`
   
   * 结束本次循环，从下一次继续开始。continue下面的代码不执行了。
 
-#### 数组
+### 数组
 
 基本类型的变量只能存储一个值，数组可以存储一组数据。（用的比较多）
 
@@ -362,7 +362,7 @@ do{
    console.log(color);
    ```
 
-   内部也会调用`new Array();`但是它规避了new Array()的弱点。
+   内部也会调用`new Array();` 但是它规避了new Array()的弱点。
 
    ```js
    var color = [5];
@@ -389,13 +389,14 @@ do{
 
    ```js
    for (var i = 100; i <= 999; i++) {
-   var b = parseInt(i / 100 % 10);
-   var s = parseInt(i / 10 % 10);
-   var g = parseInt(i / 1 % 10);
+     // g = 个位; s = 十位; b = 百位;
+     var b = parseInt(i / 100 % 10);
+     var s = parseInt(i / 10 % 10);
+     var g = parseInt(i / 1 % 10);
    
-   if (b === 3 || b === 7 || s === 3 || s === 7 || g === 3 || g === 7) {
-       console.log(i);
-   	}
+     if (b === 3 || b === 7 || s === 3 || s === 7 || g === 3 || g === 7) {
+         console.log(i);
+     }
    }
    ```
 
@@ -425,14 +426,16 @@ do{
 
    ```js
    document.write('<table border="1" width="800">');
-       for (var i = 1; i <= 2; i++) {//1<=2 true//2<=2 true//3<=2 false
-           document.write('<tr>');
-           for (var j = 1; j <= 2; j++) {//1<=2 true//2<=2 true//3<=2 false//1<=2 true//2<=2 true//3<=2 false
-               document.write('<td>hello world!</td>');
-           }
-           document.write('</tr>');
+   for (var i = 1; i <= 2; i++) {//1<=2 true//2<=2 true//3<=2 false
+       document.write('<tr>');
+     
+       for (var j = 1; j <= 2; j++) {//1<=2 true//2<=2 true//3<=2 false//1<=2 true//2<=2 true//3<=2 false
+           document.write('<td>hello world!</td>');
        }
-       document.write('</table>'); 
+     
+       document.write('</tr>');
+   }
+   document.write('</table>'); 
    
    /*
    <table border="1" width="800">

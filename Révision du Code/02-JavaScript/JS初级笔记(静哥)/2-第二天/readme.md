@@ -30,8 +30,6 @@ console.log(str2); // false
 
 
 
-
-
 #### undefined类型
 
 undefined类型只有一个值就是undefined。**表示声明了变量但是没有初始化(没有给值)。**
@@ -80,6 +78,8 @@ document.write('<h1>闫海静真英俊！</h1>'); // h1的效果会在页面中�
   console.log(typeof bool1); // boolean
   ```
 
+  
+
 * string，字符串
 
   ```js
@@ -121,6 +121,8 @@ document.write('<h1>闫海静真英俊！</h1>'); // h1的效果会在页面中�
     console.log(typeof taiXu); // undefined
     console.log(taiXu); // 报错
     ```
+
+  
 
 * object，对象或null。
 
@@ -349,7 +351,7 @@ JavaScript是弱类型语言，弱在哪里。
   ```
 
   ```js
-  // parseInt 里面的Int 全称是integer [ˈɪntɪdʒə(r)] 表示整数，所以它的取值只会是整数，后面的小数会直接忽略掉。
+  // parseInt 里面的 Int 全称是integer [ˈɪntɪdʒə(r)] 表示整数，所以它的取值只会是整数，后面的小数会直接忽略掉。
   console.log(parseInt(1.23456abcdefg)); // 1
   ```
 
@@ -389,18 +391,7 @@ JavaScript是弱类型语言，弱在哪里。
   ```
 
   ```js
-  var str = '太虚真人';
-  var num1 = 222;
-  var bool = false;
-  
-  // toString后面的小括号不用写东西。
-  console.log(str.toString());
-  console.log(num1.toString());
-  console.log(bool.toString());
-  ```
-
-  ```js
-var str = '太虚真人说要不抽烟了！'；
+  var str = '太虚真人说要不抽烟了！'；
   var num = 250;
   var bool = false;
   
@@ -412,7 +403,7 @@ var str = '太虚真人说要不抽烟了！'；
   ```
   
   ```js
-var und = undefined;
+  var und = undefined;
   var nul = null;
   
   // 如果是undefined和null将会直接报错。
@@ -421,12 +412,12 @@ var und = undefined;
   ```
   
   ```js
-var b = 我不饿; // 这里的值不是数字的话，要加引号，不然会报错。
+  var b = 我不饿; // 这里的值不是数字的话，要加引号，不然会报错。
   console.log(b.toString()); // 报错
   ```
   
   
-
+  
 * `String()`小工具。
 
   * 如果能够直接使用toString()则在内部调用toString。
@@ -446,9 +437,12 @@ var b = 我不饿; // 这里的值不是数字的话，要加引号，不然会�
   var und = undefined;
   var nul = null;
   
-  // 如果是undefined和null将会直接报错。
   console.log(typeof String(und)); // string
   console.log(typeof String(null)); // string
+  
+  // 如果是undefined和null将会直接报错。
+  console.log(typeof String(undefined)) // 报错
+  console.log(typeof String(null)) // 报错
   ```
 
 > toString 和 String 我们一般用 String。因为很多时候，我们不能确定当前变量中的值是什么。
@@ -459,7 +453,6 @@ var b = 我不饿; // 这里的值不是数字的话，要加引号，不然会�
 // 现场题目：
 
 var a = true;
-
 console.log(parseInt(a)); // NaN 
 // 解析：parseInt是将字符串转换成什么什么整数，但是这里传进来的是true布尔值，类型就不一样。这时候parseInt调用String。parseInt(String(true))，返回字符串的“true”。你是一个字符串的true，这时候我再运行，它会先找第一位是不是数值，如果不是，那最后的结果就是NaN了。
 
@@ -473,7 +466,7 @@ console.log(parseInt('123abc456')); // 123
 ```
 
 ```js
-var a true;
+var a = true;
 /* 
 	a = true; 是一个布尔值 boolean
 	parseInt(); // 传入的参数必须是字符串。也就是说a现在得是个字符串才行。但是现在不是，这个时候 a 就调用了 String 把 a 扔进去了。String(a);
@@ -510,7 +503,7 @@ console.log(parseInt(a)); // NaN
   4. 比较运算符
   5. 相等运算符
   6. 逻辑运算符
-  7. 三元运算符（三目运算符）
+  7. 三元运算符（三目运算符，三元表达式）
 
 * 算数运算符
 
@@ -586,59 +579,61 @@ console.log(parseInt(a)); // NaN
       ```
       
       ```js
-        // 题目：快速将字符串转换为数值
+      // 题目：快速将字符串转换为数值
         var str = '99';
-        // 想办法转换成数值型。
-        // 方法一：
-        console.log(Number(str)); // 99
-        // 方法二：
-        console.log(parseInt(str)); // 99
-        // 方法三：
-        console.log(parseFloat(str)); // 99
-        // 方法四：
-        console.log(str - 0); // 99 // str 会调用Number()转换为99。
-        // 方法五：
-        console.log(+str); // 99
+      // 想办法转换成数值型。
+      // 方法一：
+      console.log(Number(str)); // 99
+      // 方法二：
+      console.log(parseInt(str)); // 99
+      // 方法三：
+      console.log(parseFloat(str)); // 99
+      // 方法四：
+      console.log(str - 0); // 99 // str 会调用Number()转换为99。
+      // 方法五：
+      console.log(+str); // 99
       ```
   
       
   
       > - 加、减、乘、除肯定会进行数学运算，如果不是数值的情况下，肯定会转换为数值。
       >
-    > - 但是**加号**是一个特殊的存在，它可以在遇到字符串的时候，作为拼接来使用。
+      
+      > - 但是**加号**是一个特殊的存在，它可以在遇到字符串的时候，作为拼接来使用。
       > - 加号遇到字符串，字符串优先，如果没有字符串那就是数值。
   
-  * `*`，乘法在计算中使用`*`不是用`X`
+  * `*`，乘法在计算中使用`*`不是用`×`
   
     * 如果操作数不是数值，则在后台调用Number()
-
+  
   * `/`，`被除数/除数=商`
-
+  
     * 被除数如果为0，结果为0。
-
+  
     * 除数为0结果为Infinity。
-
+  
       Infinity参与运算结果还是Infinity。
-
+  
     * 被除数和除数都为0，结果是NaN。
-
+  
     * 如果操作数不是数值，则在后台调用Number()进行转换。
-
+  
       ```js
       console.log(0 / 0); // NaN
-      console.log(0 / 1); // 0 // 0 除以 1
-      console.log(1 / 0); // Infinity // 1 除以 0
+      console.log(0 / 1); // 0   // 0 除以 1
+      console.log(1 / 0); // Infinity   // 1 除以 0
       
       
       console.log(1 / 0 + 1); // Infinity // 无穷再+1还是无穷。
       console.log(true * true / null); // Infinity
+      console.log(10 / 0) // Infinity
       console.log(true * true / 1); // 1
       ```
       
       
 
   * `%`，余数，求模。
-
+  
     * `console.log(3 % 5); // 3` 
   
        第一个数小于第二个数则求模的结果为第一个数。
@@ -646,11 +641,10 @@ console.log(parseInt(a)); // NaN
       ```js
       console.log(5 % 3); // 2
       console.log(3 % 5); // 3 
-      // 第一个数小于第二个数则求模的结果为第一个数。
       ```
-
       
-  
+      
+      
     * 求模的结果的正、负由第一个数决定。(第一个数是正数结果就是正数，第一个数是负数，结果就是负数)
     
       ```js
@@ -659,18 +653,25 @@ console.log(parseInt(a)); // NaN
       console.log(5 % -3); // 2
       console.log(-5 % -3); // -2
       console.log(-5 % 5); // -0
-    console.log(-5 % -5); // -0
       ```
-  
       
-    
+      
+      
     * 第二个数不能为`0`，如果为`0`结果为`NaN`。
-  
+    
+       ```js
+       console.log(10 % 0) // NaN
+       console.log(-5 % 0); // NaN
+       ```
+    
+       
+    
     * 任何涉及到NaN操作都会返回NaN。
       * NaN与任何值都不相等，包括NaN本身。
     
       ```js
-      console.log(-5 % 0); // NaN
+      console.log(NaN % 5) // NaN
+      console.log(NaN % NaN) // NaN
       ```
 
 
@@ -678,13 +679,17 @@ console.log(parseInt(a)); // NaN
 求100以内的奇数：
 
 
-    // 求100以内的奇数
-    for (i = 1; i <= 100; i++) {
-        if (i % 2 != 0) 
-        console.log(i);
-    }
+```js
+// 求100以内的奇数
+for (i = 1; i <= 100; i++) {
+    if (i % 2 != 0) 
+    console.log(i);
+}
+```
 
- 求100以内的偶数：
+ 
+
+求100以内的偶数：
 
 ```js
 for (j = 1; j <= 100; j++) {
@@ -732,7 +737,7 @@ console.log(parseInt(y % 10)); // 个位
 
     `++`、`--`，在自身的基础上`+1`或`-1`
 
-    ++或--放在操作数的前面或后面只对本行有一些区别。运算完成之后都要完成+1或-1。
+    `++`或`--`放在操作数的前面或后面只对本行有一些区别。运算完成之后都要完成+1或-1。
 
     * 如果放在操作数的后面**先用后加。**
     * 如果放在操作数的前面**先加后用。**
@@ -859,6 +864,8 @@ console.log(parseInt(y % 10)); // 个位
   * `>=`，大于等于
   * `<=`，小于等于
 
+  
+
   比较规则：
 
   * 如果是两个数值直接执行数值比较。
@@ -967,6 +974,8 @@ console.log(parseInt(y % 10)); // 个位
      
 
   3. 基本数据类型 Number、String、Boolean 和基本数据类型 Number、String、Boolean 相互比较时会先转换为数值型，也就是说会先调用Number(数据)。
+
+     
 
   4. NaN和NaN不相等。
 

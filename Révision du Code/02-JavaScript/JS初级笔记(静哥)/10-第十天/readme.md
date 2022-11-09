@@ -115,7 +115,7 @@ this最终指向一个对象，决定this的值的是如何调用。this最终�
          foo:foo
      };
      
-     function doFoo(fn){//fn = obj.foo
+     function doFoo(fn){ //fn = obj.foo
          fn();//不就是光秃秃的调用
      }
      

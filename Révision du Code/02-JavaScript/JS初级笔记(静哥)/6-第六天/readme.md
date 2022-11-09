@@ -103,11 +103,11 @@ for (var i = 0; i < arr.length - 1 - 1 - 1; i++) {
 // 第四圈--------------获得的是第四大的值总共比较了1次。
 // 2 1 3 4 5
 /*
-i = 0 ; i < 1  0 < 1 true
-    arr[0] > arr[1]    2 > 1 true
-        tmp = 2 ; arr[0] = 1 ; arr[1] = 2;
-// 1 2 3 4 5
-i = 1 ; i < 1 false
+  i = 0 ; i < 1  0 < 1 true
+      arr[0] > arr[1]    2 > 1 true
+          tmp = 2 ; arr[0] = 1 ; arr[1] = 2;
+  // 1 2 3 4 5
+  i = 1 ; i < 1 false
 */
 for (var i = 0; i < arr.length - 1 - 1 - 1 - 1; i++) {
     if (arr[i] > arr[i + 1]) {
@@ -121,7 +121,7 @@ console.log(arr)
 // 第一个数肯定就是最小的了。
 
 /*
-5个数进行了4轮比较，每轮比较都会得出本轮最大的值，第i轮排序的次数应该为 length-i   当前的圈数
+  5个数进行了4轮比较，每轮比较都会得出本轮最大的值，第i轮排序的次数应该为 length-i   当前的圈数
 */
 ```
 
@@ -165,10 +165,8 @@ Function test () {
     test()
 }
 console.log(Function)
-解析：第一个Function 是“关键字”，第二个Function 表示 “类”。
+// 解析：第一个Function 是“关键字”，第二个Function 表示 “类”。
 ```
-
-
 
 
 
@@ -183,6 +181,7 @@ function printTable(rowNum, colNum) {
     /* var rowNum = 10;
     var colNum = 10; */
     document.write('<table border="1" width="800">');
+  
     for (var row = 1; row <= rowNum; row++) {
         document.write('<tr>');
         for (var col = 1; col <= colNum; col++) {
@@ -190,6 +189,7 @@ function printTable(rowNum, colNum) {
         }
         document.write('</tr>');
     }
+  
     document.write('</table>');
 }
 printTable(10,10);
@@ -203,12 +203,30 @@ printTable(10,10);
 **注意：** 
 
 1. 形参和实参在传值时是一一对应的。
+
 2. 如果有多个形参和实参使用逗号将他们分隔开。
+
 3. 函数的形参就相当于在函数内部定义了一个变量。
+
 4. 函数也是数据，也是对象。其中有一个`length`属性，用来表示具体有多少个形参。
+
 5. ES中函数的形参、实参个数可以不相等。
    1. 如果实参比形参少，那么多出来的形参将会自动被赋值为`undefined`。
    2. 如果实参比形参多，那么多出来的实参将会被`arguments`对象获得（所有的实参都会被它获得）。
+   
+6. 获取形参的个数：`函数名.length` 或 `arguments.callee.length`
+   获取实参的个数：`arguments.length`
+
+   ```js
+   function fun(a, b) {
+     console.log(fun.length, '获取形参的个数') //2 "获取形参的个数"
+     console.log(arguments.length, '获取实参的个数') //5 "获取实参的个数"
+     console.log(arguments.callee.length, '获取形参的个数') //2 "获取形参的个数"
+   }
+   fun(1, 2, 3, 4, 2)
+   ```
+
+   
 
 #### arguments对象
 
@@ -246,6 +264,8 @@ printTable(10,10);
 > 获得实参的个数：console.log(arguments.length);
 >
 > 获得形参的个数：console.log(test.length); // 这里的test是自定义的，根据你的函数名
+
+
 
 #### 返回值
 
