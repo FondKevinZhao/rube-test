@@ -41,6 +41,7 @@
     }
 
     formatNum('13213.24'); // 输出13,213.24
+    console.log(formatNum('13213.24')) // 输出13,213.24
     formatNum('132134.2');  // 输出132,134.20
     formatNum('132134');  // 输出132,134.00
     formatNum('132134.236');  // 输出132,134.23
@@ -56,7 +57,7 @@
 
     // 使用方法二的时候要注意，我们的请求都是异步的，那么这个num是后台给的数据，一开始可能没有拿到，那么就是undefined，控制台就会报错。
     // 解决：先判断
-    if (num === undefiend) return "";
+    // if (num === undefiend) return "";
   </script>
 </body>
 
