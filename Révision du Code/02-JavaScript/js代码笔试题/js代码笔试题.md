@@ -1,11 +1,12 @@
 ## 面试题：通过 1 和 0 获取 0，-0，Infinity，-Infinity，NaN
 
 ```js
-var num1 = 0 / 1; // 0
-var num2 = 0 / -1; // -0
+var num1 = 0 / 0; // NaN
+var num2 = 0 / 1; // 0
 var num3 = 1 / 0; // Infinity
-var num4 = -1 / 0; // -Infinity
-var num5 = 0 / 0; // NaN
+
+var num4 = 0 / -1; // -0
+var num5 = -1 / 0; // -Infinity
 console.log(num1, num2, num3, num4, num5);
 ```
 
@@ -19,13 +20,13 @@ console.log(num1, num2, num3, num4, num5);
 console.log([1, 2] + [1, 2]); // “1,21,2”
 ```
 
-2. 
+2. 这题不知道结果怎么来的
 
 ```js
 if (!(b in window)) {
     var b = 1;
 }
-console.log(b);
+console.log(b); // undefined  // 不知道怎么得出来的
 ```
 
 3. 
@@ -106,16 +107,17 @@ time = 2000;
 with 可以改变作用域链(改作用域链，系统内部会消耗大量的性能，使程序变慢，不建议使用)，它可以让它里面的代码在作用域链的最顶端，变成 with 括号里的那个对象。
 
 ```js
- var obj = {
-     name: 'obj'
- }
- var name = 'window';
- function test() {
-     var name = 'scope';
-     with(obj) {
-         console.log(name);
-     }
+var obj = {
+  name: 'obj'
 }
+var name = 'window';
+function test() {
+   var name = 'scope';
+   with(obj) {
+     console.log(name);
+   }
+}
+test()
 ```
 
 注意：with 在严格模式中是不能使用的。而`arguments.callee`也不能在严格模式中使用。
@@ -165,7 +167,7 @@ for (var i = 0; i < 10; i++) {
     console.log(i); // 10,10,10,10,10,10,10,10,10,10
   }, 1000);
 }
-// 定时器执行时异步的，每一轮循环设置定时器，无需等定时器触发执行，继续下一轮循环(定时器触发的时候，循环已经结束了)
+// 定时器执行是异步的，每一轮循环设置定时器，无需等定时器触发执行，继续下一轮循环(定时器触发的时候，循环已经结束了)
 ```
 
 ```js
@@ -236,15 +238,28 @@ function show(f) {
     f();
 }
 show(fn);
+
+
+// 对比这个：
+var x = 10
+function show() {
+  var x = 20
+  function fn() {
+    console.log(x)
+  }
+  fn()
+}
+show()
 ```
 
 2. 
 
 ```js
-var fn = function( {
+var fn = function (){
     console.log(fn)
-})
+}
 fn()
+
 
 var obj = {
     fn2: function () {
@@ -944,7 +959,7 @@ console.log((5).add(3).minus(2));
          return fn(count -1, next, curr + next);
        }
      };
-     return fn (count);
+     return fn(count);
    }
    console.log(fibonacci(5));
    ```

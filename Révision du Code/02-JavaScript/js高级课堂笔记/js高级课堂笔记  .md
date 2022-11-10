@@ -265,19 +265,19 @@ console.log(o);
    原型链测试题2：
 
    ```js
-     var F = function () {
-        Object.prototype.a = function () {
-            console.log('a()')
-        }
-        Function.prototype.b = function(){
-            console.log('b()')
-   	}
-     }
-     var f = new F()
-     f.a()
-     f.b()
-     F.a()
-     F.b()
+   var F = function () {
+      Object.prototype.a = function () {
+          console.log('a()')
+      }
+      Function.prototype.b = function(){
+          console.log('b()')
+   	 }
+   }
+   var f = new F()
+   f.a()
+   f.b()
+   F.a()
+   F.b()
    ```
 
    
@@ -298,6 +298,8 @@ console.log(o);
 ## 函数执行完后，函数内部声明的局部变量是否还存在？
 
 一般是不存在，存在于闭包中的变量才可能存在。
+
+
 
 ## 在函数外部能直接访问函数内部的局部变量吗？
 
@@ -320,6 +322,8 @@ console.log(o);
    - 意外的全局变量。
    - 没有及时清理的计时器或回调函数。
    - 闭包
+
+
 
 ## 闭包使用场景：
 
@@ -528,7 +532,7 @@ cookie 一般要配合 session一起使用，session 的使用场景：
 
    浏览器百度搜索：`baidu.com/s?ie=UTF-8&wd=baidu`
 
-2. JSON：这个 JSON 太厉害了，看详解。
+2. json：这个 json太厉害了，看详解。
 
    ```js
    {
@@ -581,7 +585,9 @@ btn1.onclick = () = {
 
 首先，他们都接收两个参数，slice和substring接收的是起始位置和结束位置(不包括结束位置)，而substr接收的则是起始位置和所要返回的字符串长度。
 
-[解析地址](https://www.cnblogs.com/dannyxie/p/5643860.html)
+[解析地址](http://t.csdn.cn/SFeO3)
+
+
 
 ## 请求拦截器和响应拦截器
 
@@ -644,7 +650,7 @@ btn1.onclick = () = {
 
 2. 内部函数引用外部函数的变量。
 
-3. 调动外部函数。
+3. 外部函数调用。
 
 闭包的作用：
 
@@ -706,7 +712,7 @@ btn1.onclick = () = {
 
 比如：定时器函数会被同步调用，里面计时任务和回调函数会交给浏览器定时器管理模块去处理，
 
-当浏览器定时器管理模块记录时间到点了，会将回调函数添加回调队列中，等待执行。
+当浏览器定时器管理模块记录时间到点了，会将回调函数添加到回调队列中，等待执行。
 
 等 JS 引擎执行完全局所有代码，才会开启事件轮询，轮询回调队列，执行其中异步回调函数，默认按照顺序依次执行，先进先出。
 
@@ -728,7 +734,7 @@ btn1.onclick = () = {
 
 埋点：是网站分析的一种常用的数据采集方法。如：统计客户点击某个按钮的次数。
 
-## includes与indexOf()的区别
+## indexOf()与includes的区别
 
 - indexOf()返回的是数值，而includes()返回的是布尔值
 - indexOf() 不能判断NaN，返回为-1 ，includes()则可以判断
@@ -783,14 +789,14 @@ btn1.onclick = () = {
 [10] === 10; // false // 全等不支持类型转换
   ```
 
-  数据类型比较：
+2. 数据类型比较：
 
   == 数据类型不一样
 
-    1. 对象 == 字符串	`对象.toString()`变为字符串。(对象如果变成数字是先 `对象.toString()` 然后 `Number(放刚转成的字符串)`)
-    2. null == undefined 相等。但是和其他值比较就不再相等了。
-    3. NaN == NaN 不相等。
-    4. 剩下的都是转换为数字。如：`"1"==true`// true
+1. 对象 == 字符串	`对象.toString()`变为字符串。(对象如果变成数字是先 `对象.toString()` 然后 `Number(放刚转成的字符串)`)
+2. null == undefined 相等。但是和其他值比较就不再相等了。
+3. NaN == NaN 不相等。
+4. 剩下的都是转换为数字。如：`"1" == true` // true
 
 
 
@@ -889,15 +895,15 @@ let obj = Object.create(Fn.prototype);
 
 == 进行比较的时候，如果左右两边数据类型不一样，则先转换为相同的数据类型，然后再进行比较，**双等(==)最终得到的是一个布尔值**
 
-1. {} == {} 两个对象进行比较，比较的是堆内存的地址
+1. {} == {} 结果为false。两个对象进行比较，比较的是堆内存的地址
 
 2. null == undefined 相等的 / null === undefined 不相等
 
-3. NaN == NaN 不相等 NaN 和谁都不相等 
+3. NaN == NaN 不相等。NaN 和谁都不相等 
 
-4. [12] == "12" 对象和字符串比较，是把对象 toString() 转换为字符串后，再进行比较
+4. [12] == "12" 相等的。对象和字符串比较，是把对象 toString() 转换为字符串后，再进行比较
 
-5. 剩余所有情况在进行比较的时候，都是转换为数字(前提是数据类型不一样)：
+5. 剩余所有情况在进行比较的时候，都是**转换为数字**(前提是数据类型不一样)：
 
    - 对象转数字：先转换为字符串，然后在转换为数字。
    - 字符串转数字：只要出现一个非数字字符，结果就是 NaN。
@@ -987,20 +993,24 @@ let obj = Object.create(Fn.prototype);
 **前台：**
 
 1. 提交后按钮设置为灰色，或者添加蒙版。
+
 2. PRG 模式：表单提交后，redirect 到一个倒计时页面，或者信息提示页面，等有成功信息返回后，再跳转回之前页面。
+
+   PRG 模式：“Post/Redirect/Get”。
+
 3. js 中设置标记为判断：
 
 ```vue
 <script>
-  var isCommitted = false; // 表单是否已经提交标识，默认为 false
-	function doSubmit() {
-        if(isCommitted == false) {
-            isCommitted = true; // 提交表单后，将表单是否已经提交标识设置为 true 
-            return true; // 返回 true 让表单正常提交
-        }else {
-            return false; // 返回 false 那么表单将不提交
-        }
+var isCommitted = false; // 表单是否已经提交标识，默认为 false
+function doSubmit() {
+    if(isCommitted == false) {
+        isCommitted = true; // 提交表单后，将表单是否已经提交标识设置为 true 
+        return true; // 返回 true 让表单正常提交
+    }else {
+        return false; // 返回 false 那么表单将不提交
     }
+}
 </script>
 ```
 
@@ -1050,7 +1060,7 @@ JS 有两种变量，全局变量和在函数中产生的局部变量。局部�
 
 tapd是腾讯公司的一个产品研发平台，全名叫做腾讯敏捷产品研发平台。最初只是在内部的人员才有资格接触到，并且这个平台已经存在有12年之久，正式对公众开放是在2017年。
 
-禅道是第一款国产的开源项目管理软件，她的核心管理思想基于敏捷方法scrum，内置了产品管理和项目管理，同时又根据国内研发现状补充了测试管理、计划管理、发布管理、文档管理、事务管理等功能，在一个软件中就可以将软件研发中的需求、任务、bug、用例、计划、发布等要素有序的跟踪管理起来，完整地覆盖了项目管理的核心流程。
+禅道是第一款国产的开源项目管理软件，它的核心管理思想基于敏捷方法scrum，内置了产品管理和项目管理，同时又根据国内研发现状补充了测试管理、计划管理、发布管理、文档管理、事务管理等功能，在一个软件中就可以将软件研发中的需求、任务、bug、用例、计划、发布等要素有序的跟踪管理起来，完整地覆盖了项目管理的核心流程。
 
 
 ## 关于axios
@@ -1131,18 +1141,9 @@ tapd是腾讯公司的一个产品研发平台，全名叫做腾讯敏捷产品�
    })
    ```
 
-   当出现重复请求的时候，我们就可以使用 cancel 函数来取消前面已经发出的请求，在取消请求之后，我们还需要把取消的请求从 `pendingRequest` 中移除。现在我们已经知道如何取消请求和如何判断重复请求，下面我们来介绍如何取消重复请求。
+   当出现重复请求的时候，我们就可以使用 cancel 函数来取消前面已经发出的请求，在取消请求之后，我们还需要把取消的请求从 `pendingRequest` 中移除。
 
 
-## JSON对象的方法：
-
-1. `JSON.stringify(obj/arr);`
-
-   js 对象(数组) 转换为 json 对象(数组)(字符串类型)
-
-2. `JSON.parse(json); `
-
-   json 对象(数组)(字符串类型) 转换为 js 对象(数组)
 
 ## yarn 基本指令
 
@@ -1156,7 +1157,7 @@ yarn update + 包名@version：升级指定版本的依赖包。
 
 yarn remove + 包名：移除依赖包。
 
-yarn install：安装全部依赖包。
+yarn install / yarn：安装全部依赖包。
 
 
 
@@ -1229,7 +1230,13 @@ scrollTo()方法滚动文档到指定的坐标位置。
 </html>
 ```
 
-<img src="https://s3.bmp.ovh/imgs/2022/09/25/c76cf507b04c00c7.png">
+
+
+![](js高级课堂笔记  .assets/c76cf507b04c00c7.png)
+
+
+
+
 
 ### 扩展1：window.scrollY
 
