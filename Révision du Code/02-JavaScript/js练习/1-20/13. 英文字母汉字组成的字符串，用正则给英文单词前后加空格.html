@@ -8,19 +8,70 @@
   </head>
   <body>
     <script>
-      // 英文字母汉字组成的字符串，用正则给英文单词前后加空格
+      // 1. 英文字母汉字组成的字符串，用正则给英文单词前后加空格
 
-      let str = 'no作no死，你能你can，不能no哔哔！',
-        reg = /\b[a-z]+\b/gi
+      let str = 'no作no死，你can你up，no能no哔哔！'
+      // \b: 匹配单词边界 \B: 匹配非单词边界
+      // \b大概意思就是一个单词左右边界的意思，不同则为界，界左和界右肯定不是相同类型；
+      let reg = /\b[a-z]+\b/gi
+
       // value 就是str里的内容和当前正则匹配到的结果
       str = str
-        .replace(reg, (value) => {
+        .replace(reg, value => {
           return ' ' + value + ' '
         })
         .trim()
       // trim()去掉开头和结尾的空格
       console.log(str) //no 作 no 死，你能你 can ，不能 no 哔哔！
       // String.prototype.trim()/.trimLeft()/.trimRight() 去除前后，去除左边，去除右边的空格
+
+      // 2. 将 myAddress 转化成 my-address
+      // https://blog.csdn.net/Ttian6/article/details/100986106
+      // 方法一：
+      function getKebabCase1(str) {
+        var arr = str.split('')
+        str = arr.map(function (item) {
+          if (item.toUpperCase() === item) {
+            return '-' + item.toLowerCase()
+          } else {
+            return item
+          }
+        })
+        return str.join('')
+      }
+      console.log(getKebabCase1('myAddress')) // my-address
+
+      // 方法二：
+      function getKebabCase2(str) {
+        return str.replace(/[A-Z]/g, function (item) {
+          return '-' + item.toLowerCase()
+        })
+      }
+      console.log(getKebabCase2('myAddress')) // my-address
+
+      // 3. 将 my-address 转化成 myAddress
+      // 方法一：
+      function getCamelCase1(str) {
+        var arr = str.split('-')
+        return arr
+          .map(function (item, index) {
+            if (index === 0) {
+              return item
+            } else {
+              return item[0].toUpperCase() + item.slice(1)
+            }
+          })
+          .join('')
+      }
+      console.log(getCamelCase1('my-address')) // myAddress
+
+      // 方法二：
+      function getCamelCase2(str) {
+        return str.replace(/-([a-z])/g, function (keb, item) {
+          return item.toUpperCase()
+        })
+      }
+      console.log(getCamelCase2('my-address')) // myAddress
     </script>
   </body>
 </html>

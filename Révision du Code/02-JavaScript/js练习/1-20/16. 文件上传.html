@@ -39,16 +39,16 @@
     <img src="" alt="" id="images" width="300" />
     <script>
       // 解决方案一：
-      // let ipt = document.getElementById('ipt')
-      // let img = document.getElementById('images')
-      // ipt.onchange = function (e) {
-      //   // console.log(e.target.files[0]) // 得到上传图片的内容
-      //   const files = e.target.files[0]
-      //   const imgUrl = URL.createObjectURL(files)
-      //   console.log(imgUrl) // 获取到当前上传的图片的base64格式，可以作为展示
-      //   // 把这个base64给到img展示
-      //   img.src = imgUrl
-      // }
+      /* let ipt = document.getElementById('ipt')
+      let img = document.getElementById('images')
+      ipt.onchange = function (e) {
+        // console.log(e.target.files[0]) // 得到上传图片的内容
+        const files = e.target.files[0]
+        const imgUrl = URL.createObjectURL(files)
+        console.log(imgUrl) // 获取到当前上传的图片的base64格式，可以作为展示
+        // 把这个base64给到img展示
+        img.src = imgUrl
+      } */
     </script>
 
     <script>
@@ -64,7 +64,7 @@
         // 2. 调用readAsDataURL 函数，读取文件内容
         fr.readAsDataURL(files)
         // 3. 监听 fr 的 onload 事件
-        fr.onload = (e) => {
+        fr.onload = e => {
           // 4. 通过e.target.result 获取到读取的结果，值是字符串(base64 格式的字符串)
           console.log(e.target.result)
           img.src = e.target.result

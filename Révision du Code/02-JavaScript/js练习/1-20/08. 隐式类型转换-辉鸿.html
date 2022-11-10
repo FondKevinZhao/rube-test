@@ -25,6 +25,8 @@
     console.log('4', 'a' == 1);
     console.log('5', true == 'true');
     console.log('6', true == 'false');
+    console.log('6.1', 0 == '');
+    console.log('6.2', 0 == '   ');
 
     // 引用数据类型 VS 引用数据类型
     // 引用类型比较地址值
@@ -55,6 +57,7 @@
     // 三个有趣的题
     console.log(0 == '0'); // Number(0)==Number('0') ==> 0==0
     console.log(0 == []); // Number(0)==[].toString() ==> 0=='' ==> 0==0
+    
     // 注意：如果两个数据的类型是一样的，就不用再隐式转换了
     console.log('0' == []); // '0'==[].toString() ==> '0'=='' 
   </script>

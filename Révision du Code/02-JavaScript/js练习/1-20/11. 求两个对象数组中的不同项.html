@@ -13,27 +13,27 @@
       let arr1 = [
         {
           id: 1,
-          name: '尺码',
+          name: '尺码'
         },
         {
           id: 2,
-          name: '颜色',
+          name: '颜色'
         },
         {
           id: 3,
-          name: '内存',
-        },
+          name: '内存'
+        }
       ]
 
       let arr2 = [
         {
           id: 2,
-          name: '颜色',
+          name: '颜色'
         },
         {
           id: 3,
-          name: '内存',
-        },
+          name: '内存'
+        }
       ]
 
       // 方法一：(效率低一些)
@@ -76,13 +76,13 @@
       // 通过一个对象记录已经出现过的销售属性
       const mapObj = {}
 
-      arr2.forEach((arr2Item) => {
+      arr2.forEach(arr2Item => {
         const key = arr2Item.name
         mapObj[key] = true
       })
       console.log('mapObj', mapObj)
 
-      const newArr = arr1.filter((arr1Item) => {
+      const newArr = arr1.filter(arr1Item => {
         const name = arr1Item.name
         return !mapObj[name]
       })
