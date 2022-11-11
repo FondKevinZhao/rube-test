@@ -110,6 +110,8 @@ Vim是一款命令行下的文本编辑器，编辑方式跟图形化编辑器�
 
 ![img](https://tva1.sinaimg.cn/large/007S8ZIlgy1gfdqt2es84j30iy0b2abb.jpg)
 
+
+
 # git 初始配置
 
 ## 什么是git配置
@@ -149,7 +151,7 @@ git config -l //查看git所有配置
 
 Git 有三种状态，你的文件可能处于其中之一：已提交（committed）、已修改（modified）和已暂存（staged）。由此引入 Git 项目的三个工作区域的概念：Git 仓库、工作目录以及暂存区域。
 
-- 工作区（代码编辑区）:代表本地开发代码的地方
+- 工作区（代码编辑区）：代表本地开发代码的地方
 
 - 暂存区（修改待提交区）：代表本地仓库暂时保管代码的地址
 
@@ -203,22 +205,22 @@ Git 有三种状态，你的文件可能处于其中之一：已提交（committ
 
   ```js
   //解读结果
-      //进行比较的是，index.html（即变动前）index.html（即变动后）。 
-      diff --git a/index.html b/index.html
-      //表示两个版本的git哈希值
-      index 16158b4..61045cd 100644
-      //"---"表示变动前的版本
-      --- a/index.html
-      //"+++"表示变动后的版本
-      +++ b/index.html
-      //代表的意思是源文件的1-2行与目标文件的1-5行有差异,下面才是具体的差异信息;
-      @@ -1,2 +1,5 @@
-      //-红色部分表示减少的部分,+绿色部分表示增加的部分
-       var filename = 'test'
-  	-console.log('这是test文件')
-  	+
-  	+console.log('第三行')
   
+  //进行比较的是，index.html（即变动前）index.html（即变动后）。 
+  diff --git a/index.html b/index.html
+  //表示两个版本的git哈希值
+  index 16158b4..61045cd 100644
+  //"---"表示变动前的版本
+  --- a/index.html
+  //"+++"表示变动后的版本
+  +++ b/index.html
+  //代表的意思是源文件的1-2行与目标文件的1-5行有差异,下面才是具体的差异信息;
+  @@ -1,2 +1,5 @@
+  //-红色部分表示减少的部分,+绿色部分表示增加的部分
+   var filename = 'test'
+  -console.log('这是test文件')
+  +
+  +console.log('第三行')
   ```
   
 - `git diff --cached` 查看暂存区与仓库的差异
