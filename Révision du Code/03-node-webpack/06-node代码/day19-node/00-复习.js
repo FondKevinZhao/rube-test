@@ -2,9 +2,7 @@
     1. cookie和session的区别: 
 
         1. cookie是存储在浏览器中, session存储在服务器端
-
         2. cookie有限制, session理论上没有
-
         3. cookie不安全, session相对安全
 
 
@@ -31,23 +29,14 @@
 
 
 
-
-
     4. ajax的特点是什么? js中通过哪个对象来实现ajax
-
 
         特点: 
         1. 页面不会切换
         2. 异步发送请求
         3. 任何请求方式都可以
 
-
         使用: 
             XMLHttpRequest  xhr
-
-
-
-
-
 
 */
