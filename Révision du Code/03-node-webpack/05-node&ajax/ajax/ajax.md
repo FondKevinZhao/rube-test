@@ -6,9 +6,15 @@
 请求由客户端发起，其规范格式为：请求行、请求头、请求主体。
 ```
 
-<img src="02-请求规范格式.png">
+本地地址图片：
+
+<img src="请求规范格式(别删).png">
 
 
+
+网络地址图片：
+
+<img src="https://s3.bmp.ovh/imgs/2022/11/11/b042019c04edae85.png">
 
 ### 发送get请求
 
@@ -17,28 +23,28 @@ XMLHttpRequest以异步的方式发送HTTP请求，因此在发送请求时，�
 > 使用XMLHttpRequest发送get请求的步骤
 
 ```javascript
-//1. 创建一个XMLHttpRequest对象
+// 1. 创建一个XMLHttpRequest对象
 var xhr = new XMLHttpRequest();
 
-//2. 设置请求行
-// 第一个参数:请求方式  get/post
-// 第二个参数:请求的地址 需要在url后面拼上参数列表
-// 第三个参数: 是否异步请求,默认是true  true就是异步,false是同步
+// 2. 设置请求行
+// 第一个参数: 请求方式  get/post
+// 第二个参数: 请求的地址 需要在url后面拼上参数列表
+// 第三个参数: 是否异步请求,默认是true，true就是异步，false是同步
 xhr.open("get", "http://localhost:5000/test?name=haha");
 
-//3. 设置请求头(get不用设置)
-//请求头中可以设置Content-Type,用以说明请求主体的内容是如何编码
-//get请求时没有请求体,无需设置请求头
+// 3. 设置请求头(get不用设置)
+// 请求头中可以设置Content-Type，用以说明请求主体的内容是如何编码
+// get请求时没有请求体,无需设置请求头
 
-//4. 设置请求体
-//get请求的请求体为空,因为参数列表拼接到url后面了
+// 4. 设置请求体
+// get请求的请求体为空,因为参数列表拼接到url后面了
 xhr.send(null);
 ```
 
 注意点 :
 
-- get请求,设置请求行时,需要把参数列表拼接到url后面
-- get请求不用设置请求头, 不用说明请求主体的编码方式
+- get请求，设置请求行时，需要把参数列表拼接到url后面
+- get请求不用设置请求头，不用说明请求主体的编码方式
 - get请求的请求体为null
 
 ### 发送post请求
@@ -51,7 +57,7 @@ xhr.open("post", "http://localhost:5000/test");
 
 // 2. 设置请求头, post 请求必须要设置 content-type, 标记请求体内容的解析方式, 不然后端无法解析获取数据
 xhr.setRequestHeader( "content-type", "application/x-www-form-urlencoded" );
-//在请求发送过程中会对数据进行序列化处理，以键值对形式？key1=value1&key2=value2的方式发送到服务器
+// 在请求发送过程中会对数据进行序列化处理，以键值对形式？key1=value1&key2=value2的方式发送到服务器
 
 // 3. 设置请求体
 xhr.send( "name=zs&age=18" );
@@ -59,15 +65,17 @@ xhr.send( "name=zs&age=18" );
 
 注意点 :
 
-- post请求, 设置请求行时, 不拼接参数列表
-- post必须设置请求头中的content-type为application/x-www-form-urlencoded, 标记请求体解析方式
+- post请求，设置请求行时，不拼接参数列表
+- post必须设置请求头中的content-type为application/x-www-form-urlencoded，标记请求体解析方式
 - post 请求需要将参数列表设置到请求体中
+
+
 
 ### 获取响应 readyState
 
 readyState:记录了XMLHttpRequest对象的当前状态
 
-```
+```js
 readyState有五种可能的值：
 xhr.readyState = 0时，UNSENT open尚未调用
 xhr.readyState = 1时，OPENED open已调用
@@ -80,24 +88,22 @@ xhr.readyState = 4时，DONE 响应完成
 
 
 
-HTTP响应分为3个部分，状态行、响应头、响应体。
+**HTTP响应**分为3个部分，状态行、响应头、响应体。
 
 ```javascript
-//给xhr注册一个onreadystatechange事件，当xhr的状态发生状态发生改变时，会触发这个事件。
+// 给xhr注册一个onreadystatechange事件，当xhr的状态发生状态发生改变时，会触发这个事件。
 xhr.onreadystatechange = function () {
   
   if(xhr.readyState == 4){
-    
     //1. 获取状态码
-    console.log("状态行:"+xhr.status);
+    console.log("状态行:" + xhr.status);
     
     //2. 获取响应头
-    console.log("所有的响应头:"+xhr.getAllResponseHeaders());
-    console.log("指定响应头:"+xhr.getResponseHeader("content-type"));
+    console.log("所有的响应头:" + xhr.getAllResponseHeaders());
+    console.log("指定响应头:" + xhr.getResponseHeader("content-type"));
     
     //3. 获取响应体
     console.log(xhr.responseText);
-    
   }
   
 }
@@ -111,17 +117,17 @@ xhr.onreadystatechange = function () {
 
 参数列表
 
-| 参数名称   | 描述             | 取值                | 示例                              |
-| ---------- | ---------------- | ------------------- | --------------------------------- |
-| url        | 接口地址         |                     | url:"02.php"                      |
-| type       | 请求方式         | get/post            | type:"get"                        |
-| timeout    | 超时时间         | 单位毫秒            | timeout:5000                      |
-| dataType   | 服务器返回的格式 | json/xml/text(默认) | dataType:"json"                   |
-| data       | 发送的请求数据   | 对象                | data:{name:"zs", age:18}          |
-| beforeSend | 调用前的回调函数 | function(){}        | beforeSend:function(){ alert(1) } |
-| success    | 成功的回调函数   | function (data) {}  | success:function (data) {}        |
-| error      | 失败的回调函数   | function (error) {} | error:function(data) {}           |
-| complete   | 完成后的回调函数 | function () {}      | complete:function () {}           |
+| 参数名称   | 描述             | 取值                | 示例                               |
+| ---------- | ---------------- | ------------------- | ---------------------------------- |
+| url        | 接口地址         |                     | url:"02.php"                       |
+| type       | 请求方式         | get/post            | type:"get"                         |
+| timeout    | 超时时间         | 单位毫秒            | timeout:5000                       |
+| dataType   | 服务器返回的格式 | json/xml/text(默认) | dataType:"json"                    |
+| data       | 发送的请求数据   | 对象                | data:{name:"zs", age: 18}          |
+| beforeSend | 调用前的回调函数 | function(){}        | beforeSend: function(){ alert(1) } |
+| success    | 成功的回调函数   | function (data) {}  | success:function (data) {}         |
+| error      | 失败的回调函数   | function (error) {} | error: function(data) {}           |
+| complete   | 完成后的回调函数 | function () {}      | complete: function () {}           |
 
 
 
@@ -196,7 +202,7 @@ http://www.example.com:81/dir/other.html：不同源（端口不同）
 
 #### 同源策略的限制范围
 
-> 随着互联网的发展，“同源策略”越来越严格，目前，如果非同源，以下三种行为都将收到限制。
+> 随着互联网的发展，“同源策略”越来越严格，目前，如果非同源，以下三种行为都将受到限制。
 
 ```javascript
 1. Cookie、LocalStorage 和 IndexDB 无法读取。
@@ -229,48 +235,50 @@ http://www.example.com:81/dir/other.html：不同源（端口不同）
 
 ```js
 // 浏览器端:
-  let btn = document.getElementById('btn')
-  btn.addEventListener('click',function () {
-    //1.动态生成一个script节点
-    let scriptNode = document.createElement('script')
-    //2.全局定义一个函数
-    window.getData = function (data) {
-      console.log(data)
-    }
-    //3.指定请求地址
-    scriptNode.src = 'http://localhost:3000/test?callBack=getData'
-    
-    //4.添加节点
-    document.body.appendChild(scriptNode)
-    
-  })
+let btn = document.getElementById('btn')
+btn.addEventListener('click',function () {
+  // 1.动态生成一个script节点
+  let scriptNode = document.createElement('script')
+  
+  // 2.全局定义一个函数
+  window.getData = function (data) {
+    console.log(data)
+  }
+  
+  // 3.指定请求地址
+  scriptNode.src = 'http://localhost:3000/test?callBack=getData'
+
+  // 4.添加节点
+  document.body.appendChild(scriptNode)
+
+})
 
 // 服务器端: 
 app.get('/test',(req,res)=>{
-    let {callBack} = req.query
-    let arr = [{name:'kobe',age:12},{name:'wade',age:13}]
-   // res.send(arr)
-    let str = callBack+'('+JSON.stringify(arr)+')'
-    //getData([{name:'kobe',age:12},{name:'wade',age:13}])
-    //res.send('alert2(0)')
-    res.send(str)
+  let {callBack} = req.query
+  let arr = [{name:'kobe',age:12},{name:'wade',age:13}]
+  // res.send(arr)
+  let str = callBack+'('+JSON.stringify(arr)+')'
+  // getData([{name:'kobe',age:12},{name:'wade',age:13}])
+  // res.send('alert2(0)')
+  res.send(str)
 })
 ```
 
 
 
-1. 说白了，jsonp的原理就是 借助了script标签 src 请求资源时, 不受同源策略的限制.
-2. 在服务端返回一个函数的调用，将数据当前调用函数的实参。
-3. 在浏览器端，需要程序要声明一个全局函数，通过形参就可以获取到服务端返回的对应的值
+1. 说白了，jsonp的原理就是 借助了script标签 src 请求资源时, 不受同源策略的限制。
+2. 在服务端返回一个函数的调用，将数据当成调用函数的实参。
+3. 在浏览器端，需要程序要声明一个全局函数，通过形参就可以获取到服务端返回的对应的值。
 
-jsonp原理大家需要知道，面试中经常会问到，实际工作中不用纠结, 因为jquery已经帮我们封装好了，我们使用起来非常的方便。
+jsonp原理大家需要知道，面试中经常会问到，实际工作中不用纠结，因为jquery已经帮我们封装好了，我们使用起来非常的方便。
 
 ##### jquery对于jsonp的封装
 
 **注意: jsonp 仅支持get请求**
 
 ```javascript
-//使用起来相当的简单，跟普通的get请求没有任何的区别，只需要把dataType固定成jsonp即可。
+// 使用起来相当的简单，跟普通的get请求没有任何的区别，只需要把dataType固定成jsonp即可。
 $.ajax({
   type:"get",
   url:"",
@@ -299,9 +307,9 @@ $.ajax({
 服务器允许跨域的代码：
 
 ```php
-//允许所有的域名访问这个接口
-header("Access-Control-Allow-Origin:*");
-//允许www.study.com这个域名访问这个接口
+// 允许所有的域名访问这个接口
+header("Access-Control-Allow-Origin: *");
+// 允许www.study.com这个域名访问这个接口
 header("Access-Control-Allow-Origin:http://www.study.com");
 ```
 
@@ -317,8 +325,8 @@ header("Access-Control-Allow-Origin:http://www.study.com");
 
 结论：
 
-1. **跨域行为是浏览器行为，响应是回来了, 只是浏览器安全机制做了限制,  对于跨域响应内容进行了忽略。**
-2. **服务器与服务器之间是不存在跨域的问题的**
+1. **跨域行为是浏览器行为，响应是回来了，只是浏览器安全机制做了限制,  对于跨域响应内容进行了忽略。**
+2. **服务器与服务器之间是不存在跨域的问题的。**
 
 ##### jsonp与cors的对比
 
