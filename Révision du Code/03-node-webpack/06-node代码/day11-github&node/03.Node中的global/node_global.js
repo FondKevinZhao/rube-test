@@ -2,11 +2,10 @@
  * 1.JS由哪几部分组成（对于浏览器说）？
     -- BOM
     -- DOM
-    -- EMCSCRIPT
+    -- ECMASCRIPT
  *
  * 2.NodeJs由哪几部分组成？
- * 
- *  -- EMCSCRIPT
+ *  -- ECMASCRIPT
  *  -- global
  * 
  *
