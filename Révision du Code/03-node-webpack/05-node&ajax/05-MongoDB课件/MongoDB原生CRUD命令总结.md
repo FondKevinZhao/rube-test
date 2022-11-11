@@ -1,12 +1,14 @@
-##MongoDB原生CRUD（增删改查）命令总结
+## MongoDB原生CRUD（增删改查）命令总结
 
--C creat：
+### C creat：
 
     db.集合名.insert(文档对象)
     db.集合名.insertOne(文档对象)
     db.集合名.insertMany([文档对象，文档对象])
 
--R read：
+
+
+### R read：
 
     db.集合名.find(查询条件[,投影])
         举例:db.students.find({age:18}),查找年龄为18的所有信息
@@ -33,25 +35,28 @@
         
     补充：db.集合名.findOne(查询条件[,投影])，默认只要找到一个
 
--U update：
+
+
+### U update：
 
     db.集合名.update(查询条件,要更新的内容[,配置对象])
             
-    //使用$set修改指定内容，其他数据不变，不过只能匹配一个zhangsan
+    // 使用$set修改指定内容，其他数据不变，不过只能匹配一个zhangsan
         举例：db.students.update({name:'zhangsan'},{$set:{age:19}})
         
-    //修改多个文档对象，匹配多个zhangsan,把所有zhangsan的年龄都替换为19
+    // 修改多个文档对象，匹配多个zhangsan,把所有zhangsan的年龄都替换为19
         举例：db.students.update({name:'zhangsan'},{$set:{age:19}},{multi:true})
         
-     补充：db.集合名.updateOne(查询条件,要更新的内容[,配置对象])
+    补充：db.集合名.updateOne(查询条件,要更新的内容[,配置对象])
           db.集合名.updateMany(查询条件,要更新的内容[,配置对象])
 
--D delete
+
+
+### D delete
 
     db.集合名.remove(查询条件)
-        //删除所有年龄小于等于19的学生
+        // 删除所有年龄小于等于19的学生
         举例：db.students.remove({age:{$lte:19}})
-
 
 
 
