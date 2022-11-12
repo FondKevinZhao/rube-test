@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        //闭包：访问函数内的变量
+        //1.普通函数写法 
+     /*    function f1(){
+            var num=10;//局部的
+            function f2(){
+                console.log(num);//10
+            }
+            f2();
+        }
+        f1(); */
+
+        //2.闭包写法：f1的局部变量num 外部不可以访问 内部函数f2有权访问  return f2
+      /*   function f1(){
+            var num=10;//局部的
+            function f2(){
+                console.log(num);//10
+            }
+            return f2;
+        }
+       let res=f1();//let res=f2=function f2(){}
+        res(); */
+
+        function f1(){
+            var num=10;//局部的
+            return function(){
+                console.log(num);//10
+            }
+        }
+       let res=f1();//let res=function(){}
+       res();//10
+       
+
+
+
+       
+
+    </script>
+</body>
+</html>

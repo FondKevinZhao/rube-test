@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //去掉相邻且重复的内容 ---说明：重复了挨着 删除所有
+      let arr = [2,2,3, 3, 2, 1, 1, 1, 4, 3, 8,3,8, 6, 5, 5]; //[4,3,6]
+      function deleteArr(arr){
+          //遍历数组
+          //声明一个重复的元素的标识 
+          let mark=-1;
+          for(let i=0;i<arr.length;i++){
+            //当前的元素和下一个元素是否一样 如果一样删除下一个元素 保留当前的元素 目的：继续和后面比较是否相等的
+            if(arr[i]===arr[i+1]){
+              //删除下一个元素
+              arr.splice(i+1,1);
+              //标识当前的元素 比较到最后 删除当前元素
+              mark=i;
+              //数组删除了元素 长度-1   i--
+              i--;
+            }else if(mark>=0){//mark>=0 说明有标记的元素 
+                //删除标识的元素
+                arr.splice(mark,1);
+                i-=2;
+                //标记清除---初始值
+                mark=-1;
+            }
+          }
+          return arr;
+      }
+
+      console.log('----',deleteArr(arr));
+
+
+
+      //只删除相邻的两个元素
+      /* function deleteArr(arr){
+            //遍历数组
+            for(let i=0;i<arr.length;i++){
+                //当前的元素和下一个元素是否一样 删除这两个元素
+                //当前 i 下一个 i+1 下下个i+2  ... i+n  
+                if(arr[i]===arr[i+1]){
+                    //删除元素
+                    arr.splice(i,2);//arr.splice
+                    //修改i值 原数组删除了两个元素
+                    i-=2;
+                }
+            }
+            return arr;
+         }
+         console.log('----',deleteArr(arr)); */
+    </script>
+  </body>
+</html>

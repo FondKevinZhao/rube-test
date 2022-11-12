@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        /* 
+            prototype特点：
+             1. 原型对象上的属性和方法 可以在实例对象之间共享
+             2. 原型对象上的属性或方法修改了，实例对象会立即修改
+             3. 实例对象获取属性和方法 先查找自己的构造函数 没有找原型上 相同优先选择自身的 
+
+        */
+        //构造函数
+         function Cat(name,age){
+            this.name =name;
+            this.age =age;
+            this.eat=function(){
+                console.log('内部方法优先查找，找不到去原型上');
+            }
+        }
+        //原型对象
+        Cat.prototype.eat=function(){
+            console.log(this.name+'喜欢吃鱼');
+        }
+        Cat.prototype.showName=function(){
+            console.log(this.name);
+        }
+
+        Cat.prototype.type='猫类';
+
+        let cat1 = new Cat('小白',1);
+        cat1.eat();
+
+        // function Dog(){
+        // }
+        // let dog = new Dog();
+        // dog.eat();
+
+
+    </script>
+</body>
+</html>

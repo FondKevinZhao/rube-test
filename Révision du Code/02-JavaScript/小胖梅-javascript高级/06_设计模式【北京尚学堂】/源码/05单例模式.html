@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //创建实例对象只有一个  再次还是之前的实例对象、
+      function Login(username, password) {
+        //只要进入构造函数--判断Login.instance是否存在
+        if(Login.instance){//存在  说明之前已经new Login() 创建过实例对象
+            return Login.instance;
+        }
+        //绑定属性
+        this.username = username;
+        this.password = password;
+        //绑定一个属性 ---为了唯一性 --说明创建实例
+        Login.instance =this;
+
+      }
+      //创建实例对象
+      let user1=new Login('admin',123456)
+      let user2=new Login('沾上干',123456)
+      console.log(user1);
+      console.log(user2);
+
+    </script>
+  </body>
+</html>

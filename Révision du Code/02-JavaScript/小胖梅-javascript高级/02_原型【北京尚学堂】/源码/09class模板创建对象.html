@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+        ES5:生成实例对象 通过构造函数 -- 模板
+        ES6:生成实例对象 通过class类  -- 模板
+            注意：
+                1. class类名 首字母大写
+                2. 必须new 创建实例对象
+                3. 类不能加, 
+                4. 类里面的方法一般简写函数-挂载原型对象上 
+                    函数名(){ }
+                5. 类名创建的就是函数 
+        */
+
+       //es6:
+       class Cat{
+            //构造函数 new Cat()自动执行调用 
+            constructor(name,age,food){
+                this.name=name;
+                this.age=age;
+                this.food=food;
+            }
+            //定义方法-原型上 简写
+            //Cat.prototype.eat=function(){}
+            eat(){
+                console.log(this.name+'喜欢吃'+this.food);
+            }
+       }
+
+       //继承：extends 实现继承
+       //语法：class A extends B{ } A继承B 
+       class Dog extends Cat{
+            //构造函数--继承Cat的构造函数 super()
+            constructor(name,age,food,color){
+                super(name,age,food)//注意：继承必须写这个函数 无参数super  有参数super(参数,...)
+                this.color=color;
+            }
+            //定义子类的方法 ---如果方法重复了和父类  优先自己身上的方法
+            showName(){
+                console.log(this.name);
+            }
+       }
+
+
+       //实例对象
+       let cat1 = new Cat('小白',2,'虾米')
+       console.log(cat1);
+    //    console.log(typeof Cat);//function
+
+       //实例对象--子类
+       let dog = new Dog('小豆芽',3,'骨头','黄色')
+       console.log(dog);
+       
+    </script>
+  </body>
+</html>

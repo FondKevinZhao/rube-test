@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>医院取号系统</h2>
+    <button onclick="getNum()">普通号获取</button>
+    <button onclick="getVipNum()">专家号获取</button>
+    <h2>闭包---医院取号系统</h2>
+    <button onclick="result()">普通号获取</button>
+    <button onclick="result2()">专家号获取</button>
+    <script>
+        //普通函数---------- 
+        let num=0;//普通号
+        let vipNum=0;//专家号
+        function getNum(){
+            console.log(++num);
+        }
+        function getVipNum(){
+            console.log(++vipNum);
+        }
+
+        //闭包实现
+        function fn(){
+           //在函数内部声明变量 让外部访问
+           let n=0;
+            return function(){
+                console.log(++n);
+            }
+        }
+        let result=fn();//result=function(){++n}
+        let result2=fn();
+       
+
+
+    </script>
+</body>
+</html>

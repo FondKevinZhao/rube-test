@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        //邮箱账号：要求：邮箱格式--字母数字下划线中划线 
+        //比如：zhangsan@qq.com  lisi-123@qq.com  wnagwu@163.com/@51jb.com
+        //zhangsan@wei.qq.com  zhangsan@sxtbj.cn/com 
+        //分析：第一部分组成：字母数字下划线-组成 数量>=1 
+        //第二部分 @
+        //第三部分：字母数字下划线-组成 数量>=1 
+        //第四部分： \.字母数字下划线-组成 数量>=1 
+        let reg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        console.log(reg.test('zhangsan@qq.com'));
+        console.log(reg.test('zhang-san@qq.com'));
+        console.log(reg.test('zhang-san@51jb.com'));
+        console.log(reg.test('zhang-san@51-jb.com'));
+        console.log(reg.test('zhang-san@51-jb.com.cn'));
+        console.log(reg.test('123@163'));//false
+        console.log(reg.test('张三@163.com'));//false
+
+        //邮箱账号：要求：邮箱格式--字母数字下划线
+        // let reg=/^\w+@\w+(\.\w+)+$/;
+        
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        //设计模式：解决问题的最佳实践方式 
+        //创建游戏英雄 
+        //1.直接创建英雄
+        // let hero1={}
+        // let hero2={}
+
+        //2.工厂模式实现 （创建对象封装）
+        //工厂 可以实现批量生产的  （工厂--函数）
+        function createHero(name,blood){
+            let hero=new Object();
+            hero.name=name;
+            hero.blood=blood;
+            //方法
+            hero.attack=function(){
+                console.log(this.name+'发起了攻击');
+            }
+            //返回出去
+            return hero;
+        }
+        let hero1=createHero('庄周',1500);
+        let hero2=createHero('后羿',1000);
+        console.log(hero1);
+        console.log(hero2);
+
+    //3. 构造函数
+
+    //4. class类
+    
+    </script>
+  </body>
+</html>

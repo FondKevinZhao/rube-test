@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 
+            字面量字符
+            位置字符 ^ $
+            重复类 {n}{n,} {n,m} 
+            字符类 [abcd] 其中一个
+        
+        */
+       console.log('字符类 [abcd] 其中一个-----');
+       console.log(/ab/.test('abc'));//true
+       //[ab] 选择其中一个 
+       console.log(/[ab]/.test('abc'));//true
+       //以abc其中一个开头的内容 
+       console.log(/^[abc]/.test('defabc'));//false 
+       console.log(/^[abc]/.test('ahhhh'));//true
+       console.log(/^[abc]$/.test('ahhhh'));//false
+       console.log(/^[abc]$/.test('a'));//true
+       console.log(/^[abc]$/.test('ab'));//false
+       //限制了开始和结束 表示：只能选择一个内容abc的其中一个
+       console.log(/^[abc]$/.test('aa'));//false 
+        //脱字符 （除了） [^abc] 除了abc 其他字符都匹配
+        console.log('脱字符 （除了） [^abc] 除了abc 其他字符都匹配');
+        console.log(/[^abc]/.test('abc'));//false
+        console.log(/[^abc]/.test('abcd'));//true
+        console.log(/[a^bc]/.test('abcd'));//true 没有^含义
+        //除了abc开头 
+        console.log(/^[^abc]/.test('1234'));//true 
+        console.log(/[^]/.test('CBA')); // true 匹配一切字符
+        //连字符 （-） 表示连续的内容 [a-z]包含所有的小写的字母
+        console.log('连字符-表示连续的内容 [a-z]包含所有的小写的字母');
+        console.log(/[a-z]/.test('hello'));//true
+        console.log(/[a-z]/.test('HELLO'));//false 
+        //实现：密码组合（8-14位组成） 字母数字
+        console.log(/^[a-zA-Z0-9]{8,14}$/.test('123aaaaabbbbbb'));//true
+        //实现：密码组合（8-14位组成） 字母数字 必须是字母开头
+        console.log(/^[a-zA-Z][a-zA-Z0-9]{7,13}$/.test('aaaaaaab'));//true
+
+
+
+
+
+
+
+
+       
+       
+
+
+
+    </script>
+</body>
+</html>

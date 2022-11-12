@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //封装一个函数随机数
+      function random(min, max) {
+        return ~~(Math.random() * (max - min + 1) + min);
+      }
+      //创建构造函数--模板生成英雄
+      /* 英雄的属性：
+        name:名称
+        blood:血量
+        baseNum:基础攻击力 [ baseNum,baseNum+20] 
+        num:概率 30% 0.7 
+        */
+      function CreateHero(name, blood, baseNum, num) {
+        this.name = name;
+        this.blood = blood;
+        this.baseNum = baseNum;
+        this.num = num;
+        //攻击
+        this.attack = function (hero) {
+          //对另外一个英雄产生的伤害
+          let harm = random(this.baseNum, this.baseNum + 20);
+          //产生暴击的概率  30%
+          let gl = Math.random() > this.num;
+          //产生暴击 伤害更大
+          gl ? (harm *= 2) : harm;
+          //对另外一个英雄的血量影响
+          hero.blood -= harm;
+          console.log(
+            `${this.name}攻击了${hero.name},对${hero.name}产生的伤害${harm},${hero.name}剩余的血量为：${hero.blood}`
+          );
+          //判断是否死亡
+          if (hero.blood <= 0) {
+            hero.blood = 0;
+            console.log(
+              `%c${this.name}胜利了，奥利给！！！`,
+              "color:red;font-size:20px"
+            );
+            //清空计时器
+            clearInterval(timer);
+          }
+        };
+      }
+      //创建英雄
+      let hero1 = new CreateHero('庄周',1500,40,0.7)
+      let hero2 = new CreateHero('后羿',1000,60,0.6)
+      //英雄比赛
+      var timer = setInterval(function () {
+        hero1.attack(hero2);//英雄1攻击英雄2  如果英雄2死亡 英雄2不能攻击英雄1
+        if(hero2.blood == 0){
+            clearInterval(timer);
+            return;
+        }
+        hero2.attack(hero1);
+      }, 100);
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+        插入排序
+            思路：把数组分为 有序列表 无序列表 假设第一个元素为有序数组数据  以此获取无序列表元素和有序比较
+                如果获取的无序的元素>有序的最后一个元素 直接插到有序最后一位，如果无序元素比有序的最后一位小 继续遍历有序插入对应的位置
+            分析步骤
+                [5, 3, 4, 7, 8, 6, 2, 9, 1];
+            
+                进入数组分开：[5,      3, 4, 7, 8, 6, 2, 9, 1] 左边有序列表  右边无序
+                第一轮：[3,5      4, 7, 8, 6, 2, 9, 1]
+                第二轮：[3,4,5       7, 8, 6, 2, 9, 1]
+                第三轮：[3,4,5,7        8, 6, 2, 9, 1]
+                第四轮：[3,4,5,7,8         6, 2, 9, 1]
+                第五轮：[3,4,5,6,7,8          2, 9, 1]
+                第六轮：[2,3,4,5,6,7,8           9, 1]
+                第七轮：[2,3,4,5,6,7,8,9            1]
+                第八轮：[1,2,3,4,5,6,7,8,9           ]
+      */
+      let arr = [5, 3, 4, 7, 8, 6, 2, 9, 1];
+      console.log("原数组:", arr);
+      function insertionSort() {
+        //外层for循环 控制轮数 
+        //获取无序列表 i=1 无序里面的第一个元素 去给有序列表比较 插入哪个位置
+        for(let i=1;i<arr.length;i++){
+            //获取当前对的元素
+            let current = arr[i];//i=1 3
+            //内层循环 遍历有序列表 如果有序的最后一个元素arr[j] >无序的当前元素current 进入内层循环
+            for(var j=i-1;j>=0 && arr[j] > current;j--){
+                arr[j+1]=arr[j];
+            }
+            //如果无序列表的当前的current>有序的最后一位 那么把cuurent直接添加到数组的最后一位上
+            //如果不满足内层for循环的执行条件 上面for循环因为有数据插入 增大下标移动 空出位置 
+            arr[j+1]=current;
+
+            console.log('插入排序第'+i+'轮的结果:',arr);
+        }
+        return arr;
+      }
+
+      console.log("插入排序后的数组：", insertionSort());
+    </script>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //1. 实例.hasOwnProperty()判断对象身上是否包含某个属性 不包含继承的属性
+        console.group('1. Object.hasOwnProperty()判断对象身上是否包含某个属性 不包含继承的属性');
+        let obj={//new Object()
+            name:'三',
+            age:20,
+            showName:function(){
+                console.log(this.name);
+            }
+        }
+        console.log(obj.hasOwnProperty('name'));//true
+        console.log(obj.hasOwnProperty('color'));//false
+
+        class Cat{
+            constructor(name,age,food){
+                this.name=name;
+                this.age=age;
+                this.food=food;
+            }
+            eat(){
+                console.log(this.name+'喜欢吃'+this.food);
+            }
+       }
+        class Dog extends Cat{
+            constructor(name,age,food,color){
+                super(name,age,food)//注意：继承必须写这个函数 无参数super  有参数super(参数,...)
+                this.color=color;
+            }
+            showName(){
+                console.log(this.name);
+            }
+       }
+       let dog = new Dog('黑',3,'肉','黑色')
+       console.log(dog.hasOwnProperty('name'));//true
+       console.log(dog.hasOwnProperty('eat'));//false
+
+       //in 返回布尔值 看对象里面是否有某个属性 包含继承
+       console.log('eat' in dog);//true 
+       console.groupEnd();
+
+       //2. Object.getOwnPropertyNames方法返回一个数组，成员是参数对象本身的所有属性的键名，不包含继承的属性键名
+       console.group('Object.getOwnPropertyNames方法返回一个数组，成员是参数对象本身的所有属性的键名，不包含继承的属性键名')
+       console.log(Object.getOwnPropertyNames(obj));
+       console.log(Object.getOwnPropertyNames(dog));
+       console.groupEnd();
+       //3. Object.keys() 获取对象的所有key(属性) 返回一个数组
+       console.group('Object.keys() 获取对象的所有key(属性) 返回一个数组')
+       console.log(Object.keys(obj));
+       console.log(Object.keys(obj).length);
+       //ES8: Object.values()获取键值   Object.entries()二维数组 获取键 键值  
+       console.log(Object.values(obj));
+       console.log(Object.entries(obj));
+       console.groupEnd()
+
+       //4. Object.getPrototypeOf方法<font color='red'>返回参数对象的原型</font>。这是获取原型对象的标准方法。
+       console.group('Object.getPrototypeOf方法返回参数对象的原型。这是获取原型对象的标准方法。')
+       //获取对象的原型对象 
+       //思路：xx.__proto__  xx.constructor.prototype  
+       console.log(Object.getPrototypeOf(dog) === Dog.prototype); //true 
+
+       console.groupEnd()
+
+       //5. Object.setPrototypeOf(对象,原型对象)
+       let a={}
+       let b={name:'哈哈'}
+       Object.setPrototypeOf(a,b);//b是的a的原型对象
+       console.log(a);
+       
+
+
+
+
+
+    </script>
+</body>
+</html>

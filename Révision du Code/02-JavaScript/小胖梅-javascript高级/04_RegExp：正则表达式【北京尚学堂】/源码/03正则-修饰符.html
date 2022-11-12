@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //修饰符
+        //i 不区分大小写  g 全局查找
+        let reg=/^abc$/i;
+        console.log(reg.test('abc'));//true
+        console.log(reg.test('aBc'));//true
+        console.log(reg.test('ABC'));//true
+
+        //g 
+        let regExp=/^ab$/ig;
+        console.log(regExp.test('abc'));//false
+        console.log(regExp.test('ab'));//true
+        console.log(regExp.test('ababab'));//false
+
+        //组匹配
+        console.log('-----组匹配--------');
+        console.log(/^hello+$/.test('hellohello'));//false
+        console.log(/^hello+$/.test('helloooo'));//true
+        console.log(/^(hello)+$/.test('hellohello'));//true
+        console.log(/^(hello)+$/.test('hello hello'));//false
+
+        //贪婪模式和懒惰模式 -了解
+        console.log('贪婪模式和懒惰模式--------------');
+        let str='aaaabcc';
+        console.log(str.match(/a/));//[a]
+        console.log(str.match(/a+/));//[aaaa]
+        console.log(str.match(/a*/));//[aaaa]
+        console.log(str.match(/a?/));//[a]
+        //懒惰模式 加 ? 
+        console.log(str.match(/a+?/));//[a]
+        console.log(str.match(/a*?/));//[]
+        console.log(str.match(/a??/));//[]
+
+    </script>
+</body>
+</html>

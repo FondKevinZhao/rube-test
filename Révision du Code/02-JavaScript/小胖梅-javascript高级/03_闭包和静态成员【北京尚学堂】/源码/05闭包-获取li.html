@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+    <script>
+      //经典问题：索引值
+      let ul = document.querySelector("ul");
+      let lis = document.getElementsByTagName("li");
+      console.log("lis", lis);
+      //方法1：let--推荐
+      /*   for (let i = 0; i < lis.length; i++) {
+        lis[i].onclick = function () {
+          console.log(i); //
+          // console.log(lis[i]);
+        ]\
+
+        };
+      } */
+
+      //方法2：this
+      /*    for (var i = 0; i < lis.length; i++) {
+            lis[i].onclick = function () {
+                console.log(this.innerHTML);
+            };
+      } */
+      //方法3：闭包
+      //立即函数语法： (function(){ })()
+     /*  for (var i = 0; i < lis.length; i++) {
+        lis[i].onclick = (function (i) {
+          return function () {
+            console.log(i);
+          };
+        })(i);
+      } */
+
+      for (var i = 0; i < lis.length; i++) {
+        (function (i) {
+          lis[i].onclick = function () {
+            console.log(i);
+          };
+        })(i);
+      }
+      console.log('--------------');
+      //1s后打印所有的li的值
+      for (var i = 0; i < lis.length; i++) {
+            (function(i){//局部变量i
+                setTimeout(function () {//setTimeout里面的函数是全局的环境 就是外部使用自执行函数的局部变量i
+                    console.log(lis[i].innerHTML);
+                }, 1000)
+            })(i)//i=0实参
+        }
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //构造函数继承：
+      //被借的.call(借者,...)
+      function A(name, age) {
+        this.name = name;
+        this.age = age;
+        this.type = "人民";
+        this.showName = function () {
+          console.log(this.name);
+        };
+      }
+      A.prototype.eat = function () {
+        console.log(this.name + "喜欢吃肉");
+      };
+      //实例
+      let a = new A("张三", 10);
+      a.showName();
+      //B构造函数继承A构造函数
+      function B(name, age, sex) {
+        A.call(this, name, age);
+        this.sex = sex;
+        this.love=function(){
+            console.log('运动');
+        }
+        //重写父类方法
+        this.showName=function(){
+            console.log('性别',this.sex);
+        }
+      }
+      let b = new B("李思思", 20,'女');
+      console.log(b); //{}
+      b.showName();
+
+      // b.eat();//b.eat is not a function
+      //说明：call() 只继承了构造函数  原型对象属性和方法没有继承
+    </script>
+  </body>
+</html>

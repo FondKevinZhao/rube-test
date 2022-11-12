@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //排序：对一个无序数组实现内容的有序排列  (从小到大)
+        //定义一个数组
+        let arr=[5,3,4,7,8,6,2,9,1];//长度9
+        console.log('原数组:',arr);
+        //冒泡排序：思想 两两比较
+        //第一趟：[3,4,5,7,6,2,8,1,   9] 最右侧1个最大值
+        //第二趟：[3,4,5,6,2,7,1,   8,9] 最右侧2个最大值
+        //第三趟：[3,4,5,2,6,1,   7,8,9] 最右侧3个最大值
+        //第四趟：[3,4,2,5,1,   6,7,8,9] ...
+        //第五趟：[3,2,4,1,   5,6,7,8,9]
+        //第六趟：[2,3,1,   4,5,6,7,8,9]
+        //第七趟：[2,1,   3,4,5,6,7,8,9]
+        //第八趟：[1,   2,3,4,5,6,7,8,9]
+        //...不用再比较了 
+        //外层趟数：一趟比较出一个最大值  二趟出现2个最大值 3趟3个最大值 ... 数组长度趟-1 -出现数组长度的最大值-1 最后一个元素不用再比较了
+        function bubbleSort(){
+            //外层循环for控制趟数 
+            for(let i=0;i<arr.length-1;i++){
+                //内层循环for 是实现两两比较-当前的元素和下一个元素比较大小 前面>后面 交换位置
+                for(let j=0;j<arr.length-1-i;j++){
+                    console.log('次数');
+                    //当前的元素>下一个元素  需要交换位置
+                   if( arr[j]> arr[j+1]){
+                    [arr[j],arr[j+1]]=[arr[j+1],arr[j]]
+                   }
+                }
+                // console.log('第'+(i+1)+'趟',arr);
+            }
+            return arr;
+        }
+
+        console.log('冒泡排序后的数组：',bubbleSort());
+
+
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //构造函数
+        function Cat(name){
+            this.name = name;
+        }
+        Cat.prototype.eat=function(){
+            console.log(this.name+'吃鱼');
+        }
+
+        //实例对象
+        let cat1=new Cat('小猫')
+        console.log('实例对象',cat1);
+        
+        console.log(Cat);
+        console.log(Cat.prototype.constructor === Cat);//true
+        console.log(cat1.constructor === Cat.prototype.constructor);//true
+        //判断对象自己身上是否有某个属性 （不包含继承）
+        console.log(Cat.prototype.hasOwnProperty('constructor'));//true
+        console.log(cat1.hasOwnProperty('constructor'));//false
+
+
+    </script>
+    
+</body>
+</html>

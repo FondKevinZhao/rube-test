@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        /* 
+            原型继承：
+              缺点：
+                1. 在子类型的原型对象上定义属性和方法会影响父类型
+                2. 当父类数据引用数据类型，子类实例之间 存在数据相互影响
+        */
+        function Animal(name,age){
+            this.name=name;
+            this.age=age;
+            this.color=['red','green']
+        }
+        Animal.prototype.move=function(){
+            console.log(this.name+'跑起来');
+        }
+        Animal.prototype.type='动物';
+
+        function Cat(name,age){
+            this.name=name;
+            this.age=age;
+        }
+        //创建实例对象 
+        let animal = new Animal('小白',10);
+        //原型继承：
+        //核心：1.子类构造函数的原型对象指向 父类实例 （这样父类的实例上的方法和父类原型属性方法都被继承）
+        Cat.prototype = Animal.prototype;
+        //2. 修改子类原型对象 constructor指向子类自己的构造函数
+        Cat.prototype.constructor = Cat;
+        //缺点：
+        //实现：给Cat自己的原型绑定属性  这时候父类原型上也绑定money属性 影响父类
+        Cat.prototype.money='金钱';
+
+        //实例对象
+        let cat1 = new Cat('大黑',2);
+        console.log(cat1);
+        console.log(cat1.name,cat1.age,cat1.color);
+        console.log(cat1.money);
+
+        console.log('animal',animal.money);
+      
+
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //面向过程
+      //步骤：1. 打开冰箱 2.放进去大象 3.关上冰箱
+      console.group("面向过程------------");
+      function open() {
+        console.log("打开海尔冰箱");
+      }
+      function eleplhantIn() {
+        console.log("吧大象放进去");
+      }
+      function close() {
+        console.log("关闭海尔冰箱");
+      }
+      open();
+      eleplhantIn();
+      close();
+      console.groupEnd();
+
+      //面向对象：
+      console.group("面向对象：------------");
+      //思路：1.两个对象 2.属性和方法
+      let bingx = {
+        name: "海尔",
+        open: function () {
+          console.log(this.name + "冰箱打开了");
+        },
+        close: function () {
+          console.log(this.name + "冰箱关闭了");
+        },
+      };
+
+      let eleplhant = {
+            name:'非洲大象',
+            eleplhantIn:function(){
+                console.log(this.name+'进入'+bingx.name+'冰箱');
+            }
+      };
+      
+      bingx.open();
+      eleplhant.eleplhantIn();
+      bingx.close();
+
+    </script>
+  </body>
+</html>

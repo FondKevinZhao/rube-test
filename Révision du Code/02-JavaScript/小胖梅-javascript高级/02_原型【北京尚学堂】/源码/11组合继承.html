@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //父类
+      function Animal(name, age) {
+        this.name = name;
+        this.age = age;
+        this.color = ["red", "green"];
+      }
+      Animal.prototype.move = function () {
+        console.log(this.name + "跑起来");
+      };
+      Animal.prototype.type = "动物";
+
+      //原型继承
+      Cat.prototype = Animal.prototype;
+      Cat.prototype.constructor=Cat;
+
+      //子类
+      function Cat(name, age) {
+        //构造函数继承
+        Animal.call(this, name, age);
+        this.sex = "雌性";
+      }
+
+      //实例
+      let cat =new Cat('小白',2)
+      console.log(cat);
+
+
+    </script>
+  </body>
+</html>

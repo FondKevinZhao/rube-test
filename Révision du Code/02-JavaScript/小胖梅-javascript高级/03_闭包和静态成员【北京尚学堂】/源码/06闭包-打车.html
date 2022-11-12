@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*需求分析
+        打车起步价13(3公里内),  之后每多一公里增加 5块钱.  用户输入公里数就可以计算打车价格
+        如果有拥堵情况,总价格多收取10块钱拥堵费*/
+      //普通函数实现：
+      /*  let total=13;//起步价格
+        //参数：num公里数 flag true拥堵 
+        function getPrice(num,flag=false){//设置flag的默认值 如果传递了数据覆盖这个默认值
+            console.log(num,flag);
+            if(num>3){
+                total +=(num-3)*5;
+            }
+            flag?total+=10:total;
+            return total;
+        }
+       console.log( getPrice(30,true)); */
+
+      //闭包实现：
+      /*   function getPrice() {
+        let total = 13;
+        return function (num, flag = false) {
+          if (num > 3) {
+            total += (num - 3) * 5;
+          }
+          flag ? (total += 10) : total;
+          //总价格
+          return total;
+        };
+      }
+    //   let res=getPrice();//res=function(num,flag){}
+    //   console.log(res(30,true));
+    console.log( getPrice()(30,true)); */
+
+      //改写
+      /*   let fn=(function(){
+        let total = 13;
+        return function (num, flag = false) {
+          if (num > 3) {
+            total += (num - 3) * 5;
+          }
+          flag ? (total += 10) : total;
+          //总价格
+          return total;
+        };
+    })()
+    //let fn=function(){}
+    console.log(fn(30,true));
+ */
+
+      //继续改：
+      let fn = (function () {
+        let total = 13;
+        return {
+          price: function (num, flag = false) {
+            if (num > 3) {
+              total += (num - 3) * 5;
+            }
+            flag ? (total += 10) : total;
+            //总价格
+            return total;
+          },
+          //xx
+          //xx
+        };
+      })();
+     console.log( fn.price(30,true));
+     
+    </script>
+  </body>
+</html>

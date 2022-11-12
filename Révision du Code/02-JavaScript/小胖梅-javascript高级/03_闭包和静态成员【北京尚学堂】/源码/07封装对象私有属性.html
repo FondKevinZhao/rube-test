@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //闭包：1. 避免全局变量污染 2.索引值问题 -let  3.封装对象 
+        // let obj={
+        //     name:'admin',
+        //     age:20
+        // } 
+        //获取：obj.name/obj.age  修改：obj.name=xx 
+
+        //高级写对象：封装函数 对外：提供使用的方法和修改的方法
+        function getData(){
+            //定义变量 函数局部变量  -- 私有属性
+            var _name;//{}
+            // var _age;
+
+            //定义方法
+            //1.获取属性
+            function getName(){
+                return _name;
+            }
+            //2.设置值
+            function setName(val){
+                _name = val;
+            }
+
+            return {
+                // getName:getName,
+                getName,
+                setName
+            }
+        }
+        let data=getData();
+        data.setName('admin');
+        console.log(data.getName());
+
+
+    </script>
+    
+</body>
+</html>

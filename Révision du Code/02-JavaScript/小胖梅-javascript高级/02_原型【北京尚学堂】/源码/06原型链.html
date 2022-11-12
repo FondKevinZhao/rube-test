@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        //构造函数
+        function Foo(){
+
+        }
+        //实例对象
+        let f1 = new Foo();
+
+        console.log(f1.__proto__.__proto__ === Object.prototype);
+        console.log(Foo.__proto__);//ƒ () { [native code] }
+
+        let fn= new Function();
+        console.log(fn.__proto__);//ƒ () { [native code] }
+        console.log(fn.__proto__ === Function.prototype);//true
+        console.log(Foo.__proto__=== Function.prototype);//true
+
+        let o1 = new Object()
+        console.log(o1.__proto__ === Object.prototype);//true
+        console.log(o1.__proto__.__proto__);//null
+        console.log(Object.__proto__ === Function.prototype);//true
+
+
+        //面试题1：
+        //Object.__proto__ === Function.prototype; //
+        //Function.prototype.__proto__ === Object.prototype;
+        //Object.prototype.__proto__ === null;
+        console.log('----------------------');
+        console.log(Object.__proto__ === Function.prototype);//true
+        console.log(Function.prototype.__proto__ === Object.prototype);//true
+        console.log(Object.prototype.__proto__ === null);//true 
+
+        //面试题2：
+        // Object.prototype.__proto__    
+        // Function.prototype.__proto__  
+        // Object.__proto__              
+        console.log(Object.prototype.__proto__);//null
+        console.log(Function.prototype.__proto__);//Object.prototype
+        console.log(Object.__proto__);//Function.prototype
+
+    </script>
+  </body>
+</html>

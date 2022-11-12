@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Cat(name) {
+        this.name = name;
+      }
+      let cat = new Cat("小白"); //let obj=new Object()
+      console.log(cat);
+      //__proto__
+      console.log(cat.__proto__ === Cat.prototype); //true
+      console.log(cat.constructor.prototype === Cat.prototype); //true Cat.prototype
+      //继续查找
+      console.log(cat.__proto__.__proto__ === Object.prototype); //true
+      console.log(Object.prototype.constructor === Object); //true
+      console.log(Object.prototype.__proto__); //null
+      console.log(Cat.__proto__.__proto__.__proto__);
+
+      //获取方法
+      // cat.toString();
+      // cat.toNumber();//报错  没有这个方法 原型上也没有这个方法
+
+      let arr = new Array();
+      console.log('arr',arr);
+      console.log(arr.__proto__);
+      console.log(arr.__proto__ === Array.prototype);
+      console.log(Array === Array.prototype.constructor);
+      console.log(arr.constructor.prototype=== Array.prototype);
+      console.log(arr.__proto__.__proto__ === Object.prototype);
+      console.log(arr.__proto__.__proto__.__proto__);//null 
+
+      let fn= new Function()
+      console.log(fn.__proto__);//ƒ () { [native code] }
+      console.log(fn.__proto__ === Function.prototype);//true
+      console.log(fn.__proto__.__proto__ === Object.prototype);//true
+
+    </script>
+  </body>
+</html>

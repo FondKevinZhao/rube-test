@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        /* 
+            1. 构造函数作为创建对象的模板 用来生成对象 
+            2. 构造函数首字母大小
+            3. this指向当前创建的实例对象
+            4. 构造函数生成实例对象 必须 new命令
+        */
+
+      //构造函数--有参
+      function Hero(name, age) {
+        //构造函数属性 左侧是对象的属性 右侧是赋值的内容
+        this.name = name;
+        this.age = age;
+        //方法
+        this.attck=function(){
+            console.log('攻击其他英雄');
+        }
+        console.log('this指向：',this);
+      }
+      //创建实例对象
+      let hero1 = new Hero('庄周',100);
+      let hero2 = new Hero('后羿',100);
+      console.log(hero1);//{name: '庄周', age: 100, attck: ƒ}
+      console.log(hero2);//{name: '后羿', age: 100, attck: ƒ}
+
+
+      //构造函数  无参
+    //   function Student(){
+    //     this.name='小明';
+    //     this.age=20;
+    //   }
+    //   let stu = new Student();
+    //   console.log(stu);
+
+      
+
+    </script>
+  </body>
+</html>

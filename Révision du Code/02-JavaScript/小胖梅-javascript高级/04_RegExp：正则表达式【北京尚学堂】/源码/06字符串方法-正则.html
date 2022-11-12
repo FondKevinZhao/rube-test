@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        //match() 匹配的数据 返回数组  找不到null 
+        let str ='abc-abc-Abc-add-gdd';
+        let a='abc';//
+        console.log(str.match(/ab/));//['ab', index: 0, input: 'abc-abc-abc-add',]
+        console.log(str.match(/ab/g));//['ab', 'ab', 'ab']
+
+        //split() 字符串--数组
+        console.log(str.split('-'));//['abc', 'abc', 'abc', 'add']
+        console.log(str.split(/-/g));//['abc', 'abc', 'abc', 'add'] 
+        console.log(str.split(/-/));//['abc', 'abc', 'abc', 'add'] 
+
+        console.log(a.split(''));
+        console.log('正则代表空',a.split(/\s{0}/));//正则代表空
+        console.log('正则代表空',a.split(/a{0}/));//正则代表空
+        console.log('正则代表空',a.split(/ {0}/));//正则代表空
+
+        //replace(老数据，新数据)字符串替换
+        console.log(str.replace('ab','AB'));//ABc-abc-Abc-add
+        console.log(str.replace(/ab/g,'AB'));//ABc-ABc-Abc-add
+        console.log(str.replace(/ab/ig,'AB'));//ABc-ABc-ABc-add
+        console.log(str.replace(/ab/gi,'AB'));//ABc-ABc-ABc-add
+        //search() 查找某个内容 返回值第一个位置下标  没有返回-1 
+
+        console.log(str.search('dd'));
+        console.log(str.search(/dd/));
+        console.log(str.search(/dd/g));
+
+        //思考：
+        //https://www.iwen.wiki/sxtstu/blueberrypai/indexImg/yuezhangPic_05.png
+        //http://iwenwiki.com/api/blueberrypai/indexImg/yuezhangPic_05.png
+        let src='https://www.iwen.wiki/sxtstu/blueberrypai/indexImg/yuezhangPic_05.png';
+        //旧：www.iwen.wiki/sxtstu  新：iwenwiki.com/api
+        // let newSrc= src.replace('www.iwen.wiki/sxtstu','iwenwiki.com/api');
+        //正则
+        let newSrc= src.replace(/www\.iwen\.wiki\/sxtstu/,'iwenwiki.com/api');
+        console.log(src);
+        console.log(newSrc);
+
+
+        console.log(/[aa|bb|cc]/.test('hello aa'));//true
+        console.log(/[aa|bb|cc]/.test('hello hello'));//false
+    </script>
+    
+</body>
+</html>

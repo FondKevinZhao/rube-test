@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //创建数组
+      let arr = [4, 5, 3, 2, 16, 7, 8, 8, 4, 9, 16];
+      console.log("原数组:", arr);
+      //方法1：双for
+      //思路：1. 准备新的数组容器-装不重复的数据数组  2. for循环遍历原数组  3.设置开关（打开-加新数组里面）
+      //4. for遍历新数组 查看原数组当前的获取的值 是否已经存在新数组里面 控制开关状态 5.观察开关状态 控制新数组是否添加内容
+      /*  let newArr=[];
+        //for循环遍历原数组
+        for(let i=0;i<arr.length;i++){
+            //设置开关（打开-加新数组里面）
+            let flag=true;//默认打开--认为可以放新数组的
+            //能不能存储新数组--遍历新数组--查看当前元素是否在新数组里面存在
+            for(let j=0;j<newArr.length;j++){
+                //原数组的当前数据 和新数组的所有数据比较 如果有相等的说明新数组已经存在这个数据
+                arr[i] ===newArr[j] ? flag=false:flag;
+            }
+            //观察开关状态 控制新数组是否添加内容
+            flag?newArr.push(arr[i]):newArr;
+        }
+        console.log('新数组:',newArr);
+ */
+
+      //方法2： for+indexOf()
+      //思路：1. 准备新的数组容器-装不重复的数据数组  2. for循环遍历原数组  3. 获取原数组的某个值查看是否是新数组里面的元素indexOf()查找  找到返回下标  找不到返回-1  4. indexOf()返回值 决定是否添加新数组
+      /*  let newArr=[];
+        for(let i=0;i<arr.length;i++){
+            //arr[i]原数组数据  查看新数组里面是否包含这个内容
+            //arr.indexOf('内容') 查找内容下标 
+            newArr.indexOf(arr[i]) ===-1?newArr.push(arr[i]):newArr
+        }
+        console.log('新数组:',newArr);  */
+
+      //方法3： for+ includes()     includes()是否包含某个元素 返回boolean
+      /*   
+      let newArr=[];
+        for(let i=0;i<arr.length;i++){
+            //arr[i]原数组数据  查看新数组里面是否包含这个内容
+            newArr.includes(arr[i])?newArr:newArr.push(arr[i]);
+        }
+        console.log('新数组:',newArr);  
+        */
+
+      //方法4： sort() 排序 会修改原数组的数据位置
+      //思路：1.创建新数组 2. 对原数组sort()排序 --原数组的内容重复的内容紧挨着排序 3. for循环遍历原数组 获取当前的元素和下一个元素是否相等的，相等不处理 继续i++ 如果不相等 把当前的元素存到新数组里面去
+      //arr= [4, 5, 3, 2, 16, 7, 8, 8, 4, 9, 16]
+      /*  let newArr=[];
+        //对原数组sort()排序
+        arr.sort();//修改原数组 [16, 16, 2, 3, 4, 4, 5, 7, 8, 8, 9]
+        // console.log('排序数组：',arr);
+        //遍历排序好的数组 获取当前的元素和下一个元素比较 如果不相等 push新数组
+        for(let i=0;i<arr.length;i++){
+            arr[i]===arr[i+1]?newArr:newArr.push(arr[i])
+        } */
+      // console.log('新数组:',newArr);
+
+      //方法5： splice() 切割数组 删除数组里面重复的内容
+      //arr= [4, 5, 3, 2, 16, 7, 8, 8, 4, 9, 16]
+      //第一次：arr[0]=4  [4      5, 3, 2, 16, 7, 8, 8, 4, 9, 4] 比较i+1后面的所有的元素 看是否有相等  有相等切割
+      //                 [4,5, 3, 2, 16, 7, 8, 8, 9] 比较i+1后面的所有的元素 看是否有相等  有相等切割
+
+      //第二次：arr[1]=5 [4,5,     3, 2, 16, 7, 8, 8, 9]
+      //第三次：arr[1]=5 [4,5,3,    2, 16, 7, 8, 8, 9]
+      //第四次：arr[1]=5 [4,5,3,2,    16, 7, 8, 8, 9]
+      //第五次：arr[1]=5 [4,5,3,2, 16,   7, 8, 8, 9]
+      //...
+
+      //遍历原数组arr 比较的轮数
+      for (let i = 0; i < arr.length; i++) {
+        //遍历原数组 开始位置 从i的下一位开始 起始值=i+1 两两比较是否相等
+        //如果相等说明当前的元素 在后面的内容存在 删除后面的元素 继续比较 知道数组遍历结束
+        for (let j = i + 1; j < arr.length; j++) {
+          //内层数据比较次数 遍历后面的元素
+          if (arr[i] === arr[j]) {
+            //删除后面相等的元素  后面元素下标 j
+            //删除方法splice(下标,个数)
+            arr.splice(j, 1);
+            //数组删除一个元素 数组长度减小
+            j--;
+          }
+        }
+      }
+      console.log("新数组:", arr);
+    </script>
+  </body>
+</html>

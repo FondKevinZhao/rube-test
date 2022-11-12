@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        /* 
+          发布订阅模式
+            一对多依赖关系  观察者--（调度中心-事件通道）---目标者
+
+          例子：
+            发布：新闻发布-> 中央新闻
+            订阅者：订阅新闻的人  
+            今日头条：软件  
+
+          思路：
+            创建今日头条对象  
+              属性：存储订阅者 
+              方法：
+                添加订阅者：add
+                发布新闻：emit
+               
+        */
+       class TodayNews{
+          //构造函数
+          constructor(){
+            //存储订阅者
+            this.persons=[];//[fn,fn,fn]
+          }
+          //添加订阅者  today.add(function)
+          add(callback){
+            this.persons.push(callback)
+          }
+          //发布新闻---通知订阅者   例子：today.emit('中央1号文件')
+          emit(params){//params 新闻最新内容---发布信息
+              //通知订阅者 --遍历订阅者 ---更新
+              this.persons.forEach(person=>{
+                  person(params);
+              })
+          }
+       }
+
+       let news=new TodayNews();
+       //添加订阅者
+       news.add(function(info){
+          console.log('张三订阅了',info);
+       })
+       news.add(function(info){
+        console.log('李四订阅了',info);
+      })
+
+      //发布新闻---通知订阅者
+      news.emit('中央新闻-关于十一放假通知')
+      news.emit('中央新闻-关于元旦放假通知')
+
+
+        
+    </script>
+  </body>
+</html>

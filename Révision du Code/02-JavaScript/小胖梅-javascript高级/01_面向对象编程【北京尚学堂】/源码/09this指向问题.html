@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this指向问题总结</title>
+  </head>
+  <body>
+    <script>
+      /* 
+      this指向：
+        1. 函数调用     window
+        2. 构造函数调用 实例对象
+        3. 对象调用     调用者
+
+        特殊情况：
+            计时器：setTimeout setInterval this指向window 
+            IIFE立即执行函数()() 默认指向window 
+            call apply bind 改变this指向
+
+    */
+      console.group("1.函数调用------");
+      function demo() {
+        console.log(this); //window
+      }
+      demo();
+      console.groupEnd();
+
+      console.group("2.构造函数调用------");
+      function Cat(name) {
+        this.name = name;
+        this.eat = function () {
+          console.log(this); //{name: '小白', eat: ƒ,love: ƒ}
+          // console.log(this.name);
+          this.love();
+        };
+        this.love = function () {
+          console.log("喜欢鱼");
+        };
+        console.log(this); //{name: '小白', eat: ƒ} 实例对象
+      }
+      let cat = new Cat("小白");
+      cat.eat();
+      console.groupEnd();
+
+      console.group("3.对象调用------");
+      let obj = {
+        name: "张三三",
+        age: 20,
+        showName: function () {
+          console.log(this); //obj
+          console.log(this.name); //张三三
+        },
+        showAge: () => {
+          console.log(this.age); //undefined
+        },
+        show: function () {
+          setTimeout(function () {
+            console.log("show1", this); //window
+          }, 0);
+        },
+        show2: function () {
+          setTimeout(() => {
+            console.log("show2", this); //obj
+          }, 0);
+        },
+        show3: function () {
+          (function () {
+            console.log("show3", this); //window
+          })();
+        },
+      };
+      //调用
+      obj.showName();
+      obj.showAge();
+      obj.show();
+      obj.show2();
+      obj.show3();
+
+      console.groupEnd();
+
+      
+      console.group("call apply bind 改变this指向");
+      let aa={
+        a:1
+      }
+      let a=99;
+      function fn1(){
+        console.log(this);//window
+        console.log(this.a);//undefined
+      }
+      function fn2(){
+        console.log(this);//aa={a:1}
+        this.a=100;//aa={a:100} 
+        console.log(this.a);//100
+        fn1();
+      }
+
+      fn2.call(aa);
+    //   debugger;
+
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        console.group('方法6：---Set() ES6提供的数据结构 特点：数据不重复')
+        //Set() ES6提供的数据结构 特点：数据不重复
+        let set = new Set();
+        console.log(set);
+        set.add(1);
+        set.add(2);
+        set.add(2);
+        console.log(set);//{1,2}
+
+        //创建赋值
+        //set去重：1. set(arr) set特点 数据不重复  2. 返回的处理结果是set数据格式--转成数组格式 
+        let arr=[1,2,3,3,3,2];
+        console.log('原数组:',arr);
+        let set2=new Set(arr);
+        console.log('set2数据结构',set2);//{1,2,3}
+        console.log([...set2]);// 1 2 3  []
+        //ES6：扩展运算符 ... 
+
+        //一行代码实现数组去重
+        // let newArr=[...set2]
+        let newArr=[...new Set(arr)]
+        console.log('新数组：',newArr);
+        console.groupEnd();
+
+        console.group('方法7：数组去重 set+Array.from()---')
+        //Array.from() 转数组 
+        let str ='hello';
+        let res=Array.from(str);//字符串转数组
+        console.log(res);
+        console.log('Array.from处理set数据-转数组：',Array.from(set2));
+        console.log('数组去重:',Array.from(new Set(arr)));
+        
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>

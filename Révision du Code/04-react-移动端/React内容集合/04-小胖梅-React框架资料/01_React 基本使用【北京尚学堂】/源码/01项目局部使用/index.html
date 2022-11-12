@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入react核心库 -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  </head>
+  <body>
+
+    <!-- 准备好一个容器，用于让react渲染用
+        说明：只有root容器可以使用react语法 容器外不支持react语法
+    -->
+    <div id="root">
+        
+    </div>
+
+
+    <!-- 使用jsx语法  需要导入babel转码 把jsx--js语法 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- 使用react -->
+    <!-- 下面一定要将javascript改为babel，含义是：让babel翻译script标签中的代码。 -->
+    <script type="text/babel">
+        //让js 支持jsx语法
+        //1. 创建虚拟DOM   jsx语法：可以在js里面直接写html标签 不加引号 使用js需要{}
+        let str='hello world';
+        const VDOM = <div>
+                <h2>React语法</h2>
+                <p>获取变量：-- {str} </p>
+            </div>
+        //2. 使用React-dom提供的ReactDOM.render(ele,parentNode节点) 把虚拟DOM转成真是DOM 
+        ReactDOM.render(VDOM,document.getElementById('root'))
+
+        console.log('查看虚拟dom',VDOM);
+        console.log('查看真是dom',document.getElementById('root'));
+        
+    </script>
+  </body>
+</html>

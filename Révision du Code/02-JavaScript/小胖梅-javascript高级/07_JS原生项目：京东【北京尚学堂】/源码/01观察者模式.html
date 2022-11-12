@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+            例子：  
+                目标者：小宝宝
+                观察者：妈妈 爸爸 爷爷 奶奶 ... 
+            思路：
+                创建2个对象
+                    对象1：目标对象 --小宝宝
+                        属性：名称 状态
+                        方法：添加观察者   修改自身状态--通知观察者
+                    对象2：观察者 
+                        属性：名称、
+                        方法：监听目标对象是否修改状态 
+        */
+      //创建目标对象（被观察者）
+      class Baby {
+        //构造函数--自动触发
+        constructor(name) {
+          this.name = name;
+          this.state = "开心的";
+          //创建观察者 默认没有观察者的
+          this.observers = [];
+        }
+        //更改自身状态
+        setState(val) {
+          this.state = val;
+          //通知观察者  遍历所有存储的观察者 调用观察者身上监听的方法
+          this.observers.forEach((ele) => {
+            ele.update(this);//传递参数：val  name (this.name,val)  this实例对象
+          });
+        }
+        //添加观察者进入当前对象
+        add(value) {
+          this.observers.push(value);
+        }
+      }
+
+      //创建观察者对象
+      class Observer {
+        constructor(name) {
+          this.name = name;
+        }
+        //定义一个方法--监听目标对象--接受状态修改
+        update(params){
+            console.log(`${this.name}观察到${params.name}的状态为：${params.state}`);
+        }
+      }
+    
+      //创建实例
+      let baby = new Baby('果果小宝宝');
+      let f = new Observer('爸爸')
+      let m = new Observer('妈妈')
+
+      //把观察者添加到目标对象上
+      baby.add(f)
+      baby.add(m)
+      //修改目标对象上状态
+      baby.setState('大哭了')
+      baby.setState('不哭了')
+
+
+    </script>
+  </body>
+</html>

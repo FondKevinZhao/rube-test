@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+        构造函数返回值
+            1.函数内部有return 并且返回的内容是一个对象 new命令返回这个return对象
+            2. 如果有return返回基本数据类型 和没有return一样 默认返回this 实例对象
+
+        优点：
+            易复用、易扩展、在实例对象之间数据共享 
+        缺点：
+            如果构造函数内部有相同的方法，在创建实例对象的时候会每次创建一遍，浪费资源
+        */
+      function Student(name, age) {
+        this.name = name;
+        this.age = age;
+        this.eat=function(){
+            console.log('ccccc');
+        }
+        //返回值
+        // return function(){}
+        // return []
+        //返回字符串
+        return 'hello world'
+      }
+      let stu = new Student("范丞丞", 20);
+      let stu2 = new Student("范丞丞", 20);
+      console.log(stu);
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //位置字符：---掌握
+        // ^ 以什么开始 
+        // $ 以什么结束
+        console.log(/hello/.test('hello world'));//true
+        console.log(/^hello/.test('hello world'));//true
+        console.log(/hello$/.test('hello world'));//false
+        console.log(/world$/.test('hello world'));//true
+        console.log(/^world$/.test('world world'));//false 必须是world整体
+        console.log(/^world$/.test('world'));//true
+
+        console.group('量词符------------')
+        //量词符
+        //控制模式出现的次数
+        //? 某个模式出现0次或者1次{0,1}   * 某个模式出现0次或多次{0,}      + 某个模式出现至少一次 
+        console.log(/^hello+/.test('hello'));//true
+        console.log(/^hello+/.test('hello hello'));//true
+        console.log(/h?ello+/.test('ello'));//true
+        console.log(/^h?ello/.test('hhhhello'));//false 
+        console.log(/he?llo/.test('hheello'));//false
+        console.log(/h*ello+/.test('ello'));//true
+        console.log(/h+ello/.test('hhhello'));//true
+        console.groupEnd();
+
+        console.group('重复类--精准匹配个数 {min,max} ');
+        //{n} 重复n次 {n,}最小n次 {n,m}最小n 最大m 
+        console.log(/hello{3}/.test('hellooo'));//true
+        console.log(/hello{3}/.test('hello hello hello'));//false
+        console.log(/^hello{2}$/.test('helloo'));//true
+
+
+
+    </script>
+    
+</body>
+</html>

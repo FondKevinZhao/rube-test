@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入react核心库 -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器，用于让react渲染用
+        说明：只有root容器可以使用react语法 容器外不支持react语法
+    -->
+    <div id="root">
+        
+    </div>
+
+    <!-- 使用jsx语法  需要导入babel转码 把jsx--js语法 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      //功能：创建虚拟DOM
+
+      //方法1：jsx语法创建虚拟DOM    JSX语法会把html标签转成虚拟dom
+      /*  const VDOM = (
+        <div>
+          <h2>虚拟dom实现jsx语法</h2>
+          <p>啊哈哈哈--啦啦啦</p>
+        </div>
+      );
+      console.log(VDOM); */
+      //方法2：通过React.createElement(ele,options,children,..)  原生创建：document.createElement()
+      const VDOM = React.createElement(
+        "div",
+        { className: "box" },
+        React.createElement("h2", null, "hello react")
+      );
+    //   console.log(VDOM);
+
+      ReactDOM.render(VDOM, document.getElementById("root"));
+    </script>
+  </body>
+</html>

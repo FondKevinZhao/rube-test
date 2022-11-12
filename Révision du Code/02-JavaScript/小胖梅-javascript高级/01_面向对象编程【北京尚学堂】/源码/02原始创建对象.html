@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+        1. new Object()
+        2. let obj={}
+    */
+        //1.创建对象
+        let obj1 = new Object();
+        obj1.name='张三';
+        obj1.age=18;
+        console.log(obj1);
+        
+        //2. 直接创建
+        let student1={
+            name:'小明',
+            age:10
+        }
+
+        let student2={
+            name:'小黑',
+            age:12
+        }
+
+        //重复对象学生对象
+        function student(name,age){
+            return {
+                name,
+                age
+            }
+        }
+
+        let stu=student('xx',3)//{name:'',age}
+        console.log(stu);
+        
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        background: #000;
+      }
+      div {
+        position: fixed;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      //随机函数
+      function random(min, max) {
+        return ~~(Math.random() * (max - min + 1) + min);
+      }
+      //随机颜色
+      function background() {
+        let red = random(0, 255);
+        let green = random(0, 255);
+        let blue = random(0, 255);
+        return `rgb(${red},${green},${blue})`;
+      }
+      //获取窗口大小
+      let windowWidth = document.documentElement.clientWidth;
+      let windowHeight = document.documentElement.clientHeight;
+
+      //窗口修改的时候
+      window.onresize=function(){
+          windowWidth = document.documentElement.clientWidth;
+          windowHeight = document.documentElement.clientHeight;
+        //console.log('窗口大小修改了,宽度变化：',windowWidth);
+          //窗口修改的时候--重新绘制小球 
+          //刷新浏览器窗口
+        //window.location.reload();
+
+      }
+
+      //1. 创建小球对象
+      function CreateBall() {
+        //创建容器div
+        this.div = document.createElement("div");
+        //小球大小
+        let size = random(20, 40);
+        this.width = size;
+        this.height = size;
+
+        //小球颜色
+        this.background = background();
+
+        //小球的位置 left top
+        this.left = random(0, windowWidth - size);
+        this.top = random(0, windowHeight - size);
+
+        //小球位置变化
+        this.speedX = random(-10, 10);
+        this.speedY = random(-10, 10);
+
+        //小球绘制
+        this.render = function () {
+          //创建div容器
+          //   let div = document.createElement("div");
+          //追加body
+          //   document.body.appendChild(div);
+          document.body.appendChild(this.div);
+          //设置div样式
+          this.div.style.cssText = `width:${this.width}px;height:${this.height}px;background:${this.background};left:${this.left}px;top:${this.top}px;`;
+        };
+        //小球运动
+        this.move = function () {
+          //let that =this;
+          setInterval(() => {
+            //修改left top
+            this.left += this.speedX;
+            this.top += this.speedY;
+            //判断：范围
+            if (this.left <= 0) {
+              this.speedX = -this.speedX;
+            }else if(this.left >= windowWidth - size){
+                this.speedX = -this.speedX;
+                this.left = windowWidth - size;
+            }
+
+            if (this.top <= 0 ) {
+              this.speedY = -this.speedY;
+            }else if(this.top >= windowHeight - size){
+                this.speedY = -this.speedY;
+                this.top = windowHeight - size
+            }
+            //设置div样式
+            this.div.style.left = this.left + "px";
+            this.div.style.top = this.top + "px";
+          }, 30);
+        };
+      }
+
+      //创建小球
+      function ball(num) {
+        for (let i = 0; i < num; i++) {
+          let ball = new CreateBall();
+          ball.render();
+          ball.move();
+        }
+      }
+      ball(100);
+    </script>
+  </body>
+</html>

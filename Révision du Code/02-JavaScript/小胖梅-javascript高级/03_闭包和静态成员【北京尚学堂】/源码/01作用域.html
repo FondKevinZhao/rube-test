@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        //js编译：隐藏 var str;
+    //   console.log(str);
+      //全局
+      var str = "hello"; //全局
+      function fn() {
+        var num=100;//局部-函数级作用域
+        count=99;//全局变量
+        console.log(str);
+        console.log(count);
+      }
+      fn();
+      console.log(str);
+      console.log(count);
+    //   console.log(num);//num is not defined
+
+   /*  //变量提升
+    function demo(){//解析：隐藏 var str,n;
+        console.log('变量提升',str);
+        var str='world';
+        var n=10;
+    }
+    demo(); */
+
+    </script>
+  </body>
+</html>

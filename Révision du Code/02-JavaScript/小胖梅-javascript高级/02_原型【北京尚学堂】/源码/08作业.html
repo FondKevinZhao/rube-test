@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        //1.字符串翻转    2.字符串排序
+        //数组：reverse()      sort()
+        //思路：原型实现  挂载到原型对象上 new String() 
+        let str='hello';
+        console.log('str',str);
+        console.log(str.__proto__);
+        // console.log(String.prototype);
+
+        String.prototype.reverse=function(){
+            //字符串翻转: this获取当前的字符串 字符串转数组split()  数组翻转 数组转字符串join()
+            return this.split('').reverse().join('')
+        }
+        // console.log(str.reverse());
+        // console.log(str.__proto__);
+
+        String.prototype.sort=function(){
+             //字符串排序: this获取当前的字符串 字符串转数组split()  数组排序  数组转字符串join()
+             return this.split('').sort().join('')
+        }
+        console.log(str.__proto__);
+        console.log(str.sort());
+        
+
+    </script>
+
+</body>
+</html>
