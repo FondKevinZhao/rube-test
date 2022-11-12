@@ -374,8 +374,12 @@ width值可以是设备宽度标识 device-width，也可以是具体值，但�
        <link rel="stylesheet" href="初始化.css">
        ```
 
-    4. 那我们的`body{width:10rem;max-width:750px;margin:0 auto;}`充满屏幕 最大值750 设计稿宽度 居中
+       
 
+    4. 那我们的`body{width:10rem;max-width:750px;margin:0 auto;}`充满屏幕 最大值750 设计稿宽度 居中
+    
+       
+    
     5. [博客地址](https://blog.csdn.net/weixin_47284756/article/details/114312344)
 
   方案三：rem + less
@@ -438,6 +442,8 @@ rem 适配的原理：编写样式时统一使用rem为单位，在不同设备�
 3. 编写样式时，直接以rem为单位，值为：设计值 / (设计稿宽度 / 10)
 4. 增加 js 代码进行实时适配
 
+
+
 #### 3. vw适配(百分比)
 
 vw和vh是两个相对单位
@@ -446,6 +452,8 @@ vw和vh是两个相对单位
 - 1vh = 等于布局视口高度的1%
 
 不过vw和vh有一定的兼容性问题：https://caniuse.com/?search=vw
+
+
 
 #### 4. 1像素边框
 
@@ -504,6 +512,8 @@ node.addEventListener('touchstart', function(e){
 })
 ```
 
+
+
 ##### 解决方法二
 
 使背后元素不具备click特性，用touchxxx代理click
@@ -549,71 +559,6 @@ btn.addEventListener('touchstart', (event) => {
   }, 3)
 })
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
