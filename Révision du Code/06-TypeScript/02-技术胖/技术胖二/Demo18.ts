@@ -39,7 +39,7 @@ console.log(selectGirl.getGirl(1)); */
 
 
 
-// 类+继承+接口+泛型
+// 接口+类+继承+泛型
 /* interface Girl {
   name: string;
 }

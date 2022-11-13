@@ -19,7 +19,7 @@ const girl = {
   waistline: 21, // 可选值，可以不写
   sex: '女',
   say() {
-    return '欢饮光临，红浪漫洗浴中心'
+    return '欢迎光临，红浪漫洗浴中心'
   }
 }
 
