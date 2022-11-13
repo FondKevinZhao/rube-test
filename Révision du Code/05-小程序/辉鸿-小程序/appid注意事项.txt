@@ -1,6 +1,6 @@
 appid:
 
-1.一个邮箱只有一个appid,只能注册一个小程序
+1.一个邮箱只有一个appid，只能注册一个小程序
 2.一个人名下可以有5个小程序
 3.个体商户可以拥有10个小程序
 4.企业,政府,媒体等公司可以拥有50个
@@ -10,4 +10,4 @@ APPID查找位置:
 
 
 openid:
-怎么获取openID：首先要获取用户的codeID,然后再将codeID传给后端，后端根据codeID获取到openID。 
+怎么获取openID：首先要获取用户的codeID，然后再将codeID传给后端，后端根据codeID获取到openID。 
