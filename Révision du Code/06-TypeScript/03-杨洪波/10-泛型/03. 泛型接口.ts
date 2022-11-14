@@ -11,6 +11,7 @@ class User {
 // 定义一个泛型接口
 interface IBaseCRUD<T> {
   data: Array<T>
+  // data: T[]
   add: (t: T) => T
   getUserId: (id: number) => T
 }
