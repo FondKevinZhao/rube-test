@@ -92,8 +92,8 @@
        
        
    // 这样解构使用数据就是响应式的了
-   import { storeToRefs } from 'pinia' 
-   let { name, num } = storeToRefs(store)   
+   import { storeToRefs } from 'pinia'
+   let { name, num } = storeToRefs(store)
    // 此处假设有个按钮 --- 修改有效
    const btn = () => {
        num.value = 2
@@ -348,7 +348,7 @@ const addAge = () => {
 const addAge = () => {
     userStore.changeAge(2)
 }
-</script> 
+</script>
 ```
 
 一个组件中，同时使用user.js模块和shop.js模块
@@ -447,6 +447,8 @@ const addAge = () => {
      }
    })
    ```
+
+   
 
 4. store/user.js
 

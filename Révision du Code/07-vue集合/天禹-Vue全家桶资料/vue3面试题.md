@@ -14,7 +14,7 @@
 Options Api
 
 1. 包含一个描述组件选项（data、methods、props等）的对象 options；
-2. API开发复杂组件，同一个功能逻辑的代码被拆分到不同选项 ；
+2. API开发复杂组件，**同一个功能逻辑的代码被拆分到不同选项 ；**
 3. 使用mixin重用公用代码，也有问题：命名冲突，数据来源不清晰；
 
 composition Api

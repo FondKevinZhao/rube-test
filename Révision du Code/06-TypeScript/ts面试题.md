@@ -60,6 +60,22 @@ var sisterAn = Color.Red
 
 1. unknown类型和any类型类似。与any类型不同的是unknown类型可以接受任意类型赋值，**但是unknown类型赋值给其他类型前，必须被断言**
 
+   ```js
+   // 断言
+   let value:unknown;
+   value = 'hello';
+   (value as string).length
+   
+   // 或使用类型保护
+   let value:unknown;
+   value = 'hello';
+   if (typeof value === 'string') {
+     value.length
+   }
+   ```
+
+   
+
 2. never，never表示永远不存在的类型。比如一个函数总是抛出错误，而没有返回值。或者一个函数内部有死循环，永远不会有返回值。函数的返回值就是never类型。
 
 3. void, 没有显示的返回值的函数返回值为void类型。如果一个变量为void类型，只能赋予undefined。
