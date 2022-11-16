@@ -263,14 +263,14 @@ pnpm create vite my-vue-app -- --template vue
 2. setup是所有<strong style="color:#DD5145">Composition API（组合API）</strong><i style="color:gray;font-weight:bold">“ 表演的舞台 ”</i>。
 3. 组件中所用到的：数据、方法、计算函数、监视函数、生命周期钩子等等，均要配置在setup中。
 4. setup函数的两种返回值：
-   1. 若返回一个对象，则对象中的属性、方法, 在模板中均可以直接使用。（重点关注！）
+   1. 若返回一个对象，则对象中的属性、方法，在模板中均可以直接使用。（重点关注！）
    2. <span style="color:#aad">若返回一个渲染函数：则可以自定义渲染内容。（了解）</span>
 5. 注意点：
    1. 尽量不要与Vue2.x配置混用
       - Vue2.x配置（data、methos、computed...）中<strong style="color:#DD5145">可以访问到</strong>setup中的属性、方法。
       - 但在setup中<strong style="color:#DD5145">不能访问到</strong>Vue2.x配置（data、methos、computed...）。
-      - 如果有重名, setup优先。
-   2. setup不能是一个async函数，因为返回值不再是return的对象, 而是promise, 模板看不到return对象中的属性。（后期也可以返回一个Promise实例，但需要Suspense和异步组件的配合）
+      - 如果有重名，setup优先。
+   2. setup不能是一个async函数，因为返回值不再是return的对象，而是promise，模板看不到return对象中的属性。（后期也可以返回一个Promise实例，但需要Suspense和异步组件的配合）
 
 ##  2.ref函数
 
@@ -315,7 +315,7 @@ pnpm create vite my-vue-app -- --template vue
 
 - 存在问题：
 
-  - 新增属性、删除属性, 界面不会更新(新增和删除不是响应式的)。(读取和修改是响应式的)
+  - 新增属性、删除属性，界面不会更新(新增和删除不是响应式的)。(读取和修改是响应式的)
 
     新增需要自己通过这种方式：
 
@@ -332,7 +332,7 @@ pnpm create vite my-vue-app -- --template vue
 
     
 
-  - 直接通过下标修改数组, 界面不会自动更新。
+  - 直接通过下标修改数组，界面不会自动更新。
 
     ```vue
     // 修改数组中的第一个内容
@@ -798,6 +798,7 @@ export default {
 
 
 - 扩展：```toRefs``` 与```toRef```功能一致，但可以批量创建多个 ref 对象，语法：```toRefs(person)```
+
 
 
 # 三、其它 Composition API

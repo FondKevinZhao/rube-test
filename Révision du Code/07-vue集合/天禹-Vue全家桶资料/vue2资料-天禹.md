@@ -629,13 +629,13 @@ module.exports = {
 
 ### 7.模块化+命名空间
 
-1. 目的：让代码更好维护，让多种数据分类更加明确。
+1. 目的：让代码更好维护，让多种数据分类更加明确。命名空间最主要是为了解决方法可能出现命名重复的问题。
 
 2. 修改```store.js```
 
    ```javascript
    const countAbout = {
-     namespaced:true,//开启命名空间
+     namespaced:true, // 开启命名空间
      state:{x:1},
      mutations: { ... },
      actions: { ... },
@@ -647,7 +647,7 @@ module.exports = {
    }
    
    const personAbout = {
-     namespaced:true,//开启命名空间
+     namespaced:true, // 开启命名空间
      state:{ ... },
      mutations: { ... },
      actions: { ... }
@@ -767,13 +767,13 @@ module.exports = {
    	{
    		path:'/home',
    		component:Home,
-   		children:[ //通过children配置子级路由
+   		children:[ // 通过children配置子级路由
    			{
-   				path:'news', //此处一定不要写：/news
+   				path:'news', // 此处一定不要写：/news
    				component:News
    			},
    			{
-   				path:'message',//此处一定不要写：/message
+   				path:'message', // 此处一定不要写：/message
    				component:Message
    			}
    		]
@@ -845,13 +845,13 @@ module.exports = {
    2. 简化跳转：
 
       ```vue
-      <!--简化前，需要写完整的路径 -->
+      <!-- 简化前，需要写完整的路径 -->
       <router-link to="/demo/test/welcome">跳转</router-link>
       
-      <!--简化后，直接通过名字跳转 -->
+      <!-- 简化后，直接通过名字跳转 -->
       <router-link :to="{name:'hello'}">跳转</router-link>
       
-      <!--简化写法配合传递参数 -->
+      <!-- 简化写法配合传递参数 -->
       <router-link 
       	:to="{
       		name:'hello',
